@@ -29,7 +29,7 @@ namespace Organizer.Controllers
 
         public IActionResult Index()
         {
-            FetchData();
+            // FetchData();
             return View(Databronnen);
         }
         private void FetchData()

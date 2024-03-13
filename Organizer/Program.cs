@@ -30,9 +30,9 @@ builder.Services.AddLiveReload()
 
 // Add DbContext
 using (var context = new OrganizerContext())
-    {
-    context.Database.Migrate();
-    }
+    // {
+    // context.Database.Migrate();
+    // }
     builder.Services.AddDbContext<OrganizerContext>();
 
 // Scope services
