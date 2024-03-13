@@ -5,15 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Organizer</title>
     <link rel="stylesheet" href="~/css/output.css" asp-append-version="true" />
-    
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Organizer.styles.css" asp-append-version="true" />
 </head>
 <body>
 
-<header>
-   
-</header>
+    <div class="flex flex-col min-h-screen">
+        <header class="p-4 bg-gray-200 w-full">
+            <div class="container max-w-full flex justify-between ">
+                <div>
+                    <img src="https://eformity.com/wp-content/uploads//2017/02/eformity-logo.png" alt="Logo" class="max-w-full h-auto" style="max-height: 50px;">
+                </div>
+                <div class="flex items-center text-right">
+                    <div>
+                        <h1 class="text-xl font-bold pr-4">John Doe</h1>
+                    </div>
+                    <div class="w-12 h-12 flex justify-center items-center bg-blue-500 text-white rounded-full text-lg">JD</div>
+                </div>
+            </div>
+        </header>
+
+        <div class="flex-1 flex">
+            <!-- Sidebar -->
+            <div class="w-64 bg-gray-800 text-white p-4">
+                <ul>
+                    <li class="py-2">
+                        <a href="#" class="block hover:text-gray-300">Home</a>
+                    </li>
+                    <li class="py-2">
+                        <a href="#" class="block hover:text-gray-300">About</a>
+                    </li>
+                    <li class="py-2">
+                        <a href="#" class="block hover:text-gray-300">Services</a>
+                    </li>
+                    <li class="py-2">
+                        <a href="#" class="block hover:text-gray-300">Contact</a>
+                    </li>
+                </ul>
+            </div>
     <h2 class="text-lg"> Stefano</h2>
 @RenderBody()
     <div class="max-w-xs mx-auto bg-gray-100 border-4 rounded-lg border-red-600 shadow-md p-4 mt-4 h-60 relative">

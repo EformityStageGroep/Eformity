@@ -29,10 +29,10 @@ namespace Organizer.Controllers
 
         public IActionResult Index()
         {
-            FetchData();
+            //FetchData();
             return View(Databronnen);
         }
-        private void FetchData()
+        /*private void FetchData()
         {
             if (Databronnen.Count > 0)
             {
@@ -59,7 +59,7 @@ namespace Organizer.Controllers
 
                 throw ex;
             }
-        }
+        }*/
         public IActionResult Privacy()
         {
             return View();
