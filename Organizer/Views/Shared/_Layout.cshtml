@@ -72,7 +72,6 @@
     </div>
 </div>
 
-<h2 class="text-lg"> Stefano</h2>
 @RenderBody()
 
 <div class="max-w-xs mx-auto bg-gray-100 border-4 rounded-lg border-red-600 shadow-md p-4 mt-4 h-60 relative">
@@ -119,9 +118,9 @@
 </div>
 
 <div id="contextMenu" class="hidden absolute bg-white border border-gray-300 shadow-md p-2">
-    <div class="option">Bewerken</div>
+    <div class="option1">Bewerken</div>
     <hr class="my-1 border-gray-200">
-    <div class="option">Verwijderen</div>
+    <div class="option2">Verwijderen</div>
 </div>
 
 <script>
@@ -151,14 +150,14 @@
                 contextMenu.style.display = 'none';
             });
 
-            var options = document.querySelectorAll('.option');
-            options.forEach(function (option) {
-                option.addEventListener('click', function () {
+            var options = document.querySelectorAll('.option1');
+            options.forEach(function (option1) {
+                option1.addEventListener('click', function () {
                     document.getElementById('popupContainer').classList.remove('hidden');
                     document.getElementById('closePopup').addEventListener('click', function () {
                         document.getElementById('popupContainer').classList.add('hidden');
                     });
-                    var text = option.textContent;
+                    var text = option1.textContent;
                     //alert(text + ' clicked');
                     contextMenu.style.display = 'none';
                 });
