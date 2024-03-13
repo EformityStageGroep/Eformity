@@ -1,0 +1,36 @@
+@{
+    ViewData["Title"] = "Home Page";
+    string[] Databronnen = new string[] { "Gmail, Facebook" };
+}
+
+@*<div class ="table">
+    <table>
+        <thead>
+            <tr>
+                @{
+                        foreach(var head in Databronnen)
+                        {
+                            <th>
+                            @head
+                            </th>
+                        }
+                    }
+            </tr>
+        </thead>
+        @{
+            if (Model != null)
+            {
+                foreach(var Data in Model)
+                {
+                    <tr>
+                        <td>@Data.Gmail</td>
+                        <td>@Data.Facebook</td>
+                    </tr>
+                }
+            }
+        }
+        <tbody>
+
+        </tbody>
+    </table>
+</div>*@
