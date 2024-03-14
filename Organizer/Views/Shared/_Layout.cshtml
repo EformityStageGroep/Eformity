@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -10,162 +12,10 @@
     <link rel="stylesheet" href="~/Organizer.styles.css" asp-append-version="true" />
 </head>
 <body>
-<div class="flex flex-col min-h-screen">
-        <header class="p-4 bg-gray-200 w-full">
-            <div class="container max-w-full flex justify-between ">
-                <div>
-                    <img src="https://eformity.com/wp-content/uploads//2017/02/eformity-logo.png" alt="Logo" class="max-w-full h-auto" style="max-height: 50px;">
-                </div>
-                <div class="flex items-center text-right">
-                    <div>
-                        <h1 class="text-xl font-bold pr-4">John Doe</h1>
-                    </div>
-                    <div class="w-12 h-12 flex justify-center items-center bg-blue-500 text-white rounded-full text-lg">JD</div>
-                </div>
-            </div>
-        </header>
-            
-        <div class="flex-1 flex">
-            <!-- Sidebar -->
-            <div class="w-64 bg-gray-800 text-white p-4">
-                <ul>
-                    <li class="py-2">
-                        <a href="#" class="block hover:text-gray-300">Home</a>
-                    </li>
-                    <li class="py-2">
-                        <a href="#" class="block hover:text-gray-300">About</a>
-                    </li>
-                    <li class="py-2">
-                        <a href="#" class="block hover:text-gray-300">Services</a>
-                    </li>
-                    <li class="py-2">
-                        <a href="#" class="block hover:text-gray-300">Contact</a>
-                    </li>
-                </ul>
-            </div>
-<!-- Button to trigger the popup -->
-<!-- Popup container -->
-<div id="popupContainer" class="fixed inset-0 z-10 flex items-center justify-center hidden">
-    <!-- Popup content -->
-    <div class="bg-white p-6 rounded shadow-lg w-96 h-96">
-        <!-- Title input -->
-        <input type="text" id="titleInput" class="border border-gray-300 p-2 mb-4 w-full" placeholder="Title">
-
-        <!-- Description input -->
-        <textarea id="descriptionInput" class="border border-gray-300 p-2 mb-4 w-full" placeholder="Description"></textarea>
-
-        <!-- Due date input with time -->
-        <input type="datetime-local" id="dueDateInput" class="border border-gray-300 p-2 mb-4 w-full">
-
-        <!-- Priority dropdown -->
-        <label for="prioritySelect" class="block mb-2">Priority:</label>
-        <select id="prioritySelect" class="border border-gray-300  p-2 mb-4 w-full">
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-        </select>
-
-        <!-- Close button -->
-        <button id="closePopup" class="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-            Save
-        </button>
-    </div>
-</div>
-
 @RenderBody()
 
-<div class="max-w-xs mx-auto bg-gray-100 border-4 rounded-lg border-red-600 shadow-md p-4 mt-4 h-60 relative">
-    <div class="mb-4">
-        <p class="text-lg font-semibold mb-2 border-b-2 border-gray-400">Your Note Title</p>
-        <p class="text-gray-800">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ut magna at nisi placerat bibendum.</p>
-    </div>
-    <div class="Opties group absolute top-0 right-0 flex pt-2 pr-2 p-1">
-        <div class="w-1.5 h-1.5 rounded-full bg-gray-800 mr-1 group-hover:bg-gray-400"></div>
-        <div class="w-1.5 h-1.5 rounded-full bg-gray-800 mr-1 group-hover:bg-gray-400"></div>
-        <div class="w-1.5 h-1.5 rounded-full bg-gray-800 group-hover:bg-gray-400"></div>
-    </div>
-    <div class="absolute bottom-0 left-0 right-0 bg-red-600 p-2">
-        <p class="text-sm text-center text-gray-100">Due: March 10, 2024</p>
-    </div>
-</div>
-<div class="max-w-xs mx-auto bg-gray-100 border-4 rounded-lg border-orange-500 shadow-md p-4 mt-4 h-60 relative">
-    <div class="mb-4">
-        <p class="text-lg font-semibold mb-2 border-b-2 border-gray-400">Your Note Title</p>
-        <p class="text-gray-800">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ut magna at nisi placerat bibendum.</p>
-    </div>
-    <div class="Opties group absolute top-0 right-0 flex pt-2 pr-2 p-1">
-        <div class="w-1.5 h-1.5 rounded-full bg-gray-800 mr-1 group-hover:bg-gray-400"></div>
-        <div class="w-1.5 h-1.5 rounded-full bg-gray-800 mr-1 group-hover:bg-gray-400"></div>
-        <div class="w-1.5 h-1.5 rounded-full bg-gray-800 group-hover:bg-gray-400"></div>
-    </div>
-    <div class="absolute bottom-0 left-0 right-0 bg-orange-500 p-2">
-        <p class="text-sm text-center text-gray-100">Due: March 10, 2024</p>
-    </div>
-</div>
-<div class="max-w-xs mx-auto bg-gray-100 border-4 rounded-lg border-green-600 shadow-md p-4 mt-4 h-60 relative">
-    <div class="mb-4">
-        <p class="text-red-100">Your Note Title</p>
-        <p class="text-gray-800">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ut magna at nisi placerat bibendum.</p>
-    </div>
-    <div class="Opties group absolute top-0 right-0 flex pt-2 pr-2 p-1">
-        <div class="w-1.5 h-1.5 rounded-full bg-gray-800 mr-1 group-hover:bg-gray-400"></div>
-        <div class="w-1.5 h-1.5 rounded-full bg-gray-800 mr-1 group-hover:bg-gray-400"></div>
-        <div class="w-1.5 h-1.5 rounded-full bg-gray-800 group-hover:bg-gray-400"></div>
-    </div>
-    <div class="absolute bottom-0 left-0 right-0 bg-green-600 p-2">
-        <p class="text-sm text-center text-gray-100">Due: March 10, 2024</p>
-    </div>
-</div>
-
-<div id="contextMenu" class="hidden absolute bg-white border border-gray-300 shadow-md p-2">
-    <div class="option">Bewerken</div>
-    <hr class="my-1 border-gray-200">
-    <div class="option">Verwijderen</div>
-</div>
-
-<script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var Optie = document.querySelectorAll('.Opties');
-            var contextMenu = document.getElementById('contextMenu');
-
-            Optie.forEach(function (item) {
-                item.addEventListener('click', function (e) {
-                    e.stopPropagation(); // Prevent click on the item from propagating to the document click event
-                    var x = e.pageX;
-                    var y = e.pageY;
-                    showContextMenu(x, y);
-                });
-            });
-
-            function showContextMenu(x, y) {
-                contextMenu.style.display = 'block';
-                contextMenu.style.left = x + 'px';
-                contextMenu.style.top = y + 'px';
-            }
-
-            document.addEventListener('click', function (e) {
-                if (!contextMenu.contains(e.target) && e.target.classList.contains('Opties')) {
-                    return; // Don't hide context menu if clicking on an item
-                }
-                contextMenu.style.display = 'none';
-            });
-
-            var options = document.querySelectorAll('.option');
-            options.forEach(function (option) {
-                option.addEventListener('click', function () {
-                    document.getElementById('popupContainer').classList.remove('hidden');
-                    document.getElementById('closePopup').addEventListener('click', function () {
-                        document.getElementById('popupContainer').classList.add('hidden');
-                    });
-                    var text = option.textContent;
-                    //alert(text + ' clicked');
-                    contextMenu.style.display = 'none';
-                });
-            });
-        });
-
-    </script>
-
+@Html.Partial("../Home/_sidebarComponent")
+s
 <footer class="border-top footer text-muted text-lg ">
     <div class="container text-white">
         &copy; 2022 - Organizer - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
