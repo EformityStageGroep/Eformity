@@ -34,7 +34,7 @@ namespace Organizer.Controllers
         }
         private void FetchData()
         {
-            if (Databronnen.Count > 0)
+            /*if (Databronnen.Count > 0)
             {
                 Databronnen.Clear();
             }
@@ -58,7 +58,7 @@ namespace Organizer.Controllers
             {
 
                 throw ex;
-            }
+            }*/
         }
         public IActionResult Privacy()
         {

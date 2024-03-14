@@ -9,7 +9,16 @@ using Microsoft.Identity.Web.UI;
 using Organizer.Contexts;
 using Organizer.Services;
 using Westwind.AspNetCore.LiveReload;
+using DatabaseConnection;
 
+
+// Instantiate MyClass
+InsertDatabaseTest myInstanceInsert = new InsertDatabaseTest();
+FetchDatabaseTest myInstanceFetch = new FetchDatabaseTest();
+
+// Call a method from MyClass
+myInstanceInsert.Insert(); 
+myInstanceFetch.Fetch();
 
 
 var builder = WebApplication.CreateBuilder(args);
