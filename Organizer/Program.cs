@@ -30,10 +30,10 @@ builder.Services.AddLiveReload()
 
 // Add DbContext
 using (var context = new OrganizerContext())
-   /* {
+{
     context.Database.Migrate();
-    }*/
-    builder.Services.AddDbContext<OrganizerContext>();
+}
+builder.Services.AddDbContext<OrganizerContext>();
 
 // Scope services
 builder.Services.AddScoped<IGraphClientService, GraphClientService>();
