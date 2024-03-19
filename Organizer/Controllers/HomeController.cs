@@ -11,6 +11,7 @@ namespace Organizer.Controllers
     [Authorize]
     public class HomeController : Controller
     {
+        public static string _variableToChange = "_sectionHeading";
         SqlCommand com = new SqlCommand();
         SqlDataReader dr;
         SqlConnection con = new SqlConnection();
@@ -29,41 +30,26 @@ namespace Organizer.Controllers
 
         public IActionResult Index()
         {
-            //FetchData();
-            return View(Databronnen);
+            
+            return View();
         }
-        /*private void FetchData()
-        {
-            if (Databronnen.Count > 0)
-            {
-                Databronnen.Clear();
-            }
-            try
-            {
-                con.Open();
-                com.Connection = con;
-                com.CommandText = "SELECT TOP (1000) [MigrationId],[ProductVersion] FROM [dbo].[__EFMigrationsHistory]";
-                dr = com.ExecuteReader();
-                while (dr.Read())
-                {
-                    Databronnen.Add(new Databron()
-                    {
-                        Gmail = dr["Gmail"].ToString(),
-                        Facebook = dr["Facebook"].ToString()
-                    });
-                }
-                con.Close();
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }*/
+    
         public IActionResult Privacy()
         {
             return View();
         }
+
+        
+
+        public IActionResult Profile()
+        {
+            // Change the variable here
+            _variableToChange = "/Views/Shared/Profile.cshtml";
+
+            // You can return a view or any other action result here if needed
+            return View();
+        }
+
 
         [AllowAnonymous]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
