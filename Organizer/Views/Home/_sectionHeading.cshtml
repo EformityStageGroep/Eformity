@@ -29,8 +29,18 @@
 </div>
 
 <!-- Content corresponding to each tab -->
-<div id="tab-content">
-  <div id="low-priority">Low Priority Content</div>
+<div  class="mt-7" id="tab-content">
+  <div class="flex flex-wrap" id="low-priority">
+    <div class="flex-shrink-2 mr-4">
+      <div class="inline-block mr-10" >
+        @Html.Partial("_postitElement")
+      </div>
+      <div class="inline-block">
+       @Html.Partial("_postitElement")
+      </div>
+
+    </div>
+  </div>
   <div id="medium-priority" class="hidden">Medium Priority Content</div>
   <div id="high-priority" class="hidden">High Priority Content</div>
 </div>

@@ -1,7 +1,7 @@
 <div>
 
 <!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
-<div class="relative z-50 lg:hidden" role="dialog" aria-modal="true">
+<div class="hidden relative z-50 lg:hidden" role="dialog" aria-modal="true">
   <!--
   Off-canvas menu backdrop, show/hide based on off-canvas menu state.
 
@@ -12,6 +12,8 @@
   From: "opacity-100"
   To: "opacity-0"
   -->
+  
+
   <div class="fixed inset-0 bg-gray-900/80"></div>
 
   <div class="fixed inset-0 flex">
@@ -44,11 +46,13 @@
           </svg>
         </button>
       </div>
+      
+
 
       <!-- Sidebar component, swap this element with another sidebar if you like -->
       <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-4">
         <div class="flex h-16 shrink-0 items-center">
-          <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
+          <img class="w-20 h-auto" src="data:image/png;base64,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" alt="Eformity">
         </div>
         <nav class="flex flex-1 flex-col">
           <ul role="list" class="flex flex-1 flex-col gap-y-7">
@@ -146,12 +150,16 @@
   </div>
 </div>
 
+
+
+
 <!-- Static sidebar for desktop -->
 <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
   <!-- Sidebar component, swap this element with another sidebar if you like -->
   <div class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4">
     <div class="flex h-16 shrink-0 items-center">
-      <img class="h-8 w-auto" src="Images/eformity-logo.png" alt="Your Company">
+      <img class="h-5 w-auto" class="w-20 h-auto" src="data:image/png;base64,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" alt="Eformity">
+
     </div>
     <nav class="flex flex-1 flex-col">
       <ul role="list" class="flex flex-1 flex-col gap-y-7">
@@ -351,6 +359,23 @@
 </div>
 </div>
 
+<script>
+ document.addEventListener("DOMContentLoaded", function () {
+    const closeOffCanvasmenuButton = document.querySelector(".absolute.left-full.top-0.flex button");
+    const openOffCanvasmenuButton = document.querySelector('[class*="-m-2.5 p-2.5 text-gray-700 lg:hidden"]');
+    const offCanvasmenu = document.querySelector('[class*="relative z-50 lg:hidden"]');
+    
+    closeOffCanvasmenuButton.addEventListener('click', function () {
+      offCanvasmenu.classList.add("hidden")
+      });
+    
+    openOffCanvasmenuButton.addEventListener('click', function () {
+      console.log("clicked")
+      offCanvasmenu.classList.remove("hidden")
+      });
+    
+  });
+</script>
 
 
 
