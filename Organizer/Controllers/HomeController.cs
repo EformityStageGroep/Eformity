@@ -44,7 +44,7 @@ namespace Organizer.Controllers
         public IActionResult Profile()
         {
             // Change the variable here
-            _variableToChange = "/Views/Shared/Profile.cshtml";
+            //_variableToChange = "/Views/Shared/Profile.cshtml";
 
             // You can return a view or any other action result here if needed
             return View();
