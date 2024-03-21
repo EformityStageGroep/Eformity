@@ -313,8 +313,10 @@
             -->
             <div class="hidden absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
               <!-- Active: "bg-gray-50", Not Active: "" -->
-              <a href="@Url.Action("Profile", "Home")" class="block px-3 py-1 text-sm leading-6 text-gray-900" role="menuitem" tabindex="-1" id="user-menu-item-0">Your profile</a>
-              <a href="#" class="block px-3 py-1 text-sm leading-6 text-gray-900" role="menuitem" tabindex="-1" id="user-menu-item-1">Sign out</a>
+              @* <a href="@Url.Action("Profile", "Home")" class="block px-3 py-1 text-sm leading-6 text-gray-900" role="menuitem" tabindex="-1" id="user-menu-item-0">Your profile</a> *@
+              <form id="signOutForm" method="post" action="@Url.Action("SignOut", "Account")">
+                <button type="submit" class="block px-3 py-1 text-sm leading-6 text-gray-900" role="menuitem" tabindex="-1" id="user-menu-item-1">Sign out</button>
+              </form> 
 
               <script>
                   document.addEventListener("DOMContentLoaded", function() {
@@ -353,11 +355,11 @@
   <main class="py-10">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <!-- Your content -->
-    @Html.Partial(Organizer.Controllers.HomeController._variableToChange)
+    @Html.Partial("_sectionHeading.cshtml")
     </div>
   </main>
 </div>
-</div>
+</div>  
 
 <script>
  document.addEventListener("DOMContentLoaded", function () {
