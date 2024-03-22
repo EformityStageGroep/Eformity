@@ -12,9 +12,25 @@
     <link rel="stylesheet" href="~/Organizer.styles.css" asp-append-version="true" />
 </head>
 <body>
-    @RenderBody()
-
-@Html.Partial("../Home/_sidebarComponent")
+    <div class="flex flex-col">
+        <!-- Make it a flex column to stack elements vertically -->
+        <div class=" top-0 w-full mb-12 z-10 h-9/10">
+            <!-- Add z-index to make sure it's above other content -->
+            <!-- Render the top bar partial -->
+            @Html.Partial("../Home/_sectionHeading")
+        </div>
+        <div class="flex flex-row">
+            <!-- Nested flex container for sidebar and main content -->
+            <div class="w-1/6">
+                <!-- Render the sidebar partial -->
+                @Html.Partial("../Home/_sidebarComponent")
+            </div>
+            <div class="mr-16 w-5/6 h-1/10">
+                <!-- Render the main content -->
+                @RenderBody()
+            </div>
+        </div>
+    </div>
 
 <footer class="border-top footer text-muted text-lg ">
     <div class="container text-white">
