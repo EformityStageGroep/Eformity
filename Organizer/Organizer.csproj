@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <Content Remove="Views\Home\Profile.cshtml" />
+    <Content Remove="Views\Home\_topBar.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -76,6 +77,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\Home\_topBar.cshtml" />
     <None Include="Views\Shared\Profile.cshtml" />
   </ItemGroup>
 
