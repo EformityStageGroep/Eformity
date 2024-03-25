@@ -12,7 +12,14 @@
     </div>
 </div>
  *@
+
+
+
+
+
+
 <div id="modal" class="fixed inset-0 z-50 hidden overflow-y-auto flex items-center justify-center">
+    
     <div class="fixed inset-0 transition-opacity" aria-hidden="true">
         <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
     </div>
@@ -93,18 +100,19 @@
 <!-- Content corresponding to each tab -->
 <div class="mt-7" id="tab-content">
     <div class="flex flex-wrap" id="low-priority">
-        <div class="flex-shrink-2 mr-4">
-            <div class="inline-block mr-10">
+        <div class="justift-items-start">
+            <div class="m-3">
                 @Html.Partial("_postitElement")
             </div>
-            <div class="inline-block">
-                @Html.Partial("_postitElement")
-            </div>
+            @* <div class="m-3"> *@
+            @*     @Html.Partial("_postitElement") *@
+            @* </div> *@
 
         </div>
     </div>
     <div id="medium-priority" class="hidden">Medium Priority Content</div>
     <div id="high-priority" class="hidden">High Priority Content</div>
+    
 </div>
 
 <script>
@@ -152,4 +160,7 @@
 
     });
 </script>
+
+
+
 

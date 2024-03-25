@@ -56,6 +56,13 @@ namespace Organizer.Controllers
             viewModel.PageValue = "Profile";
             return View(viewModel);
         }
+        
+        public IActionResult PostitPage()
+        {
+            var viewModel = new PageIdentifier();
+            viewModel.PageValue = "PostitPage";
+            return View(viewModel);
+        }
 
 
         [AllowAnonymous]
