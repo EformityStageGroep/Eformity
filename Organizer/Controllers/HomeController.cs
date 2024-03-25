@@ -36,10 +36,10 @@ namespace Organizer.Controllers
             return View(viewModel);
         }
     
-        public IActionResult Privacy()
+        public IActionResult Teams()
         {
             var viewModel = new PageIdentifier();
-            viewModel.PageValue = "Privacy";
+            viewModel.PageValue = "Teams";
             return View(viewModel);
         }
 
