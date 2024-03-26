@@ -36,10 +36,10 @@ namespace Organizer.Controllers
             return View(viewModel);
         }
     
-        public IActionResult Privacy()
+        public IActionResult Teams()
         {
             var viewModel = new PageIdentifier();
-            viewModel.PageValue = "Privacy";
+            viewModel.PageValue = "Teams";
             return View(viewModel);
         }
 
@@ -64,6 +64,12 @@ namespace Organizer.Controllers
             return View(viewModel);
         }
 
+        public IActionResult Settings()
+        {
+            var viewModel = new PageIdentifier();
+            viewModel.PageValue = "Settings";
+            return View(viewModel);
+        }
 
         [AllowAnonymous]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

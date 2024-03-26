@@ -25,73 +25,54 @@
             </div>
             <div class="relative mt-6 flex-1 px-4 sm:px-6">
 
-              @* <div> *@
-              @*   <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Name</label> *@
-              @*   <div class="mt-2"> *@
-              @*       <input type="email" name="name" id="title" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-3" placeholder="E-mail customers"> *@
-              @*   </div> *@
-              @*   </div> *@
-              
-              <div class="isolate -space-y-px rounded-md shadow-sm">
-                  <div class="relative rounded-md rounded-b-none px-3 pb-1.5 pt-2.5 ring-1 ring-inset ring-gray-300 focus-within:z-10 focus-within:ring-2 focus-within:ring-indigo-600">
-                      <label for="name" class="block text-xs font-medium text-gray-900">Name</label>
-                      <input type="text" name="name" id="name" class="block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="E-mail customers">
-                  </div>
-                  <div class="relative rounded-md rounded-t-none px-3 pb-1.5 pt-2.5 ring-1 ring-inset ring-gray-300 focus-within:z-10 focus-within:ring-2 focus-within:ring-indigo-600">
-                      <label for="job-title" class="block text-xs font-medium text-gray-900">Description</label>
-                      <textarea type="text" name="job-title" id="job-title" class="block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-10" placeholder="Don't forget to message James"></textarea>
-                    
-                  </div>
-              </div>
-              
-              <div>
-                <label id="listbox-label" class="block text-sm font-medium leading-6 text-gray-900">Assigned to</label>
-                <div class="relative mt-2">
-                  <button type="button" class="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6" aria-haspopup="listbox" aria-expanded="true" aria-labelledby="listbox-label">
-                    <span class="block truncate">Tom Cook</span>
-                    <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                      <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd" d="M10 3a.75.75 0 01.55.24l3.25 3.5a.75.75 0 11-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 01-1.1-1.02l3.25-3.5A.75.75 0 0110 3zm-3.76 9.2a.75.75 0 011.06.04l2.7 2.908 2.7-2.908a.75.75 0 111.1 1.02l-3.25 3.5a.75.75 0 01-1.1 0l-3.25-3.5a.75.75 0 01.04-1.06z" clip-rule="evenodd" />
-                      </svg>
-                    </span>
-                  </button>
-              
-                  <!--
-                    Select popover, show/hide based on select state.
-              
-                    Entering: ""
-                      From: ""
-                      To: ""
-                    Leaving: "transition ease-in duration-100"
-                      From: "opacity-100"
-                      To: "opacity-0"
-                  -->
-                  <ul class="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm" tabindex="-1" role="listbox" aria-labelledby="listbox-label" aria-activedescendant="listbox-option-3">
-                    <!--
-                      Select option, manage highlight styles based on mouseenter/mouseleave and keyboard navigation.
-              
-                      Highlighted: "bg-indigo-600 text-white", Not Highlighted: "text-gray-900"
-                    -->
-                    <li class="text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9" id="listbox-option-0" role="option">
-                      <!-- Selected: "font-semibold", Not Selected: "font-normal" -->
-                      <span class="font-normal block truncate">Wade Cooper</span>
-              
-                      <!--
-                        Checkmark, only display for selected option.
-              
-                        Highlighted: "text-white", Not Highlighted: "text-indigo-600"
-                      -->
-                      <span class="text-indigo-600 absolute inset-y-0 right-0 flex items-center pr-4">
-                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                          <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-                        </svg>
-                      </span>
-                    </li>
-              
-                    <!-- More items... -->
-                  </ul>
+
+                <div>
+                    <label for="title" class="block text-sm font-medium leading-6 text-gray-900">Title</label>
+                    <div class="mt-2">
+                        <input type="title" name="title" id="title" class="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Send e-mails to the customers">
+                    </div>
                 </div>
+                
+                <div class="mt-5">
+                    <label for="Description" class="block text-sm font-medium leading-6 text-gray-900">Description</label>
+                    <div class="mt-2">
+                        <textarea type="text" name="Description" id="Description" class="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Put James in the CC!"></textarea>
+                    </div>
+                </div>
+
+
+              
+                <div>
+                  <div class="mt-10 flex flex-col items-start">
+                        <div class="">
+                          <label class=" text-base font-medium text-gray-900">Set priority</label>
+                          <p class="text-sm text-gray-500">What priority would you like to set the post-it to?</p>
+                          <!-- component -->
+                          <div class="mt-5 grid min-h-screen w-auto place-items-start">
+                              <div class="grid w-[20rem] grid-cols-3 gap-2 rounded-xl bg-gray-100 p-2">
+                                  <div>
+                                      <input type="radio" name="option" id="low" value="low" class="peer hidden" checked />
+                                      <label for="low" class="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-green-500 peer-checked:font-bold peer-checked:text-white">Low</label>
+                                  </div>
+                          
+                                  <div>
+                                      <input type="radio" name="option" id="medium" value="medium" class="peer hidden" />
+                                      <label for="medium" class="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-orange-500 peer-checked:font-bold peer-checked:text-white">Medium</label>
+                                  </div>
+                          
+                                  <div>
+                                      <input type="radio" name="option" id="high" value="high" class="peer hidden" />
+                                      <label for="high" class="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-red-500 peer-checked:font-bold peer-checked:text-white">High</label>
+                                  </div>
+
+                              </div>
+                          </div>
+                        </div>
+  
+                      </div>
+                  </div>
               </div>
+
 
 
 
