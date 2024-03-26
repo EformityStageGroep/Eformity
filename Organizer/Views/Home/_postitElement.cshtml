@@ -75,8 +75,8 @@
   
                     </div>
                                         <div class="fixed bottom-0 right-0 mb-4 mr-4" >
-                                            <button type="button" class="m1 auto rounded-md bg-red-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500">Delete</button>
-                                            <button type="button" class="m1 auto rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Save</button>
+                                            <button type="button" class="m1 auto rounded-md bg-red-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500">Delete Post-it</button>
+                                            <button type="button" class="m1 auto rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Save Changes</button>
 
                                         </div>
                   </div>
@@ -104,13 +104,13 @@
 
 
 @*NORMAL STATE*@
-<div class=" max-w-md  min-w-40 mx-auto bg-white  overflow-hidden p-2 flex items-center">
+<div id="postit" class=" max-w-md  min-w-40 mx-auto bg-white  overflow-hidden p-2 flex items-center hover:bg-gray-100 hover:rounded-xl cursor-pointer">
     <div class=" w-fit h-fit ">
         <input class="mr-2" type="checkbox" id="checkbox" name="checkbox">
     </div>
     <div class="flex flex-col items-start justify-center">
         <div class="flex items-center">
-            <h1 class="font-semibold cursor-pointer font-size-2" id="postit" for="checkbox">My Post-it</h1>
+            <h1 class="font-semibold cursor-pointer font-size-2" for="checkbox">My Post-it</h1>
             <p class="ml-3 border border-solid border-red-500 text-red-500 rounded-lg p-1 font-medium text-xs border h-6.5">HIGH</p>
             
         </div>
