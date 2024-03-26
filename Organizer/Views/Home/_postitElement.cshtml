@@ -83,7 +83,7 @@
 @*NORMAL STATE*@
 <div id="postit" onclick="toggleSlideover()" class=" max-w-md  min-w-40 mx-auto bg-white  overflow-hidden p-2 flex items-center hover:bg-gray-100 hover:rounded-xl cursor-pointer">
     <div class=" w-fit h-fit ">
-        <input class="mr-2" type="checkbox" id="checkbox" name="checkbox">
+        <input class="mt-1 h-8 w-8 cursor-pointer mr-2" type="checkbox" id="checkbox" onclick="checkmarkClick(event)" name="checkbox">
     </div>
     <div class="flex flex-col items-start justify-center">
         <div class="flex items-center">
@@ -105,6 +105,10 @@
         document.getElementById('slideover').classList.toggle('translate-x-full');
         console.log("Clicked on 'My Post-it56546'");
     }
+    
+    function checkmarkClick(event) {
+        event.stopPropagation();
+        }
 </script>
 
 
