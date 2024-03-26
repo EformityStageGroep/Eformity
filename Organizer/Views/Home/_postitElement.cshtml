@@ -1,107 +1,84 @@
 <link rel="stylesheet" href="../Views/Home/slideover.css">
 
-<div id="postitSlideover" style="display: none;" class="relative z-10" aria-labelledby="slide-over-title" role="dialog" aria-modal="true"  >
+<div id="slideoverModal"  class="relative z-10 duration-300 ease-out  transition-all invisible" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
 
 
-  <div class="">
     <div class="absolute inset-0 overflow-hidden">
-      <div id="slideoverModal" class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full h-auto pl-10 sm:pl-16 drop-shadow-2xl">
-
-        <div class="pointer-events-auto w-screen max-w-2xl">
-          <div class="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
-            <div class="px-4 sm:px-6">
-              <div class="flex items-start justify-between">
-                <h2 class="text-base font-semibold leading-6 text-gray-900" id="slide-over-title">Editing: My Post-it</h2>
-                <div class="ml-3 flex h-7 items-center">
-                  <button id="postitSlideoverExit" type="button" class="cursor-pointer relative rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                    <span class="absolute -inset-2.5"></span>
-                    <span class="sr-only">Close panel</span>
-                    <svg  class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="relative mt-6 flex-1 px-4 sm:px-6">
-
-
-                <div>
-                    <label for="title" class="block text-sm font-medium leading-6 text-gray-900">Title</label>
-                    <div class="mt-2">
-                        <input type="title" name="title" id="title" class="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Send e-mails to the customers">
-                    </div>
-                </div>
-                
-                <div class="mt-5">
-                    <label for="Description" class="block text-sm font-medium leading-6 text-gray-900">Description</label>
-                    <div class="mt-2">
-                        <textarea type="text" name="Description" id="Description" class="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Put James in the CC!"></textarea>
-                    </div>
-                </div>
+        <div  class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full h-auto pl-10 sm:pl-16 drop-shadow-2xl active">
+            <!-- Your content here -->
+            <div class="duration-300 ease-out transition-all pointer-events-auto w-screen max-w-2xl">
+                <div id="slideover" class="duration-300 ease-out transition-all flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl translate-x-full">
+                        <div class="px-4 sm:px-6">
+                            <div class="flex items-start justify-between">
+                                <h2 class="text-base font-semibold leading-6 text-gray-900" id="slide-over-title">Editing: My Post-it</h2>
+                                <div class="ml-3 flex h-7 items-center">
+                                    <button onclick="toggleSlideover()" type="button" class="cursor-pointer relative rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                                        <span class="absolute -inset-2.5"></span>
+                                        <span class="sr-only">Close panel</span>
+                                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="relative mt-6 flex-1 px-4 sm:px-6">
 
 
-              
-                <div>
-                    <div class="mt-10 flex flex-col items-start">
-                        <div class="">
-                            <label class=" text-base font-medium text-gray-900">Set priority</label>
-                            <p class="text-sm text-gray-500">What priority would you like to set the post-it to?</p>
-                            <!-- component -->
-                            <div class="mt-5 grid min-h-screen w-auto place-items-start">
-                                <div class="grid w-[20rem] grid-cols-3 gap-2 rounded-xl bg-gray-100 p-2">
-                                    <div>
-                                        <input type="radio" name="option" id="low" value="low" class="peer hidden" checked />
-                                        <label for="low" class="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-green-500 peer-checked:font-bold peer-checked:text-white">Low</label>
+                            <div>
+                                <label for="title" class="block text-sm font-medium leading-6 text-gray-900">Title</label>
+                                <div class="mt-2">
+                                    <input type="title" name="title" id="title" class="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Send e-mails to the customers">
+                                </div>
+                            </div>
+
+                            <div class="mt-5">
+                                <label for="Description" class="block text-sm font-medium leading-6 text-gray-900">Description</label>
+                                <div class="mt-2">
+                                    <textarea type="text" name="Description" id="Description" class="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Put James in the CC!"></textarea>
+                                </div>
+                            </div>
+
+
+
+                            <div>
+                                <div class="mt-10 flex flex-col items-start">
+                                    <div class="">
+                                        <label class=" text-base font-medium text-gray-900">Set priority</label>
+                                        <p class="text-sm text-gray-500">What priority would you like to set the post-it to?</p>
+                                        <!-- component -->
+                                        <div class="mt-5 grid min-h-screen w-auto place-items-start">
+                                            <div class="grid w-[20rem] grid-cols-3 gap-2 rounded-xl bg-gray-100 p-2">
+                                                <div>
+                                                    <input type="radio" name="option" id="low" value="low" class="peer hidden" checked />
+                                                    <label for="low" class="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-green-500 peer-checked:font-bold peer-checked:text-white">Low</label>
+                                                </div>
+
+                                                <div>
+                                                    <input type="radio" name="option" id="medium" value="medium" class="peer hidden" />
+                                                    <label for="medium" class="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-orange-500 peer-checked:font-bold peer-checked:text-white">Medium</label>
+                                                </div>
+
+                                                <div>
+                                                    <input type="radio" name="option" id="high" value="high" class="peer hidden" />
+                                                    <label for="high" class="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-red-500 peer-checked:font-bold peer-checked:text-white">High</label>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                          
-                                    <div>
-                                        <input type="radio" name="option" id="medium" value="medium" class="peer hidden" />
-                                        <label for="medium" class="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-orange-500 peer-checked:font-bold peer-checked:text-white">Medium</label>
-                                    </div>
-                          
-                                    <div>
-                                        <input type="radio" name="option" id="high" value="high" class="peer hidden" />
-                                        <label for="high" class="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-red-500 peer-checked:font-bold peer-checked:text-white">High</label>
-                                    </div>
-                                               
-                                  
+                                </div>
+                                <div class="fixed bottom-0 right-0 mb-4 mr-4">
+                                    <button type="button" class="m1 auto rounded-md bg-red-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500">Delete</button>
+                                    <button type="button" class="m1 auto rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Save</button>
 
                                 </div>
-
                             </div>
-   
                         </div>
-  
                     </div>
-                                        <div class="fixed bottom-0 right-0 mb-4 mr-4" >
-                                            <button type="button" class="m1 auto rounded-md bg-red-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500">Delete Post-it</button>
-                                            <button type="button" class="m1 auto rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Save Changes</button>
-
-                                        </div>
-                  </div>
-              </div>
-  
-
-
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
 
 @*NORMAL STATE*@
 <div id="postit" class=" max-w-md  min-w-40 mx-auto bg-white  overflow-hidden p-2 flex items-center hover:bg-gray-100 hover:rounded-xl cursor-pointer">
@@ -110,9 +87,9 @@
     </div>
     <div class="flex flex-col items-start justify-center">
         <div class="flex items-center">
-            <h1 class="font-semibold cursor-pointer font-size-2" for="checkbox">My Post-it</h1>
+            <h1 onclick="toggleSlideover()" class="font-semibold cursor-pointer font-size-2 " id="postit" for="checkbox">My Post-it</h1>
             <p class="ml-3 border border-solid border-red-500 text-red-500 rounded-lg p-1 font-medium text-xs border h-6.5">HIGH</p>
-            
+
         </div>
         <div class="flex items-center">
             <p class="text-zinc-700 font-light" href="">Facebook •</p>
@@ -122,76 +99,14 @@
     </div>
 </div>
 
-@* <div id="postitSlideover" style="display: none;"> *@
-@*     @Html.Partial("_postitSlideover") *@
-@*      *@
-@* </div> *@
-
-@*Overdue state*@
-@* <div class=" max-w-md  min-w-40 mx-auto bg-white  overflow-hidden p-2 flex items-center"> *@
-@*     <div class=" w-fit h-fit "> *@
-@*         <input class="mr-2" type="checkbox" id="checkbox" name="checkbox"> *@
-@*     </div> *@
-@*     <div class="flex flex-col items-start justify-center"> *@
-@*         <h1 class="font-semibold cursor-pointer" id="postit" for="checkbox">My Post-it</h1> *@
-@*         <div class="flex items-center"> *@
-@*             <p class="text-zinc-600 font-light" href="">Facebook •</p> *@
-@*             <p href="" class="text-red-500"> ☀️ Monday, 📅 Mar 28, ⏰ 17:00</p> *@
-@*             <p href="" class="text-red-500 pl-1">• Overdue</p> *@
-@* *@
-@*         </div> *@
-@*     </div> *@
-@* </div> *@
-
 <script>
-
-    
-    document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('postit').addEventListener('click', function() {
-            console.log("Clicked on 'My Post-it'");
-            const div = document.getElementById("postitSlideover");
-            if (div.style.display === "none" || div.style.display === "") {
-                div.style.display = "block"; // Show the div
-                console.log("showing")
-            } else {
-                div.style.display = "none"; // Hide the div
-                console.log("hiding")
-            }
-        });
-
-
-    });
-</script>
-
-<script >
-document.getElementById("postitSlideoverExit").addEventListener('click', function () {
-    var div = document.getElementById("postitSlideover");
-    div.style.display = "none"; // Hide the postitSlideover
-    console.log("closed")
-});    
+    function toggleSlideover() {
+        document.getElementById('slideoverModal').classList.toggle('invisible');
+        document.getElementById('slideover').classList.toggle('translate-x-full');
+        console.log("Clicked on 'My Post-it56546'");
+    }
 </script>
 
 
 
-
-
-@* <script> *@
-@*     // Function to toggle the visibility of the div *@
-@*     function toggleVisibility() { *@
-@*         var div = document.getElementById("postitSlideover"); *@
-@*         if (div.style.display === "none" || div.style.display === "") { *@
-@*             div.style.display = "block"; // Show the div *@
-@*         } else { *@
-@*             div.style.display = "none"; // Hide the div *@
-@*         } *@
-@*     } *@
-@* </script> *@
-@* *@
-@* <!-- Your button to toggle the visibility --> *@
-@* <button onclick="toggleVisibility()">Toggle Visibility</button> *@
-@* *@
-@* <!-- Your div to be toggled --> *@
-@* <div id="postitSlideover" style="display: none;"> *@
-@*     @Html.Partial("_postitSlideover") *@
-@* </div> *@
 
