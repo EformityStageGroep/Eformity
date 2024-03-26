@@ -6,8 +6,8 @@
     <div class="absolute inset-0 overflow-hidden">
         <div  class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full h-auto pl-10 sm:pl-16 drop-shadow-2xl active">
             <!-- Your content here -->
-            <div class="duration-300 ease-out transition-all pointer-events-auto w-screen max-w-2xl">
-                <div id="slideover" class="duration-300 ease-out transition-all flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl translate-x-full">
+            <div class="duration-500 transition-all ease-in pointer-events-auto w-screen max-w-2xl">
+                <div id="slideover" class="duration-500 ease-in transition-all flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl translate-x-full">
                         <div class="px-4 sm:px-6">
                             <div class="flex items-start justify-between">
                                 <h2 class="text-base font-semibold leading-6 text-gray-900" id="slide-over-title">Editing: My Post-it</h2>
@@ -51,17 +51,17 @@
                                             <div class="grid w-[20rem] grid-cols-3 gap-2 rounded-xl bg-gray-100 p-2">
                                                 <div>
                                                     <input type="radio" name="option" id="low" value="low" class="peer hidden" checked />
-                                                    <label for="low" class="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-green-500 peer-checked:font-bold peer-checked:text-white">Low</label>
+                                                    <label for="low" class="duration-200 transition-all ease-in block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-green-500 peer-checked:font-bold peer-checked:text-white">Low</label>
                                                 </div>
 
                                                 <div>
                                                     <input type="radio" name="option" id="medium" value="medium" class="peer hidden" />
-                                                    <label for="medium" class="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-orange-500 peer-checked:font-bold peer-checked:text-white">Medium</label>
+                                                    <label for="medium" class="duration-200 transition-all ease-out block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-orange-500 peer-checked:font-bold peer-checked:text-white">Medium</label>
                                                 </div>
 
                                                 <div>
                                                     <input type="radio" name="option" id="high" value="high" class="peer hidden" />
-                                                    <label for="high" class="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-red-500 peer-checked:font-bold peer-checked:text-white">High</label>
+                                                    <label for="high" class="duration-200 transition-all ease-in block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-red-500 peer-checked:font-bold peer-checked:text-white">High</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -81,13 +81,13 @@
     </div>
 
 @*NORMAL STATE*@
-<div id="postit" class=" max-w-md  min-w-40 mx-auto bg-white  overflow-hidden p-2 flex items-center hover:bg-gray-100 hover:rounded-xl cursor-pointer">
+<div id="postit" onclick="toggleSlideover()" class=" max-w-md  min-w-40 mx-auto bg-white  overflow-hidden p-2 flex items-center hover:bg-gray-100 hover:rounded-xl cursor-pointer">
     <div class=" w-fit h-fit ">
         <input class="mr-2" type="checkbox" id="checkbox" name="checkbox">
     </div>
     <div class="flex flex-col items-start justify-center">
         <div class="flex items-center">
-            <h1 onclick="toggleSlideover()" class="font-semibold cursor-pointer font-size-2 " id="postit" for="checkbox">My Post-it</h1>
+            <h1  class="font-semibold cursor-pointer font-size-2 " id="postit" for="checkbox">My Post-it</h1>
             <p class="ml-3 border border-solid border-red-500 text-red-500 rounded-lg p-1 font-medium text-xs border h-6.5">HIGH</p>
 
         </div>
