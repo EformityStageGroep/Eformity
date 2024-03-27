@@ -1,10 +1,7 @@
-﻿#nullable disable
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Organizer.Contexts;
 using Organizer.Entities;
@@ -23,8 +20,8 @@ namespace Organizer.Controllers
         // GET: Tasks
         public async Task<IActionResult> Index()
         {
-            var organizerContext = _context.Tasks.Include(t => t.User);
-            return View(await organizerContext.ToListAsync());
+            var tasks = await _context.Tasks.ToListAsync();
+            return View(tasks);
         }
 
         // GET: Tasks/Details/5
@@ -35,9 +32,7 @@ namespace Organizer.Controllers
                 return NotFound();
             }
 
-            var task = await _context.Tasks
-                .Include(t => t.User)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var task = await _context.Tasks.FirstOrDefaultAsync(m => m.Id == id);
             if (task == null)
             {
                 return NotFound();
@@ -49,16 +44,13 @@ namespace Organizer.Controllers
         // GET: Tasks/Create
         public IActionResult Create()
         {
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
         // POST: Tasks/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,Name")] Entities.Task task)
+        public async Task<IActionResult> Create([Bind("Title,Description,Priority,DateTime")] Organizer.Entities.Task task)
         {
             if (ModelState.IsValid)
             {
@@ -67,7 +59,6 @@ namespace Organizer.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", task.UserId);
             return View(task);
         }
 
@@ -84,16 +75,13 @@ namespace Organizer.Controllers
             {
                 return NotFound();
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", task.UserId);
             return View(task);
         }
 
         // POST: Tasks/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,UserId,Name")] Entities.Task task)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Title,Description,Priority,DateTime")] Organizer.Entities.Task task)
         {
             if (id != task.Id)
             {
@@ -120,7 +108,6 @@ namespace Organizer.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", task.UserId);
             return View(task);
         }
 
@@ -132,9 +119,7 @@ namespace Organizer.Controllers
                 return NotFound();
             }
 
-            var task = await _context.Tasks
-                .Include(t => t.User)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var task = await _context.Tasks.FirstOrDefaultAsync(m => m.Id == id);
             if (task == null)
             {
                 return NotFound();
