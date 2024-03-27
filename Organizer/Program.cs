@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.Build.Framework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using Microsoft.Identity.Web;
@@ -9,6 +10,8 @@ using Microsoft.Identity.Web.UI;
 using Organizer.Contexts;
 using Organizer.Services;
 using Westwind.AspNetCore.LiveReload;
+
+
 
 
 
@@ -27,6 +30,8 @@ builder.Services.Configure<CookieAuthenticationOptions>(CookieAuthenticationDefa
 
 builder.Services.AddLiveReload()
     .AddLiveReload();
+
+  
 
 // Add DbContext
 using (var context = new OrganizerContext())
