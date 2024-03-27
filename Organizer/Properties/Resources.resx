@@ -118,6 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ConnectionString" xml:space="preserve">
-    <value>Server=tcp:eformity-organizer.database.windows.net,1433;Initial Catalog=eformity-organizer;Persist Security Info=False;User ID=eformitystage;Password=2000eformity!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;</value>
+    <value>Server=tcp:eformityserver.database.windows.net,1433;Initial Catalog=DataEformity;Persist Security Info=False;User ID=efadmin;Password=2000eformity!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30</value>
   </data>
 </root>
