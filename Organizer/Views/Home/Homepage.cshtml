@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Homepage";
-
 }
+
 @* <div class="max-w-md  min-w-40 mx-auto bg-white border border-gray-200 shadow-md overflow-hidden cursor-pointer hover:transform hover:scale-105 duration-300">
     <div class="md:flex">
         <div class="p-8">
@@ -12,10 +12,6 @@
     </div>
 </div>
  *@
-
-
-
-
 
 
 <div id="modal" class="fixed inset-0 z-50 hidden overflow-y-auto flex items-center justify-center">
@@ -30,26 +26,29 @@
                     <h3 class="text-lg font-medium leading-6 text-gray-900" id="modalTitle">
                         Create Task
                     </h3>
-                    <div class="mt-2">
-                        <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
-                        <input type="text" name="title" id="title" class="p-1 mt-1 focus:ring-indigo-500 border focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                    </div>
-                    <div class="mt-2">
-                        <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
-                        <textarea id="description" name="description" rows="3" class="p-1 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full border shadow-sm sm:text-sm border-gray-300 rounded-md"></textarea>
-                    </div>
-                    <div class="mt-2">
-                        <label for="priority" class="block text-sm font-medium text-gray-700">Priority</label>
-                        <select id="priority" name="priority" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                            <option value="high">High</option>
-                            <option value="medium">Medium</option>
-                            <option value="low">Low</option>
-                        </select>
-                    </div>
-                    <div class="mt-2">
-                        <label for="datetime" class="block text-sm font-medium text-gray-700">Date and Time</label>
-                        <input type="datetime-local" id="datetime" name="datetime" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    </div>
+                    <form id="taskForm" method="post" asp-action="@Url.Action("Create", "Tasks")" class="mt-4">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="mt-2">
+                            <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
+                            <input type="text" name="title" id="title" class="mt-1 focus:ring-indigo-500 border focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                        </div>
+                        <div class="mt-2">
+                            <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+                            <textarea id="description" name="description" rows="3" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full border shadow-sm sm:text-sm border-gray-300 rounded-md"></textarea>
+                        </div>
+                        <div class="mt-2">
+                            <label for="priority" class="block text-sm font-medium text-gray-700">Priority</label>
+                            <select id="priority" name="priority" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                <option value="high">High</option>
+                                <option value="medium">Medium</option>
+                                <option value="low">Low</option>
+                            </select>
+                        </div>
+                        <div class="mt-2">
+                            <label for="datetime" class="block text-sm font-medium text-gray-700">Date and Time</label>
+                            <input type="datetime-local" id="datetime" name="datetime" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -89,12 +88,13 @@
                 <a href="#all-priorities" class="tab border-indigo-500 text-indigo-600 whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" aria-current="page">All Priorities</a>
                 <a href="#high-priority" class="tab border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" aria-current="page">High priority</a>
                 <a href="#medium-priority" class="tab border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium">Medium priority</a>
-                <a href="#low-priority" class="tab border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium">Low priority</a>
+
+                <a href="#low-priority" class="tab border-transparent text-gray -500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium">Low priority</a>
+
             </nav>
         </div>
     </div>
 </div>
-
 
 <!-- Content corresponding to each tab -->
 <div class="mt-7" id="tab-content">
@@ -103,64 +103,82 @@
             <div>
                 @Html.Partial("_postitElement")
             </div>
-            @* <div class="m-3"> *@
-            @*     @Html.Partial("_postitElement") *@
-            @* </div> *@
-
         </div>
     </div>
     <div id="medium-priority" class="hidden">High Priority Content</div>
     <div id="high-priority" class="hidden">Medium Priority Content</div>
-    <div id="low-priority" class="hidden">low Priority Content</div>
-        
+
+    <div id="low-priority" class="hidden">Low Priority Content</div>
+
 </div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const tabs = document.querySelectorAll(".tab");
-        const tabContents = document.querySelectorAll("#tab-content > div");
+@section scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const tabs = document.querySelectorAll(".tab");
+            const tabContents = document.querySelectorAll("#tab-content > div");
 
-        tabs.forEach((tab, index) => {
-            tab.addEventListener("click", function (event) {
-                event.preventDefault();
+            tabs.forEach((tab, index) => {
+                tab.addEventListener("click", function (event) {
+                    event.preventDefault();
 
-                // Remove active class from all tabs and add default styling
-                tabs.forEach(tab => {
-                    tab.classList.remove("border-indigo-500", "text-indigo-600");
-                    tab.classList.add("border-transparent", "text-gray-500", "hover:border-gray-300", "hover:text-gray-700");
+                    // Remove active class from all tabs and add default styling
+                    tabs.forEach(tab => {
+                        tab.classList.remove("border-indigo-500", "text-indigo-600");
+                        tab.classList.add("border-transparent", "text-gray-500", "hover:border-gray-300", "hover:text-gray-700");
+                    });
+
+                    // Add active styling to clicked tab
+                    tab.classList.remove("border-transparent", "text-gray-500", "hover:border-gray-300", "hover:text-gray-700");
+                    tab.classList.add("border-indigo-500", "text-indigo-600");
+
+                    // Hide all tab contents
+                    tabContents.forEach(content => content.classList.add("hidden"));
+                    // Show corresponding tab content
+                    tabContents[index].classList.remove("hidden");
                 });
+            });
 
-                // Add active styling to clicked tab
-                tab.classList.remove("border-transparent", "text-gray-500", "hover:border-gray-300", "hover:text-gray-700");
-                tab.classList.add("border-indigo-500", "text-indigo-600");
+            const openModalButton = document.getElementById("openModalButton");
+            const modal = document.getElementById("modal");
+            const closeModalButton = document.getElementById("closeModalButton");
 
-                // Hide all tab contents
-                tabContents.forEach(content => content.classList.add("hidden"));
-                // Show corresponding tab content
-                tabContents[index].classList.remove("hidden");
+            openModalButton.addEventListener("click", function () {
+                modal.classList.remove("hidden");
+                modal.classList.add("flex");
+            });
+
+            closeModalButton.addEventListener("click", function () {
+                modal.classList.remove("flex");
+                modal.classList.add("hidden");
+            });
+
+            const createTaskButton = document.getElementById("createTaskButton");
+            const taskForm = document.getElementById("taskForm");
+
+            createTaskButton.addEventListener("click", function () {
+                const formData = new FormData(taskForm);
+
+                fetch('@Url.Action("Create", "Tasks")', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log(data); // Log response data
+                        // Optionally, you can update the UI or display a success message
+                    })
+                    .catch(error => {
+                        console.error('There was a problem with the fetch operation:', error);
+                        // Optionally, you can display an error message to the user
+                    });
             });
         });
-        // Get references to the button and the container for the partial
-        const openModalButton = document.getElementById("openModalButton");
-      const modal = document.getElementById("modal");
-      const closeModalButton = document.getElementById("closeModalButton");
-
-      // Add click event listener to the button to open the modal
-      openModalButton.addEventListener("click", function() {
-        modal.classList.remove("hidden");
-        modal.classList.add("flex");
-         
-      });
-
-      // Add click event listener to the close button to close the modal
-      closeModalButton.addEventListener("click", function() {
-        modal.classList.remove("flex");
-        modal.classList.add("hidden");
-      });
-
-    });
-</script>
-
-
-
+    </script>
+}
 
