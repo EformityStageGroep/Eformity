@@ -1,8 +1,6 @@
 <link rel="stylesheet" href="../Views/Home/slideover.css">
 
 <div id="slideoverModal"  class="relative z-10 duration-300 ease-out  transition-all invisible" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
-
-
     <div class="absolute inset-0 overflow-hidden">
         <div  class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full h-auto pl-10 sm:pl-16 drop-shadow-2xl active">
             <!-- Your content here -->
@@ -38,9 +36,6 @@
                                     <textarea type="text" name="Description" id="Description" class="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Put James in the CC!"></textarea>
                                 </div>
                             </div>
-
-
-
                             <div>
                                 <div class="mt-10 flex flex-col items-start">
                                     <div class="">
@@ -81,21 +76,24 @@
     </div>
 
 @*NORMAL STATE*@
-<div id="postit" onclick="toggleSlideover()" class=" max-w-md  min-w-40 mx-auto bg-white  overflow-hidden p-2 flex items-center hover:bg-gray-100 hover:rounded-xl cursor-pointer">
-    <div class=" w-fit h-fit ">
+<div id="postit"  class="max-w-md min-w-40 mx-auto bg-white overflow-hidden p-2 flex items-center  cursor-pointer relative">
+    <div class="w-fit h-fit">
         <input class="mr-2" type="checkbox" id="checkbox" name="checkbox">
     </div>
     <div class="flex flex-col items-start justify-center">
         <div class="flex items-center">
-            <h1  class="font-semibold cursor-pointer font-size-2 " id="postit" for="checkbox">My Post-it</h1>
+            <h1 class="font-semibold cursor-pointer font-size-2" id="postit" for="checkbox">My Post-it</h1>
             <p class="ml-3 border border-solid border-red-500 text-red-500 rounded-lg p-1 font-medium text-xs border h-6.5">HIGH</p>
-
         </div>
         <div class="flex items-center">
             <p class="text-zinc-700 font-light" href="">Facebook •</p>
             <p href="" class="text-blue-500"> ☀️ Monday, 📅 Mar 28, ⏰ 17:00</p>
-
         </div>
+    </div>
+    <div onclick="toggleSlideover()" class="place-content-center absolute top-0 right-0 p-2 hover:bg-gray-100 hover:rounded-xl">
+        <div class="w-1 h-1 bg-gray-800 rounded-full"></div>
+        <div class="w-1 h-1 bg-gray-800 rounded-full mt-0.5"></div>
+        <div class="w-1 h-1 bg-gray-800 rounded-full mt-0.5"></div>
     </div>
 </div>
 
