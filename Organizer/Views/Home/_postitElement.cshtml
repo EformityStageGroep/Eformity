@@ -76,7 +76,13 @@
     </div>
 
 @*NORMAL STATE*@
-<div id="postit"  class="max-w-md min-w-40 mx-auto bg-white overflow-hidden p-2 flex items-center  cursor-pointer relative">
+
+
+
+
+
+
+<div id="postit" data-tooltip-target="tooltip-animation" data-tooltip-trigger="click" data-tooltip-style="light" class="max-w-md min-w-40 mx-auto bg-white overflow-hidden p-2 flex items-center hover:bg-gray-200 rounded-lg  cursor-pointer relative ">
     <div class="w-fit h-fit">
         <input class="mr-2" type="checkbox" id="checkbox" name="checkbox">
     </div>
@@ -90,19 +96,37 @@
             <p href="" class="text-blue-500"> ☀️ Monday, 📅 Mar 28, ⏰ 17:00</p>
         </div>
     </div>
-    <div onclick="toggleSlideover()" class="place-content-center absolute top-0 right-0 p-2 hover:bg-gray-100 hover:rounded-xl">
+    <div onclick="toggleSlideover()" id="informationPoints" class="place-content-center absolute top-0 right-0 p-2 hover:bg-gray-300 hover:rounded-xl">
         <div class="w-1 h-1 bg-gray-800 rounded-full"></div>
         <div class="w-1 h-1 bg-gray-800 rounded-full mt-0.5"></div>
         <div class="w-1 h-1 bg-gray-800 rounded-full mt-0.5"></div>
     </div>
 </div>
 
+<div id="tooltip-animation" role="tooltip"  class="max-w-[330px] transition-all ease-in-out duration-300 absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+    <div class="max-h-[200px] overflow-y-auto">
+        <h1 class="font-bold">Description:</h1>
+        <p class="px-3 py-2">
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,
+        </p>
+    </div>
+    <div class="tooltip-arrow" data-popper-arrow></div>
+</div>
+
+
+
 <script>
+    document.getElementById("informationPoints").addEventListener('click', function(event) {
+       event.stopPropagation() 
+        
+    });
+
     function toggleSlideover() {
         document.getElementById('slideoverModal').classList.toggle('invisible');
         document.getElementById('slideover').classList.toggle('translate-x-full');
         console.log("Clicked on 'My Post-it56546'");
     }
+    
 </script>
 
 
