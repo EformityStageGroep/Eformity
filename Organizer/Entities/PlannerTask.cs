@@ -20,5 +20,10 @@ namespace Organizer.Entities
         public DateTime DateTime { get; set; }
 
         public Task() => Id = Guid.NewGuid();
+        
     }
+ /*   public class PageIdentifier
+    {
+        public string? PageValue { get; set; }
+    }*/
 }

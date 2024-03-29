@@ -1,3 +1,8 @@
+@{
+    ViewData["Title"] = "Create";
+}
+
+@model Organizer.Entities.Task
 <link rel="stylesheet" href="../Views/Home/slideover.css">
 
 <div id="slideoverModal"  class="relative z-10 duration-300 ease-out  transition-all invisible" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
@@ -87,24 +92,64 @@
     </div>
     <div class="flex flex-col items-start justify-center">
         <div class="flex items-center">
-            <h1  class="font-semibold cursor-pointer font-size-2 " id="postit" for="checkbox">My Post-it</h1>
+            <h1  class="font-semibold cursor-pointer font-size-2 " id="postit" for="checkbox">test</h1>
             <p class="ml-3 border border-solid border-red-500 text-red-500 rounded-lg p-1 font-medium text-xs border h-6.5">HIGH</p>
 
         </div>
         <div class="flex items-center">
             <p class="text-zinc-700 font-light" href="">Facebook •</p>
             <p href="" class="text-blue-500"> ☀️ Monday, 📅 Mar 28, ⏰ 17:00</p>
-
+            <a href="@Url.Action("Details", "Tasks", new { id = 1 })">View Task Details</a>
+            
         </div>
     </div>
 </div>
-
+    <button id="taskDetails" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
+        Test Datbase
+    </button>
 <script>
     function toggleSlideover() {
         document.getElementById('slideoverModal').classList.toggle('invisible');
         document.getElementById('slideover').classList.toggle('translate-x-full');
         console.log("Clicked on 'My Post-it56546'");
     }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const createTaskButton = document.getElementById("taskDetails");
+        createTaskButton.addEventListener("click", function () {
+            var taskId = '94590468-87d0-4174-b34c-18639d210e43'; // Example task ID
+            console.log("test1");
+            fetch(`/Tasks/Details/${taskId}`, {
+                method: 'GET',
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to retrieve task details');
+                    }
+                    return response.json();
+                })
+                .then(task => {
+                    // Check if task object and its properties exist
+                    if (!task || !task.id || !task.title || !task.description) {
+                        throw new Error('Task details are incomplete or missing');
+                    }
+
+                    // Display task details on the screen
+                    const taskDetailsElement = document.getElementById('taskDetails');
+                    taskDetailsElement.innerHTML = `
+                <p>Task ID: ${task.id}</p>
+                <p>Title: ${task.title}</p>
+                <p>Description: ${task.description}</p>
+                <!-- Add more details as needed -->
+            `;
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                    // Optionally, you can display an error message to the user
+                });
+            console.log("test2");
+        });
+    });
 </script>
 
 

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Graph;
 using Organizer.Contexts;
 using Organizer.Entities;
 
@@ -25,26 +26,35 @@ namespace Organizer.Controllers
         }
 
         // GET: Tasks/Details/5
-        public async Task<IActionResult> Details(Guid? id)
+        public async Task<IActionResult> Details(string taskId)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
-            }
+                if (string.IsNullOrEmpty(taskId))
+                {
+                    return NotFound();
+                }
 
-            var task = await _context.Tasks.FirstOrDefaultAsync(m => m.Id == id);
-            if (task == null)
+                if (!Guid.TryParse(taskId, out Guid id))
+                {
+                    return NotFound();
+                }
+
+                var task = await _context.Tasks.FirstOrDefaultAsync(m => m.Id == id);
+                if (task == null)
+                {
+                    return NotFound();
+                }
+                Console.WriteLine(task);
+
+
+                return View(task);
+            }
+            catch (Exception ex)
             {
-                return NotFound();
+                // Log the exception or handle it as required
+                return StatusCode(500, $"An error occurred: {ex.Message}");
             }
-
-            return View(task);
-        }
-
-        // GET: Tasks/Create
-        public IActionResult Create()
-        {
-            return View();
         }
 
         // POST: Tasks/Create
