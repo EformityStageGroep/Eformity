@@ -12,23 +12,30 @@
     <link rel="stylesheet" href="~/Organizer.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <div class="flex flex-col">
+    <div class="">
         <!-- Make it a flex column to stack elements vertically -->
         <div class="top-0 w-full mb-12 z-10 h-9/10">
             <!-- Add z-index to make sure it's above other content -->
             <!-- Render the top bar partial -->
             @Html.Partial("../Home/_sectionHeading")
         </div>
-        <div class="flex flex-row flex-wrap">
+        <div class="">
             <!-- Nested flex container for sidebar and main content -->
-            <div class="w-full md:w-48">
+
                 <!-- Render the sidebar partial -->
                 @Html.Partial("../Home/_sidebarComponent")
+            <div class=" 2xl:mr-100 xl:mr-60 lg:mr-30 mr:pl-10">
+                <div  class="flex justify-center items-center">
+                      <div class="w-auto lg:w-auto h-auto">
+                          <!-- Render the main content -->
+                          @RenderBody()
+                      </div>          
+                </div>                  
             </div>
-            <div class="w-auto lg:w-auto h-auto md:pl-48">
-                <!-- Render the main content -->
-                @RenderBody()
-            </div>
+              
+
+
+
         </div>
     </div>
 
