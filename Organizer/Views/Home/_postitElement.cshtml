@@ -68,7 +68,7 @@
                                     </div>
                                 </div>
                                 <div class="fixed bottom-0 right-0 mb-4 mr-4">
-                                    <button type="button" class="m1 auto rounded-md bg-red-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500">Delete</button>
+                                    <button type="button" class="m1 auto rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Delete</button>
                                     <button type="button" class="m1 auto rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Save</button>
 
                                 </div>
@@ -80,9 +80,7 @@
         </div>
     </div>
 
-@*NORMAL STATE*@
-
-<div id="postit" onclick="toggleTooltip(event)" data-tooltip-target="tooltip-animation" data-tooltip-trigger="none" data-tooltip-style="light"  class="transition all ease-in-out  duration-150 text-white bg-white rounded-xl max-w-md  min-w-40 mx-auto bg-white  overflow-hidden p-2 flex items-center hover:bg-gray-100 hover:rounded-xl cursor-pointer relative">
+<div id="postit"  onclick="toggleDescription()"   class="transition all ease-in-out  duration-150 text-white bg-white rounded-xl max-w-md  min-w-40 mx-auto bg-white  overflow-hidden p-2 flex items-center bg-gray-100 hover:bg-gray-200 hover:rounded-xl cursor-pointer relative">
     <div class=" w-fit h-fit ">
         
         <div class="inline-flex items-center">
@@ -109,9 +107,19 @@
             <p id="priorityLabel" class="ml-3 border border-solid border-red-500 text-red-500 rounded-lg p-1 font-medium text-xs border h-6.5">HIGH</p>
 
         </div>
+        
+        <div id="descriptionText" class="hidden text-black bg-gray-200 rounded-lg p-2 m-1">
+            <div class="font-semibold font-size-2">
+                Description:
+            </div>
+            <div class="font-light font-size-2 max-h-[200px] overflow-y-auto">
+               Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,
+
+            </div>
+        </div>
         <div class="flex items-center">
-            <p id="socialmediaLabel" class="text-zinc-700 font-light" href="">Facebook •</p>
-            <p id="dateLabel" href="" class="text-blue-500"> ☀️ Monday, 📅 Mar 28, ⏰ 17:00</p>
+            <p id="socialmediaLabel" class="text-zinc-700 font-light" href="">Facebook •&nbsp;</p>
+            <p id="dateLabel" href="" class="text-blue-500"> Monday, Mar 28, 17:00</p>
 
         </div>
 
@@ -123,50 +131,65 @@
     </div>
 </div>
 
-<div id="tooltip-animation" class="max-w-[330px] transition-all ease-in-out duration-300 absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
-    <div class="max-h-[200px] overflow-y-auto">
-        <h1 class="font-bold">Description:</h1>
-        <p class="px-3 py-2">
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,
-        </p>
-    </div>
-    <div class="tooltip-arrow" data-popper-arrow></div>
-</div>
-
 
 
 <script>
-         function toggleTooltip(event) {
-               event.stopPropagation(); // Prevent event propagation
-               var tooltip = document.getElementById('tooltip-animation');
-               // Toggle the visibility of the tooltip
-               tooltip.classList.toggle('invisible');
-               tooltip.classList.toggle('opacity-0');
-               tooltip.classList.toggle('opacity-100');
+document.getElementById("descriptionText").addEventListener('mouseenter', function(event) {
+    console.log("hovering")
+    const postIt = document.getElementById("postit")
+    if (postIt.classList.contains("hover:bg-gray-200")) {
+        postIt.classList.remove("hover:bg-gray-200")
+        
+        }
+    else {
+        postIt.classList.remove("hover:bg-green-600")
+        
+        }
+    
+    
+});
+
+document.getElementById("descriptionText").addEventListener('mouseleave', function(event) {
+    const postIt = document.getElementById("postit")
+    
+        if (!postIt.classList.contains("hover:bg-gray-200")) {
+                postIt.classList.add("hover:bg-gray-200")
+
+            
+            }
+        else {
+            postIt.classList.add("hover:bg-green-600")
+            
+            }
+        
+});
+
+
+        function toggleDescription() {
+            const postit = document.getElementById('postit')
+            const descriptionText = document.getElementById("descriptionText")
+            
+               if (descriptionText.classList.contains('hidden')) {
+                    descriptionText.classList.remove('hidden');
+                   
+                   }
+               else {
+                descriptionText.classList.add('hidden')
+                   
+                   }
+
                
-               // Add event listener to hide tooltip when clicking outside
-               if (!tooltip.classList.contains('invisible')) {
-                   document.body.addEventListener('click', hideTooltipOutside);
-               } else {
-                   document.body.removeEventListener('click', hideTooltipOutside);
-               }
-           }
-           
-           function hideTooltipOutside(event) {
-               var tooltip = document.getElementById('tooltip-animation');
-               // Check if the clicked element is not the tooltip or a child of the tooltip
-               if (!tooltip.contains(event.target)) {
-                   // Hide the tooltip
-                   tooltip.classList.add('invisible');
-                   tooltip.classList.remove('opacity-100');
-                   tooltip.classList.add('opacity-0');
-                   // Remove event listener to prevent unnecessary checks
-                   document.body.removeEventListener('click', hideTooltipOutside);
-               }
-           }
+
+            
+            
+            }
+
 
     function makeGreen() {
         console.log("make green")
+        
+        const descriptionText = document.getElementById("descriptionText")
+        
         const postitTitle = document.getElementById("postitTitle")
         
         const priorityLabel = document.getElementById("priorityLabel")
@@ -181,6 +204,9 @@
         const infoDots3 = document.getElementById("infoDots3")
         
             if (checkboxPostit.checked) {
+                
+                descriptionText.classList.remove("bg-gray-200")
+                descriptionText.classList.add("bg-green-50")
                 
                 infoDots1.classList.remove("bg-black")
                 infoDots1.classList.add("bg-white")
@@ -215,12 +241,15 @@
                 socialmediaLabel.classList.add("text-white")
                 socialmediaLabel.classList.remove("text-zinc-700")
                 
-                postitTitle.innerText = postitTitle.innerText + "   ✅ Done!"
+                // postitTitle.innerText = postitTitle.innerText + "   Done!"
                 
                 
                
             }
             else {
+                
+                descriptionText.classList.add("bg-gray-200")
+                descriptionText.classList.remove("bg-green-50")
                 
                 infoDots1.classList.add("bg-black")
                 infoDots1.classList.remove("bg-white")
@@ -254,7 +283,7 @@
                  postIt.classList.remove("bg-green-700")
                  postIt.classList.remove("hover:bg-green-600")
                  
-                 postIt.classList.add("hover:bg-gray-100")
+                 postIt.classList.add("hover:bg-gray-200")
                  postIt.classList.add("bg-white")
                  
 
