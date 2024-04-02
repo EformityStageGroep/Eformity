@@ -1,5 +1,4 @@
 @model Organizer.Entities.Task
-
 <link rel="stylesheet" href="../Views/Home/postitAnimation.css">
 
 <div id="slideoverModal" class="relative z-10 duration-300 ease-out  transition-all invisible" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
@@ -7,12 +6,12 @@
     <div class="absolute inset-0 overflow-hidden">
         <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full h-auto pl-10 sm:pl-16 drop-shadow-2xl active">
             <!-- Your content here -->
-            <div id="postit_@Model.Description" class="transition-all ease-in-out duration-150 text-white bg-white rounded-xl max-w-md min-w-40 mx-auto bg-white overflow-hidden p-2 flex items-center hover:bg-gray-100 hover:rounded-xl cursor-pointer">
+            <div id="postit_@Model.Id" class="transition-all ease-in-out duration-150 text-white bg-white rounded-xl max-w-md min-w-40 mx-auto bg-white overflow-hidden p-2 flex items-center hover:bg-gray-100 hover:rounded-xl cursor-pointer">
                 <div class="w-fit h-fit">
                     <div class="inline-flex items-center">
                         <label class="relative flex items-center p-3 rounded-full cursor-pointer" htmlFor="custom">
-                            <input id="checkbox_@Model.Title"
-                                   onclick="checkmarkClick(event, '@Model.Title'); makeGreen('@Model.Title')"
+                            <input id="checkbox_@Model.Id"
+                                   onclick="checkmarkClick(event, '@Model.Id'); makeGreen('@Model.Id')"
                                    type="checkbox"
                                    class="peer relative appearance-none w-5 h-5 border rounded-md border-blue-gray-200 cursor-pointer transition-all before:content[''] before:block before:bg-blue-gray-500 before:w-12 before:h-12 before:rounded-full before:absolute before:top-2/4 before:left-2/4 before:-translate-y-2/4 before:-translate-x-2/4 before:opacity-0 hover:before:opacity-10 before:transition-opacity checked:bg-white checked:border-white checked:before:bg-white" />
                             <span class="absolute text-white transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
@@ -38,20 +37,20 @@
     </div>
 
     @functions {
-    string GetPriorityColor(string priority)
-    {
-    switch (priority)
-    {
-    case "LOW":
-    return "green-500";
-    case "MEDIUM":
-    return "yellow-500";
-    case "HIGH":
-    return "red-500";
-    default:
-    return "gray-500";
-    }
-    }
+        string GetPriorityColor(string priority)
+        {
+            switch (priority)
+            {
+                case "LOW":
+                    return "green-500";
+                case "MEDIUM":
+                    return "yellow-500";
+                case "HIGH":
+                    return "red-500";
+                default:
+                    return "gray-500";
+            }
+        }
     }
 
     <script>

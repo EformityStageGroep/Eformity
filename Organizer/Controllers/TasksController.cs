@@ -26,19 +26,11 @@ namespace Organizer.Controllers
         }
 
         // GET: Tasks/Details/5
-        public async Task<IActionResult> Details(string taskId)
+        public async Task<IActionResult> Details(Guid? id)
         {
             try
             {
-                if (string.IsNullOrEmpty(taskId))
-                {
-                    return NotFound();
-                }
-
-                if (!Guid.TryParse(taskId, out Guid id))
-                {
-                    return NotFound();
-                }
+            
 
                 var task = await _context.Tasks.FirstOrDefaultAsync(m => m.Id == id);
                 if (task == null)
