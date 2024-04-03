@@ -26,14 +26,14 @@
 
 
                             <div>
-                                <label for="title" class="block text-sm font-medium leading-6 text-gray-900">Title</label>
+                                <label for="title" class="text-base font-medium text-gray-900">Title</label>
                                 <div class="mt-2">
                                     <input type="title" name="title" id="title" class="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Send e-mails to the customers">
                                 </div>
                             </div>
 
                             <div class="mt-5">
-                                <label for="Description" class="block text-sm font-medium leading-6 text-gray-900">Description</label>
+                                <label for="Description" class="text-base font-medium text-gray-900">Description</label>
                                 <div class="mt-2">
                                     <textarea type="text" name="Description" id="Description" class="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Put James in the CC!"></textarea>
                                 </div>
@@ -63,6 +63,20 @@
                                                     <input type="radio" name="option" id="high" value="high" class="peer hidden" />
                                                     <label for="high" class="duration-200 transition-all ease-in block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-red-500 peer-checked:font-bold peer-checked:text-white">High</label>
                                                 </div>
+      
+                                            </div>
+                                            <div class="mt-5 grid min-h-screen w-auto place-items-start">
+                                                
+                                                <form class="max-w-lg mx-auto">
+                                                  <label  for="large" class="text-base font-medium text-gray-900">Select Status</label>
+                                                  <select id="large" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3 mt-2 text-base">
+
+                                                    <option selected>To Do</option>
+                                                    <option value="IPS">In Progress</option>
+                                                    <option value="DONE">Done</option>
+                                                  </select>
+                                                </form>
+
                                             </div>
                                         </div>
                                     </div>
@@ -70,8 +84,10 @@
                                 <div class="fixed bottom-0 right-0 mb-4 mr-4">
                                     <button type="button" class="m1 auto rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Delete</button>
                                     <button type="button" class="m1 auto rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Save</button>
-
                                 </div>
+                                
+
+
                             </div>
                         </div>
                     </div>
@@ -80,7 +96,7 @@
         </div>
     </div>
 
-<div id="postit"  onclick="toggleDescription()"   class="transition all ease-in-out  duration-150 text-white bg-white rounded-xl max-w-md  min-w-40 mx-auto bg-white  overflow-hidden p-2 flex items-center bg-gray-100 hover:bg-gray-200 hover:rounded-xl cursor-pointer relative">
+<div id="postit"  onclick="toggleDescription()"   class="transition all ease-in-out  duration-150 text-white bg-white rounded-xl max-w-md  min-w-40 mx-auto bg-white p-2 flex items-center bg-gray-100 hover:bg-gray-200 hover:rounded-xl cursor-pointer relative">
     <div class=" w-fit h-fit ">
         
         <div class="inline-flex items-center">
@@ -103,8 +119,40 @@
     </div>
     <div class="flex flex-col items-start justify-center">
         <div class="flex items-center">
-            <h1  id="postitTitle" class="font-semibold cursor-pointer font-size-2 text-black " for="checkbox">My Post-it</h1>
-            <p id="priorityLabel" class="ml-3 border border-solid border-red-500 text-red-500 rounded-lg p-1 font-medium text-xs border h-6.5">HIGH</p>
+            <h1  id="postitTitle" class="font-semibold cursor-pointer font-size-2 text-black " for="checkbox">My Post-it </h1>
+            <div class="">
+                
+            <button id="postitStatusDropdown" onclick="statusDropDown(event)"  data-dropdown-toggle="dropdown" class="ml-3 border border-solid border-black text-black rounded-lg p-1 font-medium text-xs border h-6.5 ml-1 flex p-1 cursor-pointer hover:bg-gray-200" type="button">
+                <span id="dropdownButton">To Do
+                
+                    </span>
+                <svg class="w-2.5 h-2.5 ms-1.5 mt-0.5 mr-1 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                </svg>
+            </button>
+
+                
+                <!-- Dropdown menu -->
+                
+<div id="dropdown" onclick="statusDropDown(event), hideStatusDropdown()"  class=" hidden z-20 bg-gray-100 divide-y divide-gray-200 rounded-lg shadow w-44 border border-gray-200">
+    <ul class="py-2 text-sm text-gray-900" aria-labelledby="dropdownDefaultButton">
+        <li>
+            <a href="#" class="block px-4 py-2 hover:bg-gray-200">To Do</a>
+        </li>
+        <li>
+            <a href="#" class="block px-4 py-2 hover:bg-gray-200">In Progress</a>
+        </li>
+        <li>
+            <a href="#" class="block px-4 py-2 hover:bg-gray-200">Done</a>
+        </li>
+
+    </ul>
+</div>
+
+
+            </div>
+            
+            <p id="priorityLabel" class="ml-3 border border-solid border-red-500 text-red-500 rounded-lg p-1 font-medium text-xs border h-6.5 mr-6">HIGH</p>
 
         </div>
         
@@ -135,22 +183,80 @@
 
 <script>
 
+
+
+function hideStatusDropdown() {
+    statusDropDownPostit = document.getElementById("dropdown")
+    statusDropDownPostit.classList.add("hidden")
+    
+    }
+
+document.addEventListener('click', function(event) {
+    const dropdown = document.getElementById('dropdown');
+    const targetElement = event.target; // Element that triggered the event
+
+    // Check if the clicked element is outside the dropdown
+    if (!dropdown.contains(targetElement)) {
+        dropdown.classList.add('hidden'); // Hide the dropdown
+    }
+});
+
+function statusDropDown(event) {
+    event.stopPropagation(); // Prevent dropdown from being hidden by parent click
+    const dropdown = document.getElementById('dropdown');
+    dropdown.classList.toggle('hidden'); // Toggle visibility of dropdown
+}
+
+
+        // Function to handle dropdown toggle
+        function statusDropDown(event) {
+            event.stopPropagation(); // Prevent dropdown from being hidden by parent click
+            const dropdown = document.getElementById('dropdown');
+            dropdown.classList.toggle('hidden'); // Toggle visibility of dropdown
+        }
+    
+        // Function to handle dropdown item selection and update button text
+        function statusSelectLabelChange(event) {
+            const selectedText = event.target.innerText; // Get the inner text of the selected dropdown item
+            const buttonText = document.getElementById('dropdownButton');
+            buttonText.innerText = selectedText; // Update button text with the selected dropdown item text
+        }
+    
+        // Add event listeners to dropdown items to handle selection
+        const dropdownItems = document.querySelectorAll('#dropdown ul li a');
+        dropdownItems.forEach(item => {
+            item.addEventListener('click', statusSelectLabelChange);
+        });
+
+function statusDropDown(event) {
+    event.stopPropagation()
+    }
+
 postIt = document.getElementById('postit')
+dropdown = document.getElementById("dropdown")
 informationPoints = document.getElementById("informationPoints")
-informationPoints.addEventListener('mouseenter', function(event) {
-    console.log("hover informationpoints")
-    postIt.classList.remove('hover:bg-gray-200')
-    postIt.classList.add('hover:bg-gray-100')
+postItStatusDropdown = document.getElementById("postitStatusDropdown")
+
+informationPoints.addEventListener('mouseenter', hoverFun)
+dropdown.addEventListener('mouseenter', hoverFun)
+postItStatusDropdown.addEventListener('mouseenter', hoverFun)
+
+informationPoints.addEventListener('mouseleave', hoverReverse)
+dropdown.addEventListener('mouseleave', hoverReverse)
+postItStatusDropdown.addEventListener('mouseleave', hoverReverse)
+
+function hoverFun(){
+        postIt.classList.remove('hover:bg-gray-200')
+        postIt.classList.add('hover:bg-gray-100')
+    }
     
-    })
+function hoverReverse(){
+        postIt.classList.add('hover:bg-gray-200')
+        postIt.classList.remove('hover:bg-gray-100')
+    }    
     
-informationPoints.addEventListener('mouseleave', function(event) {
-    console.log("hover informationpoints")
-    postIt.classList.add('hover:bg-gray-200')
-    postIt.classList.remove('hover:bg-gray-100')
     
-    })    
-    
+
 
 document.getElementById("descriptionText").addEventListener('mouseenter', function(event) {
     console.log("hovering")
@@ -206,6 +312,7 @@ document.getElementById("descriptionText").addEventListener('mouseleave', functi
     function makeGreen() {
         console.log("make green")
         
+        const postitStatusDropdown = document.getElementById("postitStatusDropdown")
         const descriptionText = document.getElementById("descriptionText")
         
         const postitTitle = document.getElementById("postitTitle")
@@ -222,6 +329,12 @@ document.getElementById("descriptionText").addEventListener('mouseleave', functi
         const infoDots3 = document.getElementById("infoDots3")
         
             if (checkboxPostit.checked) {
+                
+                postitStatusDropdown.classList.remove("border-black")
+                postitStatusDropdown.classList.add("border-white")
+                
+                postitStatusDropdown.classList.remove("text-black")
+                postitStatusDropdown.classList.add("text-white")
                 
                 descriptionText.classList.remove("bg-gray-200")
                 descriptionText.classList.add("bg-green-50")
@@ -265,6 +378,12 @@ document.getElementById("descriptionText").addEventListener('mouseleave', functi
                
             }
             else {
+                
+                postitStatusDropdown.classList.add("border-black")
+                postitStatusDropdown.classList.remove("border-white")
+                
+                postitStatusDropdown.classList.add("text-black")
+                postitStatusDropdown.classList.remove("text-white")
                 
                 descriptionText.classList.add("bg-gray-200")
                 descriptionText.classList.remove("bg-green-50")
