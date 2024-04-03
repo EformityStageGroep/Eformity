@@ -21,7 +21,7 @@ namespace Organizer.Controllers
         // GET: Tasks
         public async Task<IActionResult> Index()
         {
-            var tasks = await _context.Tasks.ToListAsync();
+            var tasks = await _context.Task.ToListAsync();
             return View(tasks);
         }
 
@@ -29,15 +29,13 @@ namespace Organizer.Controllers
         public async Task<IActionResult> Details(Guid? id)
         {
             try
-            {
-            
-
-                var task = await _context.Tasks.FirstOrDefaultAsync(m => m.Id == id);
+            { 
+                List<Organizer.Entities.Task> task = await _context.Task.ToListAsync();
                 if (task == null)
                 {
                     return NotFound();
                 }
-                Console.WriteLine(task);
+                
 
 
                 return View(task);
@@ -72,7 +70,7 @@ namespace Organizer.Controllers
                 return NotFound();
             }
 
-            var task = await _context.Tasks.FindAsync(id);
+            var task = await _context.Task.FindAsync(id);
             if (task == null)
             {
                 return NotFound();
@@ -121,7 +119,7 @@ namespace Organizer.Controllers
                 return NotFound();
             }
 
-            var task = await _context.Tasks.FirstOrDefaultAsync(m => m.Id == id);
+            var task = await _context.Task.FirstOrDefaultAsync(m => m.Id == id);
             if (task == null)
             {
                 return NotFound();
@@ -135,15 +133,15 @@ namespace Organizer.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var task = await _context.Tasks.FindAsync(id);
-            _context.Tasks.Remove(task);
+            var task = await _context.Task.FindAsync(id);
+            _context.Task.Remove(task);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool TaskExists(Guid id)
         {
-            return _context.Tasks.Any(e => e.Id == id);
+            return _context.Task.Any(e => e.Id == id);
         }
     }
 }

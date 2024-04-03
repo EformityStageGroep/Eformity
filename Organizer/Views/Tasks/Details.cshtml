@@ -1,76 +1,81 @@
-﻿@model Organizer.Entities.Task
+﻿@model List<Organizer.Entities.Task>
 
 <link rel="stylesheet" href="../Views/Home/postitAnimation.css">
 
-<div id="slideoverModal" class="relative z-50 duration-300 ease-out  transition-all invisible" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+@Html.Partial("../Home/Homepage")
 
-    <!-- Slideover content -->
-    <div class="absolute inset-0 overflow-hidden">
-        <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full h-auto pl-10 sm:pl-16 drop-shadow-2xl active">
-            <div class="duration-500 transition-all ease-in pointer-events-auto w-screen max-w-2xl">
-                <div id="slideover" class="duration-500 ease-in transition-all flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl translate-x-full">
-                    <div class="px-4 sm:px-6">
-                        <div class="flex items-start justify-between">
-                            <h2 class="text-base font-semibold leading-6 text-gray-900" id="slide-over-title">Editing: @Model.Title</h2>
-                            <div class="ml-3 flex h-7 items-center">
-                                <button onclick="toggleSlideover()" type="button" class="cursor-pointer relative rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                                    <span class="absolute -inset-2.5"></span>
-                                    <span class="sr-only">Close panel</span>
-                                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </button>
+@foreach (var task in Model)
+{
+    <div id="slideoverModal" class="relative z-50 duration-300 ease-out  transition-all invisible" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+
+        <!-- Slideover content -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full h-auto pl-10 sm:pl-16 drop-shadow-2xl active">
+                <div class="duration-500 transition-all ease-in pointer-events-auto w-screen max-w-2xl">
+                    <div id="slideover" class="duration-500 ease-in transition-all flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl translate-x-full">
+                        <div class="px-4 sm:px-6">
+                            <div class="flex items-start justify-between">
+                                <h2 class="text-base font-semibold leading-6 text-gray-900" id="slide-over-title">Editing: @task.Title</h2>
+                                <div class="ml-3 flex h-7 items-center">
+                                    <button onclick="toggleSlideover()" type="button" class="cursor-pointer relative rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                                        <span class="absolute -inset-2.5"></span>
+                                        <span class="sr-only">Close panel</span>
+                                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="relative mt-6 flex-1 px-4 sm:px-6">
+                        <div class="relative mt-6 flex-1 px-4 sm:px-6">
 
 
-                        <div>
-                            <label for="title" class="block text-sm font-medium leading-6 text-gray-900">Title</label>
-                            <div class="mt-2">
-                                <input type="text" name="title" id="title" class="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Send e-mails to the customers" value="@Model.Title">
+                            <div>
+                                <label for="title" class="block text-sm font-medium leading-6 text-gray-900">Title</label>
+                                <div class="mt-2">
+                                    <input type="text" name="title" id="title" class="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Send e-mails to the customers" value="@task.Title">
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="mt-5">
-                            <label for="Description" class="block text-sm font-medium leading-6 text-gray-900">Description</label>
-                            <div class="mt-2">
-                                <textarea name="Description" id="Description" class="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">@Model.Description</textarea>
+                            <div class="mt-5">
+                                <label for="Description" class="block text-sm font-medium leading-6 text-gray-900">Description</label>
+                                <div class="mt-2">
+                                    <textarea name="Description" id="Description" class="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">@task.Description</textarea>
+                                </div>
                             </div>
-                        </div>
 
 
-                        <div>
-                            <div class="mt-10 flex flex-col items-start">
-                                <div class="">
-                                    <label class=" text-base font-medium text-gray-900">Set priority</label>
-                                    <p class="text-sm text-gray-500">What priority would you like to set the post-it to?</p>
-                                    <!-- component -->
-                                    <div class="mt-5 grid min-h-screen w-auto place-items-start">
-                                        <div class="grid w-[20rem] grid-cols-3 gap-2 rounded-xl bg-gray-100 p-2">
-                                            <div>
-                                                <input type="radio" name="option" id="low" value="low" class="peer hidden" checked />
-                                                <label for="low" class="duration-200 transition-all ease-in block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-green-500 peer-checked:font-bold peer-checked:text-white">Low</label>
-                                            </div>
+                            <div>
+                                <div class="mt-10 flex flex-col items-start">
+                                    <div class="">
+                                        <label class=" text-base font-medium text-gray-900">Set priority</label>
+                                        <p class="text-sm text-gray-500">What priority would you like to set the post-it to?</p>
+                                        <!-- component -->
+                                        <div class="mt-5 grid min-h-screen w-auto place-items-start">
+                                            <div class="grid w-[20rem] grid-cols-3 gap-2 rounded-xl bg-gray-100 p-2">
+                                                <div>
+                                                    <input type="radio" name="option" id="low" value="low" class="peer hidden" checked />
+                                                    <label for="low" class="duration-200 transition-all ease-in block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-green-500 peer-checked:font-bold peer-checked:text-white">Low</label>
+                                                </div>
 
-                                            <div>
-                                                <input type="radio" name="option" id="medium" value="medium" class="peer hidden" />
-                                                <label for="medium" class="duration-200 transition-all ease-out block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-orange-500 peer-checked:font-bold peer-checked:text-white">Medium</label>
-                                            </div>
+                                                <div>
+                                                    <input type="radio" name="option" id="medium" value="medium" class="peer hidden" />
+                                                    <label for="medium" class="duration-200 transition-all ease-out block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-orange-500 peer-checked:font-bold peer-checked:text-white">Medium</label>
+                                                </div>
 
-                                            <div>
-                                                <input type="radio" name="option" id="high" value="high" class="peer hidden" />
-                                                <label for="high" class="duration-200 transition-all ease-in block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-red-500 peer-checked:font-bold peer-checked:text-white">High</label>
+                                                <div>
+                                                    <input type="radio" name="option" id="high" value="high" class="peer hidden" />
+                                                    <label for="high" class="duration-200 transition-all ease-in block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-red-500 peer-checked:font-bold peer-checked:text-white">High</label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="fixed bottom-0 right-0 mb-4 mr-4">
-                                <button type="button" class="m1 auto rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Delete</button>
-                                <button type="button" class="m1 auto rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Save</button>
+                                <div class="fixed bottom-0 right-0 mb-4 mr-4">
+                                    <button type="button" class="m1 auto rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Delete</button>
+                                    <button type="button" class="m1 auto rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Save</button>
 
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -78,59 +83,58 @@
             </div>
         </div>
     </div>
-</div>
 
-<div id="postit" onclick="toggleDescription()" class="transition all ease-in-out  duration-150 text-white bg-white rounded-xl max-w-md  min-w-40 mx-auto bg-white  overflow-hidden p-2 flex items-center bg-gray-100 hover:bg-gray-200 hover:rounded-xl cursor-pointer relative">
-    <div class=" w-fit h-fit ">
+    <div id="postit" onclick="toggleDescription()" class="transition all ease-in-out  duration-150 text-white bg-white rounded-xl max-w-md  min-w-40 mx-auto bg-white  overflow-hidden p-2 flex items-center bg-gray-100 hover:bg-gray-200 hover:rounded-xl cursor-pointer relative">
+        <div class=" w-fit h-fit ">
 
-        <div class="inline-flex items-center">
-            <label class="relative flex items-center p-3 rounded-full cursor-pointer" htmlFor="custom">
-                <input id="checkbox"
-                       onclick="checkmarkClick(event); makeGreen()"
-                       type="checkbox"
-                       class="peer relative appearance-none w-5 h-5 border rounded-md border-blue-gray-200 cursor-pointer transition-all before:content[''] before:block before:bg-blue-gray-500 before:w-12 before:h-12 before:rounded-full before:absolute before:top-2/4 before:left-2/4 before:-translate-y-2/4 before:-translate-x-2/4 before:opacity-0 hover:before:opacity-10 before:transition-opacity checked:bg-white checked:border-white checked:before:bg-white" />
-                <span class="absolute text-white transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M13.2667 0.534432C12.9576 0.334203 12.5817 0.264801 12.2215 0.341463C11.8613 0.418125 11.5463 0.634586 11.3456 0.943321L5.29778 10.265L2.50389 7.68165C2.37051 7.55496 2.21328 7.45603 2.04134 7.39061C1.86941 7.32518 1.68619 7.29457 1.50232 7.30054C1.31845 7.30651 1.1376 7.34895 0.970275 7.42539C0.802945 7.50183 0.652469 7.61075 0.527583 7.74583C0.402697 7.88091 0.30589 8.03945 0.242784 8.21225C0.179678 8.38505 0.151529 8.56867 0.159972 8.75244C0.168415 8.93621 0.213283 9.11647 0.291968 9.28276C0.370654 9.44904 0.481591 9.59804 0.618337 9.7211L4.62334 13.4244C4.89 13.6717 5.22889 13.7939 5.56556 13.7939C5.93945 13.7939 6.41778 13.6372 6.73167 13.1611C6.91611 12.88 13.6761 2.45554 13.6761 2.45554C13.7754 2.30252 13.8435 2.13144 13.8767 1.95208C13.9098 1.77271 13.9073 1.58858 13.8693 1.41018C13.8313 1.23179 13.7585 1.06263 13.6551 0.912371C13.5517 0.762109 13.4197 0.633685 13.2667 0.534432Z" fill="rgb(21 128 61)" />
-                    </svg>
-                </span>
-            </label>
-        </div>
-
-
-    </div>
-    <div class="flex flex-col items-start justify-center">
-        <div class="flex items-center">
-            <h1 id="postitTitle" class="font-semibold cursor-pointer font-size-2 text-black " for="checkbox">@Model.Title</h1>
-            <p id="priorityLabel" class="ml-3 border border-solid border-red-500 text-red-500 rounded-lg p-1 font-medium text-xs border h-6.5">@Model.Priority</p>
-
-        </div>
-
-        <div id="descriptionText" class="hidden text-black bg-gray-200 rounded-lg p-2 m-1">
-            <div class="font-semibold font-size-2">
-                Description:
+            <div class="inline-flex items-center">
+                <label class="relative flex items-center p-3 rounded-full cursor-pointer" htmlFor="custom">
+                    <input id="checkbox"
+                           onclick="checkmarkClick(event); makeGreen()"
+                           type="checkbox"
+                           class="peer relative appearance-none w-5 h-5 border rounded-md border-blue-gray-200 cursor-pointer transition-all before:content[''] before:block before:bg-blue-gray-500 before:w-12 before:h-12 before:rounded-full before:absolute before:top-2/4 before:left-2/4 before:-translate-y-2/4 before:-translate-x-2/4 before:opacity-0 hover:before:opacity-10 before:transition-opacity checked:bg-white checked:border-white checked:before:bg-white" />
+                    <span class="absolute text-white transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13.2667 0.534432C12.9576 0.334203 12.5817 0.264801 12.2215 0.341463C11.8613 0.418125 11.5463 0.634586 11.3456 0.943321L5.29778 10.265L2.50389 7.68165C2.37051 7.55496 2.21328 7.45603 2.04134 7.39061C1.86941 7.32518 1.68619 7.29457 1.50232 7.30054C1.31845 7.30651 1.1376 7.34895 0.970275 7.42539C0.802945 7.50183 0.652469 7.61075 0.527583 7.74583C0.402697 7.88091 0.30589 8.03945 0.242784 8.21225C0.179678 8.38505 0.151529 8.56867 0.159972 8.75244C0.168415 8.93621 0.213283 9.11647 0.291968 9.28276C0.370654 9.44904 0.481591 9.59804 0.618337 9.7211L4.62334 13.4244C4.89 13.6717 5.22889 13.7939 5.56556 13.7939C5.93945 13.7939 6.41778 13.6372 6.73167 13.1611C6.91611 12.88 13.6761 2.45554 13.6761 2.45554C13.7754 2.30252 13.8435 2.13144 13.8767 1.95208C13.9098 1.77271 13.9073 1.58858 13.8693 1.41018C13.8313 1.23179 13.7585 1.06263 13.6551 0.912371C13.5517 0.762109 13.4197 0.633685 13.2667 0.534432Z" fill="rgb(21 128 61)" />
+                        </svg>
+                    </span>
+                </label>
             </div>
-            <div class="font-light font-size-2 max-h-[200px] overflow-y-auto">
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,
+
+
+        </div>
+        <div class="flex flex-col items-start justify-center">
+            <div class="flex items-center">
+                <h1 id="postitTitle" class="font-semibold cursor-pointer font-size-2 text-black " for="checkbox">@task.Title</h1>
+                <p id="priorityLabel" class="ml-3 border border-solid border-red-500 text-red-500 rounded-lg p-1 font-medium text-xs border h-6.5">@task.Priority</p>
 
             </div>
-        </div>
-        <div class="flex items-center">
-            <p id="socialmediaLabel" class="text-zinc-700 font-light" href="">Facebook •&nbsp;</p>
-            <p id="dateLabel" href="" class="text-blue-500"> @Model.DateTime</p>
+
+            <div id="descriptionText" class="hidden text-black bg-gray-200 rounded-lg p-2 m-1">
+                <div class="font-semibold font-size-2">
+                    Description:
+                </div>
+                <div class="font-light font-size-2 max-h-[200px] overflow-y-auto">
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,
+
+                </div>
+            </div>
+            <div class="flex items-center">
+                <p id="socialmediaLabel" class="text-zinc-700 font-light" href="">Facebook •&nbsp;</p>
+                <p id="dateLabel" href="" class="text-blue-500"> @task.DateTime</p>
+
+            </div>
 
         </div>
-
+        <div onclick="toggleSlideover()" id="informationPoints" class="place-content-center absolute top-0 right-0 p-2 hover:bg-gray-300 hover:rounded-xl">
+            <div id="infoDots1" class="w-1 h-1 bg-black rounded-full"></div>
+            <div id="infoDots2" class="w-1 h-1 bg-black rounded-full mt-0.5"></div>
+            <div id="infoDots3" class="w-1 h-1 bg-black rounded-full mt-0.5"></div>
+        </div>
     </div>
-    <div onclick="toggleSlideover()" id="informationPoints" class="place-content-center absolute top-0 right-0 p-2 hover:bg-gray-300 hover:rounded-xl">
-        <div id="infoDots1" class="w-1 h-1 bg-black rounded-full"></div>
-        <div id="infoDots2" class="w-1 h-1 bg-black rounded-full mt-0.5"></div>
-        <div id="infoDots3" class="w-1 h-1 bg-black rounded-full mt-0.5"></div>
-    </div>
-</div>
 
 
-
+}
 <script>
     document.getElementById("descriptionText").addEventListener('mouseenter', function (event) {
         console.log("hovering")
@@ -309,4 +313,70 @@
         console.log("Clicked on 'My Post-it56546'");
     }
 </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const tabs = document.querySelectorAll(".tab");
+        const tabContents = document.querySelectorAll("#tab-content > div");
+
+        tabs.forEach((tab, index) => {
+            tab.addEventListener("click", function (event) {
+                event.preventDefault();
+
+                // Remove active class from all tabs and add default styling
+                tabs.forEach(tab => {
+                    tab.classList.remove("border-indigo-500", "text-indigo-600");
+                    tab.classList.add("border-transparent", "text-gray-500", "hover:border-gray-300", "hover:text-gray-700");
+                });
+
+                // Add active styling to clicked tab
+                tab.classList.remove("border-transparent", "text-gray-500", "hover:border-gray-300", "hover:text-gray-700");
+                tab.classList.add("border-indigo-500", "text-indigo-600");
+
+                // Hide all tab contents
+                tabContents.forEach(content => content.classList.add("hidden"));
+                // Show corresponding tab content
+                tabContents[index].classList.remove("hidden");
+            });
+        });
+
+        const openModalButton = document.getElementById("openModalButton");
+        const modal = document.getElementById("modal");
+        const closeModalButton = document.getElementById("closeModalButton");
+
+        openModalButton.addEventListener("click", function () {
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+        });
+
+        closeModalButton.addEventListener("click", function () {
+            modal.classList.remove("flex");
+            modal.classList.add("hidden");
+        });
+
+        const createTaskButton = document.getElementById("createTaskButton");
+        const taskForm = document.getElementById("taskForm");
+
+        createTaskButton.addEventListener("click", function () {
+            const formData = new FormData(taskForm);
+
+            fetch('@Url.Action("Create", "Tasks")', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data); // Log response data
+                    // Optionally, you can update the UI or display a success message
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                    // Optionally, you can display an error message to the user
+                });
+        });
+    });
 </script>
