@@ -1,8 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Organizer.Entities
 {
+    [Table("Tasks")]
     public class Task
     {
         [Key]
@@ -20,5 +22,10 @@ namespace Organizer.Entities
         public DateTime DateTime { get; set; }
 
         public Task() => Id = Guid.NewGuid();
+        
     }
+ /*   public class PageIdentifier
+    {
+        public string? PageValue { get; set; }
+    }*/
 }

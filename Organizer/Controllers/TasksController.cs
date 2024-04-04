@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Graph;
 using Organizer.Contexts;
 using Organizer.Entities;
 
@@ -20,31 +21,30 @@ namespace Organizer.Controllers
         // GET: Tasks
         public async Task<IActionResult> Index()
         {
-            var tasks = await _context.Tasks.ToListAsync();
+            var tasks = await _context.Task.ToListAsync();
             return View(tasks);
         }
 
         // GET: Tasks/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
-            if (id == null)
-            {
-                return NotFound();
+            try
+            { 
+                List<Organizer.Entities.Task> task = await _context.Task.ToListAsync();
+                if (task == null)
+                {
+                    return NotFound();
+                }
+                
+
+
+                return View(task);
             }
-
-            var task = await _context.Tasks.FirstOrDefaultAsync(m => m.Id == id);
-            if (task == null)
+            catch (Exception ex)
             {
-                return NotFound();
+                // Log the exception or handle it as required
+                return StatusCode(500, $"An error occurred: {ex.Message}");
             }
-
-            return View(task);
-        }
-
-        // GET: Tasks/Create
-        public IActionResult Create()
-        {
-            return View();
         }
 
         // POST: Tasks/Create
@@ -70,7 +70,7 @@ namespace Organizer.Controllers
                 return NotFound();
             }
 
-            var task = await _context.Tasks.FindAsync(id);
+            var task = await _context.Task.FindAsync(id);
             if (task == null)
             {
                 return NotFound();
@@ -119,7 +119,7 @@ namespace Organizer.Controllers
                 return NotFound();
             }
 
-            var task = await _context.Tasks.FirstOrDefaultAsync(m => m.Id == id);
+            var task = await _context.Task.FirstOrDefaultAsync(m => m.Id == id);
             if (task == null)
             {
                 return NotFound();
@@ -133,15 +133,15 @@ namespace Organizer.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var task = await _context.Tasks.FindAsync(id);
-            _context.Tasks.Remove(task);
+            var task = await _context.Task.FindAsync(id);
+            _context.Task.Remove(task);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool TaskExists(Guid id)
         {
-            return _context.Tasks.Any(e => e.Id == id);
+            return _context.Task.Any(e => e.Id == id);
         }
     }
 }
