@@ -2,11 +2,10 @@
 using System;
 
 
-namespace Organizer.Controllers
+namespace Organizer.Models
 {
-	public class Databron
-	{
-		public string? Gmail { get; set; }
-		public string? Facebook { get; set; }
-	}
+    public class PageIdentifier
+    {
+        public string? PageValue { get; set; }
+    }
 }

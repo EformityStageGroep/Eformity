@@ -8,6 +8,7 @@ using System.Diagnostics;
 
 namespace Organizer.Controllers
 {
+ 
     [Authorize]
     public class HomeController : Controller
     {
@@ -15,7 +16,7 @@ namespace Organizer.Controllers
         SqlCommand com = new SqlCommand();
         SqlDataReader dr;
         SqlConnection con = new SqlConnection();
-        List<Databron> Databronnen = new List<Databron>();
+       // List<Databron> Databronnen = new List<Databron>();
         private readonly ILogger<HomeController> _logger;
         private readonly IGraphClientService _graphClientService;
         private readonly GraphServiceClient graphServiceClient;
@@ -30,26 +31,45 @@ namespace Organizer.Controllers
 
         public IActionResult Index()
         {
-            
-            return View();
+            var viewModel = new PageIdentifier();
+            viewModel.PageValue = "Index";
+            return View(viewModel);
         }
     
-        public IActionResult Privacy()
+        public IActionResult Teams()
         {
-            return View();
+            var viewModel = new PageIdentifier();
+            viewModel.PageValue = "Teams";
+            return View(viewModel);
         }
 
-        
+        public IActionResult Homepage()
+        {
+            var viewModel = new PageIdentifier();
+            viewModel.PageValue = "Homepage";
+            return View(viewModel);
+        }
 
         public IActionResult Profile()
         {
-            // Change the variable here
-            //_variableToChange = "/Views/Shared/Profile.cshtml";
-
-            // You can return a view or any other action result here if needed
-            return View();
+            var viewModel = new PageIdentifier();
+            viewModel.PageValue = "Profile";
+            return View(viewModel);
+        }
+        
+        public IActionResult PostitPage()
+        {
+            var viewModel = new PageIdentifier();
+            viewModel.PageValue = "PostitPage";
+            return View(viewModel);
         }
 
+        public IActionResult Settings()
+        {
+            var viewModel = new PageIdentifier();
+            viewModel.PageValue = "Settings";
+            return View(viewModel);
+        }
 
         [AllowAnonymous]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

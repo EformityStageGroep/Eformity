@@ -9,6 +9,8 @@
 
   <ItemGroup>
     <Content Remove="Views\Home\Profile.cshtml" />
+    <Content Remove="Views\Home\Settings2.cshtml" />
+    <Content Remove="Views\Home\_topBar.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -76,7 +78,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\Home\Settings2.cshtml" />
+    <None Include="Views\Home\_topBar.cshtml" />
     <None Include="Views\Shared\Profile.cshtml" />
+    <None Include="wwwroot\css\postitAnimation.css" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Organizer.Entities
 {
@@ -6,9 +7,18 @@ namespace Organizer.Entities
     {
         [Key]
         public Guid Id { get; set; }
-        public Guid UserId { get; set; }
-        public virtual User User { get; set; }
-        public string Name { get; set; }
+
+        [Required]
+        public string Title { get; set; }
+
+        public string Description { get; set; }
+
+        [Required]
+        public string Priority { get; set; }
+
+        [Display(Name = "Date & Time")]
+        public DateTime DateTime { get; set; }
+
         public Task() => Id = Guid.NewGuid();
     }
 }

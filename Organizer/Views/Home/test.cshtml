@@ -1,0 +1,60 @@
+<div id="postit2" onclick="" class="text-white bg-green-700 rounded-xl max-w-md  min-w-40 mx-auto bg-white  overflow-hidden p-2 flex items-center hover:bg-green-600 hover:rounded-xl cursor-pointer">
+    <div class=" w-fit h-fit ">
+        
+<div class="inline-flex items-center">
+    <label class="relative flex items-center p-3 rounded-full cursor-pointer" htmlFor="custom">
+        <input
+            id="checkbox2" 
+            onclick="checkmarkClick(event); makeGreen()"
+            type="checkbox"
+            class="peer relative appearance-none w-5 h-5 border rounded-md border-blue-gray-200 cursor-pointer transition-all before:content[''] before:block before:bg-blue-gray-500 before:w-12 before:h-12 before:rounded-full before:absolute before:top-2/4 before:left-2/4 before:-translate-y-2/4 before:-translate-x-2/4 before:opacity-0 hover:before:opacity-10 before:transition-opacity checked:bg-white checked:border-white checked:before:bg-white"
+        />
+        <span class="absolute text-white transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13.2667 0.534432C12.9576 0.334203 12.5817 0.264801 12.2215 0.341463C11.8613 0.418125 11.5463 0.634586 11.3456 0.943321L5.29778 10.265L2.50389 7.68165C2.37051 7.55496 2.21328 7.45603 2.04134 7.39061C1.86941 7.32518 1.68619 7.29457 1.50232 7.30054C1.31845 7.30651 1.1376 7.34895 0.970275 7.42539C0.802945 7.50183 0.652469 7.61075 0.527583 7.74583C0.402697 7.88091 0.30589 8.03945 0.242784 8.21225C0.179678 8.38505 0.151529 8.56867 0.159972 8.75244C0.168415 8.93621 0.213283 9.11647 0.291968 9.28276C0.370654 9.44904 0.481591 9.59804 0.618337 9.7211L4.62334 13.4244C4.89 13.6717 5.22889 13.7939 5.56556 13.7939C5.93945 13.7939 6.41778 13.6372 6.73167 13.1611C6.91611 12.88 13.6761 2.45554 13.6761 2.45554C13.7754 2.30252 13.8435 2.13144 13.8767 1.95208C13.9098 1.77271 13.9073 1.58858 13.8693 1.41018C13.8313 1.23179 13.7585 1.06263 13.6551 0.912371C13.5517 0.762109 13.4197 0.633685 13.2667 0.534432Z" fill="rgb(21 128 61)"/>
+            </svg>
+        </span>
+    </label>
+</div>
+
+        
+    </div>
+    <div class="flex flex-col items-start justify-center">
+        <div class="flex items-center">
+            <h1  class="font-semibold cursor-pointer font-size-2 " for="checkbox">My Post-it</h1>
+            <p class="ml-3 border border-solid border-white text-white rounded-lg p-1 font-medium text-xs border h-6.5">HIGH</p>
+
+        </div>
+        <div class="flex items-center">
+            <p class="text-white font-light" href="">Facebook •</p>
+            <p href="" class="text-white"> ☀️ Monday, 📅 Mar 28, ✅ Done!</p>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function makeGreen() {
+        console.log("make green")
+        const postIt = document.getElementById("postit2");
+        const checkboxPostit = document.getElementById("checkbox2")
+        
+        if (checkboxPostit.checked) {
+            console.log("checkbox has been checked")
+            
+            if (postIt.classList.contains("bg-green-700")) {
+                postIt.classList.remove("bg-green-700")
+            }
+            else {
+                postIt.classList.add("bg-green-700")
+                }
+        }
+        
+        
+    }
+    
+    function checkmarkClick(event) {
+        event.stopPropagation();
+    
+        }
+</script>
