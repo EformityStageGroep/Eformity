@@ -73,7 +73,7 @@
                                     </div>
                                 </div>
                                 <div class="fixed bottom-0 right-0 mb-4 mr-4">
-                                    <button type="button" class="m1 auto rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Delete</button>
+                                    <button type="button" class="m1 auto rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" onclick="deleteTask('@task.Id')">Delete</button>
                                     <button type="button" class="m1 auto rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Save</button>
 
                                 </div>
@@ -315,6 +315,31 @@
     }
 </script>
 <script>
+    function deleteTask(taskId) {
+        fetch(`/Tasks/Delete/${taskId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to delete task');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Task deleted successfully, you can perform any necessary actions (e.g., hide task element)
+                // For simplicity, let's reload the page
+                location.reload();
+            })
+            .catch(error => {
+                console.error('Error deleting task:', error);
+                // Handle error scenario
+            });
+    }
+
+
     document.addEventListener("DOMContentLoaded", function () {
         const tabs = document.querySelectorAll(".tab");
         const tabContents = document.querySelectorAll("#tab-content > div");

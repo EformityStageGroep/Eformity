@@ -114,6 +114,7 @@ namespace Organizer.Controllers
         // GET: Tasks/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
+             Console.WriteLine("Deleting task with ID: " + id);
             if (id == null)
             {
                 return NotFound();
@@ -133,6 +134,7 @@ namespace Organizer.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
+            Console.WriteLine("Deleting task with ID: " + id);
             var task = await _context.Task.FindAsync(id);
             _context.Task.Remove(task);
             await _context.SaveChangesAsync();
