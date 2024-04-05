@@ -74,7 +74,7 @@
                                 </div>
                                 <div class="fixed bottom-0 right-0 mb-4 mr-4">
                                     <button type="button" class="m1 auto rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" onclick="deleteTask('@task.Id')">Delete</button>
-                                    <button id="saveButton" type="button" class="m1 auto rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" onclick="updateTask('@task.Id')">Save</button>
+                                    <button type="button" class="m1 auto rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" onclick="updateTask('@task.Id')">Save</button>
                                 </div>
                             </div>
                         </div>
@@ -346,19 +346,48 @@
         }, 500);
         }
 
+    function updateTask(taskId) {
+
+        // Get the CSRF token from the form
+        const csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+        // Get the form data
+        const formData = new FormData(document.getElementById('taskForm'));
+
+        // Send a POST request with the task ID and form data
+        fetch(`/Tasks/Edit/${taskId}`, {
+            method: 'POST',
+            body: formData
+                headers: {
+                'Content-Type': 'application/json',
+                'RequestVerificationToken': csrfToken // Include CSRF token in the headers
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to update task');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Task updated successfully, you can perform any necessary actions
+                // For simplicity, let's reload the page after 1 second
+                setTimeout(() => {
+                    location.reload();
+                }, 500); // 1000 milliseconds = 1 second
+            })
+            .catch(error => {
+                console.error('Error updating task:', error);
+                // Handle error scenario
+            });
+    }
   
 
 
 
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function (taskId) {
         const tabs = document.querySelectorAll(".tab");
         const tabContents = document.querySelectorAll("#tab-content > div");
-        const saveButton = document.getElementById("saveButton");
-
-        saveButton.addEventListener("click", function () {
-            // Call the updateTask function with the task ID
-            updateTask(taskId); 
-        });
 
         tabs.forEach((tab, index) => {
             tab.addEventListener("click", function (event) {
@@ -423,34 +452,6 @@
                 location.reload();
             }, 500);
         });
-
-            function updateTask(taskId) {
-                // Get the form data
-                const formData = new FormData(document.getElementById('taskForm'));
-
-                // Send a POST request with the task ID and form data
-                fetch(`/Tasks/Edit/${taskId}`, {
-                    method: 'POST',
-                    body: formData
-                })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Failed to update task');
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        // Task updated successfully, you can perform any necessary actions
-                        // For simplicity, let's reload the page after 1 second
-                        setTimeout(() => {
-                            location.reload();
-                        }, 500); // 1000 milliseconds = 1 second
-                    })
-                    .catch(error => {
-                        console.error('Error updating task:', error);
-                        // Handle error scenario
-                    });
-            }
 
     });
 </script>
