@@ -315,29 +315,38 @@
     }
 </script>
 <script>
-    function deleteTask(taskId) {
-        fetch(`/Tasks/Delete/${taskId}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to delete task');
+        function deleteTask(taskId) {
+            // Get the CSRF token from the form
+            const csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+            // Send a POST request with the task ID and CSRF token
+            fetch(`/Tasks/Delete/${taskId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'RequestVerificationToken': csrfToken // Include CSRF token in the headers
                 }
-                return response.json();
             })
-            .then(data => {
-                // Task deleted successfully, you can perform any necessary actions (e.g., hide task element)
-                // For simplicity, let's reload the page
-                location.reload();
-            })
-            .catch(error => {
-                console.error('Error deleting task:', error);
-                // Handle error scenario
-            });
-    }
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to delete task');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Task deleted successfully, you can perform any necessary actions (e.g., hide task element)
+                    // For simplicity, let's reload the page
+                    location.reload();
+                })
+                .catch(error => {
+                    console.error('Error deleting task:', error);
+                    // Handle error scenario
+                });
+        setTimeout(() => {
+            location.reload();
+        }, 500);
+        }
+
 
 
     document.addEventListener("DOMContentLoaded", function () {
