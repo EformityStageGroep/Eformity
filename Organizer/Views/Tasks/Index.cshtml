@@ -22,6 +22,9 @@
                 @Html.DisplayNameFor(model => model.Priority)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.SelectStatus) <!-- Add this line -->
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.DateTime)
             </th>
             <th></th>
@@ -41,11 +44,14 @@
                     @Html.DisplayFor(modelItem => item.Priority)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.SelectStatus) <!-- Add this line -->
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.DateTime)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
                     <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>

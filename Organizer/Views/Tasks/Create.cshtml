@@ -32,6 +32,15 @@
                 <span asp-validation-for="Priority" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="SelectStatus" class="control-label"></label>
+                <select asp-for="SelectStatus" class="form-control">
+                    <option value="To do">To do</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Done">Done</option>
+                </select>
+                <span asp-validation-for="SelectStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="DateTime" class="control-label"></label>
                 <input asp-for="DateTime" type="datetime-local" class="form-control" />
                 <span asp-validation-for="DateTime" class="text-danger"></span>
