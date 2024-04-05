@@ -91,7 +91,7 @@
                                     </div>
                                 </div>
                                 <div class="fixed bottom-0 right-0 mb-4 mr-4">
-                                    <button type="button" class="m1 auto rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Delete</button>
+                                    <button type="button" class="m1 auto rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" onclick="deleteTask('@task.Id')">Delete</button>
                                     <button type="button" class="m1 auto rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Save</button>
                                 </div>
 
@@ -479,3 +479,106 @@ function hoverReverse(taskId){
         console.log("Clicked on 'My Post-it56546'");
     }
 </script>
+
+<script>
+        function deleteTask(taskId) {
+            // Get the CSRF token from the form
+            const csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+            // Send a POST request with the task ID and CSRF token
+            fetch(`/Tasks/Delete/${taskId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'RequestVerificationToken': csrfToken // Include CSRF token in the headers
+                }
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to delete task');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Task deleted successfully, you can perform any necessary actions (e.g., hide task element)
+                    // For simplicity, let's reload the page
+                    location.reload();
+                })
+                .catch(error => {
+                    console.error('Error deleting task:', error);
+                    // Handle error scenario
+                });
+        setTimeout(() => {
+            location.reload();
+        }, 1000);
+        }
+
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const tabs = document.querySelectorAll(".tab");
+        const tabContents = document.querySelectorAll("#tab-content > div");
+
+        tabs.forEach((tab, index) => {
+            tab.addEventListener("click", function (event) {
+                event.preventDefault();
+
+                // Remove active class from all tabs and add default styling
+                tabs.forEach(tab => {
+                    tab.classList.remove("border-indigo-500", "text-indigo-600");
+                    tab.classList.add("border-transparent", "text-gray-500", "hover:border-gray-300", "hover:text-gray-700");
+                });
+
+                // Add active styling to clicked tab
+                tab.classList.remove("border-transparent", "text-gray-500", "hover:border-gray-300", "hover:text-gray-700");
+                tab.classList.add("border-indigo-500", "text-indigo-600");
+
+                // Hide all tab contents
+                tabContents.forEach(content => content.classList.add("hidden"));
+                // Show corresponding tab content
+                tabContents[index].classList.remove("hidden");
+            });
+        });
+
+        const openModalButton = document.getElementById("openModalButton");
+        const modal = document.getElementById("modal");
+        const closeModalButton = document.getElementById("closeModalButton");
+
+        openModalButton.addEventListener("click", function () {
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+        });
+
+        closeModalButton.addEventListener("click", function () {
+            modal.classList.remove("flex");
+            modal.classList.add("hidden");
+        });
+
+        const createTaskButton = document.getElementById("createTaskButton");
+        const taskForm = document.getElementById("taskForm");
+
+        createTaskButton.addEventListener("click", function () {
+            const formData = new FormData(taskForm);
+
+            fetch('@Url.Action("Create", "Tasks")', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data); // Log response data
+                    // Optionally, you can update the UI or display a success message
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                    // Optionally, you can display an error message to the user
+                });
+        });
+    });
+</script>
+
