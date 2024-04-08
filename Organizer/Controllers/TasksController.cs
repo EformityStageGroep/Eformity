@@ -47,20 +47,7 @@ namespace Organizer.Controllers
             }
         }
 
-        // POST: Tasks/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,Description,Priority,DateTime")] Organizer.Entities.Task task)
-        {
-            if (ModelState.IsValid)
-            {
-                task.Id = Guid.NewGuid();
-                _context.Add(task);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(task);
-        }
+        
 
         // GET: Tasks/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
@@ -78,10 +65,36 @@ namespace Organizer.Controllers
             return View(task);
         }
 
-        // POST: Tasks/Edit/5
+        // POST: Tasks/Create
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Title,Description,Priority,DateTime")] Organizer.Entities.Task task)
+        public async Task<IActionResult> Create([Bind("Title,Description,Priority,DateTime")] Organizer.Entities.Task task)
+        {
+            if (ModelState.IsValid)
+            {
+                task.Id = Guid.NewGuid();
+                _context.Add(task);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(task);
+        }
+        // GET: YourController/EditTask/{id}
+        public async Task<IActionResult> EditTask(Guid id)
+        {
+            var task = await _context.Task.FindAsync(id);
+            if (task == null)
+            {
+                return NotFound();
+            }
+            return View(task);
+        }
+
+        // POST: YourController/EditTask/{id}
+        [HttpPost]
+        
+        public async Task<IActionResult> EditTask(Guid id, [Bind("Id,Title,Description,Priority,DateTime")] Organizer.Entities.Task task)
         {
             if (id != task.Id)
             {
@@ -95,16 +108,10 @@ namespace Organizer.Controllers
                     _context.Update(task);
                     await _context.SaveChangesAsync();
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (Exception)
                 {
-                    if (!TaskExists(task.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    // Handle exception, log, etc.
+                    throw;
                 }
                 return RedirectToAction(nameof(Index));
             }
