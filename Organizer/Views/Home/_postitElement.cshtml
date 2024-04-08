@@ -1,16 +1,16 @@
 
 <link rel="stylesheet" href="../Views/Home/postitAnimation.css">
 
-<div id="slideoverModal" class="relative z-50 duration-300 ease-out  transition-all invisible" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+<div id="slideoverModal_@Model.Id" class="relative z-50 duration-300 ease-out  transition-all invisible" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
 
     <!-- Slideover content -->
     <div class="absolute inset-0 overflow-hidden">
         <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full h-auto pl-10 sm:pl-16 drop-shadow-2xl active">
             <div class="duration-500 transition-all ease-in pointer-events-auto w-screen max-w-2xl">
-                <div id="slideover" class="duration-500 ease-in transition-all flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl translate-x-full">
+                <div id="slideover_@Model.Id" class="duration-500 ease-in transition-all flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl translate-x-full">
                     <div class="px-4 sm:px-6">
                         <div class="flex items-start justify-between">
-                            <h2 class="text-base font-semibold leading-6 text-gray-900" id="slide-over-title">Editing: @Model.Title</h2>
+                            <h2 class="text-base font-semibold leading-6 text-gray-900" id="slide-over-title_@Model.Id">Editing: @Model.Title</h2>
                             <div class="ml-3 flex h-7 items-center">
                                 <button onclick="toggleSlideover()" type="button" class="cursor-pointer relative rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                                     <span class="absolute -inset-2.5"></span>
@@ -28,14 +28,14 @@
                         <div>
                             <label for="title" class="block text-sm font-medium leading-6 text-gray-900">Title</label>
                             <div class="mt-2">
-                                <input type="text" name="title" id="title" class="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Send e-mails to the customers" value="@Model.Title">
+                                <input type="text" name="title" id="title_@Model.Id" class="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Send e-mails to the customers" value="@Model.Title">
                             </div>
                         </div>
 
                         <div class="mt-5">
                             <label for="Description" class="block text-sm font-medium leading-6 text-gray-900">Description</label>
                             <div class="mt-2">
-                                <textarea name="Description" id="Description" class="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">@Model.Description</textarea>
+                                <textarea name="Description" id="Description_@Model.Id" class="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">@Model.Description</textarea>
                             </div>
                         </div>
 
@@ -49,17 +49,17 @@
                                     <div class="mt-5 grid min-h-screen w-auto place-items-start">
                                         <div class="grid w-[20rem] grid-cols-3 gap-2 rounded-xl bg-gray-100 p-2">
                                             <div>
-                                                <input type="radio" name="option" id="low" value="low" class="peer hidden" checked />
+                                                <input type="radio" name="option" id="low_@Model.Id" value="low" class="peer hidden" checked />
                                                 <label for="low" class="duration-200 transition-all ease-in block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-green-500 peer-checked:font-bold peer-checked:text-white">Low</label>
                                             </div>
 
                                             <div>
-                                                <input type="radio" name="option" id="medium" value="medium" class="peer hidden" />
+                                                <input type="radio" name="option" id="medium_@Model.Id" value="medium" class="peer hidden" />
                                                 <label for="medium" class="duration-200 transition-all ease-out block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-orange-500 peer-checked:font-bold peer-checked:text-white">Medium</label>
                                             </div>
 
                                             <div>
-                                                <input type="radio" name="option" id="high" value="high" class="peer hidden" />
+                                                <input type="radio" name="option" id="high_@Model.Id" value="high" class="peer hidden" />
                                                 <label for="high" class="duration-200 transition-all ease-in block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-red-500 peer-checked:font-bold peer-checked:text-white">High</label>
                                             </div>
                                         </div>
@@ -79,12 +79,12 @@
     </div>
 </div>
 
-<div id="postit" onclick="toggleDescription()" class="transition all ease-in-out  duration-150 text-white bg-white rounded-xl max-w-md  min-w-40 mx-auto bg-white  overflow-hidden p-2 flex items-center bg-gray-100 hover:bg-gray-200 hover:rounded-xl cursor-pointer relative">
+<div id="postit_@Model.Id" onclick="toggleDescription()" class="transition all ease-in-out  duration-150 text-white bg-white rounded-xl max-w-md  min-w-40 mx-auto bg-white  overflow-hidden p-2 flex items-center bg-gray-100 hover:bg-gray-200 hover:rounded-xl cursor-pointer relative">
     <div class=" w-fit h-fit ">
 
         <div class="inline-flex items-center">
             <label class="relative flex items-center p-3 rounded-full cursor-pointer" htmlFor="custom">
-                <input id="checkbox"
+                <input id="checkbox_@Model.Id"
                        onclick="checkmarkClick(event); makeGreen()"
                        type="checkbox"
                        class="peer relative appearance-none w-5 h-5 border rounded-md border-blue-gray-200 cursor-pointer transition-all before:content[''] before:block before:bg-blue-gray-500 before:w-12 before:h-12 before:rounded-full before:absolute before:top-2/4 before:left-2/4 before:-translate-y-2/4 before:-translate-x-2/4 before:opacity-0 hover:before:opacity-10 before:transition-opacity checked:bg-white checked:border-white checked:before:bg-white" />
@@ -100,12 +100,12 @@
     </div>
     <div class="flex flex-col items-start justify-center">
         <div class="flex items-center">
-            <h1 id="postitTitle" class="font-semibold cursor-pointer font-size-2 text-black " for="checkbox">My Post-it</h1>
-            <p id="priorityLabel" class="ml-3 border border-solid border-red-500 text-red-500 rounded-lg p-1 font-medium text-xs border h-6.5">HIGH</p>
+            <h1 id="postitTitle_@Model.Id" class="font-semibold cursor-pointer font-size-2 text-black " for="checkbox">My Post-it</h1>
+            <p id="priorityLabel_@Model.Id" class="ml-3 border border-solid border-red-500 text-red-500 rounded-lg p-1 font-medium text-xs border h-6.5">HIGH</p>
 
         </div>
 
-        <div id="descriptionText" class="hidden text-black bg-gray-200 rounded-lg p-2 m-1">
+        <div id="descriptionText_@Model.Id" class="hidden text-black bg-gray-200 rounded-lg p-2 m-1">
             <div class="font-semibold font-size-2">
                 Description:
             </div>
@@ -115,25 +115,25 @@
             </div>
         </div>
         <div class="flex items-center">
-            <p id="socialmediaLabel" class="text-zinc-700 font-light" href="">Facebook •&nbsp;</p>
-            <p id="dateLabel" href="" class="text-blue-500"> Monday, Mar 28, 17:00</p>
+            <p id="socialmediaLabel_@Model.Id" class="text-zinc-700 font-light" href="">Facebook •&nbsp;</p>
+            <p id="dateLabel_@Model.Id" href="" class="text-blue-500"> Monday, @Model.DateTime</p>
 
         </div>
 
     </div>
-    <div onclick="toggleSlideover()" id="informationPoints" class="place-content-center absolute top-0 right-0 p-2 hover:bg-gray-300 hover:rounded-xl">
-        <div id="infoDots1" class="w-1 h-1 bg-black rounded-full"></div>
-        <div id="infoDots2" class="w-1 h-1 bg-black rounded-full mt-0.5"></div>
-        <div id="infoDots3" class="w-1 h-1 bg-black rounded-full mt-0.5"></div>
+    <div onclick="toggleSlideover()" id="informationPoints_@Model.Id" class="place-content-center absolute top-0 right-0 p-2 hover:bg-gray-300 hover:rounded-xl">
+        <div id="infoDots1_@Model.Id" class="w-1 h-1 bg-black rounded-full"></div>
+        <div id="infoDots2_@Model.Id" class="w-1 h-1 bg-black rounded-full mt-0.5"></div>
+        <div id="infoDots3_@Model.Id" class="w-1 h-1 bg-black rounded-full mt-0.5"></div>
     </div>
 </div>
 
 
 
 <script>
-    document.getElementById("descriptionText").addEventListener('mouseenter', function (event) {
+    document.getElementById("descriptionText_@Model.Id").addEventListener('mouseenter', function (event) {
         console.log("hovering")
-        const postIt = document.getElementById("postit")
+        const postIt = document.getElementById("postit_"+@Model.Id)
         if (postIt.classList.contains("hover:bg-gray-200")) {
             postIt.classList.remove("hover:bg-gray-200")
 
@@ -146,8 +146,8 @@
 
     });
 
-    document.getElementById("descriptionText").addEventListener('mouseleave', function (event) {
-        const postIt = document.getElementById("postit")
+    document.getElementById("descriptionText_@Model.Id").addEventListener('mouseleave', function (event) {
+        const postIt = document.getElementById("postit_@Model.Id")
 
         if (!postIt.classList.contains("hover:bg-gray-200")) {
             postIt.classList.add("hover:bg-gray-200")
@@ -163,8 +163,8 @@
 
 
     function toggleDescription() {
-        const postit = document.getElementById('postit')
-        const descriptionText = document.getElementById("descriptionText")
+        const postit = document.getElementById('postit_@Model.Id')
+        const descriptionText = document.getElementById("descriptionText_@Model.Id")
 
         if (descriptionText.classList.contains('hidden')) {
             descriptionText.classList.remove('hidden');
@@ -185,20 +185,20 @@
     function makeGreen() {
         console.log("make green")
 
-        const descriptionText = document.getElementById("descriptionText")
+        const descriptionText = document.getElementById("descriptionText_@Model.Id")
 
-        const postitTitle = document.getElementById("postitTitle")
+        const postitTitle = document.getElementById("postitTitle_@Model.Id")
 
-        const priorityLabel = document.getElementById("priorityLabel")
-        const socialmediaLabel = document.getElementById("socialmediaLabel")
-        const dateLabel = document.getElementById("dateLabel")
+        const priorityLabel = document.getElementById("priorityLabel_@Model.Id")
+        const socialmediaLabel = document.getElementById("socialmediaLabel_@Model.Id")
+        const dateLabel = document.getElementById("dateLabel_@Model.Id")
 
-        const postIt = document.getElementById("postit");
-        const checkboxPostit = document.getElementById("checkbox")
+        const postIt = document.getElementById("postit_@Model.Id");
+        const checkboxPostit = document.getElementById("checkbox_@Model.Id")
 
-        const infoDots1 = document.getElementById("infoDots1")
-        const infoDots2 = document.getElementById("infoDots2")
-        const infoDots3 = document.getElementById("infoDots3")
+        const infoDots1 = document.getElementById("infoDots1_@Model.Id")
+        const infoDots2 = document.getElementById("infoDots2_@Model.Id")
+        const infoDots3 = document.getElementById("infoDots3_@Model.Id")
 
         if (checkboxPostit.checked) {
 
@@ -296,15 +296,15 @@
 
     }
 
-    document.getElementById("informationPoints").addEventListener('click', function (event) {
+    document.getElementById("informationPoints_@Model.Id").addEventListener('click', function (event) {
         event.stopPropagation()
 
     });
 
     function toggleSlideover() {
 
-        document.getElementById('slideoverModal').classList.toggle('invisible');
-        document.getElementById('slideover').classList.toggle('translate-x-full');
+        document.getElementById("slideoverModal_@Model.Id").classList.toggle('invisible');
+        document.getElementById("slideover_@Model.Id").classList.toggle('translate-x-full');
         console.log("Clicked on 'My Post-it56546'");
     }
 </script>
