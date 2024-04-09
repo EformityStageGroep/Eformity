@@ -71,11 +71,6 @@
                                     <button type="button" class="m1 auto rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" onclick="deleteTask('@task.Id')">Delete</button>
                                 </div>
                             </form>
-
-                               <div class="fixed right-0 mt-4 mb-4 mr-4">
-                                    
-                                    
-                                </div>
                         </div>
                     </div>
                 </div>
@@ -170,37 +165,7 @@
 }
 @section scripts {
 <script>
-    document.getElementById("descriptionText").addEventListener('mouseenter', function (event) {
-        console.log("hovering")
-        const postIt = document.getElementById("postit")
-        if (postIt.classList.contains("hover:bg-gray-200")) {
-            postIt.classList.remove("hover:bg-gray-200")
-
-        }
-        else {
-            postIt.classList.remove("hover:bg-green-600")
-
-        }
-
-
-    });
-
-    document.getElementById("descriptionText").addEventListener('mouseleave', function (event) {
-        const postIt = document.getElementById("postit")
-
-        if (!postIt.classList.contains("hover:bg-gray-200")) {
-            postIt.classList.add("hover:bg-gray-200")
-
-
-        }
-        else {
-            postIt.classList.add("hover:bg-green-600")
-
-        }
-
-    });
-
-
+    
         function toggleDescription(taskId) {
             const postit = document.getElementById("postit_" + taskId)
             const descriptionText = document.getElementById("descriptionText_" + taskId)
@@ -219,8 +184,6 @@
 
 
         }
-
-
 
         function makeGreen(taskId) {
             console.log("make green")
@@ -337,10 +300,7 @@
 
     }
 
-    document.getElementById("informationPoints").addEventListener('click', function (event) {
-        event.stopPropagation()
 
-    });
 
         function toggleSlideover(taskId) {
             document.getElementById("slideoverModal_" + taskId).classList.toggle('invisible');
@@ -414,6 +374,7 @@
         openModalButton.addEventListener("click", function () {
             modal.classList.remove("hidden");
             modal.classList.add("flex");
+            console.log("test");
         });
 
         closeModalButton.addEventListener("click", function () {
