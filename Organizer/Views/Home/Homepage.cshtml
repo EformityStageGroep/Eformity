@@ -26,7 +26,7 @@
                     <h3 class="text-lg font-medium leading-6 text-gray-900" id="modalTitle">
                         Create Task
                     </h3>
-                    <form id="taskForm" method="post" asp-action="@Url.Action("Create", "Tasks")" class="mt-4">
+                    <form id="taskForm" method="post"  class="mt-4">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="mt-2">
                             <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
@@ -44,6 +44,7 @@
                                 <option value="low">Low</option>
                             </select>
                         </div>
+
                         <div class="mt-2">
                             <label for="datetime" class="block text-sm font-medium text-gray-700">Date and Time</label>
                             <input type="datetime-local" id="datetime" name="datetime" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
@@ -81,15 +82,17 @@
                 <option>Low priority</option>
             </select>
         </div>
+        
         <!-- Tabs at small breakpoint and up -->
         <div class="hidden sm:block" id="tabs">
             <nav class="-mb-px flex space-x-8">
                 <!-- Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
-                <a href="#all-priorities" class="tab border-indigo-500 text-indigo-600 whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" aria-current="page">All Priorities</a>
-                <a href="#high-priority" class="tab border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" aria-current="page">High priority</a>
-                <a href="#medium-priority" class="tab border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium">Medium priority</a>
 
-                <a href="#low-priority" class="tab border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium">Low priority</a>
+                <a onclick="filterTasksByPriority('ALL')" class="tab border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" aria-current="page">All priorities</a>
+                <a onclick="filterTasksByPriority('HIGH')" class="tab border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" aria-current="page">High priority</a>
+                <a onclick="filterTasksByPriority('MEDIUM')" class="tab border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" aria-current="page">Medium priority</a>
+                <a onclick="filterTasksByPriority('LOW')" class="tab border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" aria-current="page">Low priority</a>
+                
 
             </nav>
         </div>
@@ -100,9 +103,7 @@
 <div class="mt-7" id="tab-content">
     <div class="flex flex-wrap" id="low-priority">
         <div class="justift-items-start">
-            <div>
-                @Html.Partial("_postitElement")
-            </div>
+            
         </div>
     </div>
     <div id="medium-priority" class="hidden">High Priority Content</div>
@@ -114,6 +115,7 @@
 
 @section scripts {
     <script>
+       
         document.addEventListener("DOMContentLoaded", function () {
             const tabs = document.querySelectorAll(".tab");
             const tabContents = document.querySelectorAll("#tab-content > div");
@@ -153,31 +155,7 @@
                 modal.classList.add("hidden");
             });
 
-            const createTaskButton = document.getElementById("createTaskButton");
-            const taskForm = document.getElementById("taskForm");
-
-            createTaskButton.addEventListener("click", function () {
-                const formData = new FormData(taskForm);
-
-                fetch('@Url.Action("Create", "Tasks")', {
-                    method: 'POST',
-                    body: formData
-                })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        console.log(data); // Log response data
-                        // Optionally, you can update the UI or display a success message
-                    })
-                    .catch(error => {
-                        console.error('There was a problem with the fetch operation:', error);
-                        // Optionally, you can display an error message to the user
-                    });
-            });
+            
         });
     </script>
 }

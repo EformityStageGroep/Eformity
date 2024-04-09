@@ -9,8 +9,6 @@ using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using Organizer.Contexts;
 using Organizer.Services;
-using Westwind.AspNetCore.LiveReload;
-
 
 
 
@@ -28,9 +26,9 @@ builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
 // Ignore cookies on start
 builder.Services.Configure<CookieAuthenticationOptions>(CookieAuthenticationDefaults.AuthenticationScheme, options => options.Events = new RejectSessionCookieWhenAccountNotInCacheEvents());
 
-builder.Services.AddLiveReload()
+/*builder.Services.AddLiveReload()
     .AddLiveReload();
-
+*/
   
 
 // Add DbContext
@@ -61,7 +59,7 @@ builder.Services.AddRazorPages()
 
 var app = builder.Build();
 
-app.UseLiveReload();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

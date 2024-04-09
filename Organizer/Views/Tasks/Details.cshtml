@@ -1,43 +1,468 @@
-﻿@model Organizer.Entities.Task
+﻿@model List<Organizer.Entities.Task>
 
-@{
-    ViewData["Title"] = "Details";
+@Html.Partial("../Home/Homepage")
+
+
+@foreach (var task in Model)
+{
+
+
+
+    <div id="slideoverModal_@task.Id" class="relative z-50 duration-300 ease-out  transition-all invisible" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+
+
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full h-auto pl-10 sm:pl-16 drop-shadow-2xl active">
+                <!-- Your content here -->
+                <div class="duration-500 transition-all ease-in pointer-events-auto w-screen max-w-2xl">
+                    <div id="slideover_@task.Id" class="duration-500 ease-in transition-all flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl translate-x-full">
+                        <div class="px-4 sm:px-6">
+                            <div class="flex items-start justify-between">
+                                <h2 class="text-base font-semibold leading-6 text-gray-900" id="slide-over-title_@task.Id">Editing: @task.Title</h2>
+                                <div class="ml-3 flex h-7 items-center">
+                                    <button onclick="toggleSlideover('@task.Id')" type="button" class="cursor-pointer relative rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                                        <span class="absolute -inset-2.5"></span>
+                                        <span class="sr-only">Close panel</span>
+                                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="relative mt-6 flex-1 px-4 sm:px-6">
+
+
+                      
+
+
+                            <form asp-action="EditTask" asp-route-id="@task.Id">
+                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="@task.Id" />
+                            <div class="form-group">
+                                <label asp-for="@task.Title" class="control-label"></label>
+                                    <input asp-for="@task.Title" class="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Send e-mails to the customers" value="@task.Title">
+                                    
+                                    <span asp-validation-for="@task.Title" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="@task.Description" class="control-label"></label>
+                                    <input asp-for="@task.Description" class=" p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Put James in the CC!">
+   
+                                    <span asp-validation-for="@task.Description" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@task.Priority" class="control-label"></label>
+                                    <select asp-for="@task.Priority" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                        <option value="high">High</option>
+                                        <option value="medium">Medium</option>
+                                        <option value="low">Low</option>
+                                    </select>
+                                    <span asp-validation-for="@task.Priority" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@task.DateTime" class="control-label"></label>
+                                    <input asp-for="@task.DateTime" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+
+                                    <span asp-validation-for="@task.DateTime" class="text-danger"></span>
+                                </div>
+                                <div class="form-group fixed right-0 mt-4 mb-4 mr-4">
+                                    <input type="submit" value="Save" class="m1 auto rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" onclick="updateTask('@task.Id')">
+                                    <button type="button" class="m1 auto rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" onclick="deleteTask('@task.Id')">Delete</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="postit_@task.Id" onclick="toggleDescription('@task.Id')" class="mb-3 transition all ease-in-out  duration-150 text-white bg-white rounded-xl max-w-md  min-w-40 w-auto mx-auto bg-white p-2 flex items-center bg-gray-100 hover:bg-gray-200 hover:rounded-xl cursor-pointer relative">
+        <div class=" w-fit h-fit ">
+
+            <div class="inline-flex items-center">
+                <label class="relative flex items-center p-3 rounded-full cursor-pointer" htmlFor="custom">
+                    <input id="checkbox_@task.Id"
+                           onclick="checkmarkClick(event, '@task.Id'); makeGreen('@task.Id')"
+                           type="checkbox"
+                           class="peer relative appearance-none w-5 h-5 border rounded-md border-blue-gray-200 cursor-pointer transition-all before:content[''] before:block before:bg-blue-gray-500 before:w-12 before:h-12 before:rounded-full before:absolute before:top-2/4 before:left-2/4 before:-translate-y-2/4 before:-translate-x-2/4 before:opacity-0 hover:before:opacity-10 before:transition-opacity checked:bg-white checked:border-white checked:before:bg-white" />
+                    <span class="absolute text-white transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13.2667 0.534432C12.9576 0.334203 12.5817 0.264801 12.2215 0.341463C11.8613 0.418125 11.5463 0.634586 11.3456 0.943321L5.29778 10.265L2.50389 7.68165C2.37051 7.55496 2.21328 7.45603 2.04134 7.39061C1.86941 7.32518 1.68619 7.29457 1.50232 7.30054C1.31845 7.30651 1.1376 7.34895 0.970275 7.42539C0.802945 7.50183 0.652469 7.61075 0.527583 7.74583C0.402697 7.88091 0.30589 8.03945 0.242784 8.21225C0.179678 8.38505 0.151529 8.56867 0.159972 8.75244C0.168415 8.93621 0.213283 9.11647 0.291968 9.28276C0.370654 9.44904 0.481591 9.59804 0.618337 9.7211L4.62334 13.4244C4.89 13.6717 5.22889 13.7939 5.56556 13.7939C5.93945 13.7939 6.41778 13.6372 6.73167 13.1611C6.91611 12.88 13.6761 2.45554 13.6761 2.45554C13.7754 2.30252 13.8435 2.13144 13.8767 1.95208C13.9098 1.77271 13.9073 1.58858 13.8693 1.41018C13.8313 1.23179 13.7585 1.06263 13.6551 0.912371C13.5517 0.762109 13.4197 0.633685 13.2667 0.534432Z" fill="rgb(21 128 61)" />
+                        </svg>
+                    </span>
+                </label>
+            </div>
+
+
+        </div>
+        <div class="flex flex-col items-start justify-center">
+            <div class="flex items-center">
+                <h1 id="postitTitle_@task.Id" class="font-semibold cursor-pointer font-size-2 text-black " for="checkbox">@task.Title</h1>
+                <div class="">
+
+                    <button id="postitStatusDropdown_@task.Id" onclick="statusDropDown(event, '@task.Id'), openStatusDropdown('@task.Id')" data-dropdown-toggle="dropdown" class=" ml-3 border border-solid border-black text-black rounded-lg p-1 font-medium text-xs border h-6.5 ml-1 flex p-1 cursor-pointer hover:bg-gray-200" type="button">
+                        <span id="dropdownButton_@task.Id">
+                            To Do
+
+                        </span>
+                        <svg class="w-2.5 h-2.5 ms-1.5 mt-0.5 mr-1 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
+                        </svg>
+                    </button>
+
+
+                    <!-- Dropdown menu -->
+
+                    <div class="relative">
+                        <div id="dropdown_@task.Id" class="absolute hidden z-50 bg-gray-100 divide-y divide-gray-200 rounded-lg shadow w-44 border border-gray-200 top-0 left-0">
+                            <ul class="py-2 text-sm text-gray-900" aria-labelledby="postitStatusDropdown">
+                                <li>
+                                    <a href="#" class="block px-4 py-2 hover:bg-gray-200">To Do</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="block px-4 py-2 hover:bg-gray-200">In Progress</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="block px-4 py-2 hover:bg-gray-200">Done</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                <p id="priorityLabel_@task.Id" class="ml-3 border border-solid border-red-500 text-red-500 rounded-lg p-1 font-medium text-xs border h-6.5 mr-6">@task.Priority</p>
+
+            </div>
+
+            <div id="descriptionText_@task.Id" class="hidden text-black bg-gray-50 rounded-lg p-2 m-1">
+                <div class="font-semibold font-size-2">
+                    Description:
+                </div>
+                <div class="font-light font-size-2 max-h-[200px] overflow-y-auto">
+                    @task.Description
+                </div>
+            </div>
+            <div class="flex items-center">
+                <p id="socialmediaLabel_@task.Id" class="text-zinc-700 font-light" href="">Facebook •&nbsp;</p>
+                <p id="dateLabel_@task.Id" href="" class="text-blue-500"> @task.DateTime</p>
+
+            </div>
+
+        </div>
+        <div onclick="toggleSlideover('@task.Id')" id="informationPoints_@task.Id" class="place-content-center absolute top-0 right-0 p-2 hover:bg-gray-300 hover:rounded-xl">
+            <div id="infoDots1_@task.Id" class="w-1 h-1 bg-black rounded-full"></div>
+            <div id="infoDots2_@task.Id" class="w-1 h-1 bg-black rounded-full mt-0.5"></div>
+            <div id="infoDots3_@task.Id" class="w-1 h-1 bg-black rounded-full mt-0.5"></div>
+        </div>
+    </div>
+
 }
+@section scripts {
+<script>
 
-<h1>Details</h1>
+    function filterTasksByPriority(priority) {
+        var tasks = document.querySelectorAll('[id^="postit_"]');
+        tasks.forEach(function (task) {
+            var taskId = task.id.split("_")[1]; // Extracting task ID from element ID
+            var priorityLabel = document.getElementById('priorityLabel_' + taskId).innerText.trim();
+            if (priority === "ALL" || priorityLabel === priority) {
+                task.style.display = 'block'; // Show the task if priority matches or if "ALL" is selected
+            } else {
+                task.style.display = 'none'; // Hide the task if priority does not match and "ALL" is not selected
+            }
+        });
+    }
 
-<div>
-    <h4>Task</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            Title
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class="col-sm-2">
-            Description
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class="col-sm-2">
-            Priority
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Priority)
-        </dd>
-        <dt class="col-sm-2">
-            Date & Time
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DateTime)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+        function toggleDescription(taskId) {
+            const postit = document.getElementById("postit_" + taskId)
+            const descriptionText = document.getElementById("descriptionText_" + taskId)
 
+            if (descriptionText.classList.contains('hidden')) {
+                descriptionText.classList.remove('hidden');
+
+            }
+            else {
+                descriptionText.classList.add('hidden')
+
+            }
+
+
+
+
+
+
+        }
+
+        function makeGreen(taskId) {
+            console.log("make green")
+
+            const postitStatusDropdown = document.getElementById("postitStatusDropdown_" + taskId)
+            const descriptionText = document.getElementById("descriptionText_" + taskId)
+
+            const postitTitle = document.getElementById("postitTitle_" + taskId)
+
+            const priorityLabel = document.getElementById("priorityLabel_" + taskId)
+            const socialmediaLabel = document.getElementById("socialmediaLabel_" + taskId)
+            const dateLabel = document.getElementById("dateLabel_" + taskId)
+
+            const postIt = document.getElementById("postit_" + taskId);
+            const checkboxPostit = document.getElementById("checkbox_" + taskId)
+
+            const infoDots1 = document.getElementById("infoDots1_" + taskId)
+            const infoDots2 = document.getElementById("infoDots2_" + taskId)
+            const infoDots3 = document.getElementById("infoDots3_" + taskId)
+
+        if (checkboxPostit.checked) {
+
+            descriptionText.classList.remove("bg-gray-200")
+            descriptionText.classList.add("bg-green-50")
+
+            infoDots1.classList.remove("bg-black")
+            infoDots1.classList.add("bg-white")
+
+            infoDots2.classList.remove("bg-black")
+            infoDots2.classList.add("bg-white")
+
+            infoDots3.classList.remove("bg-black")
+            infoDots3.classList.add("bg-white")
+
+
+            priorityLabel.classList.remove("border-red-500")
+            priorityLabel.classList.remove("text-red-500")
+
+            priorityLabel.classList.add("border-white")
+            priorityLabel.classList.remove("border-red-500")
+
+
+            postIt.classList.remove("hover:bg-gray-100")
+            postIt.classList.remove("bg-white")
+
+            dateLabel.classList.remove("text-blue-500")
+            dateLabel.classList.add("text-white")
+
+
+            postIt.classList.add("hover:bg-green-600")
+            postIt.classList.add("bg-green-700")
+
+            postitTitle.classList.add("text-white")
+            postitTitle.classList.remove("text-black")
+
+            socialmediaLabel.classList.add("text-white")
+            socialmediaLabel.classList.remove("text-zinc-700")
+
+            // postitTitle.innerText = postitTitle.innerText + "   Done!"
+
+
+
+        }
+        else {
+
+            descriptionText.classList.add("bg-gray-200")
+            descriptionText.classList.remove("bg-green-50")
+
+            infoDots1.classList.add("bg-black")
+            infoDots1.classList.remove("bg-white")
+
+            infoDots2.classList.add("bg-black")
+            infoDots2.classList.remove("bg-white")
+
+            infoDots3.classList.add("bg-black")
+            infoDots3.classList.remove("bg-white")
+
+            postitTitle.innerText = "My Post-it"
+
+
+            postitTitle.classList.add("text-black")
+            postitTitle.classList.remove("text-white")
+
+            priorityLabel.classList.add("border-red-500")
+            priorityLabel.classList.remove("border-white")
+
+            socialmediaLabel.classList.remove("text-white")
+            socialmediaLabel.classList.add("text-zinc-700")
+
+
+            priorityLabel.classList.add("border-red-500")
+            priorityLabel.classList.add("text-red-500")
+            priorityLabel.classList.remove("text-white")
+
+            dateLabel.classList.add("text-blue-500")
+            dateLabel.classList.remove("text-white")
+
+            postIt.classList.remove("bg-green-700")
+            postIt.classList.remove("hover:bg-green-600")
+
+            postIt.classList.add("hover:bg-gray-200")
+            postIt.classList.add("bg-white")
+
+
+
+        }
+
+
+
+    }
+
+    function checkmarkClick(event) {
+        event.stopPropagation();
+
+    }
+
+
+
+        function toggleSlideover(taskId) {
+            document.getElementById("slideoverModal_" + taskId).classList.toggle('invisible');
+            document.getElementById("slideover_" + taskId).classList.toggle('translate-x-full');
+            console.log(taskId);
+        }
+
+    function deleteTask(taskId) {
+        // Get the CSRF token from the form
+        const csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+        // Send a POST request with the task ID and CSRF token
+        fetch(`/Tasks/Delete/${taskId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'RequestVerificationToken': csrfToken // Include CSRF token in the headers
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to delete task');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Task deleted successfully, you can perform any necessary actions (e.g., hide task element)
+                // For simplicity, let's reload the page
+                location.reload();
+            })
+            .catch(error => {
+                console.error('Error deleting task:', error);
+                // Handle error scenario
+            });
+    setTimeout(() => {
+        location.reload();
+    }, 500);
+    }
+
+
+
+    document.addEventListener("DOMContentLoaded", function (taskId) {
+        const tabs = document.querySelectorAll(".tab");
+        const tabContents = document.querySelectorAll("#tab-content > div");
+
+        tabs.forEach((tab, index) => {
+            tab.addEventListener("click", function (event) {
+                event.preventDefault();
+
+                // Remove active class from all tabs and add default styling
+                tabs.forEach(tab => {
+                    tab.classList.remove("border-indigo-500", "text-indigo-600");
+                    tab.classList.add("border-transparent", "text-gray-500", "hover:border-gray-300", "hover:text-gray-700");
+                });
+
+                // Add active styling to clicked tab
+                tab.classList.remove("border-transparent", "text-gray-500", "hover:border-gray-300", "hover:text-gray-700");
+                tab.classList.add("border-indigo-500", "text-indigo-600");
+
+                // Hide all tab contents
+                tabContents.forEach(content => content.classList.add("hidden"));
+                // Show corresponding tab content
+                tabContents[index].classList.remove("hidden");
+            });
+        });
+
+        const openModalButton = document.getElementById("openModalButton");
+        const modal = document.getElementById("modal");
+        const closeModalButton = document.getElementById("closeModalButton");
+
+        openModalButton.addEventListener("click", function () {
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+            console.log("test");
+        });
+
+        closeModalButton.addEventListener("click", function () {
+            modal.classList.remove("flex");
+            modal.classList.add("hidden");
+        });
+
+        const createTaskButton = document.getElementById("createTaskButton");
+        const taskForm = document.getElementById("taskForm");
+
+        createTaskButton.addEventListener("click", function () {
+            const formData = new FormData(taskForm);
+
+            fetch('@Url.Action("Create", "Tasks")', {
+                method: 'POST',
+                body: formData,
+             
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data); // Log response data
+                    // Optionally, you can update the UI or display a success message
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                    // Optionally, you can display an error message to the user
+                });
+            setTimeout(() => {
+                location.reload();
+            }, 500);
+        });
+
+    });
+    
+    function updateTask(taskId) {
+            var form = document.getElementById('editTaskForm');
+        // Get the form data
+            const formData = new FormData(form);
+        console.log(formData);
+        // Send a POST request with the task ID and form data
+            const csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+            // Send a POST request with the task ID and CSRF token
+            fetch(`/Tasks/EditTask/${taskId}`, {
+                method: 'POST',
+                body: formData,
+               
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to update task');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Task updated successfully, you can perform any necessary actions
+                    // For simplicity, let's reload the page after 1 second
+                    setTimeout(() => {
+                        location.reload();
+                    }, 500); // 1000 milliseconds = 1 second
+                })
+                .catch(error => {
+                    console.error('Error updating task:', error);
+                    // Handle error scenario
+                });
+        
+          
+    }
+  
+
+</script>
+}
