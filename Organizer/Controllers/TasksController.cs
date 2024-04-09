@@ -113,7 +113,7 @@ namespace Organizer.Controllers
                     // Handle exception, log, etc.
                     throw;
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details));
             }
             return View(task);
         }
