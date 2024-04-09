@@ -21,4 +21,5 @@ namespace Organizer.Entities
 
         public Task() => Id = Guid.NewGuid();
     }
+    
 }
