@@ -1,6 +1,9 @@
 
 <link rel="stylesheet" href="../Views/Home/postitAnimation.css">
 
+<div id="slideoverModal"  class="relative z-50 duration-300 ease-out  transition-all invisible" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+
+
 <div id="slideoverModal_@Model.Id" class="relative z-50 duration-300 ease-out  transition-all invisible" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
 
     <!-- Slideover content -->
@@ -25,10 +28,12 @@
                     <div class="relative mt-6 flex-1 px-4 sm:px-6">
 
 
+
                         <div>
                             <label for="title" class="block text-sm font-medium leading-6 text-gray-900">Title</label>
                             <div class="mt-2">
                                 <input type="text" name="title" id="title_@Model.Id" class="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Send e-mails to the customers" value="@Model.Title">
+
                             </div>
                         </div>
 
@@ -36,6 +41,7 @@
                             <label for="Description" class="block text-sm font-medium leading-6 text-gray-900">Description</label>
                             <div class="mt-2">
                                 <textarea name="Description" id="Description_@Model.Id" class="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">@Model.Description</textarea>
+
                             </div>
                         </div>
 
@@ -61,14 +67,17 @@
                                             <div>
                                                 <input type="radio" name="option" id="high_@Model.Id" value="high" class="peer hidden" />
                                                 <label for="high" class="duration-200 transition-all ease-in block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-red-500 peer-checked:font-bold peer-checked:text-white">High</label>
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                             <div class="fixed bottom-0 right-0 mb-4 mr-4">
                                 <button type="button" class="m1 auto rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Delete</button>
                                 <button type="button" class="m1 auto rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Save</button>
+
 
                             </div>
                         </div>
@@ -91,11 +100,11 @@
                 <span class="absolute text-white transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M13.2667 0.534432C12.9576 0.334203 12.5817 0.264801 12.2215 0.341463C11.8613 0.418125 11.5463 0.634586 11.3456 0.943321L5.29778 10.265L2.50389 7.68165C2.37051 7.55496 2.21328 7.45603 2.04134 7.39061C1.86941 7.32518 1.68619 7.29457 1.50232 7.30054C1.31845 7.30651 1.1376 7.34895 0.970275 7.42539C0.802945 7.50183 0.652469 7.61075 0.527583 7.74583C0.402697 7.88091 0.30589 8.03945 0.242784 8.21225C0.179678 8.38505 0.151529 8.56867 0.159972 8.75244C0.168415 8.93621 0.213283 9.11647 0.291968 9.28276C0.370654 9.44904 0.481591 9.59804 0.618337 9.7211L4.62334 13.4244C4.89 13.6717 5.22889 13.7939 5.56556 13.7939C5.93945 13.7939 6.41778 13.6372 6.73167 13.1611C6.91611 12.88 13.6761 2.45554 13.6761 2.45554C13.7754 2.30252 13.8435 2.13144 13.8767 1.95208C13.9098 1.77271 13.9073 1.58858 13.8693 1.41018C13.8313 1.23179 13.7585 1.06263 13.6551 0.912371C13.5517 0.762109 13.4197 0.633685 13.2667 0.534432Z" fill="rgb(21 128 61)" />
+
                     </svg>
                 </span>
             </label>
         </div>
-
 
     </div>
     <div class="flex flex-col items-start justify-center">
@@ -112,182 +121,185 @@
             <div class="font-light font-size-2 max-h-[200px] overflow-y-auto">
                 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,
 
+
+            </div>
+        </div>
+        
+        <div id="descriptionText" class="hidden text-black bg-gray-50 rounded-lg p-2 m-1">
+            <div class="font-semibold font-size-2">
+                Description:
+            </div>
+            <div class="font-light font-size-2 max-h-[200px] overflow-y-auto">
+               Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,
+
             </div>
         </div>
         <div class="flex items-center">
+
             <p id="socialmediaLabel_@Model.Id" class="text-zinc-700 font-light" href="">Facebook •&nbsp;</p>
             <p id="dateLabel_@Model.Id" href="" class="text-blue-500"> Monday, @Model.DateTime</p>
+
 
         </div>
 
     </div>
+
     <div onclick="toggleSlideover()" id="informationPoints_@Model.Id" class="place-content-center absolute top-0 right-0 p-2 hover:bg-gray-300 hover:rounded-xl">
         <div id="infoDots1_@Model.Id" class="w-1 h-1 bg-black rounded-full"></div>
         <div id="infoDots2_@Model.Id" class="w-1 h-1 bg-black rounded-full mt-0.5"></div>
         <div id="infoDots3_@Model.Id" class="w-1 h-1 bg-black rounded-full mt-0.5"></div>
+
     </div>
 </div>
 
 
 
 <script>
-    document.getElementById("descriptionText_@Model.Id").addEventListener('mouseenter', function (event) {
-        console.log("hovering")
-        const postIt = document.getElementById("postit_"+@Model.Id)
-        if (postIt.classList.contains("hover:bg-gray-200")) {
-            postIt.classList.remove("hover:bg-gray-200")
-
-        }
-        else {
-            postIt.classList.remove("hover:bg-green-600")
-
-        }
-
-
-    });
-
-    document.getElementById("descriptionText_@Model.Id").addEventListener('mouseleave', function (event) {
-        const postIt = document.getElementById("postit_@Model.Id")
-
-        if (!postIt.classList.contains("hover:bg-gray-200")) {
-            postIt.classList.add("hover:bg-gray-200")
-
-
-        }
-        else {
-            postIt.classList.add("hover:bg-green-600")
-
-        }
-
-    });
-
-
-    function toggleDescription() {
-        const postit = document.getElementById('postit_@Model.Id')
-        const descriptionText = document.getElementById("descriptionText_@Model.Id")
-
-        if (descriptionText.classList.contains('hidden')) {
-            descriptionText.classList.remove('hidden');
-
-        }
-        else {
-            descriptionText.classList.add('hidden')
-
-        }
 
 
 
+   
 
 
+function hideStatusDropdown() {
+    statusDropDownPostit = document.getElementById("dropdown")
+    statusDropDownPostit.classList.add("hidden")
+    
     }
 
+document.addEventListener('click', function(event) {
+    const dropdown = document.getElementById('dropdown');
+    const targetElement = event.target; // Element that triggered the event
 
-    function makeGreen() {
-        console.log("make green")
+    // Check if the clicked element is outside the dropdown
+    if (!dropdown.contains(targetElement)) {
+        dropdown.classList.add('hidden'); // Hide the dropdown
+    }
+});
 
-        const descriptionText = document.getElementById("descriptionText_@Model.Id")
-
-        const postitTitle = document.getElementById("postitTitle_@Model.Id")
-
-        const priorityLabel = document.getElementById("priorityLabel_@Model.Id")
-        const socialmediaLabel = document.getElementById("socialmediaLabel_@Model.Id")
-        const dateLabel = document.getElementById("dateLabel_@Model.Id")
-
-        const postIt = document.getElementById("postit_@Model.Id");
-        const checkboxPostit = document.getElementById("checkbox_@Model.Id")
-
-        const infoDots1 = document.getElementById("infoDots1_@Model.Id")
-        const infoDots2 = document.getElementById("infoDots2_@Model.Id")
-        const infoDots3 = document.getElementById("infoDots3_@Model.Id")
-
-        if (checkboxPostit.checked) {
-
-            descriptionText.classList.remove("bg-gray-200")
-            descriptionText.classList.add("bg-green-50")
-
-            infoDots1.classList.remove("bg-black")
-            infoDots1.classList.add("bg-white")
-
-            infoDots2.classList.remove("bg-black")
-            infoDots2.classList.add("bg-white")
-
-            infoDots3.classList.remove("bg-black")
-            infoDots3.classList.add("bg-white")
+function statusDropDown(event) {
+    event.stopPropagation(); // Prevent dropdown from being hidden by parent click
+    const dropdown = document.getElementById('dropdown');
+    dropdown.classList.toggle('hidden'); // Toggle visibility of dropdown
+}
 
 
-            priorityLabel.classList.remove("border-red-500")
-            priorityLabel.classList.remove("text-red-500")
-
-            priorityLabel.classList.add("border-white")
-            priorityLabel.classList.remove("border-red-500")
-
-
-            postIt.classList.remove("hover:bg-gray-100")
-            postIt.classList.remove("bg-white")
-
-            dateLabel.classList.remove("text-blue-500")
-            dateLabel.classList.add("text-white")
-
-
-            postIt.classList.add("hover:bg-green-600")
-            postIt.classList.add("bg-green-700")
-
-            postitTitle.classList.add("text-white")
-            postitTitle.classList.remove("text-black")
-
-            socialmediaLabel.classList.add("text-white")
-            socialmediaLabel.classList.remove("text-zinc-700")
-
-            // postitTitle.innerText = postitTitle.innerText + "   Done!"
-
-
-
+        // Function to handle dropdown toggle
+        function statusDropDown(event) {
+            event.stopPropagation(); // Prevent dropdown from being hidden by parent click
+            const dropdown = document.getElementById('dropdown');
+            dropdown.classList.toggle('hidden'); // Toggle visibility of dropdown
         }
+    
+        // Function to handle dropdown item selection and update button text
+        function statusSelectLabelChange(event) {
+            const selectedText = event.target.innerText; // Get the inner text of the selected dropdown item
+            const buttonText = document.getElementById('dropdownButton');
+            buttonText.innerText = selectedText; // Update button text with the selected dropdown item text
+        }
+    
+        // Add event listeners to dropdown items to handle selection
+        const dropdownItems = document.querySelectorAll('#dropdown ul li a');
+        dropdownItems.forEach(item => {
+            item.addEventListener('click', statusSelectLabelChange);
+        });
+
+function statusDropDown(event) {
+    event.stopPropagation()
+    }
+
+postIt = document.getElementById('postit')
+dropdown = document.getElementById("dropdown")
+informationPoints = document.getElementById("informationPoints")
+postItStatusDropdown = document.getElementById("postitStatusDropdown")
+
+informationPoints.addEventListener('mouseenter', hoverFun)
+dropdown.addEventListener('mouseenter', hoverFun)
+postItStatusDropdown.addEventListener('mouseenter', hoverFun)
+
+informationPoints.addEventListener('mouseleave', hoverReverse)
+dropdown.addEventListener('mouseleave', hoverReverse)
+postItStatusDropdown.addEventListener('mouseleave', hoverReverse)
+
+function hoverFun(){
+        postIt.classList.remove('hover:bg-gray-200')
+        postIt.classList.add('hover:bg-gray-100')
+    }
+    
+function hoverReverse(){
+        postIt.classList.add('hover:bg-gray-200')
+        postIt.classList.remove('hover:bg-gray-100')
+    }    
+    
+    
+
+
+document.getElementById("descriptionText").addEventListener('mouseenter', function(event) {
+    console.log("hovering")
+    const postIt = document.getElementById("postit")
+    if (postIt.classList.contains("hover:bg-gray-200")) {
+        postIt.classList.remove("hover:bg-gray-200")
+        
+        }
+    else {
+        postIt.classList.remove("hover:bg-green-600")
+        
+        }
+    
+    
+});
+
+document.getElementById("descriptionText").addEventListener('mouseleave', function(event) {
+    const postIt = document.getElementById("postit")
+    
+        if (!postIt.classList.contains("hover:bg-gray-200")) {
+                postIt.classList.add("hover:bg-gray-200")
+
+            
+            }
         else {
-
-            descriptionText.classList.add("bg-gray-200")
-            descriptionText.classList.remove("bg-green-50")
-
-            infoDots1.classList.add("bg-black")
-            infoDots1.classList.remove("bg-white")
-
-            infoDots2.classList.add("bg-black")
-            infoDots2.classList.remove("bg-white")
-
-            infoDots3.classList.add("bg-black")
-            infoDots3.classList.remove("bg-white")
-
-            postitTitle.innerText = "My Post-it"
+            postIt.classList.add("hover:bg-green-600")
+            
+            }
+        
+});
 
 
-            postitTitle.classList.add("text-black")
-            postitTitle.classList.remove("text-white")
+        function toggleDescription() {
+            const postit = document.getElementById('postit')
+            const descriptionText = document.getElementById("descriptionText")
+            
+               if (descriptionText.classList.contains('hidden')) {
+                    descriptionText.classList.remove('hidden');
+                   
+                   }
+               else {
+                descriptionText.classList.add('hidden')
+                   
+                   }
 
-            priorityLabel.classList.add("border-red-500")
-            priorityLabel.classList.remove("border-white")
+               
 
-            socialmediaLabel.classList.remove("text-white")
-            socialmediaLabel.classList.add("text-zinc-700")
-
-
-            priorityLabel.classList.add("border-red-500")
-            priorityLabel.classList.add("text-red-500")
-            priorityLabel.classList.remove("text-white")
-
-            dateLabel.classList.add("text-blue-500")
-            dateLabel.classList.remove("text-white")
-
-            postIt.classList.remove("bg-green-700")
-            postIt.classList.remove("hover:bg-green-600")
-
-            postIt.classList.add("hover:bg-gray-200")
-            postIt.classList.add("bg-white")
+            
+            
+            }
 
 
-
+    
+    function checkmarkClick(event) {
+        event.stopPropagation();
+    
         }
-
-
+        
+    document.getElementById("informationPoints").addEventListener('click', function(event) {
+       event.stopPropagation() 
+        
+    });
+        
+    function toggleSlideover() {
+        document.getElementById('slideoverModal').classList.toggle('invisible');
+        document.getElementById('slideover').classList.toggle('translate-x-full');
+        console.log("Clicked on 'My Post-it56546'");
 
     }
 
@@ -308,3 +320,4 @@
         console.log("Clicked on 'My Post-it56546'");
     }
 </script>
+
