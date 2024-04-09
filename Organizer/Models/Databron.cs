@@ -2,10 +2,11 @@
 using System;
 
 
-/*namespace Organizer.Models
+namespace Organizer.Models
 {
-    public class PageIdentifier
+    public class TaskViewModel
     {
-        public string? PageValue { get; set; }
+        public List<Organizer.Entities.Task>? Tasks { get; set; }
+        public Organizer.Entities.Task? Task { get; set; }
     }
-}*/
+}

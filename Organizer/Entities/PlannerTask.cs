@@ -10,12 +10,10 @@ namespace Organizer.Entities
         [Key]
         public Guid Id { get; set; }
 
-        [Required]
         public string Title { get; set; }
 
         public string Description { get; set; }
 
-        [Required]
         public string Priority { get; set; }
 
         [Display(Name = "Date & Time")]
