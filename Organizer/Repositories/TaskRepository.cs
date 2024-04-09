@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Organizer.Contexts;
 using Organizer.Entities;
+using Organizer.Controllers;
 
 namespace Organizer.Repositories
 {
@@ -13,9 +14,9 @@ namespace Organizer.Repositories
             _context = context;
         }
 
-        public async Task<Organizer.Entities.Task> GetTaskByIdAsync(Guid? id)
+        public async Task<List<Organizer.Entities.Task>> Task()
         {
-            return await _context.Tasks.FirstOrDefaultAsync(m => m.Id == id);
+            return await _context.Task.FirstOrDefaultAsync();
         }
     }
 }

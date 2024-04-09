@@ -8,6 +8,7 @@ using Microsoft.Identity.Client;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using Organizer.Contexts;
+using Organizer.Repositories;
 using Organizer.Services;
 
 
@@ -40,7 +41,7 @@ using (var context = new OrganizerContext())
 
 // Scope services
 builder.Services.AddScoped<IGraphClientService, GraphClientService>();
-
+builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 builder.Services.AddAuthorization(options =>
 {
     options.FallbackPolicy = options.DefaultPolicy;

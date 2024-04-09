@@ -1,7 +1,8 @@
-﻿namespace Organizer.Repositories
+﻿using Organizer.Controllers;
+namespace Organizer.Repositories
 {
     public interface ITaskRepository
     {
-        Task<Organizer.Entities.Task> GetTaskByIdAsync(Guid? id);
+        Task<List<Organizer.Entities.Task>> Task();
     }
 }
