@@ -165,7 +165,20 @@
 }
 @section scripts {
 <script>
-    
+
+    function filterTasksByPriority(priority) {
+        var tasks = document.querySelectorAll('[id^="postit_"]');
+        tasks.forEach(function (task) {
+            var taskId = task.id.split("_")[1]; // Extracting task ID from element ID
+            var priorityLabel = document.getElementById('priorityLabel_' + taskId).innerText.trim();
+            if (priority === "ALL" || priorityLabel === priority) {
+                task.style.display = 'block'; // Show the task if priority matches or if "ALL" is selected
+            } else {
+                task.style.display = 'none'; // Hide the task if priority does not match and "ALL" is not selected
+            }
+        });
+    }
+
         function toggleDescription(taskId) {
             const postit = document.getElementById("postit_" + taskId)
             const descriptionText = document.getElementById("descriptionText_" + taskId)
@@ -178,6 +191,7 @@
                 descriptionText.classList.add('hidden')
 
             }
+
 
 
 

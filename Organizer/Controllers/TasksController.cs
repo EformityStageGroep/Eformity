@@ -69,7 +69,7 @@ namespace Organizer.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,Description,Priority,DateTime")] Organizer.Entities.Task task)
+        public async Task<IActionResult> Create([Bind("Title,Description,Priority,Status,DateTime")] Organizer.Entities.Task task)
         {
             if (ModelState.IsValid)
             {

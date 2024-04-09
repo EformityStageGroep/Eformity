@@ -44,6 +44,7 @@
                                 <option value="low">Low</option>
                             </select>
                         </div>
+
                         <div class="mt-2">
                             <label for="datetime" class="block text-sm font-medium text-gray-700">Date and Time</label>
                             <input type="datetime-local" id="datetime" name="datetime" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
@@ -81,16 +82,16 @@
                 <option>Low priority</option>
             </select>
         </div>
+        
         <!-- Tabs at small breakpoint and up -->
         <div class="hidden sm:block" id="tabs">
             <nav class="-mb-px flex space-x-8">
                 <!-- Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
-                <a href="#all-priorities" class="tab border-indigo-500 text-indigo-600 whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" aria-current="page">All Priorities</a>
-                <a href="#high-priority" class="tab border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" aria-current="page">High priority</a>
-                <a href="#medium-priority" class="tab border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium">Medium priority</a>
-
-                <a href="#low-priority" class="tab border-transparent text-gray -500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium">Low priority</a>
-
+                <a onclick="filterTasksByPriority('ALL')" class="tab border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" aria-current="page">High priority</a>
+                <a onclick="filterTasksByPriority('HIGH')" class="tab border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" aria-current="page">High priority</a>
+                <a onclick="filterTasksByPriority('MEDIUM')" class="tab border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" aria-current="page">High priority</a>
+                <a onclick="filterTasksByPriority('LOW')" class="tab border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" aria-current="page">High priority</a>
+                
             </nav>
         </div>
     </div>
@@ -112,6 +113,7 @@
 
 @section scripts {
     <script>
+       
         document.addEventListener("DOMContentLoaded", function () {
             const tabs = document.querySelectorAll(".tab");
             const tabContents = document.querySelectorAll("#tab-content > div");
