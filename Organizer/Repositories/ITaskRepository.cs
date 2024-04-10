@@ -1,8 +1,14 @@
-﻿using Organizer.Controllers;
+﻿
+using Organizer.Controllers;
 namespace Organizer.Repositories
 {
     public interface ITaskRepository
     {
-        Task<List<Organizer.Entities.Task>> Task();
+        Task<List<Entities.Task>> Task();
+        Task Create(Entities.Task task);
+        Task<int> SaveChangesAsync();
+        Task Edit(Entities.Task task);
+        Task Delete(Guid id);
+
     }
 }

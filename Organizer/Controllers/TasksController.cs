@@ -33,22 +33,69 @@ namespace Organizer.Controllers
             try
             {
                 var task = await _taskRepository.Task();
-                var tasks = await task.ToListAsync();
 
                 if (task == null)
-            {
-                return NotFound();
-            }
-            
+                {
+                    return NotFound();
+                }
 
-            return View(task);
+
+                return View(task);
+            }
             // Wrap the task in a list before passing it to the view
-        }
+
             catch (Exception ex)
             {
                 // Log the exception or handle it as required
                 return StatusCode(500, $"An error occurred: {ex.Message}");
-    }
-}
+            } 
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Title,Description,Priority,Status,DateTime")] Entities.Task task)
+        {
+            if (ModelState.IsValid)
+            {
+                task.Id = Guid.NewGuid();
+                await _taskRepository.Create(task);
+                await _taskRepository.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(task);
+        }
+        [HttpPost]
+
+        public async Task<IActionResult> EditTask(Guid id, [Bind("Id,Title,Description,Priority,DateTime")] Entities.Task task)
+        {
+            if (id != task.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await _taskRepository.Edit(task);
+                    await _taskRepository.SaveChangesAsync();
+                }
+                catch (Exception)
+                {
+                    // Handle exception, log, etc.
+                    throw;
+                }
+                return RedirectToAction(nameof(Details));
+            }
+            return View(task);
+        }
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            await _taskRepository.Delete(id);
+            await _taskRepository.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }
