@@ -31,9 +31,17 @@ namespace Organizer.Controllers
         }
         public IActionResult Index()
         {
-             if (User.IsInRole("SuperAdmin"))
+            if (User.IsInRole("SuperAdmin"))
             {
-                return RedirectToAction("Details", "Tasks");
+                return View("ManagerDashboard");
+            }
+            else if (User.IsInRole("CompanyAdmin"))
+            {
+                return View("CompanyAdminDashboard");
+            }
+            else if (User.IsInRole("EmployeeAdmin"))
+            {
+                return View("EmployeeAdminDashboard");
             }
             else if (User.IsInRole("Employee"))
             {
