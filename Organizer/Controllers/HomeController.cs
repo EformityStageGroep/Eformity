@@ -29,12 +29,11 @@ namespace Organizer.Controllers
             graphServiceClient = _graphClientService.GetGraphServiceClient();
             con.ConnectionString = Organizer.Properties.Resources.ConnectionString;
         }
-        [Authorize(Roles = "SuperAdmin,Employee")]
         public IActionResult Index()
         {
              if (User.IsInRole("SuperAdmin"))
             {
-                return View("Homepage");
+                return RedirectToAction("Details", "Tasks");
             }
             else if (User.IsInRole("Employee"))
             {
