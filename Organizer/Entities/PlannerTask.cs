@@ -18,6 +18,7 @@ namespace Organizer.Entities
 
         [Display(Name = "Date & Time")]
         public DateTime DateTime { get; set; }
+        public string SelectStatus { get; set; }
 
         public Task() => Id = Guid.NewGuid();
         
