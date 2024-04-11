@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.Graph;
 using Organizer.Models;
-using Organizer.Entities;
 using Organizer.Services;
 using System.Diagnostics;
 
