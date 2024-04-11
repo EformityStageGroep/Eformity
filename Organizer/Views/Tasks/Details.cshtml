@@ -179,35 +179,23 @@
         });
     }
 
-        function toggleDescription(taskId) {
-            const postit = document.getElementById("postit_" + taskId)
-            const descriptionText = document.getElementById("descriptionText_" + taskId)
+    function toggleDescription(taskId) {
+        const postit = document.getElementById("postit_" + taskId)
+        const descriptionText = document.getElementById("descriptionText_" + taskId)
 
-            if (descriptionText.classList.contains('hidden')) {
-                descriptionText.classList.remove('hidden');
-
-            }
-            else {
-                descriptionText.classList.add('hidden')
-
-            }
-
-
-
-
-
-
+        if (descriptionText.classList.contains('hidden')) {
+            descriptionText.classList.remove('hidden');
         }
-
-        
-
-
-
-        function toggleSlideover(taskId) {
-            document.getElementById("slideoverModal_" + taskId).classList.toggle('invisible');
-            document.getElementById("slideover_" + taskId).classList.toggle('translate-x-full');
-            console.log(taskId);
+        else {
+            descriptionText.classList.add('hidden')
         }
+    }
+
+    function toggleSlideover(taskId) {
+        document.getElementById("slideoverModal_" + taskId).classList.toggle('invisible');
+        document.getElementById("slideover_" + taskId).classList.toggle('translate-x-full');
+        console.log(taskId);
+    }
 
     function deleteTask(taskId) {
         // Get the CSRF token from the form
@@ -327,7 +315,6 @@
             fetch(`/Tasks/EditTask/${taskId}`, {
                 method: 'POST',
                 body: formData,
-               
             })
                 .then(response => {
                     if (!response.ok) {
@@ -346,8 +333,6 @@
                     console.error('Error updating task:', error);
                     // Handle error scenario
                 });
-        
-          
     }
   
 

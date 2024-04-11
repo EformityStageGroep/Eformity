@@ -1,8 +1,4 @@
-﻿using Microsoft.Graph;
-using System;
-
-
-namespace Organizer.Models
+﻿namespace Organizer.Models
 {
     public class TaskViewModel
     {
