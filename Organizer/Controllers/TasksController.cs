@@ -27,28 +27,24 @@ namespace Organizer.Controllers
             return View(tasks);
         }
         // GET: Tasks/Details/5
-        public async Task<IActionResult> Details()
+        public async Task<IActionResult> Details(string Tenant_Id)
         {
-
             try
             {
-                var task = await _taskRepository.Task();
+                var tasks = await _taskRepository.GetTasksByVariable(Tenant_Id);
 
-                if (task == null)
+                if (tasks == null || !tasks.Any())
                 {
                     return NotFound();
                 }
 
-
-                return View(task);
+                return View(tasks);
             }
-            // Wrap the task in a list before passing it to the view
-
             catch (Exception ex)
             {
                 // Log the exception or handle it as required
                 return StatusCode(500, $"An error occurred: {ex.Message}");
-            } 
+            }
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

@@ -160,7 +160,7 @@
 }
 @{
     // Define your variable or get the value you want to log
-    var message = @User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
+    var Tenant_Id = @User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
 }
 @section scripts {
 <script>

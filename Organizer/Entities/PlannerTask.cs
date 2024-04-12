@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Identity.Client;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -19,7 +20,10 @@ namespace Organizer.Entities
         [Display(Name = "Date & Time")]
         public DateTime DateTime { get; set; }
 
+        public string Tenant_Id { get; set; }
+
         public Task() => Id = Guid.NewGuid();
+
         
     }
     

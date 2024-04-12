@@ -19,7 +19,12 @@ namespace Organizer.Repositories
         {
             return await _context.Task.ToListAsync();
         }
-
+        public async Task<List<Entities.Task>> GetTasksByVariable(string Tenant_Id)
+        {
+            return await _context.Task
+                                .Where(t => t.Tenant_Id == Tenant_Id)
+                                .ToListAsync();
+        }
         public async System.Threading.Tasks.Task Create(Entities.Task task)
         {
             _context.Task.Add(task);
