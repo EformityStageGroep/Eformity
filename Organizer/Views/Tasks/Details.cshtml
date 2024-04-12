@@ -145,6 +145,7 @@
 
 
 
+
 }
 
 </ul>
@@ -316,6 +317,7 @@
             // Get the CSRF token from the form
             const csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
 
+
             // Send a POST request with the task ID and CSRF token
             fetch(`/Tasks/Delete/${taskId}`, {
                 method: 'POST',
@@ -341,8 +343,9 @@
                 });
             setTimeout(() => {
                 location.reload();
-            }, 500);
+            }, 300);
         }
+
 
 
 
@@ -397,24 +400,14 @@
                     body: formData,
 
                 })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        console.log(data); // Log response data
-                        // Optionally, you can update the UI or display a success message
-                    })
-                    .catch(error => {
-                        console.error('There was a problem with the fetch operation:', error);
-                        // Optionally, you can display an error message to the user
-                    });
-                setTimeout(() => {
-                    location.reload();
-                }, 500);
-            });
+
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                    // Optionally, you can display an error message to the user
+                });
+            setTimeout(() => {
+                location.reload();
+            }, 300);
 
         });
 
@@ -443,12 +436,15 @@
                     // For simplicity, let's reload the page after 1 second
                     setTimeout(() => {
                         location.reload();
-                    }, 500); // 1000 milliseconds = 1 second
+                    }, 300); // 1000 milliseconds = 1 second
                 })
                 .catch(error => {
                     console.error('Error updating task:', error);
                     // Handle error scenario
                 });
+
+    }
+
 
 
         }
