@@ -104,7 +104,8 @@
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m1 1 4 4 4-4" />
                             </svg>
                         </button>
-                        <form asp-action="EditTask" asp-route-id="@task.Id">
+                        
+                        <form asp-action="EditTask" asp-route-id="@task.Id"> 
                                 <div class="absolute">
                                 <div data-prefix="statusDropdown" id="dropdown_@task.Id" class="bg-gray-100 divide-gray-200 w-44 border-gray-200 top-0 left-0 mt-8 absolute z-50 hidden divide-y rounded-lg border shadow">
                                     <ul class="py-2 text-gray-900 text-sm" aria-labelledby="postitStatusDropdown">
