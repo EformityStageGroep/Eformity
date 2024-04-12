@@ -184,13 +184,10 @@
 
         if (descriptionText.classList.contains('hidden')) {
             descriptionText.classList.remove('hidden');
-
         }
         else {
             descriptionText.classList.add('hidden')
-
         }
-
     }
 
     function toggleSlideover(taskId) {
@@ -228,7 +225,7 @@
             });
     setTimeout(() => {
         location.reload();
-    }, 500);
+    }, 300);
     }
 
 
@@ -300,7 +297,7 @@
                 });
             setTimeout(() => {
                 location.reload();
-            }, 500);
+            }, 300);
         });
 
     });
@@ -317,7 +314,6 @@
             fetch(`/Tasks/EditTask/${taskId}`, {
                 method: 'POST',
                 body: formData,
-               
             })
                 .then(response => {
                     if (!response.ok) {
@@ -330,14 +326,12 @@
                     // For simplicity, let's reload the page after 1 second
                     setTimeout(() => {
                         location.reload();
-                    }, 500); // 1000 milliseconds = 1 second
+                    }, 300); // 1000 milliseconds = 1 second
                 })
                 .catch(error => {
                     console.error('Error updating task:', error);
                     // Handle error scenario
                 });
-        
-          
     }
   
 
