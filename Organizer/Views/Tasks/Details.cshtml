@@ -31,11 +31,6 @@
                             </div>
                         </div>
                         <div class="relative mt-6 flex-1 px-4 sm:px-6">
-
-
-                      
-
-
                             <form asp-action="EditTask" asp-route-id="@task.Id">
                                  <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                 <input type="hidden" asp-for="@task.Id" />
@@ -277,25 +272,6 @@
         createTaskButton.addEventListener("click", function () {
             const formData = new FormData(taskForm);
 
-            fetch('@Url.Action("Create", "Tasks")', {
-                method: 'POST',
-                body: formData,
-             
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log(data); // Log response data
-                    // Optionally, you can update the UI or display a success message
-                })
-                .catch(error => {
-                    console.error('There was a problem with the fetch operation:', error);
-                    // Optionally, you can display an error message to the user
-                });
             setTimeout(() => {
                 location.reload();
             }, 300);
@@ -304,35 +280,23 @@
     });
     
     function updateTask(taskId) {
-            var form = document.getElementById('editTaskForm');
+            //var form = document.getElementById('editTaskForm');
         // Get the form data
-            const formData = new FormData(form);
-        console.log(formData);
+            //const formData = new FormData(form);
+            console.log(formData);
         // Send a POST request with the task ID and form data
-            const csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
+            //const csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
 
             // Send a POST request with the task ID and CSRF token
-            fetch(`/Tasks/EditTask/${taskId}`, {
-                method: 'POST',
-                body: formData,
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Failed to update task');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    // Task updated successfully, you can perform any necessary actions
-                    // For simplicity, let's reload the page after 1 second
-                    setTimeout(() => {
-                        location.reload();
-                    }, 300); // 1000 milliseconds = 1 second
-                })
-                .catch(error => {
-                    console.error('Error updating task:', error);
-                    // Handle error scenario
-                });
+
+         
+        setTimeout(() => {
+            location.reload();
+        }, 500); // 1000 milliseconds = 1 second
+                
+        
+          
+
     }
   
 
