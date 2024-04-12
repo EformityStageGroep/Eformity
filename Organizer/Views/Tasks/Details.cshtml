@@ -94,33 +94,33 @@
                             @task.Title
                         </a>
                     </p>
+                    
+                        <button id="postitStatusDropdown_@task.Id" onclick="statusDropDown(event, '@task.Id'), openStatusDropdown('@task.Id')" data-dropdown-toggle="dropdown" class="ml-3 border-gray-900 text-black ml-1 p-1 z-10 flex cursor-pointer items-center justify-center self-baseline rounded-lg border border border-solid text-xs font-medium hover:bg-gray-200" type="button">
+                            <span id="dropdownButton_@task.Id">
+                                To Do
 
-                    <button id="postitStatusDropdown_@task.Id" onclick="statusDropDown(event, '@task.Id'), openStatusDropdown('@task.Id')" data-dropdown-toggle="dropdown" class="ml-3 border-gray-900 text-black ml-1 p-1 z-10 flex cursor-pointer items-center justify-center self-baseline rounded-lg border border border-solid text-xs font-medium hover:bg-gray-200" type="button">
-                        <span id="dropdownButton_@task.Id">
-                            To Do
-
-                        </span>
-                        <svg class="w-2.5 h-2.5 ms-1.5 mt-0.5 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m1 1 4 4 4-4" />
-                        </svg>
-                    </button>
-
-                         <div class="absolute">
-                            <div data-prefix="statusDropdown" id="dropdown_@task.Id" class="bg-gray-100 divide-gray-200 w-44 border-gray-200 top-0 left-0 mt-8 absolute z-50 hidden divide-y rounded-lg border shadow">
-                                <ul class="py-2 text-gray-900 text-sm" aria-labelledby="postitStatusDropdown">
-                                    <li>
-                                        <a href="#" class="px-4 py-2 block hover:bg-gray-200">To Do</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="px-4 py-2 block hover:bg-gray-200">In Progress</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="px-4 py-2 block hover:bg-gray-200">Done</a>
-                                    </li>
-                                </ul>
+                            </span>
+                            <svg class="w-2.5 h-2.5 ms-1.5 mt-0.5 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m1 1 4 4 4-4" />
+                            </svg>
+                        </button>
+                        <form asp-action="EditTask" asp-route-id="@task.Id">
+                                <div class="absolute">
+                                <div data-prefix="statusDropdown" id="dropdown_@task.Id" class="bg-gray-100 divide-gray-200 w-44 border-gray-200 top-0 left-0 mt-8 absolute z-50 hidden divide-y rounded-lg border shadow">
+                                    <ul class="py-2 text-gray-900 text-sm" aria-labelledby="postitStatusDropdown">
+                                        <li>
+                                                <button type="submit" id="To_Do" class="px-4 py-2 block hover:bg-gray-200">To Do</button>
+                                        </li>
+                                        <li>
+                                                <button type="submit" id="In_Progress" class="px-4 py-2 block hover:bg-gray-200">In Progress</button>
+                                        </li>
+                                        <li>
+                                                <button type="submit" id="Done" class="px-4 py-2 block hover:bg-gray-200">Done</button>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
-
+                    </form>
                     </div>
 
                     <p class="mt-1 text-gray-500 flex text-xs leading-5">
