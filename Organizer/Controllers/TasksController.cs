@@ -27,6 +27,8 @@ namespace Organizer.Controllers
             return View(tasks);
         }
         // GET: Tasks/Details/5
+        [HttpPost] // Add this attribute to force POST request
+        [ValidateAntiForgeryToken] // Add this attribute for security against CSRF attacks
         public async Task<IActionResult> Details(string Tenant_Id)
         {
             try
