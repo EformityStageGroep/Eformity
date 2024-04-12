@@ -14,8 +14,10 @@ namespace Organizer.Contexts
         {
             base.OnConfiguring(optionsBuilder);
             optionsBuilder.UseSqlServer(Organizer.Properties.Resources.ConnectionString);
-        }
 
+        
+
+        }
         public DbSet<User> Users { get; set; }
         public DbSet<Organizer.Entities.Task> Task { get; set; }
     }
