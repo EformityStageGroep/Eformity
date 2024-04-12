@@ -12,7 +12,7 @@ namespace Organizer.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-       
+        public static string _variableToChange = "_sectionHeading";
         SqlCommand com = new SqlCommand();
         SqlDataReader dr;
         SqlConnection con = new SqlConnection();
@@ -28,31 +28,12 @@ namespace Organizer.Controllers
             graphServiceClient = _graphClientService.GetGraphServiceClient();
             con.ConnectionString = Organizer.Properties.Resources.ConnectionString;
         }
-        [Authorize(Roles = "SuperAdmin,Employee")]
+
         public IActionResult Index()
-        {
-            if (User.IsInRole("SuperAdmin"))
-            {
-                return RedirectToAction("Details", "Tasks");
-            }
-            else if (User.IsInRole("CompanyAdmin"))
-            {
-                return View("CompanyAdminDashboard");
-            }
-            else if (User.IsInRole("EmployeeAdmin"))
-            {
-                return View("EmployeeAdminDashboard");
-            }
-            else if (User.IsInRole("Employee"))
-            {
-                return View("EmployeeDashboard");
-            }
-            else
-            {
-                // Handle other roles or unauthorized access
-                return RedirectToAction("Unauthorized", "Error");
-            }
-            
+        {/*
+            var viewModel = new PageIdentifier();
+            viewModel.PageValue = "Index";*/
+            return View();
         }
     
         public IActionResult Teams()
