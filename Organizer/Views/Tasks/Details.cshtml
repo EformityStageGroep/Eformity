@@ -2,19 +2,19 @@
 
 @Html.Partial("../Home/Homepage")
 
-<ul role="list" class="divide-gray-100 bg-white ring-gray-900/5 mb-3 divide-y overflow-hidden shadow-sm ring-1 sm:rounded-xl">
+<ul role="list" class="mt-5 divide-gray-100 bg-white ring-gray-900/5 mb-3 divide-y overflow-hidden shadow-sm ring-1 sm:rounded-xl">
 
 @foreach (var task in Model)
 {
 
-      <div id="slideoverModal_@task.Id" class="invisible relative z-50 transition-all duration-300 ease-out" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+      <div data-prefix="slideover" id="slideoverModal_@task.Id" class="invisible relative z-50 transition-all duration-300 ease-out" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
 
 
         <div class="inset-0 absolute overflow-hidden">
             <div class="inset-y-0 right-0 pl-10 active pointer-events-none fixed flex h-auto max-w-full drop-shadow-2xl sm:pl-16">
                 <!-- Your content here -->
                 <div class="pointer-events-auto w-screen max-w-2xl transition-all duration-500 ease-in">
-                    <div id="slideover_@task.Id" class="bg-white py-6 flex h-full translate-x-full flex-col overflow-y-scroll shadow-xl transition-all duration-500 ease-in">
+                    <div  id="slideover_@task.Id" class="bg-white py-6 flex h-full translate-x-full flex-col overflow-y-scroll shadow-xl transition-all duration-500 ease-in">
                         <div class="px-4 sm:px-6">
                             <div class="flex items-start justify-between">
                                 <div class="flex">
@@ -82,7 +82,7 @@
         </div>
     </div>
 
-    <div id="postit_@task.Id">
+    <div data-prefix="postit" id="postit_@task.Id">
         <li class="gap-x-6 px-4 py-5 relative flex justify-between hover:bg-gray-50 sm:px-6">
             <div class="min-w-0 gap-x-4 flex">
                 <div class="min-w-0 flex-auto">
@@ -101,12 +101,12 @@
 
                         </span>
                         <svg class="w-2.5 h-2.5 ms-1.5 mt-0.5 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m1 1 4 4 4-4" />
                         </svg>
                     </button>
 
                          <div class="absolute">
-                            <div id="dropdown_@task.Id" class="bg-gray-100 divide-gray-200 w-44 border-gray-200 top-0 left-0 mt-8 absolute z-50 hidden divide-y rounded-lg border shadow">
+                            <div data-prefix="statusDropdown" id="dropdown_@task.Id" class="bg-gray-100 divide-gray-200 w-44 border-gray-200 top-0 left-0 mt-8 absolute z-50 hidden divide-y rounded-lg border shadow">
                                 <ul class="py-2 text-gray-900 text-sm" aria-labelledby="postitStatusDropdown">
                                     <li>
                                         <a href="#" class="px-4 py-2 block hover:bg-gray-200">To Do</a>
@@ -134,12 +134,14 @@
                     <p id="priorityLabel_@task.Id" class="text-gray-900 text-sm leading-6">@task.Priority</p>
                     <p class="mt-1 text-gray-500 text-xs leading-5">@task.DateTime</p>
                 </div>
-                <svg class="h-5 w-5 text-gray-400 flex-none" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                    <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
+                <svg class="h-5 w-5 radius-200 z-10 rounded-md hover:cursor-pointer hover:bg-gray-200" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path d="M10 3a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM10 8.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM11.5 15.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0z"></path>
                 </svg>
             </div>
         </li>
         </div>
+
+       
 
 
 
@@ -149,12 +151,32 @@
 
 
 
+
 @section scripts {
 
 
 
 
     <script>
+
+        
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            window.addEventListener('click', function (event) {
+                const statusDropdowns = document.querySelectorAll('[data-prefix="statusDropdown"]');
+                const slideover = document.querySelectorAll('[data-prefix="slideover"]');
+
+
+                statusDropdowns.forEach(function (dropdown) {
+                    if (!dropdown.classList.contains("hidden")) {
+                        dropdown.classList.add("hidden");
+                    }
+                });
+            });
+        });
+
+
 
 
 
@@ -185,15 +207,6 @@
 
         }
 
-        document.addEventListener('click', function (event, taskId) {
-            const dropdown = document.getElementById("dropdown_" + taskId);
-            const targetElement = event.target; // Element that triggered the event
-
-            // Check if the clicked element is outside the dropdown
-            if (!dropdown.contains(targetElement)) {
-                dropdown.classList.add('hidden'); // Hide the dropdown
-            }
-        });
 
         function statusDropDown(event, taskId) {
             console.log("Dropdown pass")
@@ -206,6 +219,7 @@
 
         // Function to handle dropdown toggle
         function statusDropDown(event, taskId) {
+            console.log("statusdropdown event")
             event.stopPropagation(); // Prevent dropdown from being hidden by parent click
             const dropdown = document.getElementById("dropdown_" + taskId);
             dropdown.classList.toggle('hidden'); // Toggle visibility of dropdown
@@ -291,9 +305,11 @@
 
         function toggleSlideover(taskId) {
             console.log('passed slideover')
+
             document.getElementById("slideoverModal_" + taskId).classList.toggle('invisible');
             document.getElementById("slideover_" + taskId).classList.toggle('translate-x-full');
             console.log(taskId);
+
         }
 
         function deleteTask(taskId) {
