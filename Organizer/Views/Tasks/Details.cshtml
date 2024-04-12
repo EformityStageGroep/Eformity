@@ -174,148 +174,23 @@
         });
     }
 
-        function toggleDescription(taskId) {
-            const postit = document.getElementById("postit_" + taskId)
-            const descriptionText = document.getElementById("descriptionText_" + taskId)
+    function toggleDescription(taskId) {
+        const postit = document.getElementById("postit_" + taskId)
+        const descriptionText = document.getElementById("descriptionText_" + taskId)
 
-            if (descriptionText.classList.contains('hidden')) {
-                descriptionText.classList.remove('hidden');
-
-            }
-            else {
-                descriptionText.classList.add('hidden')
-
-            }
-
-
-
-
-
-
-        }
-
-        function makeGreen(taskId) {
-            console.log("make green")
-
-            const postitStatusDropdown = document.getElementById("postitStatusDropdown_" + taskId)
-            const descriptionText = document.getElementById("descriptionText_" + taskId)
-
-            const postitTitle = document.getElementById("postitTitle_" + taskId)
-
-            const priorityLabel = document.getElementById("priorityLabel_" + taskId)
-            const socialmediaLabel = document.getElementById("socialmediaLabel_" + taskId)
-            const dateLabel = document.getElementById("dateLabel_" + taskId)
-
-            const postIt = document.getElementById("postit_" + taskId);
-            const checkboxPostit = document.getElementById("checkbox_" + taskId)
-
-            const infoDots1 = document.getElementById("infoDots1_" + taskId)
-            const infoDots2 = document.getElementById("infoDots2_" + taskId)
-            const infoDots3 = document.getElementById("infoDots3_" + taskId)
-
-        if (checkboxPostit.checked) {
-
-            descriptionText.classList.remove("bg-gray-200")
-            descriptionText.classList.add("bg-green-50")
-
-            infoDots1.classList.remove("bg-black")
-            infoDots1.classList.add("bg-white")
-
-            infoDots2.classList.remove("bg-black")
-            infoDots2.classList.add("bg-white")
-
-            infoDots3.classList.remove("bg-black")
-            infoDots3.classList.add("bg-white")
-
-
-            priorityLabel.classList.remove("border-red-500")
-            priorityLabel.classList.remove("text-red-500")
-
-            priorityLabel.classList.add("border-white")
-            priorityLabel.classList.remove("border-red-500")
-
-
-            postIt.classList.remove("hover:bg-gray-100")
-            postIt.classList.remove("bg-white")
-
-            dateLabel.classList.remove("text-blue-500")
-            dateLabel.classList.add("text-white")
-
-
-            postIt.classList.add("hover:bg-green-600")
-            postIt.classList.add("bg-green-700")
-
-            postitTitle.classList.add("text-white")
-            postitTitle.classList.remove("text-black")
-
-            socialmediaLabel.classList.add("text-white")
-            socialmediaLabel.classList.remove("text-zinc-700")
-
-            // postitTitle.innerText = postitTitle.innerText + "   Done!"
-
-
-
+        if (descriptionText.classList.contains('hidden')) {
+            descriptionText.classList.remove('hidden');
         }
         else {
-
-            descriptionText.classList.add("bg-gray-200")
-            descriptionText.classList.remove("bg-green-50")
-
-            infoDots1.classList.add("bg-black")
-            infoDots1.classList.remove("bg-white")
-
-            infoDots2.classList.add("bg-black")
-            infoDots2.classList.remove("bg-white")
-
-            infoDots3.classList.add("bg-black")
-            infoDots3.classList.remove("bg-white")
-
-            postitTitle.innerText = "My Post-it"
-
-
-            postitTitle.classList.add("text-black")
-            postitTitle.classList.remove("text-white")
-
-            priorityLabel.classList.add("border-red-500")
-            priorityLabel.classList.remove("border-white")
-
-            socialmediaLabel.classList.remove("text-white")
-            socialmediaLabel.classList.add("text-zinc-700")
-
-
-            priorityLabel.classList.add("border-red-500")
-            priorityLabel.classList.add("text-red-500")
-            priorityLabel.classList.remove("text-white")
-
-            dateLabel.classList.add("text-blue-500")
-            dateLabel.classList.remove("text-white")
-
-            postIt.classList.remove("bg-green-700")
-            postIt.classList.remove("hover:bg-green-600")
-
-            postIt.classList.add("hover:bg-gray-200")
-            postIt.classList.add("bg-white")
-
-
-
+            descriptionText.classList.add('hidden')
         }
-
-
-
     }
 
-    function checkmarkClick(event) {
-        event.stopPropagation();
-
+    function toggleSlideover(taskId) {
+        document.getElementById("slideoverModal_" + taskId).classList.toggle('invisible');
+        document.getElementById("slideover_" + taskId).classList.toggle('translate-x-full');
+        console.log(taskId);
     }
-
-
-
-        function toggleSlideover(taskId) {
-            document.getElementById("slideoverModal_" + taskId).classList.toggle('invisible');
-            document.getElementById("slideover_" + taskId).classList.toggle('translate-x-full');
-            console.log(taskId);
-        }
 
     function deleteTask(taskId) {
         // Get the CSRF token from the form
@@ -346,7 +221,7 @@
             });
     setTimeout(() => {
         location.reload();
-    }, 500);
+    }, 300);
     }
 
 
@@ -418,7 +293,7 @@
                 });
             setTimeout(() => {
                 location.reload();
-            }, 500);
+            }, 300);
         });
 
     });
@@ -435,7 +310,6 @@
             fetch(`/Tasks/EditTask/${taskId}`, {
                 method: 'POST',
                 body: formData,
-               
             })
                 .then(response => {
                     if (!response.ok) {
@@ -448,14 +322,12 @@
                     // For simplicity, let's reload the page after 1 second
                     setTimeout(() => {
                         location.reload();
-                    }, 500); // 1000 milliseconds = 1 second
+                    }, 300); // 1000 milliseconds = 1 second
                 })
                 .catch(error => {
                     console.error('Error updating task:', error);
                     // Handle error scenario
                 });
-        
-          
     }
   
 
