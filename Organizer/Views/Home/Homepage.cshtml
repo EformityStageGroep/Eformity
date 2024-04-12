@@ -2,11 +2,11 @@
     ViewData["Title"] = "Homepage";
 }
 
-@* <div class="min-w-40 bg-white border-gray-200 mx-auto max-w-md cursor-pointer overflow-hidden border shadow-md duration-300 hover:transform hover:scale-105">
+@* <div class="max-w-md  min-w-40 mx-auto bg-white border border-gray-200 shadow-md overflow-hidden cursor-pointer hover:transform hover:scale-105 duration-300">
     <div class="md:flex">
         <div class="p-8">
-            <div class="text-indigo-500 text-sm font-semibold uppercase tracking-wide">Facebook</div>
-            <a href="#" class="mt-1 text-black block text-lg font-medium leading-tight hover:underline">Answer customer enquiries </a>
+            <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">Facebook</div>
+            <a href="#" class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">Answer customer enquiries </a>
             <p class="mt-2 text-gray-500">16:00 16-09-2024</p>
         </div>
     </div>
@@ -14,31 +14,31 @@
  *@
 
 
-<div id="modal" class="inset-0 fixed z-50 flex hidden items-center justify-center overflow-y-auto">
+<div id="modal" class="fixed inset-0 z-50 hidden overflow-y-auto flex items-center justify-center">
     
-    <div class="inset-0 fixed transition-opacity" aria-hidden="true">
-        <div class="inset-0 bg-gray-500 absolute opacity-75"></div>
+    <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+        <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
     </div>
-    <div class="bg-white transform overflow-hidden rounded-lg shadow-xl transition-all sm:max-w-lg sm:w-full">
+    <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full">
         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
             <div class="sm:flex sm:items-start">
-                <div class="mt-3 w-full text-center sm:mt-0 sm:ml-4 sm:text-left">
-                    <h3 class="text-gray-900 text-lg font-medium leading-6" id="modalTitle">
+                <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+                    <h3 class="text-lg font-medium leading-6 text-gray-900" id="modalTitle">
                         Create Task
                     </h3>
                     <form asp-controller="Tasks" asp-action="Create" id="taskForm" method="post" class="mt-4">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="mt-2">
-                            <label for="title" class="text-gray-700 block text-sm font-medium">Title</label>
-                            <input type="text" name="title" id="title" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
+                            <input type="text" name="title" id="title" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                         </div>
                         <div class="mt-2">
-                            <label for="description" class="text-gray-700 block text-sm font-medium">Description</label>
-                            <textarea id="description" name="description" rows="3" class="p-3 mt-1 border-gray-300 block w-full rounded-md border shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+                            <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+                            <textarea id="description" name="description" rows="3" class="p-3 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full border shadow-sm sm:text-sm border-gray-300 rounded-md"></textarea>
                         </div>
                         <div class="mt-2">
-                            <label for="priority" class="text-gray-700 block text-sm font-medium">Priority</label>
-                            <select id="priority" name="priority" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <label for="priority" class="block text-sm font-medium text-gray-700">Priority</label>
+                            <select id="priority" name="priority" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                 <option value="high">High</option>
                                 <option value="medium">Medium</option>
                                 <option value="low">Low</option>
@@ -46,8 +46,8 @@
                         </div>
 
                         <div class="mt-2">
-                            <label for="datetime" class="text-gray-700 block text-sm font-medium">Date and Time</label>
-                            <input type="datetime-local" id="datetime" name="datetime" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <label for="datetime" class="block text-sm font-medium text-gray-700">Date and Time</label>
+                            <input type="datetime-local" id="datetime" name="datetime" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                         </div>
                         <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                             <button id="closeModalButton" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
@@ -61,33 +61,23 @@
                 </div>
             </div>
         </div>
-
-        <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-            <button id="closeModalButton" type="button" class="border-transparent px-4 py-2 bg-indigo-600 text-white inline-flex w-full justify-center rounded-md border text-base font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
-                Close
-            </button>
-            <button id="createTaskButton" type="button" class="border-transparent px-4 py-2 bg-indigo-600 text-white inline-flex w-full justify-center rounded-md border text-base font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
-                Create Task
-            </button>
-
+        
         </div>
     </div>
 
 
-<div class="border-gray-200 pb-5 relative border-b sm:pb-0">
+<div class="relative border-b border-gray-200 pb-5 sm:pb-0">
     <div class="md:flex md:items-center md:justify-between">
-
         <h3 class="text-base font-semibold leading-6 text-gray-900">Tasks</h3>
-
     <div class="">
-      <button type="button" id="openModalButton" class="ml-30 bg-indigo-600 px-3 py-2 text-white inline-flex items-center rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Create</button>
+      <button type="button" id="openModalButton" class="ml-30 inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Create</button>
         </div>
     </div>
     <div class="mt-4">
         <!-- Dropdown menu on small screens -->
         <div class="sm:hidden">
             <label for="current-tab" class="sr-only">Select a tab</label>
-            <select id="current-tab" name="current-tab" class="py-1.5 pl-3 pr-10 ring-gray-300 hover-pointer block w-full rounded-md border-0 ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600">
+            <select id="current-tab" name="current-tab" class="block w-full rounded-md border-0 py-1.5 pl-3 pr-10 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600">
                 <option>All Priorities</option>
                 <option>High priority</option>
                 <option>Medium priority</option>
@@ -97,13 +87,13 @@
         
         <!-- Tabs at small breakpoint and up -->
         <div class="hidden sm:block" id="tabs">
-            <nav class="-mb-px space-x-8 flex">
+            <nav class="-mb-px flex space-x-8">
                 <!-- Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
 
-                <a onclick="filterTasksByPriority('ALL')" class="tab border-transparent text-gray-500 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">All priorities</a>
-                <a onclick="filterTasksByPriority('HIGH')" class="tab border-transparent text-gray-500 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">High priority</a>
-                <a onclick="filterTasksByPriority('MEDIUM')" class="tab border-transparent text-gray-500 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">Medium priority</a>
-                <a onclick="filterTasksByPriority('LOW')" class="tab border-transparent text-gray-500 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">Low priority</a>
+                <a onclick="filterTasksByPriority('ALL')" class="tab border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" aria-current="page">All priorities</a>
+                <a onclick="filterTasksByPriority('HIGH')" class="tab border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" aria-current="page">High priority</a>
+                <a onclick="filterTasksByPriority('MEDIUM')" class="tab border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" aria-current="page">Medium priority</a>
+                <a onclick="filterTasksByPriority('LOW')" class="tab border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" aria-current="page">Low priority</a>
                 
 
             </nav>
@@ -112,6 +102,18 @@
 </div>
 
 <!-- Content corresponding to each tab -->
+<div class="mt-7" id="tab-content">
+    <div class="flex flex-wrap" id="low-priority">
+        <div class="justift-items-start">
+            
+        </div>
+    </div>
+    <div id="medium-priority" class="hidden">High Priority Content</div>
+    <div id="high-priority" class="hidden">Medium Priority Content</div>
+
+    <div id="low-priority" class="hidden">Low Priority Content</div>
+
+</div>
 
 @section scripts {
     <script>
