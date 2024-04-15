@@ -37,14 +37,8 @@
                         </div>
                         <div class="mt-6 px-4 relative flex-1 sm:px-6">
 
+                            <form id="MyForm" asp-action="EditTask" asp-route-id="@task.Id">
 
-                        </div>
-
-                        <div class="mt-6 px-4 relative flex-1 sm:px-6">
-
-
-                      
-                            <form asp-action="EditTask" asp-route-id="@task.Id">
                                  <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                 <input type="hidden" asp-for="@task.Id" />
                             <div class="form-group">
@@ -74,8 +68,9 @@
 
                                     <span asp-validation-for="@task.DateTime" class="text-danger"></span>
                                 </div>
+                                    <input type="hidden" asp-for="@task.SelectStatus" />
                                 <div class="form-group right-0 mt-4 mb-4 mr-4 fixed">
-                                    <input type="submit" value="Save" class="m1 auto bg-indigo-500 px-3.5 py-2.5 text-white rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" onclick="updateTask('@task.Id')">
+                                    <input type="submit" value="Save" class="m1 auto bg-indigo-500 px-3.5 py-2.5 text-white rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" onclick="updateTask()">
                                     <button type="button" class="m1 auto bg-indigo-500 px-3.5 py-2.5 text-white rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" onclick="deleteTask('@task.Id')">Delete</button>
                                 </div>
                             </form>
@@ -95,66 +90,53 @@
 
                     <p class="text-gray-900 text-sm font-semibold leading-6">
                         <a href="#">
-                            <span class="inset-x-0 -top-px bottom-0 absolute" onclick="toggleSlideover('@task.Id')"></span>
+                            @*<span class="inset-x-0 -top-px bottom-0 absolute" onclick="toggleSlideover('@task.Id')"></span>*@ @*HERE!*@
                             @task.Title
                         </a>
                     </p>
                     
-                        <button id="postitStatusDropdown_@task.Id" onclick="statusDropDown(event, '@task.Id'), openStatusDropdown('@task.Id')" data-dropdown-toggle="dropdown" class="ml-3 border-gray-900 text-black ml-1 p-1 z-10 flex cursor-pointer items-center justify-center self-baseline rounded-lg border border border-solid text-xs font-medium hover:bg-gray-200" type="button">
-                            <span id="dropdownButton_@task.Id">
-                                To Do
 
-                            </span>
-                            <svg class="w-2.5 h-2.5 ms-1.5 mt-0.5 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m1 1 4 4 4-4" />
-                            </svg>
-                        </button>
-                        <form asp-action="EditTask" asp-route-id="@task.Id">
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <input type="hidden" asp-for="@task.Id" />
-                                <div class="absolute">
-                                <div data-prefix="statusDropdown" id="dropdown_@task.Id" class="bg-gray-100 divide-gray-200 w-44 border-gray-200 top-0 left-0 mt-8 absolute z-50 hidden divide-y rounded-lg border shadow">
-                                    <ul class="py-2 text-gray-900 text-sm" aria-labelledby="postitStatusDropdown">
-                                        <li>
-                                                <button type="submit" id="To_Do" class="px-4 py-2 block hover:bg-gray-200">To Do</button>
-                                        </li>
-                                        <li>
-                                                <button type="submit" id="In_Progress" class="px-4 py-2 block hover:bg-gray-200">In Progress</button>
-                                        </li>
-                                        <li>
-                                                <button type="submit" id="Done" class="px-4 py-2 block hover:bg-gray-200">Done</button>
-                                        </li>
-                                    </ul>
+
+                        <form id="myForm_@task.Id" asp-action="EditTask" asp-route-id="@task.Id">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="@task.Id" />
+                          
+                                <input type="invisible" asp-for="@task.Title" class="hidden">
+                                <span asp-validation-for="@task.Title" class="text-danger"></span>
+
+                                <div class="form-group">
+                                    <input type="invisible" asp-for="@task.Description" class="hidden">
+                                    <span asp-validation-for="@task.Description" class="text-danger"></span>
                                 </div>
-                            </div>
+                                <div class="form-group">
+                                    <select type="invisible" asp-for="@task.Priority" class="hidden">
+                                        <option value="high">High</option>
+                                        <option value="medium">Medium</option>
+                                        <option value="low">Low</option>
+                                    </select>
+                                    <span asp-validation-for="@task.Priority" class="hidden"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="invisible" asp-for="@task.DateTime" class="hidden">
+                                    <span asp-validation-for="@task.DateTime" class="text-danger"></span>
+                                </div>
 
-                            <input type="invisible" asp-for="@task.Title" class="hidden">
-                            <span asp-validation-for="@task.Title" class="text-danger"></span>
-                    
-                    <div class="form-group">
-                                <input type="invisible" asp-for="@task.Description" class="hidden">
-                        <span asp-validation-for="@task.Description" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                                <select type="invisible" asp-for="@task.Priority" class="hidden">
-                                    <option value="high">High</option>
-                            <option value="medium">Medium</option>
-                            <option value="low">Low</option>
-                        </select>
-                                <span asp-validation-for="@task.Priority" class="hidden"></span>
-                    </div>
-                    <div class="form-group">
-                                <input type="invisible" asp-for="@task.DateTime" class="hidden">
-                        <span asp-validation-for="@task.DateTime" class="text-danger"></span>
-                    </div>
+                            <select asp-for="@task.SelectStatus" onchange="updateSelectStatus('@task.Id')" class="ml-3 border-gray-900 text-black ml-1 p-1 w-25 z-100 flex cursor-pointer items-center justify-center self-baseline rounded-lg border border border-solid text-xs font-medium hover:bg-gray-200">
+                                    <option value="To Do">To Do</option>
+                                    <option value="In Progress">In Progress</option>
+                                    <option value="Done">Done</option>
+                            </select>
+                            <span asp-validation-for="@task.SelectStatus" class="text-danger"></span>
 
-                    </form>
-                    </div>
-                    </div>
 
+                            
+                        </form>
+                    </div>
                     <p class="mt-1 text-gray-500 flex text-xs leading-5">
                         <a  class="relative truncate">@task.Description</a>
                     </p>
+                    </div>
+
                 </div>
 
           
@@ -187,6 +169,46 @@
 
 @section scripts {
     <script>
+
+        function updateSelectStatus(taskId) {
+            console.log("Test");
+          
+            document.getElementById('myForm_' + taskId).submit(); // Submit the form
+            
+        }
+
+        document.getElementById("myForm").addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Get form data
+            const formData = new FormData(event.target);
+
+            // Convert formData to an object
+            const formObject = {};
+            formData.forEach((value, key) => {
+                formObject[key] = value;
+            });
+
+            // Log form data
+            console.log(formObject);
+        });
+        document.getElementById("myForm").addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Get form data
+            const formData = new FormData(event.target);
+
+            // Convert formData to an object
+            const formObject = {};
+            formData.forEach((value, key) => {
+                formObject[key] = value;
+            });
+
+            // Log form data
+            console.log(formObject);
+        });
+
+
 
         document.addEventListener('DOMContentLoaded', function () {
             window.addEventListener('click', function (event) {
@@ -437,37 +459,21 @@
 
         });
 
-        function updateTask(taskId) {
-            var form = document.getElementById('editTaskForm');
+        function updateTask() {
+            //var form = document.getElementById('editTaskForm');
             // Get the form data
-            const formData = new FormData(form);
-            console.log(formData);
+            //const formData = new FormData(form);
+            //console.log(formData);
             // Send a POST request with the task ID and form data
-            const csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
+            //const csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
 
             // Send a POST request with the task ID and CSRF token
-            fetch(`/Tasks/EditTask/${taskId}`, {
-                method: 'POST',
-                body: formData,
-
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Failed to update task');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    // Task updated successfully, you can perform any necessary actions
-                    // For simplicity, let's reload the page after 1 second
+         
+            // For simplicity, let's reload the page after 1 second
                     setTimeout(() => {
                         location.reload();
-                    }, 500); // 1000 milliseconds = 1 second
-                })
-                .catch(error => {
-                    console.error('Error updating task:', error);
-                    // Handle error scenario
-                });
+                    }, 300); // 1000 milliseconds = 1 second
+              
 
 
     }
