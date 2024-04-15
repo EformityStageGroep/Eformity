@@ -8,6 +8,7 @@ namespace Organizer.Entities
     public class Task
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid Id { get; set; }
 
         public string Title { get; set; }
