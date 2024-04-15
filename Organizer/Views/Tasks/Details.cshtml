@@ -105,6 +105,8 @@
                             </svg>
                         </button>
                         <form asp-action="EditTask" asp-route-id="@task.Id">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="@task.Id" />
                                 <div class="absolute">
                                 <div data-prefix="statusDropdown" id="dropdown_@task.Id" class="bg-gray-100 divide-gray-200 w-44 border-gray-200 top-0 left-0 mt-8 absolute z-50 hidden divide-y rounded-lg border shadow">
                                     <ul class="py-2 text-gray-900 text-sm" aria-labelledby="postitStatusDropdown">
@@ -120,7 +122,29 @@
                                     </ul>
                                 </div>
                             </div>
+
+                            <input type="invisible" asp-for="@task.Title" class="hidden">
+                            <span asp-validation-for="@task.Title" class="text-danger"></span>
+                    
+                    <div class="form-group">
+                                <input type="invisible" asp-for="@task.Description" class="hidden">
+                        <span asp-validation-for="@task.Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                                <select type="invisible" asp-for="@task.Priority" class="hidden">
+                                    <option value="high">High</option>
+                            <option value="medium">Medium</option>
+                            <option value="low">Low</option>
+                        </select>
+                                <span asp-validation-for="@task.Priority" class="hidden"></span>
+                    </div>
+                    <div class="form-group">
+                                <input type="invisible" asp-for="@task.DateTime" class="hidden">
+                        <span asp-validation-for="@task.DateTime" class="text-danger"></span>
+                    </div>
+
                     </form>
+                    </div>
                     </div>
 
                     <p class="mt-1 text-gray-500 flex text-xs leading-5">
@@ -128,7 +152,7 @@
                     </p>
                 </div>
 
-            </div>
+          
             <div class="gap-x-4 flex shrink-0 items-center">
                 <div class="hidden sm:flex sm:flex-col sm:items-end">
                     <p id="priorityLabel_@task.Id" class="text-gray-900 text-sm leading-6">@task.Priority</p>
@@ -154,15 +178,7 @@
 
 
 @section scripts {
-
-
-
-
     <script>
-
-        
-
-
         document.addEventListener('DOMContentLoaded', function () {
             window.addEventListener('click', function (event) {
                 const statusDropdowns = document.querySelectorAll('[data-prefix="statusDropdown"]');
@@ -390,21 +406,12 @@
             });
 
             const createTaskButton = document.getElementById("createTaskButton");
-            const taskForm = document.getElementById("taskForm");
+            //const taskForm = document.getElementById("taskForm");
 
             createTaskButton.addEventListener("click", function () {
-                const formData = new FormData(taskForm);
+                //const formData = new FormData(taskForm);
 
-                fetch('@Url.Action("Create", "Tasks")', {
-                    method: 'POST',
-                    body: formData,
-
-                })
-
-                .catch(error => {
-                    console.error('There was a problem with the fetch operation:', error);
-                    // Optionally, you can display an error message to the user
-                });
+              
             setTimeout(() => {
                 location.reload();
             }, 300);
@@ -447,7 +454,7 @@
 
 
 
-        }
+        })
 
 
     </script>

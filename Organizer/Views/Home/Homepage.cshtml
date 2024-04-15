@@ -26,7 +26,8 @@
                     <h3 class="text-gray-900 text-lg font-medium leading-6" id="modalTitle">
                         Create Task
                     </h3>
-                    <form id="taskForm" method="post"  class="mt-4">
+
+                    <form asp-controller="Tasks" asp-action="Create"  method="post" class="mt-4">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="mt-2">
                             <label for="title" class="text-gray-700 block text-sm font-medium">Title</label>
@@ -49,18 +50,23 @@
                             <label for="datetime" class="text-gray-700 block text-sm font-medium">Date and Time</label>
                             <input type="datetime-local" id="datetime" name="datetime" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                         </div>
+                        <div class="mt-2">
+                            <label for="datetime" class="hidden text-gray-700 block text-sm font-medium">Date and Time</label>
+                            <input type="hidden" id="SelectStatus" name="SelectStatus" value="To Do">
+                        </div>
+                        <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                            <button id="closeModalButton" type="button" class="border-transparent px-4 py-2 bg-indigo-600 text-white inline-flex w-full justify-center rounded-md border text-base font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
+                                Close
+                            </button>
+                            <button id="createTaskButton" type="submit" class="border-transparent px-4 py-2 bg-indigo-600 text-white inline-flex w-full justify-center rounded-md border text-base font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
+                                Create Task
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
-        <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-            <button id="closeModalButton" type="button" class="border-transparent px-4 py-2 bg-indigo-600 text-white inline-flex w-full justify-center rounded-md border text-base font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
-                Close
-            </button>
-            <button id="createTaskButton" type="button" class="border-transparent px-4 py-2 bg-indigo-600 text-white inline-flex w-full justify-center rounded-md border text-base font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
-                Create Task
-            </button>
-        </div>
+
     </div>
 </div>
 
