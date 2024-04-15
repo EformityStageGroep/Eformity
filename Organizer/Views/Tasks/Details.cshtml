@@ -33,13 +33,17 @@
 
                             </div>
 
+
                         </div>
                         <div class="mt-6 px-4 relative flex-1 sm:px-6">
 
 
+                        </div>
+
+                        <div class="mt-6 px-4 relative flex-1 sm:px-6">
+
+
                       
-
-
                             <form asp-action="EditTask" asp-route-id="@task.Id">
                                  <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                 <input type="hidden" asp-for="@task.Id" />
@@ -87,6 +91,7 @@
             <div class="min-w-0 gap-x-4 flex">
                 <div class="min-w-0 flex-auto">
                     <div class="flex">
+
 
                     <p class="text-gray-900 text-sm font-semibold leading-6">
                         <a href="#">
@@ -168,6 +173,9 @@
        
 
 
+                    </div>
+
+
 
 
 }
@@ -179,6 +187,7 @@
 
 @section scripts {
     <script>
+
         document.addEventListener('DOMContentLoaded', function () {
             window.addEventListener('click', function (event) {
                 const statusDropdowns = document.querySelectorAll('[data-prefix="statusDropdown"]');
@@ -222,6 +231,7 @@
             const statusDropDownPostit = document.getElementById("dropdown_" + taskId)
             statusDropDownPostit.classList.add("hidden")
 
+
         }
 
 
@@ -232,6 +242,7 @@
             const dropdown = document.getElementById("dropdown_" + taskId);
             dropdown.classList.toggle('hidden'); // Toggle visibility of dropdown
         }
+
 
 
         // Function to handle dropdown toggle
@@ -276,12 +287,14 @@
             function hoverFun(taskId) {
                 postIt.classList.remove('hover:bg-gray-200')
                 postIt.classList.add('hover:bg-gray-100')
+
             }
 
             function hoverReverse(taskId) {
                 postIt.classList.add('hover:bg-gray-200')
                 postIt.classList.remove('hover:bg-gray-100')
             }
+
 
         }
 
@@ -320,6 +333,7 @@
 
 
 
+
         function toggleSlideover(taskId) {
             console.log('passed slideover')
 
@@ -332,6 +346,7 @@
         function deleteTask(taskId) {
             // Get the CSRF token from the form
             const csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
 
 
             // Send a POST request with the task ID and CSRF token
@@ -356,6 +371,7 @@
                 .catch(error => {
                     console.error('Error deleting task:', error);
                     // Handle error scenario
+
                 });
             setTimeout(() => {
                 location.reload();
@@ -387,6 +403,7 @@
                     tabContents.forEach(content => content.classList.add("hidden"));
                     // Show corresponding tab content
                     tabContents[index].classList.remove("hidden");
+
                 });
             });
 
@@ -414,7 +431,9 @@
               
             setTimeout(() => {
                 location.reload();
+
             }, 300);
+
 
         });
 
@@ -443,18 +462,20 @@
                     // For simplicity, let's reload the page after 1 second
                     setTimeout(() => {
                         location.reload();
-                    }, 300); // 1000 milliseconds = 1 second
+                    }, 500); // 1000 milliseconds = 1 second
                 })
                 .catch(error => {
                     console.error('Error updating task:', error);
                     // Handle error scenario
                 });
 
+
     }
 
 
 
         })
+
 
 
     </script>
