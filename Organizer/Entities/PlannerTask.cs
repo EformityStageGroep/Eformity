@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Organizer.Entities
 {
     [Table("Tasks")]
-    public class Task
+    public class Task : IMustHaveTenant
     {
         [Key]
         public Guid Id { get; set; }
@@ -18,6 +18,8 @@ namespace Organizer.Entities
 
         [Display(Name = "Date & Time")]
         public DateTime DateTime { get; set; }
+
+        public string TenantId { get; set; }
 
         public Task() => Id = Guid.NewGuid();
         

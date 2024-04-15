@@ -8,6 +8,7 @@ using Microsoft.Identity.Client;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using Organizer.Contexts;
+using Organizer.Middleware;
 using Organizer.Repositories;
 using Organizer.Services;
 
@@ -38,10 +39,13 @@ using (var context = new OrganizerContext())
     context.Database.Migrate();
     }*/
     builder.Services.AddDbContext<OrganizerContext>();
+    builder.Services.AddDbContext<TenantDbContext>();
+        
 
 // Scope services
 builder.Services.AddScoped<IGraphClientService, GraphClientService>();
 builder.Services.AddScoped<ITaskRepository, TaskRepository>();
+builder.Services.AddScoped<ICurrentTenantService, CurrentTenantService>();
 builder.Services.AddAuthorization(options =>
 {
     options.FallbackPolicy = options.DefaultPolicy;
@@ -77,6 +81,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseMiddleware<TenantResolver>();
 
 app.MapControllerRoute(
     name: "default",
