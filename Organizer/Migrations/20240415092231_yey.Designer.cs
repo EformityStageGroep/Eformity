@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Organizer.Contexts;
 
@@ -11,9 +12,10 @@ using Organizer.Contexts;
 namespace Organizer.Migrations
 {
     [DbContext(typeof(OrganizerContext))]
-    partial class OrganizerContextModelSnapshot : ModelSnapshot
+    [Migration("20240415092231_yey")]
+    partial class yey
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
