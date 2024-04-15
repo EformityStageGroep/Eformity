@@ -87,20 +87,12 @@
 
                     <p class="text-gray-900 text-sm font-semibold leading-6">
                         <a href="#">
-                            
+                            @*<span class="inset-x-0 -top-px bottom-0 absolute" onclick="toggleSlideover('@task.Id')"></span>*@ @*HERE!*@
                             @task.Title
                         </a>
                     </p>
                     
-                        <button id="postitStatusDropdown_@task.Id" onclick="statusDropDown(event, '@task.Id'), openStatusDropdown('@task.Id')" data-dropdown-toggle="dropdown" class="ml-3 border-gray-900 text-black ml-1 p-1 z-10 flex cursor-pointer items-center justify-center self-baseline rounded-lg border border border-solid text-xs font-medium hover:bg-gray-200" type="button">
-                            <span id="dropdownButton_@task.Id">
-                                    @task.SelectStatus
 
-                            </span>
-                            <svg class="w-2.5 h-2.5 ms-1.5 mt-0.5 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m1 1 4 4 4-4" />
-                            </svg>
-                        </button>
 
                         <form id="myForm_@task.Id" asp-action="EditTask" asp-route-id="@task.Id">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -126,8 +118,7 @@
                                     <span asp-validation-for="@task.DateTime" class="text-danger"></span>
                                 </div>
 
-                                <label asp-for="@task.SelectStatus" class="hidden control-label" ></label>
-                            <select asp-for="@task.SelectStatus" onchange="updateSelectStatus('@task.Id')" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <select asp-for="@task.SelectStatus" onchange="updateSelectStatus('@task.Id')" class="ml-3 border-gray-900 text-black ml-1 p-1 w-25 z-100 flex cursor-pointer items-center justify-center self-baseline rounded-lg border border border-solid text-xs font-medium hover:bg-gray-200">
                                     <option value="To Do">To Do</option>
                                     <option value="In Progress">In Progress</option>
                                     <option value="Done">Done</option>
@@ -138,11 +129,11 @@
                             
                         </form>
                     </div>
+                    <p class="mt-1 text-gray-500 flex text-xs leading-5">
+                        <a  class="relative truncate">@task.Description</a>
+                    </p>
                     </div>
 
-                    <p class="mt-1 text-gray-500 flex text-xs leading-5">
-                        <a  class="relative truncate">@task.SelectStatus</a>
-                    </p>
                 </div>
 
           
