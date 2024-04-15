@@ -8,6 +8,7 @@ namespace Organizer.Entities
     public class Task : IMustHaveTenant
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid Id { get; set; }
 
         public string Title { get; set; }
@@ -19,7 +20,11 @@ namespace Organizer.Entities
         [Display(Name = "Date & Time")]
         public DateTime DateTime { get; set; }
 
+
         public string TenantId { get; set; }
+
+
+        public string SelectStatus { get; set; }
 
         public Task() => Id = Guid.NewGuid();
         

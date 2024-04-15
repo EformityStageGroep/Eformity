@@ -33,6 +33,11 @@
 
                             </div>
 
+
+                        </div>
+                        <div class="mt-6 px-4 relative flex-1 sm:px-6">
+
+
                         </div>
 
                         <div class="mt-6 px-4 relative flex-1 sm:px-6">
@@ -87,39 +92,64 @@
                 <div class="min-w-0 flex-auto">
                     <div class="flex">
 
+
                     <p class="text-gray-900 text-sm font-semibold leading-6">
                         <a href="#">
                             <span class="inset-x-0 -top-px bottom-0 absolute" onclick="toggleSlideover('@task.Id')"></span>
                             @task.Title
                         </a>
                     </p>
+                    
+                        <button id="postitStatusDropdown_@task.Id" onclick="statusDropDown(event, '@task.Id'), openStatusDropdown('@task.Id')" data-dropdown-toggle="dropdown" class="ml-3 border-gray-900 text-black ml-1 p-1 z-10 flex cursor-pointer items-center justify-center self-baseline rounded-lg border border border-solid text-xs font-medium hover:bg-gray-200" type="button">
+                            <span id="dropdownButton_@task.Id">
+                                To Do
 
-                    <button id="postitStatusDropdown_@task.Id" onclick="statusDropDown(event, '@task.Id'), openStatusDropdown('@task.Id')" data-dropdown-toggle="dropdown" class="ml-3 border-gray-900 text-black ml-1 p-1 z-10 flex cursor-pointer items-center justify-center self-baseline rounded-lg border border border-solid text-xs font-medium hover:bg-gray-200" type="button">
-                        <span id="dropdownButton_@task.Id">
-                            To Do
-
-                        </span>
-                        <svg class="w-2.5 h-2.5 ms-1.5 mt-0.5 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m1 1 4 4 4-4" />
-                        </svg>
-                    </button>
-
-                         <div class="absolute">
-                            <div data-prefix="statusDropdown" id="dropdown_@task.Id" class="bg-gray-100 divide-gray-200 w-44 border-gray-200 top-0 left-0 mt-8 absolute z-50 hidden divide-y rounded-lg border shadow">
-                                <ul class="py-2 text-gray-900 text-sm" aria-labelledby="postitStatusDropdown">
-                                    <li>
-                                        <a href="#" class="px-4 py-2 block hover:bg-gray-200">To Do</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="px-4 py-2 block hover:bg-gray-200">In Progress</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="px-4 py-2 block hover:bg-gray-200">Done</a>
-                                    </li>
-                                </ul>
+                            </span>
+                            <svg class="w-2.5 h-2.5 ms-1.5 mt-0.5 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m1 1 4 4 4-4" />
+                            </svg>
+                        </button>
+                        <form asp-action="EditTask" asp-route-id="@task.Id">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="@task.Id" />
+                                <div class="absolute">
+                                <div data-prefix="statusDropdown" id="dropdown_@task.Id" class="bg-gray-100 divide-gray-200 w-44 border-gray-200 top-0 left-0 mt-8 absolute z-50 hidden divide-y rounded-lg border shadow">
+                                    <ul class="py-2 text-gray-900 text-sm" aria-labelledby="postitStatusDropdown">
+                                        <li>
+                                                <button type="submit" id="To_Do" class="px-4 py-2 block hover:bg-gray-200">To Do</button>
+                                        </li>
+                                        <li>
+                                                <button type="submit" id="In_Progress" class="px-4 py-2 block hover:bg-gray-200">In Progress</button>
+                                        </li>
+                                        <li>
+                                                <button type="submit" id="Done" class="px-4 py-2 block hover:bg-gray-200">Done</button>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
 
+                            <input type="invisible" asp-for="@task.Title" class="hidden">
+                            <span asp-validation-for="@task.Title" class="text-danger"></span>
+                    
+                    <div class="form-group">
+                                <input type="invisible" asp-for="@task.Description" class="hidden">
+                        <span asp-validation-for="@task.Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                                <select type="invisible" asp-for="@task.Priority" class="hidden">
+                                    <option value="high">High</option>
+                            <option value="medium">Medium</option>
+                            <option value="low">Low</option>
+                        </select>
+                                <span asp-validation-for="@task.Priority" class="hidden"></span>
+                    </div>
+                    <div class="form-group">
+                                <input type="invisible" asp-for="@task.DateTime" class="hidden">
+                        <span asp-validation-for="@task.DateTime" class="text-danger"></span>
+                    </div>
+
+                    </form>
+                    </div>
                     </div>
 
                     <p class="mt-1 text-gray-500 flex text-xs leading-5">
@@ -127,7 +157,7 @@
                     </p>
                 </div>
 
-            </div>
+          
             <div class="gap-x-4 flex shrink-0 items-center">
                 <div class="hidden sm:flex sm:flex-col sm:items-end">
                     <p id="priorityLabel_@task.Id" class="text-gray-900 text-sm leading-6">@task.Priority</p>
@@ -140,8 +170,11 @@
         </li>
         </div>
 
-
        
+
+
+                    </div>
+
 
 
 
@@ -153,14 +186,7 @@
 
 
 @section scripts {
-
-
-
-
     <script>
-
-        
-
 
         document.addEventListener('DOMContentLoaded', function () {
             window.addEventListener('click', function (event) {
@@ -205,6 +231,7 @@
             const statusDropDownPostit = document.getElementById("dropdown_" + taskId)
             statusDropDownPostit.classList.add("hidden")
 
+
         }
 
 
@@ -215,6 +242,7 @@
             const dropdown = document.getElementById("dropdown_" + taskId);
             dropdown.classList.toggle('hidden'); // Toggle visibility of dropdown
         }
+
 
 
         // Function to handle dropdown toggle
@@ -259,12 +287,14 @@
             function hoverFun(taskId) {
                 postIt.classList.remove('hover:bg-gray-200')
                 postIt.classList.add('hover:bg-gray-100')
+
             }
 
             function hoverReverse(taskId) {
                 postIt.classList.add('hover:bg-gray-200')
                 postIt.classList.remove('hover:bg-gray-100')
             }
+
 
         }
 
@@ -303,6 +333,7 @@
 
 
 
+
         function toggleSlideover(taskId) {
             console.log('passed slideover')
 
@@ -315,6 +346,7 @@
         function deleteTask(taskId) {
             // Get the CSRF token from the form
             const csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
 
 
             // Send a POST request with the task ID and CSRF token
@@ -339,10 +371,11 @@
                 .catch(error => {
                     console.error('Error deleting task:', error);
                     // Handle error scenario
+
                 });
             setTimeout(() => {
                 location.reload();
-            }, 500);
+            }, 300);
         }
 
 
@@ -370,6 +403,7 @@
                     tabContents.forEach(content => content.classList.add("hidden"));
                     // Show corresponding tab content
                     tabContents[index].classList.remove("hidden");
+
                 });
             });
 
@@ -389,34 +423,17 @@
             });
 
             const createTaskButton = document.getElementById("createTaskButton");
-            const taskForm = document.getElementById("taskForm");
+            //const taskForm = document.getElementById("taskForm");
 
             createTaskButton.addEventListener("click", function () {
-                const formData = new FormData(taskForm);
+                //const formData = new FormData(taskForm);
 
-                fetch('@Url.Action("Create", "Tasks")', {
-                    method: 'POST',
-                    body: formData,
+              
+            setTimeout(() => {
+                location.reload();
 
-                })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        console.log(data); // Log response data
-                        // Optionally, you can update the UI or display a success message
-                    })
-                    .catch(error => {
-                        console.error('There was a problem with the fetch operation:', error);
-                        // Optionally, you can display an error message to the user
-                    });
-                setTimeout(() => {
-                    location.reload();
-                }, 500);
-            });
+            }, 300);
+
 
         });
 
@@ -453,7 +470,12 @@
                 });
 
 
-        }
+    }
+
+
+
+        })
+
 
 
     </script>

@@ -52,7 +52,7 @@ namespace Organizer.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,Description,Priority,DateTime,Status")] Entities.Task task)
+        public async Task<IActionResult> Create([Bind("Title,Description,Priority,DateTime,SelectStatus")] Entities.Task task)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace Organizer.Controllers
         }
         [HttpPost]
 
-        public async Task<IActionResult> EditTask(Guid id, [Bind("Id,Title,Description,Priority,DateTime")] Entities.Task task)
+        public async Task<IActionResult> EditTask(Guid id, [Bind("Id,Title,Description,Priority,DateTime,SelectStatus")] Entities.Task task)
         {
             if (id != task.Id)
             {
