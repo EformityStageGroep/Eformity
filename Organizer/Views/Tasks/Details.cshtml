@@ -102,7 +102,7 @@
                             </svg>
                         </button>
 
-                            <form id="myForm" asp-action="EditTask" asp-route-id="@task.Id">
+                        <form id="myForm_@task.Id" asp-action="EditTask" asp-route-id="@task.Id">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                 <input type="hidden" asp-for="@task.Id" />
                           
@@ -126,13 +126,13 @@
                                     <span asp-validation-for="@task.DateTime" class="text-danger"></span>
                                 </div>
 
-                                <label asp-for="@task.SelectStatus" class="control-label" ></label>
-                                <select asp-for="@task.SelectStatus" onchange="updateSelectStatus()" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                    <option value="test1">High</option>
-                                    <option value="test2">Medium</option>
-                                    <option value="test3">Low</option>
-                                </select>
-                                <span asp-validation-for="@task.SelectStatus" class="text-danger"></span>
+                                <label asp-for="@task.SelectStatus" class="hidden control-label" ></label>
+                            <select asp-for="@task.SelectStatus" onchange="updateSelectStatus('@task.Id')" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    <option value="To Do">To Do</option>
+                                    <option value="In Progress">In Progress</option>
+                                    <option value="Done">Done</option>
+                            </select>
+                            <span asp-validation-for="@task.SelectStatus" class="text-danger"></span>
 
 
                             
@@ -141,7 +141,7 @@
                     </div>
 
                     <p class="mt-1 text-gray-500 flex text-xs leading-5">
-                        <a  class="relative truncate">@task.Description</a>
+                        <a  class="relative truncate">@task.SelectStatus</a>
                     </p>
                 </div>
 
@@ -172,11 +172,11 @@
 
 @section scripts {
     <script>
-        
-        function updateSelectStatus() {
+
+        function updateSelectStatus(taskId) {
             console.log("Test");
-            //document.getElementById('selectStatusInput').value = value;
-            document.getElementById('myForm').submit(); // Submit the form
+          
+            document.getElementById('myForm_' + taskId).submit(); // Submit the form
             
         }
 
