@@ -9,14 +9,20 @@ namespace Organizer.Contexts
         { 
 
         }
-        //net toegevoegd omdat organizer het ook heeft 
+        //net toegevoegd omdat organizer het ook heeft
+        //
+        public TenantDbContext()
+        {
+        }
+
+
+        public DbSet<Tenant> Tenants { get; set; }
+
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
             optionsBuilder.UseSqlServer(Organizer.Properties.Resources.ConnectionString);
         }
-
-        public DbSet<Tenant> Tenants { get; set; }
-
     }
 }

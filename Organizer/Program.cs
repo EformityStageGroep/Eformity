@@ -35,9 +35,9 @@ builder.Services.Configure<CookieAuthenticationOptions>(CookieAuthenticationDefa
 
 // Add DbContext
 using (var context = new OrganizerContext())
-   /* {
-    context.Database.Migrate();
-    }*/
+using (var contexts = new TenantDbContext())
+
+    
     builder.Services.AddDbContext<OrganizerContext>();
     builder.Services.AddDbContext<TenantDbContext>();
         

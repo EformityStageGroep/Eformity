@@ -18,14 +18,11 @@ namespace Organizer.Contexts
             CurrentTenantId = _currentTenantService.TenantId;
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public OrganizerContext()
         {
-            base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer(Organizer.Properties.Resources.ConnectionString);
-
-        
-
         }
+
+
         public DbSet<User> Users { get; set; }
         
         public DbSet<Tenant> Tenants { get; set; }
@@ -58,7 +55,14 @@ namespace Organizer.Contexts
             return result;
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+            optionsBuilder.UseSqlServer(Organizer.Properties.Resources.ConnectionString);
 
+
+
+        }
 
     }
 }
