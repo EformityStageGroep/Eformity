@@ -51,7 +51,7 @@
                             <input type="datetime-local" id="datetime" name="datetime" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                         </div>
                         <div class="mt-2">
-                            <label for="SelectStatus" class="hidden text-gray-700 block text-sm font-medium">Date and Time</label>
+                            <label for="SelectStatus" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
                             <input type="hidden" id="SelectStatus" name="SelectStatus" value="To Do">
                         </div>
                         <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
@@ -96,10 +96,10 @@
             <nav class="-mb-px space-x-8 flex">
                 <!-- Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
 
-                <a onclick="filterTasksByPriority('ALL')" class="tab border-indigo-500 text-indigo-600 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">All priorities</a>
-                <a onclick="filterTasksByPriority('HIGH')" class="tab border-transparent text-gray-500 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">High priority</a>
-                <a onclick="filterTasksByPriority('MEDIUM')" class="tab border-transparent text-gray-500 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">Medium priority</a>
-                <a onclick="filterTasksByPriority('LOW')" class="tab border-transparent text-gray-500 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">Low priority</a>
+                <a onclick="filterTasksByPriority('ALL')" class="tab border-indigo-500 text-indigo-600 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:cursor-pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">All priorities</a>
+                <a onclick="filterTasksByPriority('HIGH')" class="tab border-transparent text-gray-500 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:cursor-pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">High priority</a>
+                <a onclick="filterTasksByPriority('MEDIUM')" class="tab border-transparent text-gray-500 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:cursor-pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">Medium priority</a>
+                <a onclick="filterTasksByPriority('LOW')" class="tab border-transparent text-gray-500 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:cursor-pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">Low priority</a>
                 
 
             </nav>

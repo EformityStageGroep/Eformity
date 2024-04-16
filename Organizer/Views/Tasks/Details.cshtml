@@ -2,7 +2,7 @@
 
 @Html.Partial("../Home/Homepage")
 
-<ul role="list" class="mt-5 divide-gray-100 bg-white ring-gray-900/5 mb-3 divide-y overflow-hidden shadow-sm ring-1 sm:rounded-xl">
+<ul role="list" class="mt-5 divide-gray-100 bg-white ring-gray-900/5 mb-3 divide-y shadow-sm ring-1 sm:rounded-xl">
 
     @foreach (var task in Model)
     {
@@ -119,10 +119,11 @@
                                 <span asp-validation-for="@task.DateTime" class="text-danger"></span>
                             </div>
 
-                            <select asp-for="@task.SelectStatus" onchange="updateSelectStatus('@task.Id')" class="ml-3 border-gray-900 text-black ml-1 p-1 w-25 absolute z-10 flex cursor-pointer items-center justify-center self-baseline rounded-lg border border border-solid text-xs font-medium hover:bg-gray-200">
+                            <select asp-for="@task.SelectStatus" onchange="updateSelectStatus('@task.Id')" class="ml-3 border-gray-900 text-black ml-1 p-1 w-[105px] absolute z-10 flex cursor-pointer items-center justify-center self-baseline rounded-lg border border border-solid text-xs font-medium hover:cursor-pointer hover:bg-gray-200">
                                 <option value="To Do">To Do</option>
                                 <option value="In Progress">In Progress</option>
                                 <option value="Done">Done</option>
+
                             </select>
                             <span asp-validation-for="@task.SelectStatus" class="text-danger"></span>
                         </form>
@@ -171,7 +172,7 @@
                     </svg>
                 </button>
                 
-                <div class="right-0 mt-2 w-32 bg-white py-2 ring-gray-900/5 absolute z-10 hidden origin-top-right rounded-md shadow-lg ring-1 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu_@task.Id" tabindex="-1">
+                <div class="right-0 mt-2 w-32 bg-white py-2 ring-gray-900/5 absolute z-20 hidden origin-top-right rounded-md shadow-lg ring-1 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu_@task.Id" tabindex="-1">
                     <!-- Active: "bg-gray-50", Not Active: "" -->
                         <a href="#" class="px-3 py-1 text-gray-900 block text-sm leading-6" role="menuitem" onclick="toggleSlideover('@task.Id')" tabindex="-1" id="options-menu_@task.Id-item-0">Edit<span class="sr-only">, Michael Foster</span></a>
                         <a href="#" class="px-3 py-1 text-gray-900 block text-sm leading-6" role="menuitem" onclick="deleteTask('@task.Id')" tabindex="-1" id="options-menu_@task.Id-item-1">Delete<span class="sr-only">, Michael Foster</span></a>
