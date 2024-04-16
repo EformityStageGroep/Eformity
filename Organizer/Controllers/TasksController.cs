@@ -58,7 +58,7 @@ namespace Organizer.Controllers
                 task.TenantId = tenantId;
                 await _taskRepository.Create(task);
                 await _taskRepository.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details));
             }
             return View(task);
         }
