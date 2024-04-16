@@ -129,7 +129,11 @@
                         </form>
                     </div>
                     <p class="mt-1 text-gray-500 flex text-xs leading-5">
-                        <a class="relative truncate">@task.Description</a>
+                            @{
+                                string description = @task.Description;
+                                string displayDescription = description.Length > 30 ? description.Substring(0, 30) + "..." : description;
+                            }
+                        <a class="relative truncate">@displayDescription</a>
                     </p>
                 </div>
 
