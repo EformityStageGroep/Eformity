@@ -119,7 +119,7 @@
                                 <span asp-validation-for="@task.DateTime" class="text-danger"></span>
                             </div>
 
-                            <select asp-for="@task.SelectStatus" onchange="updateSelectStatus('@task.Id')" class="ml-3 border-gray-900 text-black ml-1 p-1 w-[105px] absolute z-10 flex cursor-pointer items-center justify-center self-baseline rounded-lg border border border-solid text-xs font-medium hover:cursor-pointer hover:bg-gray-200">
+                            <select asp-for="@task.SelectStatus" onchange="updateSelectStatus('@task.Id')" class="ml-3 border-gray-900 text-black ml-1 p-1 w-[105px] relative z-10 flex cursor-pointer items-center justify-center self-baseline rounded-lg border border border-solid text-xs font-medium hover:cursor-pointer hover:bg-gray-200">
                                 <option value="To Do">To Do</option>
                                 <option value="In Progress">In Progress</option>
                                 <option value="Done">Done</option>
