@@ -5,9 +5,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Organizer.Entities
 {
     [Table("Tasks")]
-    public class Task
+    public class Task 
     {
         [Key]
+        
         public Guid Id { get; set; }
 
         public string Title { get; set; }
@@ -18,11 +19,10 @@ namespace Organizer.Entities
 
         [Display(Name = "Date & Time")]
         public DateTime DateTime { get; set; }
-
+    
         public string SelectStatus { get; set; }
-
-        public Task() => Id = Guid.NewGuid();
         
+        public Task() => Id = Guid.NewGuid();
     }
     
  /*   public class PageIdentifier

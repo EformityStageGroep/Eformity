@@ -4,25 +4,24 @@
 
 <ul role="list" class="mt-5 divide-gray-100 bg-white ring-gray-900/5 mb-3 divide-y overflow-hidden shadow-sm ring-1 sm:rounded-xl">
 
-@foreach (var task in Model)
-{
+    @foreach (var task in Model)
+    {
 
-      <div data-prefix="slideover" id="slideoverModal_@task.Id" class="invisible relative z-50 transition-all duration-300 ease-out" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+        <div data-prefix="slideover" id="slideoverModal_@task.Id" class="invisible relative z-50 transition-all duration-300 ease-out" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
 
 
-        <div class="inset-0 absolute overflow-hidden">
-            <div class="inset-y-0 right-0 pl-10 active pointer-events-none fixed flex h-auto max-w-full drop-shadow-2xl sm:pl-16">
-                <!-- Your content here -->
-                <div class="pointer-events-auto w-screen max-w-2xl transition-all duration-500 ease-in">
-                    <div  id="slideover_@task.Id" class="bg-white py-6 flex h-full translate-x-full flex-col overflow-y-scroll shadow-xl transition-all duration-500 ease-in">
-                        <div class="px-4 sm:px-6">
-                            <div class="flex items-start justify-between">
-                                <div class="flex">
-                                <h2 class="text-gray-900 text-base font-semibold leading-6" id="slide-over-title_@task.Id">Editing: @task.Title</h2>
-                                <div class="ml-3 flex items-center">
-
-                                </div>
-                                </div>
+            <div class="inset-0 absolute overflow-hidden">
+                <div class="inset-y-0 right-0 pl-10 active pointer-events-none fixed flex h-auto max-w-full drop-shadow-2xl sm:pl-16">
+                    <!-- Your content here -->
+                    <div class="pointer-events-auto w-screen max-w-2xl transition-all duration-500 ease-in">
+                        <div id="slideover_@task.Id" class="bg-white py-6 flex h-full translate-x-full flex-col overflow-y-scroll shadow-xl transition-all duration-500 ease-in">
+                            <div class="px-4 sm:px-6">
+                                <div class="flex items-start justify-between">
+                                    <div class="flex">
+                                        <h2 class="text-gray-900 text-base font-semibold leading-6" id="slide-over-title_@task.Id">Editing: @task.Title</h2>
+                                        <div class="ml-3 flex items-center">
+                                        </div>
+                                    </div>
                                     <button onclick="toggleSlideover('@task.Id')" type="button" class="p-1 bg-white text-gray-400 font-sm h-0 relative cursor-pointer rounded-md text-xs hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                                         <span class="-inset-2.5 absolute"></span>
                                         <span class="sr-only">Close panel</span>
@@ -31,121 +30,112 @@
                                         </svg>
                                     </button>
 
-                            </div>
-
-                        </div>
-                        <div class="mt-6 px-4 relative flex-1 sm:px-6">
-
-                            <form id="MyForm" asp-action="EditTask" asp-route-id="@task.Id">
-                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                <input type="hidden" asp-for="@task.Id" />
-                            <div class="form-group">
-                                <label asp-for="@task.Title" class="control-label"></label>
-                                    <input asp-for="@task.Title" class="p-2 py-1.5 text-gray-900 ring-gray-300 block w-full rounded-md border-0 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Send e-mails to the customers" value="@task.Title">
-                                    
-                                    <span asp-validation-for="@task.Title" class="text-danger"></span>
                                 </div>
-                                <div class="form-group">
-                                    <label asp-for="@task.Description" class="control-label"></label>
-                                    <input asp-for="@task.Description" class="p-2 py-1.5 text-gray-900 ring-gray-300 block w-full rounded-md border-0 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Put James in the CC!">
-   
-                                    <span asp-validation-for="@task.Description" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="@task.Priority" class="control-label"></label>
-                                    <select asp-for="@task.Priority" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                        <option value="high">High</option>
-                                        <option value="medium">Medium</option>
-                                        <option value="low">Low</option>
-                                    </select>
-                                    <span asp-validation-for="@task.Priority" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="@task.DateTime" class="control-label"></label>
-                                    <input asp-for="@task.DateTime" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
 
-                                    <span asp-validation-for="@task.DateTime" class="text-danger"></span>
-                                </div>
+                            </div>
+                            <div class="mt-6 px-4 relative flex-1 sm:px-6">
+
+                                <form id="MyForm" asp-action="EditTask" asp-route-id="@task.Id">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <input type="hidden" asp-for="@task.Id" />
+                                    <div class="form-group">
+                                        <label asp-for="@task.Title" class="control-label"></label>
+                                        <input asp-for="@task.Title" class="p-2 py-1.5 text-gray-900 ring-gray-300 block w-full rounded-md border-0 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Send e-mails to the customers" value="@task.Title">
+
+                                        <span asp-validation-for="@task.Title" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="@task.Description" class="control-label"></label>
+                                        <input asp-for="@task.Description" class="p-2 py-1.5 text-gray-900 ring-gray-300 block w-full rounded-md border-0 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Put James in the CC!">
+
+                                        <span asp-validation-for="@task.Description" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="@task.Priority" class="control-label"></label>
+                                        <select asp-for="@task.Priority" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                            <option value="high">High</option>
+                                            <option value="medium">Medium</option>
+                                            <option value="low">Low</option>
+                                        </select>
+                                        <span asp-validation-for="@task.Priority" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="@task.DateTime" class="control-label"></label>
+                                        <input asp-for="@task.DateTime" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+
+                                        <span asp-validation-for="@task.DateTime" class="text-danger"></span>
+                                    </div>
                                     <input type="hidden" asp-for="@task.SelectStatus" />
-                                <div class="form-group right-0 mt-4 mb-4 mr-4 fixed">
-                                    <input type="submit" value="Save" class="m1 auto bg-indigo-500 px-3.5 py-2.5 text-white rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" onclick="updateTask()">
-                                    <button type="button" class="m1 auto bg-indigo-500 px-3.5 py-2.5 text-white rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" onclick="deleteTask('@task.Id')">Delete</button>
-                                </div>
-                            </form>
+                                    <div class="form-group right-0 mt-4 mb-4 mr-4 fixed">
+                                        <input type="submit" value="Save" class="m1 auto bg-indigo-500 px-3.5 py-2.5 text-white rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" onclick="updateTask()">
+                                        <button type="button" class="m1 auto bg-indigo-500 px-3.5 py-2.5 text-white rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" onclick="deleteTask('@task.Id')">Delete</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div data-prefix="postit" id="postit_@task.Id">
+        <div data-prefix="postit" id="postit_@task.Id">
         <li class="gap-x-6 px-4 py-5 relative flex justify-between hover:bg-gray-50 sm:px-6">
             <div class="min-w-0 gap-x-4 flex">
                 <div class="min-w-0 flex-auto">
                     <div class="flex">
 
-                    <p class="text-gray-900 text-sm font-semibold leading-6">
-                        <a href="#">
-                            
-                            @task.Title
-                        </a>
-                    </p>
-                    
-                        <button id="postitStatusDropdown_@task.Id" onclick="statusDropDown(event, '@task.Id'), openStatusDropdown('@task.Id')" data-dropdown-toggle="dropdown" class="ml-3 border-gray-900 text-black ml-1 p-1 z-10 flex cursor-pointer items-center justify-center self-baseline rounded-lg border border border-solid text-xs font-medium hover:bg-gray-200" type="button">
-                            <span id="dropdownButton_@task.Id">
-                                    @task.SelectStatus
+                        <p class="text-gray-900 text-sm font-semibold leading-6">
+                            <a href="#">
+                                <span class="inset-x-0 -top-px bottom-0 absolute z-0" onclick="toggleSlideover('@task.Id')"></span>
+                                    @task.Title
+                            </a>
+                        </p>
 
-                            </span>
-                            <svg class="w-2.5 h-2.5 ms-1.5 mt-0.5 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m1 1 4 4 4-4" />
-                            </svg>
-                        </button>
+
 
                         <form id="myForm_@task.Id" asp-action="EditTask" asp-route-id="@task.Id">
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                <input type="hidden" asp-for="@task.Id" />
-                          
-                                <input type="invisible" asp-for="@task.Title" class="hidden">
-                                <span asp-validation-for="@task.Title" class="text-danger"></span>
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="@task.Id" />
 
-                                <div class="form-group">
-                                    <input type="invisible" asp-for="@task.Description" class="hidden">
-                                    <span asp-validation-for="@task.Description" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <select type="invisible" asp-for="@task.Priority" class="hidden">
-                                        <option value="high">High</option>
-                                        <option value="medium">Medium</option>
-                                        <option value="low">Low</option>
-                                    </select>
-                                    <span asp-validation-for="@task.Priority" class="hidden"></span>
-                                </div>
-                                <div class="form-group">
-                                    <input type="invisible" asp-for="@task.DateTime" class="hidden">
-                                    <span asp-validation-for="@task.DateTime" class="text-danger"></span>
-                                </div>
+                            <input type="invisible" asp-for="@task.Title" class="hidden">
+                            <span asp-validation-for="@task.Title" class="text-danger"></span>
 
-                                <label asp-for="@task.SelectStatus" class="hidden control-label" ></label>
-                            <select asp-for="@task.SelectStatus" onchange="updateSelectStatus('@task.Id')" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                    <option value="To Do">To Do</option>
-                                    <option value="In Progress">In Progress</option>
-                                    <option value="Done">Done</option>
+                            <div class="form-group">
+                                <input type="invisible" asp-for="@task.Description" class="hidden">
+                                <span asp-validation-for="@task.Description" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <select type="invisible" asp-for="@task.Priority" class="hidden">
+                                    <option value="high">High</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="low">Low</option>
+                                </select>
+                                <span asp-validation-for="@task.Priority" class="hidden"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="invisible" asp-for="@task.DateTime" class="hidden">
+                                <span asp-validation-for="@task.DateTime" class="text-danger"></span>
+                            </div>
+
+                            <select asp-for="@task.SelectStatus" onchange="updateSelectStatus('@task.Id')" class="ml-3 border-gray-900 text-black ml-1 p-1 w-25 absolute z-10 flex cursor-pointer items-center justify-center self-baseline rounded-lg border border border-solid text-xs font-medium hover:bg-gray-200">
+                                <option value="To Do">To Do</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Done">Done</option>
                             </select>
                             <span asp-validation-for="@task.SelectStatus" class="text-danger"></span>
 
 
-                            
+
                         </form>
                     </div>
-                    </div>
-
                     <p class="mt-1 text-gray-500 flex text-xs leading-5">
-                        <a  class="relative truncate">@task.SelectStatus</a>
+                        <a class="relative truncate">@task.Description</a>
                     </p>
                 </div>
 
-          
+            </div>
+
+
             <div class="gap-x-4 flex shrink-0 items-center">
                 <div class="hidden sm:flex sm:flex-col sm:items-end">
                     <p id="priorityLabel_@task.Id" class="text-gray-900 text-sm leading-6">@task.Priority</p>
@@ -158,12 +148,12 @@
         </li>
         </div>
 
-       
 
 
 
 
-}
+
+    }
 
 </ul>
 
@@ -175,41 +165,12 @@
 
         function updateSelectStatus(taskId) {
             console.log("Test");
-          
+
             document.getElementById('myForm_' + taskId).submit(); // Submit the form
-            
+
         }
 
-        document.getElementById("myForm").addEventListener("submit", function (event) {
-            event.preventDefault(); // Prevent the default form submission
-
-            // Get form data
-            const formData = new FormData(event.target);
-
-            // Convert formData to an object
-            const formObject = {};
-            formData.forEach((value, key) => {
-                formObject[key] = value;
-            });
-
-            // Log form data
-            console.log(formObject);
-        });
-        document.getElementById("myForm").addEventListener("submit", function (event) {
-            event.preventDefault(); // Prevent the default form submission
-
-            // Get form data
-            const formData = new FormData(event.target);
-
-            // Convert formData to an object
-            const formObject = {};
-            formData.forEach((value, key) => {
-                formObject[key] = value;
-            });
-
-            // Log form data
-            console.log(formObject);
-        });
+      
 
 
 
@@ -445,30 +406,21 @@
             createTaskButton.addEventListener("click", function () {
                 //const formData = new FormData(taskForm);
 
-              
-            setTimeout(() => {
-                location.reload();
-            }, 300);
 
-        });
+                setTimeout(() => {
+                    location.reload();
+                }, 300);
 
-        function updateTask() {
-            //var form = document.getElementById('editTaskForm');
-            // Get the form data
-            //const formData = new FormData(form);
-            //console.log(formData);
-            // Send a POST request with the task ID and form data
-            //const csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
+            });
 
-            // Send a POST request with the task ID and CSRF token
-         
-            // For simplicity, let's reload the page after 1 second
-                    setTimeout(() => {
-                        location.reload();
-                    }, 300); // 1000 milliseconds = 1 second
-              
+            function updateTask() {
+                
+                setTimeout(() => {
+                    location.reload();
+                }, 300); // 1000 milliseconds = 1 second
 
-    }
+
+            }
 
 
 
