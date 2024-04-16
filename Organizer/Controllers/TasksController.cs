@@ -8,7 +8,7 @@ using Microsoft.Graph;
 using Organizer.Contexts;
 using Organizer.Entities;
 using Organizer.Repositories;
-
+using Organizer.Services;
 
 namespace Organizer.Controllers
 {
@@ -51,12 +51,12 @@ namespace Organizer.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,Description,Priority,DateTime,SelectStatus")] Entities.Task task)
+        public async Task<IActionResult> Create([Bind("Title,Description,Priority,DateTime,SelectStatus")] Entities.Task task, string tenantId)
         {
             if (ModelState.IsValid)
             {
                 task.Id = Guid.NewGuid();
-                
+                task.TenantId = tenantId;
                 await _taskRepository.Create(task);
                 await _taskRepository.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

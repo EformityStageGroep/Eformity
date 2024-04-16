@@ -23,8 +23,19 @@ namespace Organizer.Repositories
         public async Task<List<Entities.Task>> GetTasksAsync() 
         {
             var tenantId = _currentTenantService.TenantId;
-            return await _context.Task.Where(t => t.TenantId == tenantId).ToListAsync();
+            Console.WriteLine($"Current TenantId: {tenantId}"); // Debugging line
+
+            var tasks = await _context.Task.Where(t => t.TenantId == tenantId).ToListAsync();
+            // Debugging: Print the fetched tasks
+            Console.WriteLine("Fetched Tasks:");
+            foreach (var task in tasks)
+            {
+                Console.WriteLine($"TaskId: {task.Id}, TenantId: {task.TenantId}, Title: {task.Title}, Description: {task.Description}, Priority: {task.Priority}, DateTime: {task.DateTime}, SelectStatus: {task.SelectStatus}");
+            }
+
+            return tasks;
         }
+
 
         public async System.Threading.Tasks.Task Create(Entities.Task task)
         {
@@ -53,9 +64,6 @@ namespace Organizer.Repositories
             return await _context.SaveChangesAsync();
         }
 
-        public Task<List<Entities.Task>> Task()
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }
