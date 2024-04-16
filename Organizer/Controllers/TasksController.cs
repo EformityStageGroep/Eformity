@@ -23,24 +23,23 @@ namespace Organizer.Controllers
         // GET: Tasks
         public async Task<IActionResult> Index()
         {
-            var tasks = await _taskRepository.Task();
+            var tasks = await _taskRepository.GetTasksAsync(); // Fetch tasks based on current tenant
             return View(tasks);
         }
         // GET: Tasks/Details/5
-        public async Task<IActionResult> Details()
+        public async Task<IActionResult> Details(Guid id)
         {
 
             try
             {
-                var task = await _taskRepository.Task();
+                var task = await _taskRepository.GetTasksAsync(); // Fetch tasks based on current tenant
 
                 if (task == null)
                 {
                     return NotFound();
                 }
 
-
-                return View(task);
+                return View(task.FirstOrDefault(t => t.Id == id));
             }
             // Wrap the task in a list before passing it to the view
 
@@ -57,6 +56,7 @@ namespace Organizer.Controllers
             if (ModelState.IsValid)
             {
                 task.Id = Guid.NewGuid();
+                
                 await _taskRepository.Create(task);
                 await _taskRepository.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

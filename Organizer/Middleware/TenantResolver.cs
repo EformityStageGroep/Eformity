@@ -1,4 +1,6 @@
-﻿using Organizer.Services;
+﻿using Microsoft.AspNetCore.Http;
+using Organizer.Services;
+using System.Linq;
 
 namespace Organizer.Middleware
 {
@@ -13,11 +15,13 @@ namespace Organizer.Middleware
 
         public async Task InvokeAsync(HttpContext context, ICurrentTenantService currentTenantService)
         {
-            context.Request.Headers.TryGetValue("tenant", out var tenantFromHeader);
-            if (string.IsNullOrEmpty(tenantFromHeader) == false)
+            var tenantClaim = context.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.microsoft.com/identity/claims/tenantid"); // Retrieve tid claim
+
+            if (tenantClaim != null)
             {
-                await currentTenantService.SetTenant(tenantFromHeader);
+                currentTenantService.TenantId = tenantClaim.Value; // Set TenantId based on tid claim
             }
+
             await _next(context);
         }
     }
