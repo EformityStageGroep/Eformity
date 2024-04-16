@@ -134,12 +134,13 @@
                                 string displayDescription = description.Length > 30 ? description.Substring(0, 30) + "..." : description;
                             }
 
+
                         <span id="shortDesc_@task.Id" class="inline-block">@displayDescription</span>
 
                         <a id="moreLink_@task.Id" href="#" ml-3 class="text-blue-500 z-10 cursor-pointer hover:text-blue-600" onclick="toggleDescription('@task.Id')">more</a>
                         <span id="fullDesc_@task.Id" class="mt-1 block hidden">@description</span>
                         <a id="lessLink_@task.Id" href="#" ml-3 class="text-blue-500 z-10 hidden cursor-pointer hover:text-blue-600" onclick="toggleDescription('@task.Id')">less</a>
-                            
+
                     </p>
                 </div>
 
@@ -195,6 +196,7 @@
 
 
 @section scripts {
+
 
     <script>
         function toggleDescription(taskId) {

@@ -8,7 +8,7 @@ using Microsoft.Graph;
 using Organizer.Contexts;
 using Organizer.Entities;
 using Organizer.Repositories;
-
+using Organizer.Services;
 
 namespace Organizer.Controllers
 {
@@ -23,40 +23,39 @@ namespace Organizer.Controllers
         // GET: Tasks
         public async Task<IActionResult> Index()
         {
-            var tasks = await _taskRepository.Task();
+            var tasks = await _taskRepository.GetTasksAsync(); // Fetch tasks based on current tenant
             return View(tasks);
         }
         // GET: Tasks/Details/5
+
         public async Task<IActionResult> Details()
         {
-
             try
             {
-                var task = await _taskRepository.Task();
+                var tasks = await _taskRepository.GetTasksAsync(); // Fetch tasks based on current tenant
 
-                if (task == null)
+                if (tasks == null || !tasks.Any())
                 {
                     return NotFound();
                 }
 
-
-                return View(task);
+                return View(tasks);
             }
-            // Wrap the task in a list before passing it to the view
-
             catch (Exception ex)
             {
                 // Log the exception or handle it as required
                 return StatusCode(500, $"An error occurred: {ex.Message}");
-            } 
+            }
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,Description,Priority,DateTime,SelectStatus")] Entities.Task task)
+        public async Task<IActionResult> Create([Bind("Title,Description,Priority,DateTime,SelectStatus")] Entities.Task task, string tenantId)
         {
             if (ModelState.IsValid)
             {
                 task.Id = Guid.NewGuid();
+                task.TenantId = tenantId;
                 await _taskRepository.Create(task);
                 await _taskRepository.SaveChangesAsync();
                 return RedirectToAction(nameof(Details));
