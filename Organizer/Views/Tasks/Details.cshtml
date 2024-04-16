@@ -197,7 +197,7 @@
                 lessLink.classList.remove('hidden');
                 fullDesc.classList.remove('hidden');
                 shortDesc.classList.add('hidden');
-                var chunkedDescription = chunkString(description, 35);
+                var chunkedDescription = chunkString(description, 30);
                 fullDesc.innerHTML = chunkedDescription;
                 console.log(chunkedDescription);
             }
@@ -325,7 +325,31 @@
             event.stopPropagation()
         }
 
-        
+        function statusDropdownHoverScript(taskId) {
+            const postIt = document.getElementById("postit_" + taskId)
+            const dropdown = document.getElementById("dropdown_" + taskId)
+            const informationPoints = document.getElementById("informationPoints_" + taskId)
+            const postItStatusDropdown = document.getElementById("postitStatusDropdown_" + taskId)
+
+            informationPoints.addEventListener('mouseenter', hoverFun)
+            dropdown.addEventListener('mouseenter', hoverFun)
+            postItStatusDropdown.addEventListener('mouseenter', hoverFun)
+
+            informationPoints.addEventListener('mouseleave', hoverReverse)
+            dropdown.addEventListener('mouseleave', hoverReverse)
+            postItStatusDropdown.addEventListener('mouseleave', hoverReverse)
+
+            function hoverFun(taskId) {
+                postIt.classList.remove('hover:bg-gray-200')
+                postIt.classList.add('hover:bg-gray-100')
+            }
+
+            function hoverReverse(taskId) {
+                postIt.classList.add('hover:bg-gray-200')
+                postIt.classList.remove('hover:bg-gray-100')
+            }
+
+        }
 
         function filterTasksByPriority(priority) {
             var tasks = document.querySelectorAll('[id^="postit_"]');
@@ -383,7 +407,7 @@
                 });
             setTimeout(() => {
                 location.reload();
-            }, 50);
+            }, 300);
         }
 
 
@@ -438,7 +462,7 @@
 
                 setTimeout(() => {
                     location.reload();
-                }, 50);
+                }, 300);
 
             });
 
@@ -446,7 +470,7 @@
                 
                 setTimeout(() => {
                     location.reload();
-                }, 50); // 1000 milliseconds = 1 second
+                }, 300); // 1000 milliseconds = 1 second
 
 
             }

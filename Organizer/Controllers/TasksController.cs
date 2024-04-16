@@ -59,7 +59,7 @@ namespace Organizer.Controllers
                 task.Id = Guid.NewGuid();
                 await _taskRepository.Create(task);
                 await _taskRepository.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details));
             }
             return View(task);
         }
