@@ -148,17 +148,17 @@
             <div class="gap-x-4 flex shrink-0 items-center">
                 <div class="hidden sm:flex sm:flex-col sm:items-end">
                     @if (task.Priority == "HIGH") {
-                        <p id="priorityLabel_@task.Id" class="text-red-500 text-sm leading-6">@task.Priority</p>
+                        <p id="priorityLabel_@task.Id" class="border-red-500 text-red-600 p-1 h-6.5 rounded-lg border border border-solid text-xs font-medium" leading-6">@task.Priority</p>
 
                     }
                         @if (task.Priority == "MEDIUM")
                         {
-                        <p id="priorityLabel_@task.Id" class="text-orange-500 text-sm leading-6">@task.Priority</p>
+                        <p id="priorityLabel_@task.Id" class="border-orange-600 text-orange-500 p-1 h-6.5 rounded-lg border border border-solid text-xs font-medium" leading-6">@task.Priority</p>
 
                         }
                         @if (task.Priority == "LOW")
                         {
-                        <p id="priorityLabel_@task.Id" class="text-green-500 text-sm leading-6">@task.Priority</p>
+                        <p id="priorityLabel_@task.Id" class="border-green-500 text-green-500 p-1 h-6.5 rounded-lg border border border-solid text-xs font-medium" leading-6">@task.Priority</p>
 
                         }
                     <p class="mt-1 text-gray-500 text-xs leading-5">@task.DateTime</p>
