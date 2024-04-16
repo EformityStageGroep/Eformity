@@ -133,7 +133,12 @@
                                 string description = @task.Description;
                                 string displayDescription = description.Length > 30 ? description.Substring(0, 30) + "..." : description;
                             }
-                        <a class="relative truncate">@displayDescription</a>
+                         <span id="shortDesc" class="inline-block truncate">@displayDescription</span>
+                         @if (description.Length > 30) {
+                                 <a id="moreLink" href="#"ml-3 class="text-blue-500 z-10 cursor-pointer hover:text-blue-600" onclick="toggleDescription(event)">more</a>
+                                 <span id="fullDesc" class="hidden">@description</span>
+                         }
+
                     </p>
                 </div>
 
@@ -166,6 +171,18 @@
 
 @section scripts {
     <script>
+        
+
+    // Attach the event listener
+    var moreLink = document.getElementById('moreLink');
+    if (moreLink) {
+        moreLink.addEventListener('click', toggleDescription);
+    } else {
+        console.error('More link not found!');
+    }
+});
+
+
 
         function updateSelectStatus(taskId) {
             console.log("Test");
