@@ -27,28 +27,27 @@ namespace Organizer.Controllers
             return View(tasks);
         }
         // GET: Tasks/Details/5
-        public async Task<IActionResult> Details(Guid id)
-        {
 
+        public async Task<IActionResult> Details()
+        {
             try
             {
-                var task = await _taskRepository.GetTasksAsync(); // Fetch tasks based on current tenant
+                var tasks = await _taskRepository.GetTasksAsync(); // Fetch tasks based on current tenant
 
-                if (task == null)
+                if (tasks == null || !tasks.Any())
                 {
                     return NotFound();
                 }
 
-                return View(task.FirstOrDefault(t => t.Id == id));
+                return View(tasks);
             }
-            // Wrap the task in a list before passing it to the view
-
             catch (Exception ex)
             {
                 // Log the exception or handle it as required
                 return StatusCode(500, $"An error occurred: {ex.Message}");
-            } 
+            }
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Title,Description,Priority,DateTime,SelectStatus")] Entities.Task task, string tenantId)
