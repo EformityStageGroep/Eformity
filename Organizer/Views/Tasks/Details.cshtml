@@ -123,9 +123,6 @@
                                 <option value="Done">Done</option>
                             </select>
                             <span asp-validation-for="@task.SelectStatus" class="text-danger"></span>
-
-
-
                         </form>
                     </div>
                     <p class="mt-1 text-gray-500 flex text-xs leading-5">
@@ -133,7 +130,13 @@
                                 string description = @task.Description;
                                 string displayDescription = description.Length > 30 ? description.Substring(0, 30) + "..." : description;
                             }
-                        <a class="relative truncate">@displayDescription</a>
+
+                        <span id="shortDesc_@task.Id" class="inline-block">@displayDescription</span>
+
+                        <a id="moreLink_@task.Id" href="#" ml-3 class="text-blue-500 z-10 cursor-pointer hover:text-blue-600" onclick="toggleDescription('@task.Id')">more</a>
+                        <span id="fullDesc_@task.Id" class="hidden block mt-1">@description</span>
+                        <a id="lessLink_@task.Id" href="#" ml-3 class="text-blue-500 z-10 cursor-pointer hover:text-blue-600 hidden" onclick="toggleDescription('@task.Id')">less</a>
+                            
                     </p>
                 </div>
 
@@ -178,7 +181,31 @@
 @section scripts {
 
     <script>
-
+        function toggleDescription(taskId) {
+            var moreLink = document.getElementById('moreLink_' + taskId);
+            var lessLink = document.getElementById('lessLink_' + taskId);
+            var fullDesc = document.getElementById('fullDesc_' + taskId);
+            var shortDesc = document.getElementById('shortDesc_' + taskId);
+            var description = fullDesc.textContent;
+            if (moreLink.classList.contains('hidden')) {
+                moreLink.classList.remove('hidden');
+                lessLink.classList.add('hidden');
+                fullDesc.classList.add('hidden');
+                shortDesc.classList.remove('hidden');
+            } else {
+                moreLink.classList.add('hidden');
+                lessLink.classList.remove('hidden');
+                fullDesc.classList.remove('hidden');
+                shortDesc.classList.add('hidden');
+                var chunkedDescription = chunkString(description, 35);
+                fullDesc.innerHTML = chunkedDescription;
+                console.log(chunkedDescription);
+            }
+        }
+        function chunkString(str, length) {
+            var regex = new RegExp('.{1,' + length + '}(\\s|$)', 'g');
+            return str.match(regex).join('<br>');
+        }
         function updateSelectStatus(taskId) {
             console.log("Test");
 
@@ -298,31 +325,7 @@
             event.stopPropagation()
         }
 
-        function statusDropdownHoverScript(taskId) {
-            const postIt = document.getElementById("postit_" + taskId)
-            const dropdown = document.getElementById("dropdown_" + taskId)
-            const informationPoints = document.getElementById("informationPoints_" + taskId)
-            const postItStatusDropdown = document.getElementById("postitStatusDropdown_" + taskId)
-
-            informationPoints.addEventListener('mouseenter', hoverFun)
-            dropdown.addEventListener('mouseenter', hoverFun)
-            postItStatusDropdown.addEventListener('mouseenter', hoverFun)
-
-            informationPoints.addEventListener('mouseleave', hoverReverse)
-            dropdown.addEventListener('mouseleave', hoverReverse)
-            postItStatusDropdown.addEventListener('mouseleave', hoverReverse)
-
-            function hoverFun(taskId) {
-                postIt.classList.remove('hover:bg-gray-200')
-                postIt.classList.add('hover:bg-gray-100')
-            }
-
-            function hoverReverse(taskId) {
-                postIt.classList.add('hover:bg-gray-200')
-                postIt.classList.remove('hover:bg-gray-100')
-            }
-
-        }
+        
 
         function filterTasksByPriority(priority) {
             var tasks = document.querySelectorAll('[id^="postit_"]');
@@ -337,25 +340,7 @@
             });
         }
 
-        function toggleDescription(taskId) {
-            const postit = document.getElementById("postit_" + taskId)
-            const descriptionText = document.getElementById("descriptionText_" + taskId)
-
-            if (descriptionText.classList.contains('hidden')) {
-                descriptionText.classList.remove('hidden');
-
-            }
-            else {
-                descriptionText.classList.add('hidden')
-
-            }
-
-
-
-
-
-
-        }
+        
 
 
 
@@ -398,7 +383,7 @@
                 });
             setTimeout(() => {
                 location.reload();
-            }, 300);
+            }, 50);
         }
 
 
@@ -453,7 +438,7 @@
 
                 setTimeout(() => {
                     location.reload();
-                }, 300);
+                }, 50);
 
             });
 
@@ -461,7 +446,7 @@
                 
                 setTimeout(() => {
                     location.reload();
-                }, 300); // 1000 milliseconds = 1 second
+                }, 50); // 1000 milliseconds = 1 second
 
 
             }
