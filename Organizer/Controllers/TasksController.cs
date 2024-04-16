@@ -56,15 +56,24 @@ namespace Organizer.Controllers
             {
                 task.Id = Guid.NewGuid();
                 task.TenantId = tenantId;
+                Console.WriteLine($"Current TenantId controller: {task.TenantId}");
                 await _taskRepository.Create(task);
                 await _taskRepository.SaveChangesAsync();
                 return RedirectToAction(nameof(Details));
             }
+            if (!ModelState.IsValid)
+            {
+                foreach (var modelError in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    Console.WriteLine($"Errorrrrr: {modelError.ErrorMessage}");
+                }
+            }
+            Console.WriteLine($"Current TenantId controller: {task}");
             return View(task);
         }
         [HttpPost]
 
-        public async Task<IActionResult> EditTask(Guid id, [Bind("Id,Title,Description,Priority,DateTime,SelectStatus")] Entities.Task task)
+        public async Task<IActionResult> EditTask(Guid id, [Bind("Id,Title,Description,Priority,DateTime,SelectStatus,TenantId")] Entities.Task task)
         {
             if (id != task.Id)
             {
@@ -75,6 +84,7 @@ namespace Organizer.Controllers
             {
                 try
                 {
+                    Console.WriteLine($"Current TenantId EDIT: {task}");
                     await _taskRepository.Edit(task);
                     await _taskRepository.SaveChangesAsync();
                 }
@@ -85,6 +95,14 @@ namespace Organizer.Controllers
                 }
                 return RedirectToAction(nameof(Details));
             }
+            if (!ModelState.IsValid)
+            {
+                foreach (var modelError in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    Console.WriteLine($"Errorr: {modelError.ErrorMessage}");
+                }
+            }
+            Console.WriteLine($"Current TenantId EDITtt: {task}");
             return View(task);
         }
         [HttpPost, ActionName("Delete")]

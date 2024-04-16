@@ -19,6 +19,6 @@ namespace Organizer.Contexts
 
         }
         public DbSet<User> Users { get; set; }
-        public DbSet<Organizer.Entities.Task> Task { get; set; }
+        public DbSet<Entities.Task> Task { get; set; }
     }
 }

@@ -21,9 +21,11 @@ namespace Organizer.Entities
         public DateTime DateTime { get; set; }
     
         public string SelectStatus { get; set; }
+     
         public string TenantId { get; set; }
 
         public Task() => Id = Guid.NewGuid();
+
     }
     
  /*   public class PageIdentifier

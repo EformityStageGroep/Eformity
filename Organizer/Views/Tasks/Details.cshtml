@@ -38,6 +38,7 @@
                                 <form id="MyForm" asp-action="EditTask" asp-route-id="@task.Id">
                                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                     <input type="hidden" asp-for="@task.Id" />
+                                    <input type="hidden" asp-for="@task.TenantId" />
                                     <div class="form-group">
                                         <label asp-for="@task.Title" class="control-label"></label>
                                         <input asp-for="@task.Title" class="p-2 py-1.5 text-gray-900 ring-gray-300 block w-full rounded-md border-0 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Send e-mails to the customers" value="@task.Title">
@@ -98,6 +99,7 @@
                         <form id="myForm_@task.Id" asp-action="EditTask" asp-route-id="@task.Id">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <input type="hidden" asp-for="@task.Id" />
+                            <input type="hidden" asp-for="@task.TenantId" />
 
                             <input type="invisible" asp-for="@task.Title" class="hidden">
                             <span asp-validation-for="@task.Title" class="text-danger"></span>
