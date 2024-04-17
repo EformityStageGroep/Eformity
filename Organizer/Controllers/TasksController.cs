@@ -8,7 +8,7 @@ using Microsoft.Graph;
 using Organizer.Contexts;
 using Organizer.Entities;
 using Organizer.Repositories;
-
+using Organizer.Services;
 
 namespace Organizer.Controllers
 {
@@ -23,49 +23,56 @@ namespace Organizer.Controllers
         // GET: Tasks
         public async Task<IActionResult> Index()
         {
-            var tasks = await _taskRepository.Task();
+            var tasks = await _taskRepository.GetTasksAsync(); // Fetch tasks based on current tenant
             return View(tasks);
         }
         // GET: Tasks/Details/5
+
         public async Task<IActionResult> Details()
         {
-
             try
             {
-                var task = await _taskRepository.Task();
+                var tasks = await _taskRepository.GetTasksAsync(); // Fetch tasks based on current tenant
 
-                if (task == null)
+                if (tasks == null || !tasks.Any())
                 {
                     return NotFound();
                 }
 
-
-                return View(task);
+                return View(tasks);
             }
-            // Wrap the task in a list before passing it to the view
-
             catch (Exception ex)
             {
                 // Log the exception or handle it as required
                 return StatusCode(500, $"An error occurred: {ex.Message}");
-            } 
+            }
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,Description,Priority,DateTime,SelectStatus")] Entities.Task task)
+        public async Task<IActionResult> Create([Bind("Title,Description,Priority,DateTime,SelectStatus,TenantId")] Entities.Task task)
         {
             if (ModelState.IsValid)
             {
                 task.Id = Guid.NewGuid();
+                Console.WriteLine($"Current TenantId controller: {task.TenantId}");
                 await _taskRepository.Create(task);
                 await _taskRepository.SaveChangesAsync();
                 return RedirectToAction(nameof(Details));
             }
+            if (!ModelState.IsValid)
+            {
+                foreach (var modelError in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    Console.WriteLine($"Errorrrrr: {modelError.ErrorMessage}");
+                }
+            }
+            Console.WriteLine($"Current TenantId controller: {task}");
             return View(task);
         }
         [HttpPost]
 
-        public async Task<IActionResult> EditTask(Guid id, [Bind("Id,Title,Description,Priority,DateTime,SelectStatus")] Entities.Task task)
+        public async Task<IActionResult> EditTask(Guid id, [Bind("Id,Title,Description,Priority,DateTime,SelectStatus,TenantId")] Entities.Task task)
         {
             if (id != task.Id)
             {
@@ -76,6 +83,7 @@ namespace Organizer.Controllers
             {
                 try
                 {
+                    Console.WriteLine($"Current TenantId EDIT: {task}");
                     await _taskRepository.Edit(task);
                     await _taskRepository.SaveChangesAsync();
                 }
@@ -86,6 +94,14 @@ namespace Organizer.Controllers
                 }
                 return RedirectToAction(nameof(Details));
             }
+            if (!ModelState.IsValid)
+            {
+                foreach (var modelError in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    Console.WriteLine($"Errorr: {modelError.ErrorMessage}");
+                }
+            }
+            Console.WriteLine($"Current TenantId EDITtt: {task}");
             return View(task);
         }
         [HttpPost, ActionName("Delete")]
