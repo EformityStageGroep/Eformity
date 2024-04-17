@@ -1,0 +1,23 @@
+﻿@model List<Organizer.Entities.Task>
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+@{
+    ViewData["Title"] = "SuperAdminDashboard";
+}
+
+
+<h1>You are SuperAdmin!</h1>
+
+@section scripts {
+<script>
+    window.onload = function () {
+        // Get the link element by its ID
+        var link = document.getElementById('autoLink');
+        // Trigger a click event on the link
+        link.click();
+    };
+
+       
+    </script>
+}
+
