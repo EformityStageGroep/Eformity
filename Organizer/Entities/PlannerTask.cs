@@ -1,24 +1,35 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Organizer.Entities
 {
-    public class Task
+    [Table("Tasks")]
+    public class Task : IMustHaveTenant
     {
         [Key]
+        
         public Guid Id { get; set; }
 
-        [Required]
         public string Title { get; set; }
 
         public string Description { get; set; }
 
-        [Required]
         public string Priority { get; set; }
 
         [Display(Name = "Date & Time")]
         public DateTime DateTime { get; set; }
+    
+        public string SelectStatus { get; set; }
+     
+        public string TenantId { get; set; }
 
         public Task() => Id = Guid.NewGuid();
+
     }
+    
+ /*   public class PageIdentifier
+    {
+        public string? PageValue { get; set; }
+    }*/
 }

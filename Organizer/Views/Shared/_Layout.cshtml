@@ -13,10 +13,11 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>s
 </head>
-<body>
+<body class="min-w-[1179]">
+
     <div class="">
         <!-- Make it a flex column to stack elements vertically -->
-        <div class="top-0 w-full mb-12 z-10 h-9/10">
+        <div class="top-0 mb-12 h-9/10 z-10 w-full">
             <!-- Add z-index to make sure it's above other content -->
             <!-- Render the top bar partial -->
             @Html.Partial("../Home/_sectionHeading")
@@ -26,9 +27,9 @@
 
                 <!-- Render the sidebar partial -->
                 @Html.Partial("../Home/_sidebarComponent")
-            <div class=" 2xl:mr-100 xl:mr-60 lg:mr-30 mr:pl-10">
-                <div  class="flex justify-center items-center">
-                      <div class="w-auto lg:w-auto h-auto">
+            <div class="2xl:mr-100 xl:mr-60 lg:mr-30 mr:pl-10">
+                <div  class="flex items-center justify-center">
+                      <div class="h-auto w-auto lg:w-auto">
                           <!-- Render the main content -->
                           @RenderBody()
                       </div>          
@@ -42,8 +43,8 @@
     </div>
 
 
-<footer class="border-top footer text-muted text-lg ">
-    <div class="container text-white">
+<footer class="border-top footer text-muted text-lg">
+    <div class="text-white container">
         &copy; 2022 - Organizer - <a asp-area="" asp-controller="Home" asp-action="Home">Privacy</a>
     </div>
 </footer>

@@ -30,45 +30,45 @@ namespace Organizer.Controllers
         }
 
         public IActionResult Index()
-        {
+        {/*
             var viewModel = new PageIdentifier();
-            viewModel.PageValue = "Index";
-            return View(viewModel);
+            viewModel.PageValue = "Index";*/
+            return View();
         }
     
         public IActionResult Teams()
         {
-            var viewModel = new PageIdentifier();
-            viewModel.PageValue = "Teams";
-            return View(viewModel);
+            /*var viewModel = new PageIdentifier();
+            viewModel.PageValue = "Teams";*/
+            return View();
         }
 
         public IActionResult Homepage()
         {
-            var viewModel = new PageIdentifier();
-            viewModel.PageValue = "Homepage";
-            return View(viewModel);
+           /* var viewModel = new PageIdentifier();
+            viewModel.PageValue = "Homepage";*/
+            return View();
         }
 
         public IActionResult Profile()
-        {
+        {/*
             var viewModel = new PageIdentifier();
-            viewModel.PageValue = "Profile";
-            return View(viewModel);
+            viewModel.PageValue = "Profile";*/
+            return View();
         }
         
         public IActionResult PostitPage()
         {
-            var viewModel = new PageIdentifier();
-            viewModel.PageValue = "PostitPage";
-            return View(viewModel);
+            /*var viewModel = new PageIdentifier();
+            viewModel.PageValue = "PostitPage";*/
+            return View();
         }
 
         public IActionResult Settings()
         {
-            var viewModel = new PageIdentifier();
-            viewModel.PageValue = "Settings";
-            return View(viewModel);
+           /* var viewModel = new PageIdentifier();
+            viewModel.PageValue = "Settings";*/
+            return View();
         }
 
         [AllowAnonymous]

@@ -1,11 +1,8 @@
-﻿using Microsoft.Graph;
-using System;
-
-
-namespace Organizer.Models
+﻿namespace Organizer.Models
 {
-    public class PageIdentifier
+    public class TaskViewModel
     {
-        public string? PageValue { get; set; }
+        public List<Entities.Task>? Tasks { get; set; }
+        public Entities.Task? Task { get; set; }
     }
 }
