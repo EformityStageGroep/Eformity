@@ -55,7 +55,6 @@ namespace Organizer.Controllers
             if (ModelState.IsValid)
             {
                 task.Id = Guid.NewGuid();
-                Console.WriteLine($"Current TenantId controller: {task.TenantId}");
                 await _taskRepository.Create(task);
                 await _taskRepository.SaveChangesAsync();
                 return RedirectToAction(nameof(Details));
