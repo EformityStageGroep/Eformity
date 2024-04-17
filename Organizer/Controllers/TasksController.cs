@@ -50,12 +50,11 @@ namespace Organizer.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,Description,Priority,DateTime,SelectStatus")] Entities.Task task, string tenantId)
+        public async Task<IActionResult> Create([Bind("Title,Description,Priority,DateTime,SelectStatus,TenantId")] Entities.Task task)
         {
             if (ModelState.IsValid)
             {
                 task.Id = Guid.NewGuid();
-                task.TenantId = tenantId;
                 Console.WriteLine($"Current TenantId controller: {task.TenantId}");
                 await _taskRepository.Create(task);
                 await _taskRepository.SaveChangesAsync();

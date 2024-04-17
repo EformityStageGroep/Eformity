@@ -42,8 +42,8 @@ namespace Organizer.Repositories
             task.Id = Guid.NewGuid();
             task.TenantId = _currentTenantService.TenantId; // Set TenantId
             var tenantId = _currentTenantService.TenantId;
-            Console.WriteLine($"Current TenantId: {tenantId}");
-            Console.WriteLine($"Current TenantId: {task.TenantId}");// Debugging line
+            Console.WriteLine($"Current TenantIddd: {tenantId}");
+            Console.WriteLine($"Current TenantIdddddd: {task.TenantId}");// Debugging line
             _context.Task.Add(task);
             await _context.SaveChangesAsync(); // Make sure to save changes after adding the task
         }
