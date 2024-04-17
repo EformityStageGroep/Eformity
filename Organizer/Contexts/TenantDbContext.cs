@@ -3,22 +3,26 @@ using Organizer.Entities;
 
 namespace Organizer.Contexts
 {
-    public class OrganizerContext : DbContext
+    public class TenantDbContext : DbContext
     {
-        public OrganizerContext()
+        public TenantDbContext(DbContextOptions<TenantDbContext> options) : base(options)
         {
-           // Database.SetInitializer(new MigrateDatabaseToLatestVersion<OrganizerContext, Configuration>());
+
         }
+        //net toegevoegd omdat organizer het ook heeft
+        //
+        public TenantDbContext()
+        {
+        }
+
+
+        public DbSet<Tenant> Tenants { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
             optionsBuilder.UseSqlServer(Organizer.Properties.Resources.ConnectionString);
-
-        
-
         }
-        public DbSet<User> Users { get; set; }
-        public DbSet<Entities.Task> Task { get; set; }
     }
 }

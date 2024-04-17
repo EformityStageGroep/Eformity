@@ -8,6 +8,7 @@ using Microsoft.Identity.Client;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using Organizer.Contexts;
+using Organizer.Middleware;
 using Organizer.Repositories;
 using Organizer.Services;
 
@@ -30,18 +31,21 @@ builder.Services.Configure<CookieAuthenticationOptions>(CookieAuthenticationDefa
 /*builder.Services.AddLiveReload()
     .AddLiveReload();
 */
-  
+
 
 // Add DbContext
 using (var context = new OrganizerContext())
-   /* {
-    context.Database.Migrate();
-    }*/
+using (var contexts = new TenantDbContext())
+
+
     builder.Services.AddDbContext<OrganizerContext>();
+builder.Services.AddDbContext<TenantDbContext>();
+
 
 // Scope services
 builder.Services.AddScoped<IGraphClientService, GraphClientService>();
 builder.Services.AddScoped<ITaskRepository, TaskRepository>();
+builder.Services.AddScoped<ICurrentTenantService, CurrentTenantService>();
 builder.Services.AddAuthorization(options =>
 {
     options.FallbackPolicy = options.DefaultPolicy;
@@ -77,6 +81,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseMiddleware<TenantResolver>();
 
 app.MapControllerRoute(
     name: "default",
