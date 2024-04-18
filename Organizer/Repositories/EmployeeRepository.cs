@@ -13,18 +13,21 @@ namespace Organizer.Repositories
     {
         private readonly OrganizerContext _context;
         private readonly ICurrentTenantService _currentTenantService;
+        private readonly ICurrentUserService _currentUserService;
 
-        public EmployeeRepository(OrganizerContext context, ICurrentTenantService currentTenantService)
+        public EmployeeRepository(OrganizerContext context, ICurrentTenantService currentTenantService, ICurrentUserService currentUserService)
         {
             _context = context;
             _currentTenantService = currentTenantService;
+            _currentUserService = currentUserService;
         }
 
         public async Task<List<Entities.Task>> GetTasksAsync()
         {
             var tenantId = _currentTenantService.TenantId;
+            var UserId = _currentUserService.UserId;
             Console.WriteLine($"Current TenantId: {tenantId}"); // Debugging line
-
+            Console.WriteLine($"Current UserId: {UserId}"); // Debugging line
             var tasks = await _context.Task.Where(t => t.TenantId == tenantId).ToListAsync();
             // Debugging: Print the fetched tasks
             Console.WriteLine("Fetched Tasks:");

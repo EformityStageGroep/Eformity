@@ -165,6 +165,11 @@ namespace Organizer.Controllers
             viewModel.PageValue = "PostitPage";*/
             return View();
         }
-        
+        public IActionResult EmployeeDashboard()
+        {
+            /*var viewModel = new PageIdentifier();
+            viewModel.PageValue = "PostitPage";*/
+            return View();
+        }
     }
 }
