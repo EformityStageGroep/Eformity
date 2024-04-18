@@ -12,11 +12,11 @@ using Organizer.Services;
 
 namespace Organizer.Controllers
 {
-    public class TasksController : Controller
+    public class EmployeeController : Controller
     {
-        private readonly ITaskRepository _taskRepository;
+        private readonly IEmployeeRepository _taskRepository;
 
-        public TasksController(ITaskRepository taskRepository)
+        public EmployeeController(IEmployeeRepository taskRepository)
         {
             _taskRepository = taskRepository;
         }
@@ -28,7 +28,7 @@ namespace Organizer.Controllers
         }
         // GET: Tasks/Details/5
 
-        public async Task<IActionResult> Details()
+        public async Task<IActionResult> EmployeeDashboard()
         {
             try
             {
@@ -57,7 +57,7 @@ namespace Organizer.Controllers
                 task.Id = Guid.NewGuid();
                 await _taskRepository.Create(task);
                 await _taskRepository.SaveChangesAsync();
-                return RedirectToAction(nameof(Details));
+                return RedirectToAction(nameof(EmployeeDashboard));
             }
             if (!ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace Organizer.Controllers
                     // Handle exception, log, etc.
                     throw;
                 }
-                return RedirectToAction(nameof(Details));
+                return RedirectToAction(nameof(EmployeeDashboard));
             }
             if (!ModelState.IsValid)
             {
@@ -112,5 +112,6 @@ namespace Organizer.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+      
     }
 }

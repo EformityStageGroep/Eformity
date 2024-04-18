@@ -44,7 +44,7 @@ builder.Services.AddDbContext<TenantDbContext>();
 
 // Scope services
 builder.Services.AddScoped<IGraphClientService, GraphClientService>();
-builder.Services.AddScoped<ITaskRepository, TaskRepository>();
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<ICurrentTenantService, CurrentTenantService>();
 builder.Services.AddAuthorization(options =>
 {

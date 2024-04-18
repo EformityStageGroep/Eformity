@@ -29,24 +29,24 @@ namespace Organizer.Controllers
             con.ConnectionString = Organizer.Properties.Resources.ConnectionString;
         }
 
-        [Authorize(Roles = "SuperAdmin,Employee")]
+        [Authorize(Roles = "SuperAdmin,EmployeeAdminDashboard,CompanyAdminDashboard,Employee")]
         public IActionResult Index()
         {
             if (User.IsInRole("SuperAdmin"))
             {
-                return View("SuperAdminDashboard");
+                return RedirectToAction("EmployeeDashboard", "Employee");
             }
             else if (User.IsInRole("CompanyAdmin"))
             {
-                return View("CompanyAdminDashboard");
+                return RedirectToAction("CompanyAdminDashboard", "Users");
             }
             else if (User.IsInRole("EmployeeAdmin"))
             {
-                return View("EmployeeAdminDashboard");
+                return RedirectToAction("EmployeeAdmin", "Users");
             }
             else if (User.IsInRole("Employee"))
             {
-                return View("EmployeeDashboard");
+                return RedirectToAction("EmployeeDashboard", "Users");
             }
             else
             {
@@ -77,13 +77,7 @@ namespace Organizer.Controllers
             return View();
         }
         
-        public IActionResult PostitPage()
-        {
-            /*var viewModel = new PageIdentifier();
-            viewModel.PageValue = "PostitPage";*/
-            return View();
-        }
-
+      
         public IActionResult Settings()
         {
            /* var viewModel = new PageIdentifier();

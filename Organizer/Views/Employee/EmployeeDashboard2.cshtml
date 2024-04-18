@@ -1,10 +1,8 @@
 ﻿@model List<Organizer.Entities.Task>
-@using Microsoft.AspNetCore.Mvc.Rendering
 
 @{
     ViewData["Title"] = "EmployeeDashboard";
 }
-
 
 <h1>You are Employee!</h1>
 
@@ -16,7 +14,9 @@
             // Trigger a click event on the link
             link.click();
         };
-
-
     </script>
 }
+
+<h1>You are EmployeeDashboard!</h1>
+
+@Html.Partial("../Employee/Details")
