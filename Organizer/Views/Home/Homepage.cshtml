@@ -7,7 +7,7 @@
     Console.WriteLine(TenantId);
 }
 @*EMPLOYEE CREATE VIEW*@
-@if (User.IsInRole("SuperAdmin"))
+@*@if (User.IsInRole("SuperAdmin"))
 {
 <div id="modal" class="inset-0 fixed z-50 flex hidden items-center justify-center overflow-y-auto">
     
@@ -71,12 +71,12 @@
 
     </div>
 </div>
-}
+}*@
 
 
 
 @*EMPLOYEE ADMIN CREATE VIEW*@
-@*@if (User.IsInRole("SuperAdmin")) {
+@if (User.IsInRole("SuperAdmin")) {
     <div id="modal" class="inset-0 fixed z-50 flex hidden items-center justify-center overflow-y-auto">
 
         <div class="inset-0 fixed transition-opacity" aria-hidden="true">
@@ -148,7 +148,7 @@
 
         </div>
     </div>
-}*@
+}
 
 
 
