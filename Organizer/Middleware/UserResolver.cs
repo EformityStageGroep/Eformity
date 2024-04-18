@@ -15,7 +15,7 @@ namespace Organizer.Middleware
 
         public async Task InvokeAsync(HttpContext context, ICurrentUserService currentUserService)
         {
-            var UserClaim = context.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.microsoft.com/identity/claims/Userid"); // Retrieve tid claim
+            var UserClaim = context.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"); // Retrieve tid claim
 
             if (UserClaim != null)
             {

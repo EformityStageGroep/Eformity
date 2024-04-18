@@ -16,7 +16,9 @@
  *@
 
     var TenantId = @User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
-    Console.WriteLine(TenantId);
+    Console.WriteLine(TenantId); 
+    var UserId = @User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
+    Console.WriteLine(UserId);
 }
 <div id="modal" class="inset-0 fixed z-50 flex hidden items-center justify-center overflow-y-auto">
     
@@ -32,15 +34,18 @@
                     </h3>
                     
 
-                    <form asp-controller="Tasks" asp-action="Create"  method="post" class="mt-4">
+                    <form asp-controller="Employee" asp-action="Create"  method="post" class="mt-4">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="mt-2">
                             <label for="TenantId" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
                             <input type="hidden" id="TenantId" name="TenantId" value="@TenantId">
                         </div>
-                        
                         <div class="mt-2">
-                            <label for="title" class="text-gray-700 block text-sm font-medium">@User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value</label>
+                            <label for="UserId" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
+                            <input type="hidden" id="UserId" name="UserId" value="@UserId">
+                        </div>
+                        <div class="mt-2">
+                            <label for="title" class="text-gray-700 block text-sm font-medium">@User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value</label>
                             <input type="text" name="title" id="title" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                         </div>
                         <div class="mt-2">

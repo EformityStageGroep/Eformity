@@ -29,30 +29,12 @@ namespace Organizer.Controllers
             con.ConnectionString = Organizer.Properties.Resources.ConnectionString;
         }
 
-        [Authorize(Roles = "SuperAdmin,EmployeeAdminDashboard,CompanyAdminDashboard,Employee")]
+        
         public IActionResult Index()
         {
-            if (User.IsInRole("SuperAdmin"))
-            {
+          
                 return RedirectToAction("EmployeeDashboard", "Employee");
-            }
-            else if (User.IsInRole("CompanyAdmin"))
-            {
-                return RedirectToAction("CompanyAdminDashboard", "Users");
-            }
-            else if (User.IsInRole("EmployeeAdmin"))
-            {
-                return RedirectToAction("EmployeeAdmin", "Users");
-            }
-            else if (User.IsInRole("Employee"))
-            {
-                return RedirectToAction("EmployeeDashboard", "Users");
-            }
-            else
-            {
-                // Handle other roles or unauthorized access
-                return RedirectToAction("Unauthorized", "Error");
-            }
+            
 
         }
 
