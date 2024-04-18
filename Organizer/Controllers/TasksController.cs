@@ -36,7 +36,7 @@ namespace Organizer.Controllers
 
                 if (tasks == null || !tasks.Any())
                 {
-                    return NotFound();
+                    return View(new List<Entities.Task>()); // Return an empty list to the view
                 }
 
                 return View(tasks);
