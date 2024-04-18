@@ -6,9 +6,12 @@ using Organizer.Models;
 using Organizer.Services;
 using System.Diagnostics;
 
+
+
 namespace Organizer.Controllers
 {
  
+
     [Authorize]
     public class HomeController : Controller
     {
