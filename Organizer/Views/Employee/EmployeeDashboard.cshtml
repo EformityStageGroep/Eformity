@@ -203,7 +203,7 @@
                         </svg>
                     </button>
 
-                    <div class="right-0 mt-2 w-32 bg-white py-2 ring-gray-900/5 absolute z-20 hidden origin-top-right rounded-md shadow-lg ring-1 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu_@task.Id" tabindex="-1">
+                    <div id="editDeleteDropdown_@task.Id" onclick="hideEditDeleteDropdown(task.Id)" class="right-0 mt-2 w-32 bg-white py-2 ring-gray-900/5 absolute z-20 hidden origin-top-right rounded-md shadow-lg ring-1 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu_@task.Id" tabindex="-1">
                         <!-- Active: "bg-gray-50", Not Active: "" -->
                         <a href="#" class="px-3 py-1 text-gray-900 block text-sm leading-6" role="menuitem" onclick="toggleSlideover('@task.Id')" tabindex="-1" id="options-menu_@task.Id-item-0">Edit<span class="sr-only">, Michael Foster</span></a>
                         <a href="#" class="px-3 py-1 text-gray-900 block text-sm leading-6" role="menuitem" onclick="deleteTask('@task.Id')" tabindex="-1" id="options-menu_@task.Id-item-1">Delete<span class="sr-only">, Michael Foster</span></a>
@@ -229,6 +229,16 @@
 
 
     <script>
+
+        window.addEventListener("click", function (event) {
+            dropdownItems = document.getElementById("editDeleteDropdown_"+taskId)
+
+            if (dropdownItems.classList.contains("hidden")) {
+            }
+            else {
+                dropdownItems.classList.add("hidden")
+            }
+        }
         
          function filterTasksByStatus(status) {
             var tasks = document.querySelectorAll('[id^="postit_"]');
