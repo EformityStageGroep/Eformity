@@ -126,7 +126,7 @@
                                 <span asp-validation-for="@task.DateTime" class="text-danger"></span>
                             </div>
 
-                            <select asp-for="@task.SelectStatus" onchange="updateSelectStatus('@task.Id')" class="ml-3 border-gray-900 text-black ml-1 p-1 w-[105px] relative z-10 flex cursor-pointer items-center justify-center self-baseline rounded-lg border border border-solid text-xs font-medium hover:cursor-pointer hover:bg-gray-200">
+                            <select asp-for="@task.SelectStatus" id="statusLabel_@task.Id" onchange="updateSelectStatus('@task.Id')" class="ml-3 border-gray-900 text-black ml-1 p-1 w-[105px] relative z-10 flex cursor-pointer items-center justify-center self-baseline rounded-lg border border border-solid text-xs font-medium hover:cursor-pointer hover:bg-gray-200">
                                 <option value="To Do">To Do</option>
                                 <option value="In Progress">In Progress</option>
                                 <option value="Done">Done</option>
@@ -156,6 +156,7 @@
 
             <div class="gap-x-4 flex shrink-0 items-center">
                 <div class="hidden sm:flex sm:flex-col sm:items-end">
+                    
                         @if (task.Priority == "HIGH")
                         {
                         <p id="priorityLabel_@task.Id" class="border-red-500 text-red-600 p-1 h-6.5 rounded-lg border border border-solid text-xs font-medium" leading-6">@task.Priority</p>
@@ -171,6 +172,7 @@
                         <p id="priorityLabel_@task.Id" class="border-green-500 text-green-500 p-1 h-6.5 rounded-lg border border border-solid text-xs font-medium" leading-6">@task.Priority</p>
 
                         }
+                        
                     <p class="mt-1 text-gray-500 text-xs leading-5">@task.DateTime</p>
                 </div>
                 <div class="relative flex-none">
@@ -207,6 +209,41 @@
 
 
     <script>
+        
+         function filterTasksByStatus(status) {
+            var tasks = document.querySelectorAll('[id^="postit_"]');
+            tasks.forEach(function (task) {
+                var taskId = task.id.split("_")[1];
+                var statusLabels = document.getElementById('statusLabel_' + taskId)
+                var selectedOption = statusLabels.options[statusLabels.selectedIndex].value;
+                console.log(selectedOption);
+                if (selectedOption === status) {
+                    task.style.display = 'block'; // Show the task if priority matches or if "ALL" is selected
+                } else {
+                    task.style.display = 'none'; // Hide the task if priority does not match and "ALL" is not selected
+                }
+            });
+        }
+
+        function filterTasksByPriority(priority, status) {
+            var tasks = document.querySelectorAll('[id^="postit_"]');
+            tasks.forEach(function (task) {
+                var taskId = task.id.split("_")[1]; // Extracting task ID from element ID
+                var priorityLabel = document.getElementById('priorityLabel_' + taskId).innerText;
+                var statusLabel = document.getElementById('statusLabel_' + taskId);
+                var selectedOption = statusLabel.options[statusLabel.selectedIndex].value;
+                console.log(selectedOption);
+                if (selectedOption === status) { 
+                    task.style.display = 'none'; 
+                }
+                else if ((priority === "ALL" || priorityLabel === priority) && statusLabel !== "Done") {
+                    task.style.display = 'block'; // Show the task if the priority matches and the status is not "done", or if "ALL" is selected
+                } else {
+                    task.style.display = 'none'; // Hide the task if priority does not match or status is "done"
+                }
+            });
+        }
+       
         function toggleDescription(taskId) {
             var moreLink = document.getElementById('moreLink_' + taskId);
             var lessLink = document.getElementById('lessLink_' + taskId);
@@ -377,18 +414,7 @@
 
         }
 
-        function filterTasksByPriority(priority) {
-            var tasks = document.querySelectorAll('[id^="postit_"]');
-            tasks.forEach(function (task) {
-                var taskId = task.id.split("_")[1]; // Extracting task ID from element ID
-                var priorityLabel = document.getElementById('priorityLabel_' + taskId).innerText.trim();
-                if (priority === "ALL" || priorityLabel === priority) {
-                    task.style.display = 'block'; // Show the task if priority matches or if "ALL" is selected
-                } else {
-                    task.style.display = 'none'; // Hide the task if priority does not match and "ALL" is not selected
-                }
-            });
-        }
+      
 
 
 
