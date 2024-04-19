@@ -34,9 +34,10 @@ namespace Organizer.Controllers
             {
                 var tasks = await _taskRepository.GetTasksAsync(); // Fetch tasks based on current tenant
 
+
                 if (tasks == null || !tasks.Any())
                 {
-                    return NotFound();
+                    return View(new List<Entities.Task>()); // Return an empty list to the view
                 }
 
                 return View(tasks);
