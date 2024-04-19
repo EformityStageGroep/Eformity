@@ -15,32 +15,31 @@
 </head>
 <body class="min-w-[1179]">
 
-    <div class="">
-        <!-- Make it a flex column to stack elements vertically -->
-        <div class="top-0 mb-12 h-9/10 z-10 w-full">
-            <!-- Add z-index to make sure it's above other content -->
+    <div class="flex flex-col h-screen">
+        <!-- Top bar section -->
+        <div class="top-0 mb-12 h-1/10 w-full z-10">
             <!-- Render the top bar partial -->
             @Html.Partial("../Home/_sectionHeading")
         </div>
-        <div class="">
-            <!-- Nested flex container for sidebar and main content -->
-
-                <!-- Render the sidebar partial -->
-                @Html.Partial("../Home/_sidebarComponent")
-            <div class="2xl:mr-100 xl:mr-60 lg:mr-30 mr:pl-10">
-                <div  class="flex items-center justify-center">
-                      <div class="h-auto w-auto lg:w-auto">
-                          <!-- Render the main content -->
-                          @RenderBody()
-                      </div>          
-                </div>                  
-            </div>
-              
 
 
-
+       
+        <!-- Sidebar section -->
+        <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
+            <!-- Render the sidebar partial -->
+            @Html.Partial("../Home/_sidebarComponent")
         </div>
+
+        
+            <!-- Main content section -->
+
+        <div class="flex-1 lg:pl-72 mb-12 ml-4 mr-4">
+            <!-- Render the main content -->
+            @RenderBody()
+        </div>
+
     </div>
+
 
 
 <footer class="border-top footer text-muted text-lg">
