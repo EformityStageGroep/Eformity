@@ -159,17 +159,37 @@
                     
                         @if (task.Priority == "HIGH")
                         {
-                        <p id="priorityLabel_@task.Id" class="border-red-500 text-red-600 p-1 h-6.5 rounded-lg border border border-solid text-xs font-medium" leading-6">@task.Priority</p>
+                        <div class="flex flex-row">
+                            <p id="priorityLabel_@task.Id" class="border-red-500 text-red-600 p-1 h-6.5 rounded-lg border border border-solid text-xs font-medium" leading-6">@task.Priority</p>
+                                @if (task.SelectStatus == "Done")
+                                {
+                                <p id="priorityLabel_@task.Id" class="ml-2 border-green-500 text-white bg-green-500 p-1 h-6.5 rounded-lg border border border-solid text-xs font-medium" leading-6">DONE</p>
 
+                                }
+
+                        </div>
                         }
                         @if (task.Priority == "MEDIUM")
                         {
-                        <p id="priorityLabel_@task.Id" class="border-orange-600 text-orange-500 p-1 h-6.5 rounded-lg border border border-solid text-xs font-medium" leading-6">@task.Priority</p>
+                            <div class="flex flex-row">
+                             <p id="priorityLabel_@task.Id" class="border-orange-600 text-orange-500 p-1 h-6.5 rounded-lg border border border-solid text-xs font-medium" leading-6">@task.Priority</p>
+                             @if (task.SelectStatus == "Done") {
+                                <p id="priorityLabel_@task.Id" class="ml-2 border-green-500 text-white bg-green-500 p-1 h-6.5 rounded-lg border border border-solid text-xs font-medium" leading-6">DONE</p>
 
+                             }
+
+                            </div>
                         }
                         @if (task.Priority == "LOW")
                         {
-                        <p id="priorityLabel_@task.Id" class="border-green-500 text-green-500 p-1 h-6.5 rounded-lg border border border-solid text-xs font-medium" leading-6">@task.Priority</p>
+                            <div class="flex flex-row">
+                             <p id="priorityLabel_@task.Id" class="border-green-500 text-green-500 p-1 h-6.5 rounded-lg border border border-solid text-xs font-medium" leading-6">@task.Priority</p>
+                             @if (task.SelectStatus == "Done") {
+                                <p id="priorityLabel_@task.Id" class="ml-2 border-green-500 text-white bg-green-500 p-1 h-6.5 rounded-lg border border border-solid text-xs font-medium" leading-6">DONE</p>
+
+                             }
+
+                            </div>
 
                         }
                         
