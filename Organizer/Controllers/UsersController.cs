@@ -18,7 +18,7 @@ namespace Organizer.Controllers
         // GET: Users
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Users.ToListAsync());
+            return RedirectToAction("Details", "Tasks");
         }
 
         // GET: Users/Details/5
@@ -145,6 +145,31 @@ namespace Organizer.Controllers
         private bool UserExists(Guid id)
         {
             return _context.Users.Any(e => e.Id == id);
+        }
+
+        public IActionResult CompanyAdminDashboard()
+        {
+            /*var viewModel = new PageIdentifier();
+            viewModel.PageValue = "PostitPage";*/
+            return View();
+        }
+        public IActionResult SuperAdminDashboard()
+        {
+            /*var viewModel = new PageIdentifier();
+            viewModel.PageValue = "PostitPage";*/
+            return View();
+        }
+        public IActionResult EmployeeAdminDashboard()
+        {
+            /*var viewModel = new PageIdentifier();
+            viewModel.PageValue = "PostitPage";*/
+            return View();
+        }
+        public IActionResult EmployeeDashboard()
+        {
+            /*var viewModel = new PageIdentifier();
+            viewModel.PageValue = "PostitPage";*/
+            return View();
         }
     }
 }

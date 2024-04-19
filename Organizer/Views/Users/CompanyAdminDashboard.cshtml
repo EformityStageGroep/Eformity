@@ -1,9 +1,14 @@
-﻿@model List<Organizer.Entities.Task>
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model List<Organizer.Entities.Task>
 @{
     ViewData["Title"] = "Homepage";
 
 
-@* <div class="min-w-40 bg-white border-gray-200 mx-auto max-w-md cursor-pointer overflow-hidden border shadow-md duration-300 hover:transform hover:scale-105">
+    @* <div class="min-w-40 bg-white border-gray-200 mx-auto max-w-md cursor-pointer overflow-hidden border shadow-md duration-300 hover:transform hover:scale-105">
     <div class="md:flex">
         <div class="p-8">
             <div class="text-indigo-500 text-sm font-semibold uppercase tracking-wide">Facebook</div>
@@ -16,12 +21,10 @@
  *@
 
     var TenantId = @User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
-    Console.WriteLine(TenantId); 
-    var UserId = @User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
-    Console.WriteLine(UserId);
+    Console.WriteLine(TenantId);
 }
 <div id="modal" class="inset-0 fixed z-50 flex hidden items-center justify-center overflow-y-auto">
-    
+
     <div class="inset-0 fixed transition-opacity" aria-hidden="true">
         <div class="inset-0 bg-gray-500 absolute opacity-75"></div>
     </div>
@@ -32,20 +35,17 @@
                     <h3 class="text-gray-900 text-lg font-medium leading-6" id="modalTitle">
                         Create Task
                     </h3>
-                    
 
-                    <form asp-controller="Employee" asp-action="Create"  method="post" class="mt-4">
+
+                    <form asp-controller="Tasks" asp-action="Create" method="post" class="mt-4">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="mt-2">
                             <label for="TenantId" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
                             <input type="hidden" id="TenantId" name="TenantId" value="@TenantId">
                         </div>
+
                         <div class="mt-2">
-                            <label for="UserId" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
-                            <input type="hidden" id="UserId" name="UserId" value="@UserId">
-                        </div>
-                        <div class="mt-2">
-                            <label for="title" class="text-gray-700 block text-sm font-medium">@User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value</label>
+                            <label for="title" class="text-gray-700 block text-sm font-medium">@User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value</label>
                             <input type="text" name="title" id="title" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                         </div>
                         <div class="mt-2">
@@ -69,7 +69,7 @@
                             <label for="SelectStatus" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
                             <input type="hidden" id="SelectStatus" name="SelectStatus" value="To Do">
                         </div>
-                        
+
                         <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                             <button id="closeModalButton" type="button" class="border-transparent px-4 py-2 bg-indigo-600 text-white inline-flex w-full justify-center rounded-md border text-base font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
                                 Close
@@ -91,8 +91,8 @@
 
         <h3 class="text-gray-900 text-base font-semibold leading-6">Post-it's</h3>
 
-    <div class="">
-      <button type="button" id="openModalButton" class="ml-30 bg-indigo-600 px-3 py-2 text-white inline-flex items-center rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Create</button>
+        <div class="">
+            <button type="button" id="openModalButton" class="ml-30 bg-indigo-600 px-3 py-2 text-white inline-flex items-center rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Create</button>
         </div>
     </div>
     <div class="mt-4">
@@ -104,21 +104,19 @@
                 <option>High priority</option>
                 <option>Medium priority</option>
                 <option>Low priority</option>
-                <option>Done</option>
             </select>
         </div>
-        
+
         <!-- Tabs at small breakpoint and up -->
         <div class="hidden sm:block" id="tabs">
             <nav class="-mb-px space-x-8 flex">
                 <!-- Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
 
-                <a onclick="filterTasksByPriority('ALL', 'Done')" class="tab border-indigo-500 text-indigo-600 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:cursor-pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">All priorities</a>
-                <a onclick="filterTasksByPriority('HIGH', 'Done')" class="tab border-transparent text-gray-500 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:cursor-pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">High priority</a>
-                <a onclick="filterTasksByPriority('MEDIUM', 'Done')" class="tab border-transparent text-gray-500 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:cursor-pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">Medium priority</a>
-                <a onclick="filterTasksByPriority('LOW', 'Done')" class="tab border-transparent text-gray-500 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:cursor-pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">Low priority</a>
-                <a onclick="filterTasksByStatus('Done')" class="tab border-transparent text-gray-500 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:cursor-pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">Done</a>
-                
+                <a onclick="filterTasksByPriority('ALL')" class="tab border-indigo-500 text-indigo-600 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:cursor-pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">All priorities</a>
+                <a onclick="filterTasksByPriority('HIGH')" class="tab border-transparent text-gray-500 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:cursor-pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">High priority</a>
+                <a onclick="filterTasksByPriority('MEDIUM')" class="tab border-transparent text-gray-500 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:cursor-pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">Medium priority</a>
+                <a onclick="filterTasksByPriority('LOW')" class="tab border-transparent text-gray-500 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:cursor-pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">Low priority</a>
+
 
             </nav>
         </div>
@@ -126,10 +124,8 @@
 </div>
 
 <!-- Content corresponding to each tab -->
-
 @section scripts {
     <script>
-       
 
         document.addEventListener("DOMContentLoaded", function () {
             const tabs = document.querySelectorAll(".tab");
@@ -170,8 +166,10 @@
                 modal.classList.add("hidden");
             });
 
-            
+
         });
     </script>
 }
 
+
+<h1>You are CompanyAdminDashboard!</h1>

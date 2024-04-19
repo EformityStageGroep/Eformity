@@ -1,6 +1,6 @@
 ﻿namespace Organizer.Repositories
 {
-    public interface ITaskRepository
+    public interface IEmployeeRepository
     {
 
         Task Create(Entities.Task task);

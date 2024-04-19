@@ -29,13 +29,15 @@ namespace Organizer.Controllers
             con.ConnectionString = Organizer.Properties.Resources.ConnectionString;
         }
 
+        
         public IActionResult Index()
-        {/*
-            var viewModel = new PageIdentifier();
-            viewModel.PageValue = "Index";*/
-            return View();
+        {
+          
+                return RedirectToAction("EmployeeDashboard", "Employee");
+            
+
         }
-    
+
         public IActionResult Teams()
         {
             /*var viewModel = new PageIdentifier();
@@ -57,13 +59,7 @@ namespace Organizer.Controllers
             return View();
         }
         
-        public IActionResult PostitPage()
-        {
-            /*var viewModel = new PageIdentifier();
-            viewModel.PageValue = "PostitPage";*/
-            return View();
-        }
-
+      
         public IActionResult Settings()
         {
            /* var viewModel = new PageIdentifier();

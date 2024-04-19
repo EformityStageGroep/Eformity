@@ -1,0 +1,22 @@
+﻿@model List<Organizer.Entities.Task>
+
+@{
+    ViewData["Title"] = "EmployeeDashboard";
+}
+
+<h1>You are Employee!</h1>
+
+@section scripts {
+    <script>
+        window.onload = function () {
+            // Get the link element by its ID
+            var link = document.getElementById('autoLink');
+            // Trigger a click event on the link
+            link.click();
+        };
+    </script>
+}
+
+<h1>You are EmployeeDashboard!</h1>
+
+@Html.Partial("../Employee/Details")

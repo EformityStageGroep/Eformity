@@ -36,16 +36,18 @@ builder.Services.Configure<CookieAuthenticationOptions>(CookieAuthenticationDefa
 // Add DbContext
 using (var context = new OrganizerContext())
 using (var contexts = new TenantDbContext())
+using (var contextss = new UserDbContext())
 
-
-    builder.Services.AddDbContext<OrganizerContext>();
+builder.Services.AddDbContext<OrganizerContext>();
 builder.Services.AddDbContext<TenantDbContext>();
+builder.Services.AddDbContext<UserDbContext>();
 
 
 // Scope services
 builder.Services.AddScoped<IGraphClientService, GraphClientService>();
-builder.Services.AddScoped<ITaskRepository, TaskRepository>();
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<ICurrentTenantService, CurrentTenantService>();
+builder.Services.AddScoped<ICurrentUserService, CurrentUserResolver>();
 builder.Services.AddAuthorization(options =>
 {
     options.FallbackPolicy = options.DefaultPolicy;
@@ -82,6 +84,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseMiddleware<TenantResolver>();
+app.UseMiddleware<UserResolver>();
 
 app.MapControllerRoute(
     name: "default",

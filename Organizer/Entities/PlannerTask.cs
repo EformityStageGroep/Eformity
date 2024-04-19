@@ -24,6 +24,7 @@ namespace Organizer.Entities
      
         public string TenantId { get; set; }
 
+        public string UserId { get; set; }
         public Task() => Id = Guid.NewGuid();
 
     }
