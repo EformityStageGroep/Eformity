@@ -2,13 +2,13 @@
 
 @Html.Partial("../Home/Homepage")
 
-<ul role="list" class="mt-5 divide-gray-100 bg-white ring-gray-900/5 mb-3 divide-y shadow-sm ring-1 sm:rounded-xl">
 
+<ul role="list" class="mt-5 divide-gray-100 bg-white ring-gray-900/5 mb-3 divide-y shadow-sm ring-1 sm:rounded-xl">
+    <div class="grid grid-cols-2 gap-2">
     @foreach (var task in Model)
     {
-
-        <div data-prefix="slideover" id="slideoverModal_@task.Id" class="invisible relative z-50 transition-all duration-300 ease-out" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
-
+        <div>
+        <div data-prefix="slideover" id="slideoverModal_@task.Id" class="invisible hidden relative z-50 transition-all duration-300 ease-out" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
 
             <div class="inset-0 absolute overflow-hidden">
                 <div class="inset-y-0 right-0 pl-10 active pointer-events-none fixed flex h-auto max-w-full drop-shadow-2xl sm:pl-16">
@@ -192,14 +192,10 @@
             </div>
         </li>
         </div>
-
-
-
-
-
+    </div>
 
     }
-
+    </div>
 </ul>
 
 
@@ -223,6 +219,18 @@
                     task.style.display = 'none'; // Hide the task if priority does not match and "ALL" is not selected
                 }
             });
+            var task = document.querySelectorAll('[id^="slideoverModal_"]');
+            task.forEach(function (tasks) {
+                var taskId = tasks.id.split("_")[1];
+                var statusLabels = document.getElementById('statusLabel_' + taskId)
+                var selectedOption = statusLabels.options[statusLabels.selectedIndex].value;
+                console.log(selectedOption);
+                if (selectedOption === status) {
+                    tasks.style.display = 'block'; // Show the task if priority matches or if "ALL" is selected
+                } else {
+                    tasks.style.display = 'none'; // Hide the task if priority does not match and "ALL" is not selected
+                }
+            });
         }
 
         function filterTasksByPriority(priority, status) {
@@ -242,6 +250,7 @@
                     task.style.display = 'none'; // Hide the task if priority does not match or status is "done"
                 }
             });
+            
         }
        
         function toggleDescription(taskId) {
@@ -422,7 +431,7 @@
 
         function toggleSlideover(taskId) {
             console.log('passed slideover')
-
+            document.getElementById("slideoverModal_" + taskId).classList.toggle('hidden');
             document.getElementById("slideoverModal_" + taskId).classList.toggle('invisible');
             document.getElementById("slideover_" + taskId).classList.toggle('translate-x-full');
             console.log(taskId);

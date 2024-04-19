@@ -1,9 +1,9 @@
 ﻿@model List<Organizer.Entities.Task>
 
 @Html.Partial("../Home/Homepage")
-
+<div class="grid grid-cols-2 gap-2">
 <ul role="list" class="mt-5 divide-gray-100 bg-white ring-gray-900/5 mb-3 divide-y shadow-sm ring-1 sm:rounded-xl">
-
+    
     @foreach (var task in Model)
     {
 
@@ -189,15 +189,10 @@
         </li>
         </div>
 
-
-
-
-
-
     }
-
+    
 </ul>
-
+</div>
 
 
 
