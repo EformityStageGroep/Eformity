@@ -34,7 +34,7 @@ namespace Organizer.Controllers
         {
             if (User.IsInRole("SuperAdmin"))
             {
-                return RedirectToAction("Details", "Tasks");
+                return RedirectToAction("EmployeeDashboard", "Employee");
             }
             else if (User.IsInRole("CompanyAdmin"))
             {
