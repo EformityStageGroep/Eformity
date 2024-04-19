@@ -40,11 +40,15 @@
                         </h3>
 
 
-                        <form asp-controller="Tasks" asp-action="Create" method="post" class="mt-4">
+                        <form asp-controller="Employee" asp-action="Create" method="post" class="mt-4">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="mt-2">
                                 <label for="TenantId" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
                                 <input type="hidden" id="TenantId" name="TenantId" value="@TenantId">
+                            </div>
+                            <div class="mt-2">
+                                <label for="UserId" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
+                                <input type="hidden" id="UserId" name="UserId" value="@UserId">
                             </div>
 
                             <div class="mt-2">
