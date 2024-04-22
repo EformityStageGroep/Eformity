@@ -3,12 +3,12 @@
 @Html.Partial("../Home/Homepage")
 
 
-<ul role="list" class="mt-5 divide-gray-100 bg-white ring-gray-900/5 mb-3 divide-y shadow-sm ring-1 sm:rounded-xl">
-    <div class="grid grid-cols-2 gap-2">
+<ul role="list" class="mt-5 divide-gray-100 bg-white ring-gray-900/5 mb-3 divide-y shadow-sm  sm:rounded-xl">
+    <div class="grid grid-cols-3 gap-1">
     @foreach (var task in Model)
     {
     <div id="slideoverDiv_@task.Id">
-        <div data-prefix="slideover" id="slideoverModal_@task.Id" class="invisible hidden relative z-50 transition-all duration-300 ease-out" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+        <div data-prefix="slideover" id="slideoverModal_@task.Id" class="invisible relative z-50 transition-all duration-300 ease-out" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
 
             <div class="inset-0 absolute overflow-hidden">
                 <div class="inset-y-0 right-0 pl-10 active pointer-events-none fixed flex h-auto max-w-full drop-shadow-2xl sm:pl-16">
@@ -86,7 +86,7 @@
             </div>
         </div>
 
-        <div data-prefix="postit" id="postit_@task.Id">
+                <div data-prefix="postit" id="postit_@task.Id" class="border border-gray-300 rounded-xl ">
         <li class="gap-x-6 px-4 py-5 relative flex justify-between hover:bg-gray-50 sm:px-6">
             <div class="min-w-0 gap-x-4 flex">
                 <div class="min-w-0 flex-auto">
@@ -249,7 +249,9 @@
                 } else {
                     tasks.style.display = 'none'; // Hide the task if priority does not match and "ALL" is not selected
                 }
+                
             });
+            
         }
 
          function filterTasksByStatus(status) {
@@ -494,7 +496,7 @@
 
         function toggleSlideover(taskId) {
             console.log('passed slideover')
-            document.getElementById("slideoverModal_" + taskId).classList.toggle('hidden');
+           
             document.getElementById("slideoverModal_" + taskId).classList.toggle('invisible');
             document.getElementById("slideover_" + taskId).classList.toggle('translate-x-full');
             console.log(taskId);
