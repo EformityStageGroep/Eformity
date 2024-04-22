@@ -123,7 +123,10 @@ else
                             <label for="TenantId" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
                             <input type="hidden" id="TenantId" name="TenantId" value="@TenantId">
                         </div>
-
+                            <div class="mt-2">
+                                <label for="UserId" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
+                                <input type="hidden" id="UserId" name="UserId" value="@UserId">
+                            </div>
                         <div class="mt-2">
                             <label for="title" class="text-gray-700 block text-sm font-medium">@User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value</label>
                             <input type="text" name="title" id="title" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
@@ -195,7 +198,7 @@ else
         
         <!-- Tabs at small breakpoint and up -->
         <div class="hidden sm:block" id="tabs">
-            <nav class="flex items-center justify-left -mb-px space-x-8">
+            <nav class="justify-left -mb-px space-x-8 flex items-center">
                 <!-- Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
                 <a onclick="filterTasksByPriority('ALL', 'Done')" class="tab border-indigo-500 text-indigo-600 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:cursor-pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">All priorities</a>
                 <a onclick="filterTasksByPriority('HIGH', 'Done')" class="tab border-transparent text-gray-500 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:cursor-pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">High priority</a>
