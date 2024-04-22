@@ -25,18 +25,23 @@ namespace Organizer.Repositories
 
         public async Task Edit(Entities.User user)
         {
-
-            _context.Users.Update(user);
+            var users = await _context.Users.FindAsync(user);
+            _context.Users.Update(users);
             await _context.SaveChangesAsync();
         }
 
-        public async Task Delete(Guid id)
+        public async Task Delete(Guid? id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.Users.FirstOrDefaultAsync(m => m.Id == id);
+
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();
         }
-
+        public async Task UserExists(Guid? id)
+        {
+            _context.Users.Any(e => e.Id == id);
+            await _context.SaveChangesAsync();
+        }
         public async Task<int> SaveChangesAsync()
         {
             return await _context.SaveChangesAsync();

@@ -3,16 +3,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Organizer.Contexts;
 using Organizer.Entities;
+using Organizer.Repositories;
+using System.Threading.Tasks;
 
 namespace Organizer.Controllers
 {
     public class UsersController : Controller
     {
-        private readonly OrganizerContext _context;
+        private readonly IUserRepository _userRepository;
 
-        public UsersController(OrganizerContext context)
+        public UsersController(IUserRepository userRepository)
         {
-            _context = context;
+            _userRepository = userRepository;
         }
 
         // GET: Users
@@ -22,45 +24,34 @@ namespace Organizer.Controllers
         }
 
         // GET: Users/Details/5
-        public async Task<IActionResult> Details(Guid? id)
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var user = await _context.Users
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (user == null)
-            {
-                return NotFound();
-            }
+         
 
-            return View(user);
+            return View();
         }
 
         // GET: Users/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Email")] User user)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                await _userRepository.Create(user);
+                await _userRepository.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+                return View();
         }
 
         // POST: Users/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Email")] User user)
-        {
-            if (ModelState.IsValid)
-            {
-                user.Id = Guid.NewGuid();
-                _context.Add(user);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(user);
-        }
+
 
         // GET: Users/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
@@ -70,12 +61,8 @@ namespace Organizer.Controllers
                 return NotFound();
             }
 
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            return View(user);
+    
+            return View();
         }
 
         // POST: Users/Edit/5
@@ -83,7 +70,7 @@ namespace Organizer.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,Email")] User user)
+        public async Task<IActionResult> Edit(Guid? id, [Bind("Id,Name,Email")] User user)
         {
             if (id != user.Id)
             {
@@ -94,19 +81,12 @@ namespace Organizer.Controllers
             {
                 try
                 {
-                    _context.Update(user);
-                    await _context.SaveChangesAsync();
+                    await _userRepository.Edit(user);
+                    await _userRepository.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UserExists(user.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                  
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -114,62 +94,22 @@ namespace Organizer.Controllers
         }
 
         // GET: Users/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var user = await _context.Users
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (user == null)
-            {
-                return NotFound();
-            }
+         
 
-            return View(user);
-        }
-
-        // POST: Users/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
-        {
-            var user = await _context.Users.FindAsync(id);
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool UserExists(Guid id)
-        {
-            return _context.Users.Any(e => e.Id == id);
-        }
-
-        public IActionResult CompanyAdminDashboard()
-        {
-            /*var viewModel = new PageIdentifier();
-            viewModel.PageValue = "PostitPage";*/
             return View();
         }
-        public IActionResult SuperAdminDashboard()
-        {
-            /*var viewModel = new PageIdentifier();
-            viewModel.PageValue = "PostitPage";*/
-            return View();
-        }
-        public IActionResult EmployeeAdminDashboard()
-        {
-            /*var viewModel = new PageIdentifier();
-            viewModel.PageValue = "PostitPage";*/
-            return View();
-        }
-        public IActionResult EmployeeDashboard()
-        {
-            /*var viewModel = new PageIdentifier();
-            viewModel.PageValue = "PostitPage";*/
-            return View();
-        }
+
+        
+
+
+
+     
     }
 }

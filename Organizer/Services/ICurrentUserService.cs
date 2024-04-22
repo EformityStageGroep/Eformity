@@ -3,6 +3,6 @@
     public interface ICurrentUserService
     {
         string? UserId { get; set; }
-        public Task<bool> SetUser(string User);
+        public Task<bool> SetUser(Guid? User);
     }
 }
