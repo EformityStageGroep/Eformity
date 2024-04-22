@@ -225,7 +225,33 @@
 
 
     <script>
-        
+        function filterTasksWhenLoaded(status) {
+            var tasks = document.querySelectorAll('[id^="postit_"]');
+            tasks.forEach(function (task) {
+                var taskId = task.id.split("_")[1];
+                var statusLabels = document.getElementById('statusLabel_' + taskId)
+                var selectedOption = statusLabels.options[statusLabels.selectedIndex].value;
+                console.log(selectedOption);
+                if (selectedOption !== status) {
+                    task.style.display = 'block'; // Show the task if priority matches or if "ALL" is selected
+                } else {
+                    task.style.display = 'none'; // Hide the task if priority does not match and "ALL" is not selected
+                }
+            });
+            var task = document.querySelectorAll('[id^="slideoverDiv_"]');
+            task.forEach(function (tasks) {
+                var taskId = tasks.id.split("_")[1];
+                var statusLabels = document.getElementById('statusLabel_' + taskId)
+                var selectedOption = statusLabels.options[statusLabels.selectedIndex].value;
+                console.log(selectedOption);
+                if (selectedOption !== status) {
+                    tasks.style.display = 'block'; // Show the task if priority matches or if "ALL" is selected
+                } else {
+                    tasks.style.display = 'none'; // Hide the task if priority does not match and "ALL" is not selected
+                }
+            });
+        }
+
          function filterTasksByStatus(status) {
             var tasks = document.querySelectorAll('[id^="postit_"]');
             tasks.forEach(function (task) {
