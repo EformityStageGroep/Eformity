@@ -15,7 +15,7 @@ namespace Organizer.Services
 
         public string? UserId { get; set; }
 
-        public async Task<bool> SetUser(Guid? User)
+        public async Task<bool> SetUser(string? User)
         {
             var UserInfo = await _context.Users.Where(x => x.Id == User).FirstOrDefaultAsync();
             if (UserInfo != null)

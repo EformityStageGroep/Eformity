@@ -30,14 +30,14 @@ namespace Organizer.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task Delete(Guid? id)
+        public async Task Delete(string? id)
         {
             var user = await _context.Users.FirstOrDefaultAsync(m => m.Id == id);
 
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();
         }
-        public async Task UserExists(Guid? id)
+        public async Task UserExists(string? id)
         {
             _context.Users.Any(e => e.Id == id);
             await _context.SaveChangesAsync();
