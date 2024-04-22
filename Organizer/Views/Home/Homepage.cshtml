@@ -22,7 +22,8 @@
 }
 
 
-
+<body onload="filterTasksWhenLoaded('Done')">
+</body>
 @*EMPLOYEE ADMIN CREATE VIEW*@
 @if (User.IsInRole("SuperAdmin"))
 {
@@ -196,16 +197,13 @@ else
         
         <!-- Tabs at small breakpoint and up -->
         <div class="hidden sm:block" id="tabs">
-            <nav class="-mb-px space-x-8 flex">
+            <nav class="flex items-center justify-left -mb-px space-x-8">
                 <!-- Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
-
                 <a onclick="filterTasksByPriority('ALL', 'Done')" class="tab border-indigo-500 text-indigo-600 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:cursor-pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">All priorities</a>
                 <a onclick="filterTasksByPriority('HIGH', 'Done')" class="tab border-transparent text-gray-500 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:cursor-pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">High priority</a>
                 <a onclick="filterTasksByPriority('MEDIUM', 'Done')" class="tab border-transparent text-gray-500 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:cursor-pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">Medium priority</a>
                 <a onclick="filterTasksByPriority('LOW', 'Done')" class="tab border-transparent text-gray-500 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:cursor-pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">Low priority</a>
                 <a onclick="filterTasksByStatus('Done')" class="tab border-transparent text-gray-500 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:cursor-pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">Done</a>
-                
-
             </nav>
         </div>
     </div>
@@ -215,8 +213,6 @@ else
 
 @section scripts {
     <script>
-       
-
         document.addEventListener("DOMContentLoaded", function () {
             const tabs = document.querySelectorAll(".tab");
             const tabContents = document.querySelectorAll("#tab-content > div");
