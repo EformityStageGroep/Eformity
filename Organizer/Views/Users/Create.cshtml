@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Create";
     var UserId = @User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
+    var TenantId = @User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
     Console.WriteLine(UserId);
 }
 
@@ -26,11 +27,15 @@
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div type="hidden"  class="hidden form-group">
+                <label asp-for="Tenant_Id" type="hidden" class="control-label"></label>
+                <input asp-for="Tenant_Id" type="hidden" value="@TenantId" class="form-control" />
+                <span asp-validation-for="Tenant_Id" type="hidden" class="text-danger"></span>
+            </div>
+            <div type="hidden" class="hidden form-group">
                 <label asp-for="Id" type="hidden" class="control-label"></label>
                 <input asp-for="Id" type="hidden" value="@UserId" class="form-control" />
                 <span asp-validation-for="Id" type="hidden" class="text-danger"></span>
             </div>
-           
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" id="submitBtn" />
             </div>

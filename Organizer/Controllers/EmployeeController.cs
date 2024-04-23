@@ -113,6 +113,9 @@ namespace Organizer.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-      
-    }
+        public  IActionResult EmployeeDashboard2()
+        { 
+            return View(); 
+        }
+        }
 }

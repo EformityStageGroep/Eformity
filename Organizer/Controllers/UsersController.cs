@@ -54,7 +54,7 @@ namespace Organizer.Controllers
         }
         [HttpPost]
         // GET: Users/Create
-        public async Task<IActionResult> Create([Bind("Id,FullName,Email")] User user)
+        public async Task<IActionResult> Create([Bind("Id,Tenant_Id,FullName,Email")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -87,7 +87,7 @@ namespace Organizer.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string? id, [Bind("Id,FullName,Email")] User user)
+        public async Task<IActionResult> Edit(string? id, [Bind("Id,Tenant_Id,FullName,Email")] User user)
         {
             if (id != user.Id)
             {
@@ -123,7 +123,7 @@ namespace Organizer.Controllers
             return View();
         }
 
-        public IActionResult CompanyAdminDashboard()
+        public IActionResult EmployeeDashboard2()
         {/*
             var viewModel = new PageIdentifier();
             viewModel.PageValue = "Profile";*/
