@@ -14,9 +14,9 @@
         -->
         <div id="offCanvasSidebar" class="hidden">
 
-        <div class="inset-0 bg-gray-900/80 fixed"></div>
+        <div id="offCanvasBackground" class="inset-0 bg-gray-900/80 fixed opacity-100 transition-all duration-700 ease-in-out"></div>
 
-        <div class="inset-0 fixed flex">
+            <div id="canvas" class="inset-0 translate-x-[-370px] fixed flex flex-col transition-all duration-700 ease-in-out">
             <!--
               Off-canvas menu, show/hide based on off-canvas menu state.
 
@@ -50,7 +50,7 @@
                 <!-- Sidebar component, swap this element with another sidebar if you like -->
                 <div class="gap-y-5 bg-white px-6 pb-4 flex grow flex-col overflow-y-auto">
                     <div class="h-16 flex shrink-0 items-center">
-                        <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
+                        <img class="h-12 w-auto" src="https://eformity.com/wp-content/uploads//2017/02/eformity-logo.png" alt="Eformity">
                     </div>
                     <nav class="flex flex-1 flex-col">
                         <ul role="list" class="gap-y-7 flex flex-1 flex-col">
@@ -58,7 +58,7 @@
                                 <ul role="list" class="-mx-2 space-y-1">
                                     <li>
                                         <!-- Current: "bg-gray-50 text-indigo-600", Default: "text-gray-700 hover:text-indigo-600 hover:bg-gray-50" -->
-                                        <a href="#" class="bg-gray-50 text-indigo-600 gap-x-3 p-2 group flex rounded-md text-sm font-semibold leading-6">
+                                            <a href="@Url.Action("EmployeeDashboard", "Employee")" class="bg-gray-50 text-indigo-600 gap-x-3 p-2 group flex rounded-md text-sm font-semibold leading-6">
                                             <svg class="h-6 w-6 text-indigo-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
                                             </svg>
@@ -155,7 +155,7 @@
         <!-- Sidebar component, swap this element with another sidebar if you like -->
         <div class="gap-y-5 border-gray-200 bg-white px-6 pb-4 flex grow flex-col overflow-y-auto border-r">
             <div class="h-16 flex shrink-0 items-center">
-                <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
+                <img class="h-12 w-auto" src="https://eformity.com/wp-content/uploads//2017/02/eformity-logo.png" alt="Eformity">
             </div>
             <nav class="flex flex-1 flex-col">
                 <ul role="list" class="gap-y-7 flex flex-1 flex-col">
@@ -163,7 +163,7 @@
                         <ul role="list" class="-mx-2 space-y-1">
                             <li>
                                 <!-- Current: "bg-gray-50 text-indigo-600", Default: "text-gray-700 hover:text-indigo-600 hover:bg-gray-50" -->
-                                <a href="#" class="bg-gray-50 text-indigo-600 gap-x-3 p-2 group flex rounded-md text-sm font-semibold leading-6">
+                                <a href="@Url.Action("EmployeeDashboard", "Employee")" class="bg-gray-50 text-indigo-600 gap-x-3 p-2 group flex rounded-md text-sm font-semibold leading-6">
                                     <svg class="h-6 w-6 text-indigo-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
                                     </svg>
@@ -325,17 +325,37 @@
 
 <script>
     function offCanvasToggle() {
+        offCanvasBackground = document.getElementById('offCanvasBackground')
+
         offCanvasButton = document.getElementById('offCanvasButton')
         offCanvas = document.getElementById('offCanvasSidebar')
-        offCanvas.classList.toggle('hidden');
+        canvas = document.getElementById('canvas')
+        offCanvasBackground.classList.remove("opacity-0")
+        offCanvasBackground.classList.add("opacity-100")
+
+
+
+        offCanvas.classList.remove('hidden');
+        setTimeout(function () {
+            canvas.classList.remove('translate-x-[-370px]');
+        }, 50);
 
     }
 
     function closeOffCanvas() {
-        console.log('clicked close offcanvas')
+        offCanvasBackground = document.getElementById('offCanvasBackground')
+        canvas = document.getElementById('canvas')
+            canvas.classList.add('translate-x-[-370px]');
+
         closeSidebarButton = document.getElementById("closeSidebarButton")
+        offCanvasBackground.classList.remove("opacity-100")
+        offCanvasBackground.classList.add("opacity-0")
+
         offCanvas = document.getElementById('offCanvasSidebar')
+                setTimeout(function () {
         offCanvas.classList.add("hidden")
+        }, 800);
+       
 
     }
 
