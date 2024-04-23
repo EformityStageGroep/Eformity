@@ -20,8 +20,25 @@ namespace Organizer.Controllers
         // GET: Users
         public async Task<IActionResult> Index()
         {
-            return RedirectToAction("CompanyAdminDashboard", "Users");
+            try
+            {
+                var users = await _userRepository.GetTasksAsync(); // Fetch tasks based on current tenant
+
+
+                if (users == null || !users.Any())
+                {
+                    return View(new List<User>()); // Return an empty list to the view
+                }
+
+                return View(users);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as required
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
         }
+    
 
         // GET: Users/Details/5
         public async Task<IActionResult> Details(string id)

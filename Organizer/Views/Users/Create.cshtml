@@ -46,13 +46,7 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
         const csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
-        const data = {
-            // Replace the keys and values with your actual data
-            FirstName: "John",
-            LastName: "Doe",
-            Email: "john.doe@example.com",
-            Id: '123' // Assuming you want to send the ID as well
-        };
+   
         const formData = new FormData(data);
         function deleteTask() {
             // Get the CSRF token from the form

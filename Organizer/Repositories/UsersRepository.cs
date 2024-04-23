@@ -1,22 +1,39 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Organizer.Contexts;
+using Organizer.Services;
 
 namespace Organizer.Repositories
 {
     public class UserRepository : IUserRepository
     {
         private readonly OrganizerContext _context;
+        private readonly ICurrentUserService _currentUserService;
 
-        public UserRepository(OrganizerContext context)
+        public UserRepository(OrganizerContext context, ICurrentUserService currentUserService)
         {
             _context = context;
+            _currentUserService = currentUserService;
         }
 
         public async Task<List<Entities.User>> User()
         {
-            return await _context.Users.ToListAsync();
+            var users = await _context.Users.ToListAsync();
+          
+            return users;
         }
+        public async Task<List<Entities.User>> GetTasksAsync()
+        {
+            var UserId = _currentUserService.UserId;
 
+            
+            var Users = await _context.Users.ToListAsync();
+            // Debugging: Print the fetched tasks
+            foreach (var task in Users)
+            {
+                Console.WriteLine($"TaskId: {task.Id}, TenantId: {task.Email}, Title: {task.FullName}");
+            }
+            return Users;
+        }
         public async Task Create(Entities.User user)
         {
             // Check if a user with the same ID already exists in the database

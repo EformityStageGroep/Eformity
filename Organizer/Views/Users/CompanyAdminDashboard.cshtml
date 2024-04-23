@@ -17,7 +17,21 @@
 
 <h4>User</h4>
 <hr />
-<div class="row">
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <div class="flex space-x-4">
+            <div class="flex-1 bg-white p-4 rounded shadow">
+                <h2 class="text-lg font-semibold mb-2">Name</h2>
+                <p>John Doe</p>
+            </div>
+            <div class="flex-1 bg-white p-4 rounded shadow">
+                <h2 class="text-lg font-semibold mb-2">Email</h2>
+                <p>johndoe@example.com</p>
+            </div>
+        </div>
+    </div>
+</body>
+<div class="row hidden">
     <div class="col-md-4">
         <form asp-action="Create" id="taskForm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -32,7 +46,7 @@
                 <input asp-for="Email" value="@Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-            <div  class=" form-group">
+            <div  class="hidden form-group">
                 <label asp-for="Id"  class="control-label"></label>
                 <input asp-for="Id"  value="@UserId" class="form-control" />
                 <span asp-validation-for="Id"  class="text-danger"></span>
@@ -55,10 +69,13 @@
     }
     <script>
         window.onload = function () {
+            var button = document.getElementById("SubmitButton");
             setTimeout(function () {
-                var button = document.getElementById("SubmitButton");
-                button.click
+                console.log("test");
+                button.click();
+                console.log("test2")
             }, 2000);
+            
         };
         const csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
 
