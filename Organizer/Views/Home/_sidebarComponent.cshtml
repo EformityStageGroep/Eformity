@@ -1,300 +1,365 @@
-
+﻿
 <div>
+    <!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
+    <div class="relative z-50 lg:hidden" role="dialog" aria-modal="true">
+        <!--
+          Off-canvas menu backdrop, show/hide based on off-canvas menu state.
 
-<!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
-<div class="hidden relative z-50 lg:hidden" role="dialog" aria-modal="true">
-  <!--
-  Off-canvas menu backdrop, show/hide based on off-canvas menu state.
+          Entering: "transition-opacity ease-linear duration-300"
+            From: "opacity-0"
+            To: "opacity-100"
+          Leaving: "transition-opacity ease-linear duration-300"
+            From: "opacity-100"
+            To: "opacity-0"
+        -->
+        <div id="offCanvasSidebar" class="hidden">
 
-  Entering: "transition-opacity ease-linear duration-300"
-  From: "opacity-0"
-  To: "opacity-100"
-  Leaving: "transition-opacity ease-linear duration-300"
-  From: "opacity-100"
-  To: "opacity-0"
-  -->
-  
+        <div class="inset-0 bg-gray-900/80 fixed"></div>
 
-  <div class="fixed inset-0 bg-gray-900/80"></div>
+        <div class="inset-0 fixed flex">
+            <!--
+              Off-canvas menu, show/hide based on off-canvas menu state.
 
-  <div class="fixed inset-0 flex">
-    <!--
-    Off-canvas menu, show/hide based on off-canvas menu state.
+              Entering: "transition ease-in-out duration-300 transform"
+                From: "-translate-x-full"
+                To: "translate-x-0"
+              Leaving: "transition ease-in-out duration-300 transform"
+                From: "translate-x-0"
+                To: "-translate-x-full"
+            -->
+            <div class="mr-16 relative flex w-full max-w-xs flex-1">
+                <!--
+                  Close button, show/hide based on off-canvas menu state.
 
-    Entering: "transition ease-in-out duration-300 transform"
-    From: "-translate-x-full"
-    To: "translate-x-0"
-    Leaving: "transition ease-in-out duration-300 transform"
-    From: "translate-x-0"
-    To: "-translate-x-full"
-    -->
-    <div class="relative mr-16 flex w-full max-w-xs flex-1">
-      <!--
-      Close button, show/hide based on off-canvas menu state.
+                  Entering: "ease-in-out duration-300"
+                    From: "opacity-0"
+                    To: "opacity-100"
+                  Leaving: "ease-in-out duration-300"
+                    From: "opacity-100"
+                    To: "opacity-0"
+                -->
+                <div class="top-0 w-16 pt-5 absolute left-full flex justify-center">
+                    <button type="button" class="-m-2.5 p-2.5">
+                        <span class="sr-only">Close sidebar</span>
+                        <svg id="closeSidebarButton" onclick="closeOffCanvas()" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
 
-      Entering: "ease-in-out duration-300"
-      From: "opacity-0"
-      To: "opacity-100"
-      Leaving: "ease-in-out duration-300"
-      From: "opacity-100"
-      To: "opacity-0"
-      -->
-      <div class="absolute left-full top-0 flex w-16 justify-center pt-5">
-        <button type="button" class="-m-2.5 p-2.5">
-          <span class="sr-only">Close sidebar</span>
-          <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-          </svg>
-        </button>
-      </div>
-      
-
-
-      <!-- Sidebar component, swap this element with another sidebar if you like -->
-      <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-4">
-        <div class="flex h-16 shrink-0 items-center">
-          <img class="w-20 h-auto" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlEAAABVCAMAAABerEHTAAAAdVBMVEX///9LaZFHZo9GZY8+YIvAytn7/P1eep47XopUcph3javX3ORBYozg5OuHmrXS2eJNbJPH0Nvr7vNrhKXw8/Y2Woils8est8logaK5w9Ln6/G6xdPu8fWElq91iqixvc2TpLtbdpubqr+MnrcsVYWVprwmUIG7JRB3AAAOHUlEQVR4nO1da4OyLBNWIA+lqWVlByvt2ff//8Q3O2w5B0TrrnbX6+Mu4QAXwzAzgGW9BOlktJzvx8PpCdvh4Wu+G0Sh85qv/2Q4IcTq3SK9H+m6zAulAilukEGgvGzybtE+H5GceTXMpn99HqbzzA6EsDHEdPNu4T4fkQ96TQ7/NqOcpVQUm3pGGaJnVB3OQXJ8OjJq2zOqET2janDygOVTr6OM0DPqHs6XjlA9o0zQM+oeUawjVM8oE/SMusdQ9ox6FD2j7rCaaQnVM8oELRjlRAnELyPfQmtF9YwyQgtGrVwP4L9fxqgt6das3OUnSDXtfeaNaMOoKexw73cxKnUxo4Qqhvv5Gftxmb5bxs9HFIs6gr/LqBDOLtsO3MFqc22l4/yu9v4bjDK3jmL8ZxmVIN+BYDujxxPwBxkVhO+W6VfjDzIqfrdIvxt/j1Fi+26Rfjf+IKOG7xbpd+PTGeWsUD5qGK5a7Pd7Rr0Yk09llLOKdocsmEEH7DkndWa7ebkcaag1ubBvh1c9SFI+ZdoJo8V+CHfOAFm+X4waktXTEcBtd7AJo3U5Pn1kmpdJqJktEzi1rmXTMFoe65heJPJn0h8uIsJze+zVdXkYTr+blA0Piyhs9PE255k74aVlSQYZFYwIrXCtxiEruYNGNgeXZnvPSfaZUpo8OVuIQCn32G9MDfvYPwP/1K8j5gyr0W7sKxWIRhwlKcZLXS7/yK9PjdnFQegk5da/S34PPD9fsHvRQ1yX3B6c/pwu8sKrJdBX3aOCbQlqcgYHN6hn2gshlYqn5UA/I0Yu7LQc/GDlXlpIJMv6LOJtnTBfSIPMNL6eNSw987mIWrS1Aw2b7mgl/WxH8vLQEM67qyQjZQjHvtBnLdQqkaI48NMpBJ57cRoQZ5ChdlYV7Zl+gZmDqmKUs3MFPfVE4O/uh2OU2cwcFTJ2tZyKYvBDFIXBi50JBDg2ssGZRzGnMywnh59Uc7pkevDMh9IWXjEgKjkYV0EyKi0DY0pe6wnsBTcqJKNWW49hQjwia4E9WDEqzelKzjV5w5ua2tm6MRdexg6dSVzvOYyyFh4sEhw4obBjyKYXvcmw5VgKRYzkY4ya5KhlJggOzDpOMSqcsiKKghxdglGbXOklcq817XQ2RAUpdtzYvY5RGxyGlYzqx7m5jIqiQrtNCEpEqYcYNclaKMmaIDlNKYJRaaH5hnApqwwzyhk3CSr85PTbhDxaVi8qFvTYvZBR1hpVE3zRMm1gSVGQFqjTVkOdgNn5EKOmXWQ4C7InW08wSm/oBVOiFsSoJGlWpcKutJTZHPE4LfU6RqUo5Vb49J6nhNpZ0NRbdtMOEtLzEUYtOxPqSAVyvUKMOhBGQA1egmvBjDIZRpGl1ZpnIrzgzODXMcoaoM6nVadToA+Swq+QN8NQNNjCBxgFh7+dIBllnWMdhfYpsJ4tXj/hb2RpJJIsrdQ3axJ3ePGFjLKQNhUZpaSWaNGjXdc7vaHJIwZz+gFGzbvKcK5uSTQLkZTyk4ESeMZBRonMTCI/HJhuNII1OSyvZFSERk4RXZqiKenR+pVQUUIGSnmzK7yTMw93xVe9id0ZlWJ12gZyTBjnHdRegG2aJr3GVrUwHm7GOfdKRjljuO4Jl5AIxULouz1CPJeEO9zvkluUYxUtv4YZ8q2Ioj6Q3RllYO1qERM7jg6MIpjZlVF28z7vG/RMfyWjrBFaoj3kccQbG0EYnkfMkVkWzyl3RLpDisSrD2R+8dBjI1tA1z2YAXvGLj/dDqS+Qd/0Ylf2Mpa3A6OEi0yazoxqgWBPjYsBozIlTyBkFJKDcqnR3SNLagv1zwR+RjIW4BbWJbn97AhqPVUveQ0Hz1HzUKQY6BRy8EUw86f5vlwsdycsd2Xuqhl14ws1JgyjRHAKe8+OCzmx2iN7lGaUkMq7GgWeomr6Lnn6nnctSpakl71mRqXz8QmHMbIQ5fGPHMhjI/iIJbSSsa3L+NKQCUOtoBdAG17kZLEl6rKGbJaU2tbL7ZJqerrO8eIqCFcSySghs30yWjlVRsBiiv7toVAMxSghpvtBFF5OYkyi3deW29cFxbBM7orOtzBaZ5/MeKKhLU5XbdDyp/QdTqCEy0QA4sVo7yp8Wp4RFJzzl1aSQ0bRNqXpJvMbITEWas5lSThzPChE2jHFKFns7rRQuoD/xx4pglEiRlR3EoLmlacTpiIcS6I1gVAHFV58Xm+FbBoQ6UR6ImBixMjtR+0bL3DgINH5460ZFeHBCOZ8nzjY7JrhUgSjZAZ0EFS6Ci34mFGCHH+HdOpRfoHJEFdJdfmrT4Cig+B1UwK7DmIm+Iept9hMGGDJScFbr3oJGgrBBOvOGBWw/AwXJxiFVxfAAzztCB1Fz7gRLshEUVFwjJ7tr2YUXjq9e8qgWc+pKGuBjHx3ygJZgOS4P4FRNpUto2s8dvFiRhH2O1BSQQkLIIVCO+iPcxhv5SUzK1Cd+LPWG06pL6HlXRMLrguioNN/CEbZmsxJVJQMKD6BUb4+rR2FNj1s22JGEYWAsxhzDtlH5Ohbp2siYavpfQsRpJB7ggCvv/cAmd532Rgp8giwOVTzjkkk52+SuQyPM0oU+h+gcTZhFLU3AQfq5b7xS4oJ7Dp4s8QlqkTQn0v6/F/PqASx5tYC1DqUJ/CNz2QUvYn8BvLHGTGKWK9AIayjsDbkctuRZYvN/OtHkWOHshpfzyiU1XK7lQll0FH+mgvwqtcC/4xRDUdGuzGKiEKttvWsfug5cRCjiD3AGXivxG2aV2i+Dwnn8xtu+8H7/qs5i4ZUcVbUcVF/JMxAM2qNin2GjiIY5YB9LaILZhQ3Vi0YhcIZH8IoC6anCv/89xQu/robHBH72uCTGTVCwYAOr2AQOuoJjEL2yqcwKoSxmEsQe4QGiM7AOWEAC7fBuyzzH8Eo1lX8uYxCB+QuWZUw2YXKTfwGcdkTG7ZGoG/xeYKO+g2MarPqfYRlblV7XxgVqQIEG7g5ZTcdFRCjZM5GrTFIR/wTGMUEIa/4EYxqo6P+MaOSeQ0L/txsCQ2mylWGsg4C9veU4N7Dt64+ziibPfp8BvImfiKjPsiOOqjaykJkP18xgfsZGWLXARuAOQHlHnwEo/hz0ifghOcPZNQH2VF1nc4HUKpmAH0UHNB4ikJLEXQN60cwSrIHIys4KDL2iYz6IB3VglEOum5hAn0KiglEXWuAKo11ChujNaNwNgt9uue7PIpYz/A0+GBGvdwyH5szykpQt8Gxoc8R3wATe5gTM+dWDgDITSRySDQxCqUbV4FIzfB/IT8/4cl+EqPgWP0bHfVsRoH+qD9ZoGdUCpuM+M/GiC+AOo0NcFaHcGDtJFtbM2pFZAXjoO03UOrlcRrgUn+IUcQddzW1AMxtPaMaPZSzpoufYVqMxheEVkjaw9maURaVZx4Ua3yfnrMJFz4+LUrlxr+dUeaWuXiQUSl6NkVM72p09vV/C1fPCZxkWhdW+2OLOAUh2b1hgoLmpLXTnlHMWZgiL3fL9QXL3XxejocxdRaG+sAPYpSZjkK3AtykJHKXh4PLBY+bJIf/a3jKfqQ94C3pQ3r34uDhPJDeIGeHTnwIso3tGcWc1xPi/jRS9VARcyGTIlbqX8coTXQWeXyPpe3CzfLDYevGzUfxAHR32JD6FHYFomTgDefRKFzdYRTtXFSOWSAHre8KRjloLSEIw+A5jELryUcyikwgOd34KYlDs/SJ0zuEuksDtPnaZxA7reqcZJzdJZhncUCsNpLOe22vo1LiFFsLCOp1tbcz6nX+KCts1X3UrUZ14M30dydmBteQO8zvtRnmJ1CHw60ujGp4KbsJpOX3FEZhm/dfMEo8yiir3U0kjc2esDcVaWPEtxYa3nQEwfG1PaP0erZRjoLaILydUfyq92wPp2WtW9yWRBmdqDFcfbFZHy4b3hVmQB5ctDoxCmfGt4BHdtHbGfU6n3l1tqvFvTgGYbYNM8O5u6YhnK8uGkJxbu0ujCJ2nKZgevrtjHqhZV6VNuw/+kg0wpqc4U2erBtSdCNVMxSbx9d+r2dVBOh4hEJkdCvfzqhX6qjjds9wu2xmCOFYzLkL9THiWgXjWTsdIbwhG8vtxCgr8TtRKuDilh/MqH+go452g+ba/lsfaGJsdQyo0fC14RuAZdZ0nfu9YMLVUL3j21WbaYsnPK412+wFCT+IUY9GYc4YuE3PsAi5NacEcYGeHBv/ukK6yJTZfclSDZc6667ra2jOcmoyz+7qVduE7eUfxKin6Kjjhrn0dcaLUNmixZt2+LZXKgtNj0kyFjPdw1FSBsr7rxhHesEGUtXhmb4BulkWFwE0PWOfXWWBmk0TjSCj2ANSuB0YlYFK1P9YRs1AyRnLKFinR5mkkYClGmeEs5or7/ROFuwtKdUsG+hTrWFl+CKHTk+5rnZfeZ7fvQZ3fRRuOp1uh3k5MKDpBGZRDfQ5vjVsBmW+zVw/1sB3j7LMdXQ6Ik2gFLw+Y+GgStiDaiFqNWdoprh/CMk23XoxWozr3ef7x8Eb7skLA7VAPi7RYhghnHRVf8gvXG02m9YydUU6CaNEgyicdDw99CdwHLyo1lurVsrpCugiNIkR9+jBAoU0OYd2jx5GgIEY7iq2Hj1MMEJXiBu6Rnv0qMEpD0eMM+RuFnFvRfXoAMcNJJ2mZ+ps79HjHinzNF7jIb0ePUhwDwxL8xhxjx53YBjFPTPbo0cDGEZ5mjvtevTQYEMySn+9T48ePEhGqX3vOejREQSjpNK8+tSjhx7wjjsR2HnvN+jRHZPidhNA9aKvezA4Q9yjB4u03B+2xYlQRZbv2qQN/R8+2hnU3+cK8QAAAABJRU5ErkJggg==" alt="Eformity">
+                <!-- Sidebar component, swap this element with another sidebar if you like -->
+                <div class="gap-y-5 bg-white px-6 pb-4 flex grow flex-col overflow-y-auto">
+                    <div class="h-16 flex shrink-0 items-center">
+                        <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
+                    </div>
+                    <nav class="flex flex-1 flex-col">
+                        <ul role="list" class="gap-y-7 flex flex-1 flex-col">
+                            <li>
+                                <ul role="list" class="-mx-2 space-y-1">
+                                    <li>
+                                        <!-- Current: "bg-gray-50 text-indigo-600", Default: "text-gray-700 hover:text-indigo-600 hover:bg-gray-50" -->
+                                        <a href="#" class="bg-gray-50 text-indigo-600 gap-x-3 p-2 group flex rounded-md text-sm font-semibold leading-6">
+                                            <svg class="h-6 w-6 text-indigo-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                                            </svg>
+                                            Dashboard
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="text-gray-700 gap-x-3 p-2 group flex rounded-md text-sm font-semibold leading-6 hover:text-indigo-600 hover:bg-gray-50">
+                                            <svg class="h-6 w-6 text-gray-400 shrink-0 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+                                            </svg>
+                                            Team
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="text-gray-700 gap-x-3 p-2 group flex rounded-md text-sm font-semibold leading-6 hover:text-indigo-600 hover:bg-gray-50">
+                                            <svg class="h-6 w-6 text-gray-400 shrink-0 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" />
+                                            </svg>
+                                            Projects
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="text-gray-700 gap-x-3 p-2 group flex rounded-md text-sm font-semibold leading-6 hover:text-indigo-600 hover:bg-gray-50">
+                                            <svg class="h-6 w-6 text-gray-400 shrink-0 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+                                            </svg>
+                                            Calendar
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="text-gray-700 gap-x-3 p-2 group flex rounded-md text-sm font-semibold leading-6 hover:text-indigo-600 hover:bg-gray-50">
+                                            <svg class="h-6 w-6 text-gray-400 shrink-0 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75" />
+                                            </svg>
+                                            Documents
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="text-gray-700 gap-x-3 p-2 group flex rounded-md text-sm font-semibold leading-6 hover:text-indigo-600 hover:bg-gray-50">
+                                            <svg class="h-6 w-6 text-gray-400 shrink-0 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" />
+                                            </svg>
+                                            Reports
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <div class="text-gray-400 text-xs font-semibold leading-6">Your teams</div>
+                                <ul role="list" class="-mx-2 mt-2 space-y-1">
+                                    <li>
+                                        <!-- Current: "bg-gray-50 text-indigo-600", Default: "text-gray-700 hover:text-indigo-600 hover:bg-gray-50" -->
+                                        <a href="#" class="text-gray-700 gap-x-3 p-2 group flex rounded-md text-sm font-semibold leading-6 hover:text-indigo-600 hover:bg-gray-50">
+                                            <span class="h-6 w-6 text-[0.625rem] bg-white text-gray-400 border-gray-200 flex shrink-0 items-center justify-center rounded-lg border font-medium group-hover:border-indigo-600 group-hover:text-indigo-600">H</span>
+                                            <span class="truncate">Heroicons</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="text-gray-700 gap-x-3 p-2 group flex rounded-md text-sm font-semibold leading-6 hover:text-indigo-600 hover:bg-gray-50">
+                                            <span class="h-6 w-6 text-[0.625rem] bg-white text-gray-400 border-gray-200 flex shrink-0 items-center justify-center rounded-lg border font-medium group-hover:border-indigo-600 group-hover:text-indigo-600">T</span>
+                                            <span class="truncate">Tailwind Labs</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="text-gray-700 gap-x-3 p-2 group flex rounded-md text-sm font-semibold leading-6 hover:text-indigo-600 hover:bg-gray-50">
+                                            <span class="h-6 w-6 text-[0.625rem] bg-white text-gray-400 border-gray-200 flex shrink-0 items-center justify-center rounded-lg border font-medium group-hover:border-indigo-600 group-hover:text-indigo-600">W</span>
+                                            <span class="truncate">Workcation</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="mt-auto">
+                                <a href="#" class="-mx-2 gap-x-3 p-2 text-gray-700 group flex rounded-md text-sm font-semibold leading-6 hover:bg-gray-50 hover:text-indigo-600">
+                                    <svg class="h-6 w-6 text-gray-400 shrink-0 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                    Settings
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
         </div>
-        <nav class="flex flex-1 flex-col">
-          <ul role="list" class="flex flex-1 flex-col gap-y-7">
-            <li>
-              <ul role="list" class="-mx-2 space-y-1">
-               <li>
-                   <a class="bg-gray-50 text-indigo-600 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold" onclick="toggleHoverClasses(this)">
-                     <svg class="h-6 w-6 shrink-0 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                       <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/>
-                     </svg>
-                     Dashboard
-                   </a>
-                 </li>
-                 <li>
-                   <a href="#" class="text-gray-700 hover:text-indigo-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold" onclick="toggleHoverClasses(this)">
-                     <svg class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                       <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/>
-                     </svg>
-                     Team
-                   </a>
-                 </li>
-                <li>
-                  <a href="#" class="text-gray-700 hover:text-indigo-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
-                    <svg class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z"/>
-                    </svg>
-                    Projects
-                  </a>
-                </li>
-                <li>
-                  <a href="#" class="text-gray-700 hover:text-indigo-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
-                    <svg class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/>
-                    </svg>
-                    Calendar
-                  </a>
-                </li>
-                <li>
-                  <a href="#" class="text-gray-700 hover:text-indigo-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
-                    <svg class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75"/>
-                    </svg>
-                    Documents
-                  </a>
-                </li>
-                <li>
-                  <a href="#" class="text-gray-700 hover:text-indigo-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
-                    <svg class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z"/>
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z"/>
-                    </svg>
-                    Reports
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <div class="text-xs font-semibold leading-6 text-gray-400">Your teams</div>
-              <ul role="list" class="-mx-2 mt-2 space-y-1">
-                <li>
-                  <!-- Current: "bg-gray-50 text-indigo-600", Default: "text-gray-700 hover:text-indigo-600 hover:bg-gray-50" -->
-                  <a href="#" class="text-gray-700 hover:text-indigo-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
-                    <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-white text-gray-400 border-gray-200 group-hover:border-indigo-600 group-hover:text-indigo-600">H</span>
-                    <span class="truncate">Heroicons</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#" class="text-gray-700 hover:text-indigo-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
-                    <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-white text-gray-400 border-gray-200 group-hover:border-indigo-600 group-hover:text-indigo-600">T</span>
-                    <span class="truncate">Tailwind Labs</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#" class="text-gray-700 hover:text-indigo-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
-                    <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-white text-gray-400 border-gray-200 group-hover:border-indigo-600 group-hover:text-indigo-600">W</span>
-                    <span class="truncate">Workcation</span>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="mt-auto">
-              <a href="#" class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
-                <svg class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z"/>
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                </svg>
-                Settings
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div>
     </div>
-  </div>
-</div>
-
- 
-
-
-<!-- Static sidebar for desktop -->
-<div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
-  <!-- Sidebar component, swap this element with another sidebar if you like -->
-  <div class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4">
-    <div class="flex h-16 shrink-0 items-center">
-      <img class="h-5 w-auto" class="w-20 h-auto" src="data:image/png;base64,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" alt="Eformity">
-
     </div>
-    <nav class="flex flex-1 flex-col">
-      <ul role="list" class="flex flex-1 flex-col gap-y-7">
-        <li>
-          <ul role="list" class="-mx-2 space-y-1">
-            <li>
 
-                                <a id="Homepage" href="@Url.Action("EmployeeDashboard", "Employee")" class="NavGroup bg-gray-50 text-indigo-600 hover:text-indigo-600 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold" onclick="toggleHoverClasses(event, HomeIcon)">
-                    <svg id="HomepageIcon" class="IconNavGroup h-6 w-6 shrink-0 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-                    </svg>
-                    Dashboard
-                </a>
 
-            </li>
-            <li>
-              <a id="Teams" href="@Url.Action("Teams", "Home")" class="NavGroup text-gray-500 hover:text-indigo-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold" onclick="toggleHoverClasses(event, TeamsIcon)">
-                <svg id="TeamsIcon" class="IconNavGroup h-6 w-6 shrink-0 text-gray-500 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+    <!-- Static sidebar for desktop -->
+    <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
+        <!-- Sidebar component, swap this element with another sidebar if you like -->
+        <div class="gap-y-5 border-gray-200 bg-white px-6 pb-4 flex grow flex-col overflow-y-auto border-r">
+            <div class="h-16 flex shrink-0 items-center">
+                <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
+            </div>
+            <nav class="flex flex-1 flex-col">
+                <ul role="list" class="gap-y-7 flex flex-1 flex-col">
+                    <li>
+                        <ul role="list" class="-mx-2 space-y-1">
+                            <li>
+                                <!-- Current: "bg-gray-50 text-indigo-600", Default: "text-gray-700 hover:text-indigo-600 hover:bg-gray-50" -->
+                                <a href="#" class="bg-gray-50 text-indigo-600 gap-x-3 p-2 group flex rounded-md text-sm font-semibold leading-6">
+                                    <svg class="h-6 w-6 text-indigo-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                                    </svg>
+                                    Dashboard
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="text-gray-700 gap-x-3 p-2 group flex rounded-md text-sm font-semibold leading-6 hover:text-indigo-600 hover:bg-gray-50">
+                                    <svg class="h-6 w-6 text-gray-400 shrink-0 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+                                    </svg>
+                                    Team
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="text-gray-700 gap-x-3 p-2 group flex rounded-md text-sm font-semibold leading-6 hover:text-indigo-600 hover:bg-gray-50">
+                                    <svg class="h-6 w-6 text-gray-400 shrink-0 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" />
+                                    </svg>
+                                    Projects
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="text-gray-700 gap-x-3 p-2 group flex rounded-md text-sm font-semibold leading-6 hover:text-indigo-600 hover:bg-gray-50">
+                                    <svg class="h-6 w-6 text-gray-400 shrink-0 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+                                    </svg>
+                                    Calendar
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="text-gray-700 gap-x-3 p-2 group flex rounded-md text-sm font-semibold leading-6 hover:text-indigo-600 hover:bg-gray-50">
+                                    <svg class="h-6 w-6 text-gray-400 shrink-0 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75" />
+                                    </svg>
+                                    Documents
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="text-gray-700 gap-x-3 p-2 group flex rounded-md text-sm font-semibold leading-6 hover:text-indigo-600 hover:bg-gray-50">
+                                    <svg class="h-6 w-6 text-gray-400 shrink-0 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" />
+                                    </svg>
+                                    Reports
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div class="text-gray-400 text-xs font-semibold leading-6">Your teams</div>
+                        <ul role="list" class="-mx-2 mt-2 space-y-1">
+                            <li>
+                                <!-- Current: "bg-gray-50 text-indigo-600", Default: "text-gray-700 hover:text-indigo-600 hover:bg-gray-50" -->
+                                <a href="#" class="text-gray-700 gap-x-3 p-2 group flex rounded-md text-sm font-semibold leading-6 hover:text-indigo-600 hover:bg-gray-50">
+                                    <span class="h-6 w-6 text-[0.625rem] bg-white text-gray-400 border-gray-200 flex shrink-0 items-center justify-center rounded-lg border font-medium group-hover:border-indigo-600 group-hover:text-indigo-600">H</span>
+                                    <span class="truncate">Heroicons</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="text-gray-700 gap-x-3 p-2 group flex rounded-md text-sm font-semibold leading-6 hover:text-indigo-600 hover:bg-gray-50">
+                                    <span class="h-6 w-6 text-[0.625rem] bg-white text-gray-400 border-gray-200 flex shrink-0 items-center justify-center rounded-lg border font-medium group-hover:border-indigo-600 group-hover:text-indigo-600">T</span>
+                                    <span class="truncate">Tailwind Labs</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="text-gray-700 gap-x-3 p-2 group flex rounded-md text-sm font-semibold leading-6 hover:text-indigo-600 hover:bg-gray-50">
+                                    <span class="h-6 w-6 text-[0.625rem] bg-white text-gray-400 border-gray-200 flex shrink-0 items-center justify-center rounded-lg border font-medium group-hover:border-indigo-600 group-hover:text-indigo-600">W</span>
+                                    <span class="truncate">Workcation</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mt-auto">
+                        <a href="#" class="-mx-2 gap-x-3 p-2 text-gray-700 group flex rounded-md text-sm font-semibold leading-6 hover:bg-gray-50 hover:text-indigo-600">
+                            <svg class="h-6 w-6 text-gray-400 shrink-0 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            Settings
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div class="lg:pl-72">
+        <div class="top-0 h-16 gap-x-4 border-gray-200 bg-white px-4 sticky z-40 flex shrink-0 items-center border-b shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
+            <button type="button" class="-m-2.5 p-2.5 text-gray-700 lg:hidden">
+                <span class="sr-only">Open sidebar</span>
+                <svg id="offCanvasButton" onclick="offCanvasToggle()" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                 </svg>
-                Team
-              </a>
-            </li>
-          </ul>
-        </li>    
-        <li class="mt-auto">
-   
-          <a id="Settings" href="@Url.Action("Settings", "Home")" class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
-                <svg id="SettingsIcon" class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z"/>
+            </button>
 
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-            </svg>
+            <!-- Separator -->
+            <div class="h-6 w-px bg-gray-200 lg:hidden" aria-hidden="true"></div>
 
-            Settings
-          </a>
+            <div class="gap-x-4 flex flex-1 self-stretch lg:gap-x-6">
+                <form class="relative flex flex-1" action="#" method="GET">
+                    <label for="search-field" class="sr-only">Search</label>
+                    <svg class="inset-y-0 left-0 w-5 text-gray-400 pointer-events-none absolute h-full" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
+                    </svg>
+                    <input id="search-field" class="py-0 pl-8 pr-0 text-gray-900 block h-full w-full border-0 placeholder:text-gray-400 focus:ring-0 sm:text-sm" placeholder="Search..." type="search" name="search">
+                </form>
+                <div class="gap-x-4 flex items-center lg:gap-x-6">
+                    <button type="button" class="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500">
+                        <span class="sr-only">View notifications</span>
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+                        </svg>
+                    </button>
 
-        </li>
-      </ul>
-    </nav>
-  </div>
-</div>
+                    <!-- Separator -->
+                    <div class="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-200" aria-hidden="true"></div>
 
+                    <!-- Profile dropdown -->
+                    <div class="relative">
+                        <button type="button" class="-m-1.5 p-1.5 flex items-center" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                            <span class="sr-only">Open user menu</span>
+                            <img class="h-8 w-8 bg-gray-50 rounded-full" src="@((User.FindFirst("oid")?.Value) ?? "data:image/png;base64,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")" alt="Profile Picture">
+                            <span class="hidden lg:flex lg:items-center">
+                                <span class="ml-4 text-gray-900 text-sm font-semibold leading-6" aria-hidden="false">@User.FindFirst("name")?.Value</span>
+                                <svg class="ml-2 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                </svg>
+                            </span>
+                        </button>
+
+                        <!--
+                          Dropdown menu, show/hide based on menu state.
+
+                          Entering: "transition ease-out duration-100"
+                            From: "transform opacity-0 scale-95"
+                            To: "transform opacity-100 scale-100"
+                          Leaving: "transition ease-in duration-75"
+                            From: "transform opacity-100 scale-100"
+                            To: "transform opacity-0 scale-95"
+                        -->
+                        <div class="right-0 mt-2.5 w-32 bg-white py-2 ring-gray-900/5 absolute z-10 hidden origin-top-right rounded-md shadow-lg ring-1 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                            <!-- Active: "bg-gray-50", Not Active: "" -->
+                            <a href="#" class="px-3 py-1 text-gray-900 block text-sm leading-6" role="menuitem" tabindex="-1" id="user-menu-item-0">Your profile</a>
+                            <a href="#" class="px-3 py-1 text-gray-900 block text-sm leading-6" role="menuitem" tabindex="-1" id="user-menu-item-1">Sign out</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <main class="py-10">
+            <div class="px-4 sm:px-6 lg:px-8">
+                <!-- Your content -->
+            </div>
+        </main>
+    </div>
 </div>
 
 <script>
+    function offCanvasToggle() {
+        offCanvasButton = document.getElementById('offCanvasButton')
+        offCanvas = document.getElementById('offCanvasSidebar')
+        offCanvas.classList.toggle('hidden');
 
-    var PageIconId = PageId + "Icon";
-
-    // Loop through each div element with the class 'element'
-    var elements = document.querySelectorAll(".NavGroup");
-    elements.forEach(function (element) {
-        // Check if the element's ID matches the target ID
-        if (PageId == "Index") {
-            Homepage.classList.add("bg-gray-50", "text-indigo-600");
-        }
-        if (element.id == PageId) 
-        {
-            element.classList.add("bg-gray-50", "text-indigo-600");
-        } 
-        else 
-        {
-            element.classList.remove("bg-gray-50", "text-indigo-600");  
-        }
-    });
-    var Icons = document.querySelectorAll(".IconNavGroup");
-    Icons.forEach(function (Icon) {
-        // Check if the element's ID matches the target ID
-        if (Icon.id == PageIconId) {
-            // Add the 'selected' class to the matched element
-            Icon.classList.add("bg-gray-50", "text-indigo-600");
-
-        } else {
-            // Remove the 'selected' class from other elements
-            Icon.classList.remove("bg-gray-50", "text-indigo-600");
-    }
-    });
-
-    function toggleHoverClasses(event, element) {
-
-        
-        var links = document.querySelectorAll('a');
-        links.forEach(function (link) {
-            link.classList.remove("bg-gray-50", "text-indigo-600");
-        });
-
-        // Remove color classes from all icons
-        var icons = document.querySelectorAll('svg');
-        icons.forEach(function (icon) {
-            icon.classList.remove("text-indigo-600", "text-gray-400");
-        });
-
-        // Add hover classes to the clicked link
-        element.classList.add("bg-gray-50", "text-indigo-600");
-
-        // Change color of the icon
-        var iconId = element.querySelector('svg').id;
-        var icon = document.getElementById(iconId);
-        icon.classList.add("text-indigo-600");
-        var links = document.querySelectorAll('a');
-        links.forEach(function (link) {
-            link.classList.remove("current");
-        });
-
-        // Add "current" class to the clicked link
-        element.classList.add("current");
-
-        // Extract the URL from the href attribute
-        var url = element.getAttribute('href');
-
-        // Simulate link navigation after a short delay to allow other actions to complete
-        setTimeout(function () {
-            window.location.href = url;
-        }, 100); // Adjust the delay as needed
     }
 
- document.addEventListener("DOMContentLoaded", function () {
-    const closeOffCanvasmenuButton = document.querySelector(".absolute.left-full.top-0.flex button");
-    const openOffCanvasmenuButton = document.querySelector('[class*="-m-2.5 p-2.5 text-gray-700 lg:hidden"]');
-    const offCanvasmenu = document.querySelector('[class*="relative z-50 lg:hidden"]');
-    
-    closeOffCanvasmenuButton.addEventListener('click', function () {
-      offCanvasmenu.classList.add("hidden")
-      });
-    
-    openOffCanvasmenuButton.addEventListener('click', function () {
-      console.log("clicked")
-      offCanvasmenu.classList.remove("hidden")
-      });
-    
-  });
+    function closeOffCanvas() {
+        console.log('clicked close offcanvas')
+        closeSidebarButton = document.getElementById("closeSidebarButton")
+        offCanvas = document.getElementById('offCanvasSidebar')
+        offCanvas.classList.add("hidden")
+
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const profileName = document.getElementById('user-menu-button');
+        const dropdownMenu = document.querySelector("[role='menu']");
+
+
+        profileName.addEventListener("click", function (event) {
+            if (dropdownMenu.classList.contains("hidden")) {
+                dropdownMenu.classList.remove("hidden");
+
+            }
+            else {
+                dropdownMenu.classList.add("hidden");
+            }
+
+        })
+
+        document.addEventListener("click", function (event) {
+            if (!dropdownMenu.contains(event.target) && !profileName.contains(event.target)) {
+                dropdownMenu.classList.add("hidden");
+            }
+        });
+
+    });
 </script>
-
-
-
-
-
-
