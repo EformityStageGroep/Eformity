@@ -3,8 +3,8 @@
 @Html.Partial("../Home/Homepage")
 
 
-<ul role="list" class="mt-5 bg-white mb-3 border shadow-sm sm:rounded-xl">
-    <div class="divide-gray-100 grid sm:grid-cols-1 xl:grid-cols-2 xl:divide-x xl:divide-y">
+<ul role="list" class="mt-5 bg-white mb-3 border shadow-sm">
+    <div class="divide-gray-100 grid sm:grid-cols-1 xl:grid-cols-2">
     @foreach (var task in Model)
     {
     <div id="slideoverDiv_@task.Id">
@@ -86,7 +86,7 @@
             </div>
         </div>
 
-                <div data-prefix="postit" id="postit_@task.Id" class="border-hidden">
+                <div data-prefix="postit" id="postit_@task.Id" class="border-gray-100 border">
         <li class="gap-x-6 px-4 py-5 min-w-40 relative flex justify-between hover:bg-gray-50 sm:px-6">
             <div class="min-w-0 gap-x-4 flex">
                 <div class="min-w-0 flex-auto">
