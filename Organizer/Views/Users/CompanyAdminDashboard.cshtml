@@ -18,14 +18,14 @@
 <h4>User</h4>
 <hr />
 <body class="bg-gray-100">
-    <div class="container mx-auto px-4 py-8">
-        <div class="flex space-x-4">
-            <div class="flex-1 bg-white p-4 rounded shadow">
-                <h2 class="text-lg font-semibold mb-2">Name</h2>
+    <div class="px-4 py-8 container mx-auto">
+        <div class="space-x-4 flex">
+            <div class="bg-white p-4 flex-1 rounded shadow">
+                <h2 class="mb-2 text-lg font-semibold">Name</h2>
                 <p>John Doe</p>
             </div>
-            <div class="flex-1 bg-white p-4 rounded shadow">
-                <h2 class="text-lg font-semibold mb-2">Email</h2>
+            <div class="bg-white p-4 flex-1 rounded shadow">
+                <h2 class="mb-2 text-lg font-semibold">Email</h2>
                 <p>johndoe@example.com</p>
             </div>
         </div>
@@ -46,7 +46,7 @@
                 <input asp-for="Email" value="@Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-            <div  class="hidden form-group">
+            <div  class="form-group hidden">
                 <label asp-for="Id"  class="control-label"></label>
                 <input asp-for="Id"  value="@UserId" class="form-control" />
                 <span asp-validation-for="Id"  class="text-danger"></span>
