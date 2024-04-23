@@ -30,7 +30,7 @@ namespace Organizer.Repositories
             // Debugging: Print the fetched tasks
             foreach (var task in Users)
             {
-                Console.WriteLine($"TaskId: {task.Id}, TenantId: {task.Email}, Title: {task.FullName}");
+                Console.WriteLine($"TaskId: {task.Id}, TenantId: {task.Email}, Title: {task.FullName}, Title: {task.Tenant_Id}");
             }
             return Users;
         }
