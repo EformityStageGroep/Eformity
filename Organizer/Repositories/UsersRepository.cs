@@ -19,8 +19,17 @@ namespace Organizer.Repositories
 
         public async Task Create(Entities.User user)
         {
+            // Check if a user with the same ID already exists in the database
+            var existingUser = await _context.Users.FindAsync(user.Id);
+            if (existingUser != null)
+            {
+                // A user with the same ID already exists, throw an exception or handle the case appropriately
+                return;
+            }
+
+            // If the user ID does not exist, add the new user to the database
             _context.Users.Add(user);
-            await _context.SaveChangesAsync(); // Make sure to save changes after adding the task
+            await _context.SaveChangesAsync(); // Make sure to save changes after adding the user
         }
 
         public async Task Edit(Entities.User user)

@@ -20,7 +20,7 @@ namespace Organizer.Controllers
         // GET: Users
         public async Task<IActionResult> Index()
         {
-            return RedirectToAction("Details", "Tasks");
+            return RedirectToAction("CompanyAdminDashboard", "Users");
         }
 
         // GET: Users/Details/5
@@ -35,9 +35,9 @@ namespace Organizer.Controllers
 
             return View();
         }
-
+        [HttpPost]
         // GET: Users/Create
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Email")] User user)
+        public async Task<IActionResult> Create([Bind("Id,FullName,Email")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -52,7 +52,7 @@ namespace Organizer.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
 
-
+        [HttpPost]
         // GET: Users/Edit/5
         public async Task<IActionResult> Edit(string? id)
         {
@@ -70,7 +70,7 @@ namespace Organizer.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string? id, [Bind("Id,Name,Email")] User user)
+        public async Task<IActionResult> Edit(string? id, [Bind("Id,FullName,Email")] User user)
         {
             if (id != user.Id)
             {
@@ -106,10 +106,15 @@ namespace Organizer.Controllers
             return View();
         }
 
-        
+        public IActionResult CompanyAdminDashboard()
+        {/*
+            var viewModel = new PageIdentifier();
+            viewModel.PageValue = "Profile";*/
+            return View();
+        }
 
 
 
-     
+
     }
 }

@@ -27,7 +27,7 @@ namespace Organizer.Services
             if (user == null)
             {
                 user = new();
-                user.FirstName = me.DisplayName;
+                user.FullName = me.DisplayName;
                 user.Email = me.Mail;
                 _context.Users.Add(user);
                 _context.SaveChanges();

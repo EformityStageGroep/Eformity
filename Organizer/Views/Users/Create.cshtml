@@ -12,21 +12,17 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" id="autoSubmitForm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
+                <label asp-for="FullName" class="control-label"></label>
+                <input asp-for="FullName" value="Stefanmnnn" class="form-control" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
+            
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
+                <input asp-for="Email" value="Stefan" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div type="hidden"  class="hidden form-group">
@@ -36,16 +32,61 @@
             </div>
            
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" id="submitBtn" />
             </div>
         </form>
     </div>
 </div>
-
+<button onclick="deleteTask()">test</button>
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        const csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
+        const data = {
+            // Replace the keys and values with your actual data
+            FirstName: "John",
+            LastName: "Doe",
+            Email: "john.doe@example.com",
+            Id: '123' // Assuming you want to send the ID as well
+        };
+        const formData = new FormData(data);
+        function deleteTask() {
+            // Get the CSRF token from the form
+            console.log(formData);
+
+            // Send a POST request with the task ID and CSRF token
+            fetch('@Url.Action("Create", "Employee")', {
+                method: 'POST', // Use POST method to send data
+               
+                body: formData // Convert the data object to a JSON string
+            })
+                .then(response => {
+                    // Handle the response from the server
+                    if (response.ok) {
+                        // Request was successful
+                        console.log('Data sent successfully!');
+                        // You can also handle the response as needed
+                        return response.json();
+                    } else {
+                        // Request failed
+                        console.error('Failed to send data');
+                    }
+                })
+                .then(data => {
+                    console.log(data); // Log response data
+                    // Optionally, you can update the UI or display a success message
+                })
+                .catch(error => {
+                    // Handle any errors that occurred during the request
+                    console.error('Error:', error);
+                });
+         
+        }
+        
+       
+    </script>
 }

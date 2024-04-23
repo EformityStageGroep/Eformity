@@ -1,175 +1,92 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Organizer.Entities.User
+
 @{
+    ViewData["Title"] = "Create";
+    var UserId = @User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
+    var Email = @User.FindFirst("preferred_username")?.Value;
+    var FullName = @User.FindFirst("name")?.Value;
+
+    Console.WriteLine(UserId);
+    Console.WriteLine(Email);
+    Console.WriteLine(FullName);
+
+
 }
-@model List<Organizer.Entities.User>
-@{
-    ViewData["Title"] = "Homepage";
 
+<h1>Create</h1>
 
-    @* <div class="min-w-40 bg-white border-gray-200 mx-auto max-w-md cursor-pointer overflow-hidden border shadow-md duration-300 hover:transform hover:scale-105">
-    <div class="md:flex">
-        <div class="p-8">
-            <div class="text-indigo-500 text-sm font-semibold uppercase tracking-wide">Facebook</div>
-            <a href="#" class="mt-1 text-black block text-lg font-medium leading-tight hover:underline">Answer customer enquiries </a>
-            <p class="mt-2 text-gray-500">16:00 16-09-2024</p>
-        </div>
-    </div>
-</div>
-
- *@
-
-    var TenantId = @User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
-    Console.WriteLine(TenantId);
-}
-<div id="modal" class="inset-0 fixed z-50 flex hidden items-center justify-center overflow-y-auto">
-
-    <div class="inset-0 fixed transition-opacity" aria-hidden="true">
-        <div class="inset-0 bg-gray-500 absolute opacity-75"></div>
-    </div>
-    <div class="bg-white transform overflow-hidden rounded-lg shadow-xl transition-all sm:max-w-lg sm:w-full">
-        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-            <div class="sm:flex sm:items-start">
-                <div class="mt-3 w-full text-center sm:mt-0 sm:ml-4 sm:text-left">
-                    <h3 class="text-gray-900 text-lg font-medium leading-6" id="modalTitle">
-                        Create Task
-                    </h3>
-
-
-                    <form asp-controller="Tasks" asp-action="Create" method="post" class="mt-4">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <div class="mt-2">
-                            <label for="TenantId" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
-                            <input type="hidden" id="TenantId" name="TenantId" value="@TenantId">
-                        </div>
-
-                        <div class="mt-2">
-                            <label for="title" class="text-gray-700 block text-sm font-medium">@User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value</label>
-                            <input type="text" name="title" id="title" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                        </div>
-                        <div class="mt-2">
-                            <label for="description" class="text-gray-700 block text-sm font-medium">Description</label>
-                            <textarea id="description" name="description" rows="3" class="p-3 mt-1 border-gray-300 block w-full rounded-md border shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
-                        </div>
-                        <div class="mt-2">
-                            <label for="priority" class="text-gray-700 block text-sm font-medium">Priority</label>
-                            <select id="priority" name="priority" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                <option value="high">High</option>
-                                <option value="medium">Medium</option>
-                                <option value="low">Low</option>
-                            </select>
-                        </div>
-
-                        <div class="mt-2">
-                            <label for="datetime" class="text-gray-700 block text-sm font-medium">Date and Time</label>
-                            <input type="datetime-local" id="datetime" name="datetime" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                        </div>
-                        <div class="mt-2">
-                            <label for="SelectStatus" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
-                            <input type="hidden" id="SelectStatus" name="SelectStatus" value="To Do">
-                        </div>
-
-                        <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                            <button id="closeModalButton" type="button" class="border-transparent px-4 py-2 bg-indigo-600 text-white inline-flex w-full justify-center rounded-md border text-base font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
-                                Close
-                            </button>
-                            <button id="createTaskButton" type="submit" class="border-transparent px-4 py-2 bg-indigo-600 text-white inline-flex w-full justify-center rounded-md border text-base font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
-                                Create Task
-                            </button>
-                        </div>
-                    </form>
-                </div>
+<h4>User</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" id="taskForm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FullName" class="control-label"></label>
+                <input asp-for="FullName" value="@FullName" class="form-control" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
             </div>
-        </div>
+           
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" value="@Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div  class=" form-group">
+                <label asp-for="Id"  class="control-label"></label>
+                <input asp-for="Id"  value="@UserId" class="form-control" />
+                <span asp-validation-for="Id"  class="text-danger"></span>
+            </div>
 
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" id="submitBtn" />
+            </div>
+        </form>
     </div>
 </div>
-
-<div class="border-gray-200 pb-5 relative border-b sm:pb-0">
-    <div class="md:flex md:items-center md:justify-between">
-
-        <h3 class="text-gray-900 text-base font-semibold leading-6">Post-it's</h3>
-
-        <div class="">
-            <button type="button" id="openModalButton" class="ml-30 bg-indigo-600 px-3 py-2 text-white inline-flex items-center rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Create</button>
-        </div>
-    </div>
-    <div class="mt-4">
-        <!-- Dropdown menu on small screens -->
-        <div class="sm:hidden">
-            <label for="current-tab" class="sr-only">Select a tab</label>
-            <select id="current-tab" name="current-tab" class="py-1.5 pl-3 pr-10 ring-gray-300 hover-pointer block w-full rounded-md border-0 ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600">
-                <option>All Priorities</option>
-                <option>High priority</option>
-                <option>Medium priority</option>
-                <option>Low priority</option>
-            </select>
-        </div>
-
-        <!-- Tabs at small breakpoint and up -->
-        <div class="hidden sm:block" id="tabs">
-            <nav class="-mb-px space-x-8 flex">
-                <!-- Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
-
-                <a onclick="filterTasksByPriority('ALL')" class="tab border-indigo-500 text-indigo-600 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:cursor-pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">All priorities</a>
-                <a onclick="filterTasksByPriority('HIGH')" class="tab border-transparent text-gray-500 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:cursor-pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">High priority</a>
-                <a onclick="filterTasksByPriority('MEDIUM')" class="tab border-transparent text-gray-500 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:cursor-pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">Medium priority</a>
-                <a onclick="filterTasksByPriority('LOW')" class="tab border-transparent text-gray-500 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:cursor-pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">Low priority</a>
-
-
-            </nav>
-        </div>
-    </div>
+<button id="SubmitButton" onclick="deleteTask()">test</button>
+<div>
+    <a asp-action="Index">Back to List</a>
 </div>
 
-<!-- Content corresponding to each tab -->
-@section scripts {
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
     <script>
+        window.onload = function () {
+            setTimeout(function () {
+                var button = document.getElementById("SubmitButton");
+                button.click
+            }, 2000);
+        };
+        const csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
 
-        document.addEventListener("DOMContentLoaded", function () {
-            const tabs = document.querySelectorAll(".tab");
-            const tabContents = document.querySelectorAll("#tab-content > div");
+        const formData = new FormData(taskForm);
+    
+            function deleteTask() {
+                fetch('@Url.Action("Create", "Users")', {
+                    method: 'POST', // Use POST method to send data
 
-            tabs.forEach((tab, index) => {
-                tab.addEventListener("click", function (event) {
-                    event.preventDefault();
-
-                    // Remove active class from all tabs and add default styling
-                    tabs.forEach(tab => {
-                        tab.classList.remove("border-indigo-500", "text-indigo-600");
-                        tab.classList.add("border-transparent", "text-gray-500", "hover:border-gray-300", "hover:text-gray-700");
+                body: formData // Convert the data object to a JSON string
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            console.log('Data sent successfully!');
+                            return response.json();
+                        } else {
+                            // Request failed
+                            console.error('Failed to send data');
+                        }
+                    })
+                    .then(data => {
+                        console.log(data); // Log response data
+                        // Optionally, you can update the UI or display a success message
+                    })
+                    .catch(error => {
+                        // Handle any errors that occurred during the request
+                        console.error('Error:', error);
                     });
-
-                    // Add active styling to clicked tab
-                    tab.classList.remove("border-transparent", "text-gray-500", "hover:border-gray-300", "hover:text-gray-700");
-                    tab.classList.add("border-indigo-500", "text-indigo-600");
-
-                    // Hide all tab contents
-                    tabContents.forEach(content => content.classList.add("hidden"));
-                    // Show corresponding tab content
-                    tabContents[index].classList.remove("hidden");
-                });
-            });
-
-            const openModalButton = document.getElementById("openModalButton");
-            const modal = document.getElementById("modal");
-            const closeModalButton = document.getElementById("closeModalButton");
-
-            openModalButton.addEventListener("click", function () {
-                modal.classList.remove("hidden");
-                modal.classList.add("flex");
-            });
-
-            closeModalButton.addEventListener("click", function () {
-                modal.classList.remove("flex");
-                modal.classList.add("hidden");
-            });
-
-
-        });
+            }
     </script>
 }
-
-
-<h1>You are CompanyAdminDashboard!</h1>
