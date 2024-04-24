@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Organizer.Controllers
 {
-    public class RoleController : Controller
+    public class TenantController : Controller
     {
         [Authorize(Roles = "SuperAdmin,Employee")]
 

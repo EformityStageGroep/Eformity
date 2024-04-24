@@ -15,12 +15,12 @@ namespace Organizer.Services
 
         public string? UserId { get; set; }
 
-        public async Task<bool> SetUser(string User)
+        public async Task<bool> SetUser(string? User)
         {
-            var UserInfo = await _context.Users.Where(x => x.Id2 == User).FirstOrDefaultAsync();
+            var UserInfo = await _context.Users.Where(x => x.Id == User).FirstOrDefaultAsync();
             if (UserInfo != null)
             {
-                UserId = UserInfo.Id2;
+               
                 return true;
             }
             else
