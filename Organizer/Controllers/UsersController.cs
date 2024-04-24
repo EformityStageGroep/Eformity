@@ -135,7 +135,7 @@ namespace Organizer.Views.Shared.Controllers
             {
                 try
                 {
-                    var users = await _userRepository.GetTasksAsync(); // Fetch tasks based on current tenant
+                    var users = await _userRepository.GetUserIdsByTenant(); // Fetch tasks based on current tenant
 
 
                     if (users == null || !users.Any())
