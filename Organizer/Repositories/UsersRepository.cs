@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Organizer.Contexts;
 using Organizer.Services;
 
@@ -8,11 +9,13 @@ namespace Organizer.Repositories
     {
         private readonly OrganizerContext _context;
         private readonly ICurrentUserService _currentUserService;
+        private readonly ICurrentTenantService _currentTenantService;
 
-        public UserRepository(OrganizerContext context, ICurrentUserService currentUserService)
+        public UserRepository(OrganizerContext context, ICurrentUserService currentUserService, ICurrentTenantService currentTenantService)
         {
             _context = context;
             _currentUserService = currentUserService;
+            _currentTenantService = currentTenantService;
         }
 
         public async Task<List<Entities.User>> User()
@@ -20,6 +23,20 @@ namespace Organizer.Repositories
             var users = await _context.Users.ToListAsync();
           
             return users;
+        }
+        public async Task<List<Entities.User>> GetUserIdsByTenant()
+        {
+            var tenantId = _currentTenantService.TenantId;
+            // Query to get all user IDs for the specified tenant ID
+            var userIds = await _context.Users
+              .Where(user => user.Tenant_Id == tenantId)
+              .ToListAsync();
+            foreach (var task in userIds)
+            {
+                Console.WriteLine($"TaskId: {task.Id}, TenantId: {task.Email}, Title: {task.FullName}, Title: {task.Tenant_Id}");
+            }
+            // Return the list of user IDs
+            return userIds;
         }
         public async Task<List<Entities.User>> GetTasksAsync()
         {
