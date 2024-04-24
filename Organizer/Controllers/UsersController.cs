@@ -60,7 +60,7 @@ namespace Organizer.Views.Shared.Controllers
             {
                 await _userRepository.Create(user);
                 await _userRepository.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+             
             }
             return View();
         }
@@ -127,7 +127,7 @@ namespace Organizer.Views.Shared.Controllers
         {/*
             var viewModel = new PageIdentifier();
             viewModel.PageValue = "Profile";*/
-            return View();
+            return RedirectToAction(nameof(Settings));
         }
 
 
@@ -137,6 +137,28 @@ namespace Organizer.Views.Shared.Controllers
                 try
                 {
                     var users = await _userRepository.GetUserIdsByTenant(); // Fetch tasks based on current tenant
+
+
+                    if (users == null || !users.Any())
+                    {
+                        return View(new List<User>()); // Return an empty list to the view
+                    }
+
+                    return View(users);
+                }
+                catch (Exception ex)
+                {
+                    // Log the exception or handle it as required
+                    return StatusCode(500, $"An error occurred: {ex.Message}");
+                }
+            }
+        }
+        public async Task<IActionResult> Settings()
+        {
+            {
+                try
+                {
+                    var users = await _userRepository.GetUserInfo(); // Fetch tasks based on current tenant
 
 
                     if (users == null || !users.Any())

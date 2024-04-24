@@ -78,12 +78,7 @@ namespace Organizer.Controllers
         }
         
       
-        public IActionResult Settings()
-        {
-           /* var viewModel = new PageIdentifier();
-            viewModel.PageValue = "Settings";*/
-            return View();
-        }
+   
 
         [AllowAnonymous]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
