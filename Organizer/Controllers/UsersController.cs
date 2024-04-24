@@ -123,7 +123,7 @@ namespace Organizer.Controllers
             return View();
         }
 
-        public IActionResult EmployeeDashboard2()
+        public IActionResult CompanyAdminDashboard()
         {/*
             var viewModel = new PageIdentifier();
             viewModel.PageValue = "Profile";*/
