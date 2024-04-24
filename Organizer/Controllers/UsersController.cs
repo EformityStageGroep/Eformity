@@ -22,13 +22,10 @@ namespace Organizer.Views.Shared.Controllers
         {
             try
             {
-                var users = await _userRepository.GetTasksAsync(); // Fetch tasks based on current tenant
+                var users = await _userRepository.GetTeamsByUser(); // Fetch tasks based on current tenant
 
 
-                if (users == null || !users.Any())
-                {
-                    return View(new List<User>()); // Return an empty list to the view
-                }
+               
 
                 return View(users);
             }
