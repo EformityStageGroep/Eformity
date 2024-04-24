@@ -89,7 +89,7 @@ app.UseMiddleware<UserResolver>();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Users}/{action=Index}/{id?}");
+    pattern: "{controller=Users}/{action=CompanyAdminDashboard}/{id?}");
 
 app.MapRazorPages();
 app.MapControllers();

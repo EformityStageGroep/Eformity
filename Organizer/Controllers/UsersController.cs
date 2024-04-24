@@ -6,7 +6,7 @@ using Organizer.Entities;
 using Organizer.Repositories;
 using System.Threading.Tasks;
 
-namespace Organizer.Controllers
+namespace Organizer.Views.Shared.Controllers
 {
     public class UsersController : Controller
     {
@@ -38,7 +38,7 @@ namespace Organizer.Controllers
                 return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }
-    
+
 
         // GET: Users/Details/5
         public async Task<IActionResult> Details(string id)
@@ -48,7 +48,7 @@ namespace Organizer.Controllers
                 return NotFound();
             }
 
-         
+
 
             return View();
         }
@@ -62,7 +62,7 @@ namespace Organizer.Controllers
                 await _userRepository.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-                return View();
+            return View();
         }
 
         // POST: Users/Create
@@ -71,14 +71,14 @@ namespace Organizer.Controllers
 
         [HttpPost]
         // GET: Users/Edit/5
-        public async Task<IActionResult> Edit(string? id)
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-    
+
             return View();
         }
 
@@ -103,7 +103,7 @@ namespace Organizer.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                  
+
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -118,7 +118,7 @@ namespace Organizer.Controllers
                 return NotFound();
             }
 
-         
+
 
             return View();
         }
@@ -130,8 +130,28 @@ namespace Organizer.Controllers
             return View();
         }
 
+        public async Task<IActionResult> Teams()
+        {
+            {
+                try
+                {
+                    var users = await _userRepository.GetTasksAsync(); // Fetch tasks based on current tenant
 
 
+                    if (users == null || !users.Any())
+                    {
+                        return View(new List<User>()); // Return an empty list to the view
+                    }
+
+                    return View(users);
+                }
+                catch (Exception ex)
+                {
+                    // Log the exception or handle it as required
+                    return StatusCode(500, $"An error occurred: {ex.Message}");
+                }
+            }
+        }
 
     }
 }
