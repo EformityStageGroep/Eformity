@@ -51,7 +51,10 @@
                 <!-- Sidebar component, swap this element with another sidebar if you like -->
                 <div class="gap-y-5 bg-white px-6 pb-4 flex grow flex-col overflow-y-auto">
                     <div class="h-16 flex shrink-0 items-center">
-                        <img class="h-12 w-auto" src="https://eformity.com/wp-content/uploads//2017/02/eformity-logo.png" alt="Eformity">
+                            <a href="@Url.Action("EmployeeDashboard", "Employee")" class="cursor-pointer">
+                            <img  class="h-12 w-auto" src="https://eformity.com/wp-content/uploads//2017/02/eformity-logo.png" alt="Eformity">
+
+                        </a>
                     </div>
                     <nav class="flex flex-1 flex-col">
                         <ul role="list" class="gap-y-7 flex flex-1 flex-col">
@@ -157,7 +160,10 @@
         <!-- Sidebar component, swap this element with another sidebar if you like -->
         <div class="gap-y-5 border-gray-200 bg-white px-6 pb-4 flex grow flex-col overflow-y-auto border-r">
             <div class="h-16 flex shrink-0 items-center">
-                <img class="h-12 w-auto" src="https://eformity.com/wp-content/uploads//2017/02/eformity-logo.png" alt="Eformity">
+                <a href="@Url.Action("EmployeeDashboard", "Employee")" class="">
+                    <img href="@Url.Action("EmployeeDashboard", "Employee")" class="h-12 w-auto" src="https://eformity.com/wp-content/uploads//2017/02/eformity-logo.png" alt="Eformity">
+
+                </a>
             </div>
             <nav class="flex flex-1 flex-col">
                 <ul role="list" class="gap-y-7 flex flex-1 flex-col">
@@ -255,7 +261,7 @@
 
 
     <div class="lg:pl-72">
-        <div class="top-0 h-16 gap-x-4 border-gray-200 bg-white px-4 sticky z-40 flex shrink-0 items-center border-b shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
+        <div class="top-0 h-16 mb-12 gap-x-4 border-gray-200 bg-white px-4 sticky z-40 flex shrink-0 items-center border-b shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
             <button type="button" class="-m-2.5 p-2.5 text-gray-700 lg:hidden">
                 <span class="sr-only">Open sidebar</span>
                 <svg id="offCanvasButton" onclick="offCanvasToggle()" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
@@ -310,8 +316,10 @@
                         -->
                         <div class="right-0 mt-2.5 w-32 bg-white py-2 ring-gray-900/5 absolute z-10 hidden origin-top-right rounded-md shadow-lg ring-1 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                             <!-- Active: "bg-gray-50", Not Active: "" -->
-                            <a href="#" class="px-3 py-1 text-gray-900 block text-sm leading-6" role="menuitem" tabindex="-1" id="user-menu-item-0">Your profile</a>
-                            <a href="#" class="px-3 py-1 text-gray-900 block text-sm leading-6" role="menuitem" tabindex="-1" id="user-menu-item-1">Sign out</a>
+                            <a href="@Url.Action("Settings", "Users")" class="px-3 py-1 text-gray-900 block text-sm leading-6" role="menuitem" tabindex="-1" id="user-menu-item-0">Your profile</a>
+                            <form asp-controller="Profile" asp-action="SignOut" method="post" class="block">
+                                <button type="submit" class="px-3 py-1 text-gray-900 block w-full text-left text-sm leading-6" role="menuitem" tabindex="-1" id="user-menu-item-1">Sign out</button>
+                            </form>
                         </div>
                     </div>
                 </div>
