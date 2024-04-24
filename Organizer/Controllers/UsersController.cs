@@ -130,6 +130,13 @@ namespace Organizer.Views.Shared.Controllers
             return View();
         }
 
+        public IActionResult CompanyAdminDashboard()
+        {/*
+     var viewModel = new PageIdentifier();
+     viewModel.PageValue = "Profile";*/
+            return View();
+        }
+
         public async Task<IActionResult> Teams()
         {
             {
