@@ -127,7 +127,7 @@ namespace Organizer.Views.Shared.Controllers
         {/*
             var viewModel = new PageIdentifier();
             viewModel.PageValue = "Profile";*/
-            return RedirectToAction(nameof(Settings));
+            return View();
         }
 
 
