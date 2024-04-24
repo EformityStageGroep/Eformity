@@ -24,6 +24,16 @@ namespace Organizer.Repositories
           
             return users;
         }
+        public async Task<List<Entities.User>> GetUserInfo()
+        {
+            var UserId = _currentUserService.UserId;
+            var Users = await _context.Users.Where(t => t.Id == UserId).ToListAsync();
+            foreach (var task in Users)
+            {
+                Console.WriteLine($"UserId: {task.Id}, Email: {task.Email}, Name: {task.FullName}, Tenant: {task.Tenant_Id}");
+            }
+            return Users;
+        }
         public async Task<List<Entities.User>> GetUserIdsByTenant()
         {
             var tenantId = _currentTenantService.TenantId;
