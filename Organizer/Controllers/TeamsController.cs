@@ -30,7 +30,7 @@ namespace Organizer.Controllers
             // Pass the view model to the view
             return View(viewModel);
         }
-        public async Task <List<Organizer.Entities.Team> GetTeamsByUser()
+        public async Task <List<Organizer.Entities.Team>> GetTeamsByUser()
 
         {
             try
