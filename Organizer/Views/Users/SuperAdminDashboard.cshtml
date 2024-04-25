@@ -4,9 +4,9 @@
 @model Organizer.Entities.User
 
 @{
-    ViewData["Title"] = "Create";
-    var UserId = @User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
-    Console.WriteLine(UserId);
+    ViewData["title"] = "Create";
+    var userid = @User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
+    Console.WriteLine(userid);
 }
 
 <h1>You are SuperAdmin!</h1>

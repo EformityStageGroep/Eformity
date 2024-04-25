@@ -1,10 +1,10 @@
 ﻿@model Organizer.Entities.User
 
 @{
-    ViewData["Title"] = "Create";
-    var UserId = @User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
-    var TenantId = @User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
-    Console.WriteLine(UserId);
+    ViewData["title"] = "Create";
+    var userid = @User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
+    var tenantid = @User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
+    Console.WriteLine(userid);
 }
 
 <h1>Create</h1>
@@ -16,25 +16,25 @@
         <form asp-action="Create" id="autoSubmitForm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="FullName" class="control-label"></label>
-                <input asp-for="FullName" value="Stefanmnnn" class="form-control" />
-                <span asp-validation-for="FullName" class="text-danger"></span>
+                <label asp-for="fullname" class="control-label"></label>
+                <input asp-for="fullname" value="Stefanmnnn" class="form-control" />
+                <span asp-validation-for="fullname" class="text-danger"></span>
             </div>
             
             <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" value="Stefan" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+                <label asp-for="email" class="control-label"></label>
+                <input asp-for="email" value="Stefan" class="form-control" />
+                <span asp-validation-for="email" class="text-danger"></span>
             </div>
             <div type="hidden"  class="hidden form-group">
-                <label asp-for="Tenant_Id" type="hidden" class="control-label"></label>
-                <input asp-for="Tenant_Id" type="hidden" value="@TenantId" class="form-control" />
-                <span asp-validation-for="Tenant_Id" type="hidden" class="text-danger"></span>
+                <label asp-for="tenant_id" type="hidden" class="control-label"></label>
+                <input asp-for="tenant_id" type="hidden" value="@tenantid" class="form-control" />
+                <span asp-validation-for="tenant_id" type="hidden" class="text-danger"></span>
             </div>
             <div type="hidden" class="hidden form-group">
-                <label asp-for="Id" type="hidden" class="control-label"></label>
-                <input asp-for="Id" type="hidden" value="@UserId" class="form-control" />
-                <span asp-validation-for="Id" type="hidden" class="text-danger"></span>
+                <label asp-for="id" type="hidden" class="control-label"></label>
+                <input asp-for="id" type="hidden" value="@userid" class="form-control" />
+                <span asp-validation-for="id" type="hidden" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" id="submitBtn" />

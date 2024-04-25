@@ -1,7 +1,7 @@
 ﻿@model Organizer.Entities.Task
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["title"] = "Create";
 }
 
 <h1>Create</h1>
@@ -13,28 +13,28 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
+                <label asp-for="title" class="control-label"></label>
+                <input asp-for="title" class="form-control" />
+                <span asp-validation-for="title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <textarea asp-for="Description" class="form-control" rows="4"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
+                <label asp-for="description" class="control-label"></label>
+                <textarea asp-for="description" class="form-control" rows="4"></textarea>
+                <span asp-validation-for="description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Priority" class="control-label"></label>
-                <select asp-for="Priority" class="form-control">
+                <label asp-for="priority" class="control-label"></label>
+                <select asp-for="priority" class="form-control">
                     <option value="Low">Low</option>
                     <option value="Medium">Medium</option>
                     <option value="High">High</option>
                 </select>
-                <span asp-validation-for="Priority" class="text-danger"></span>
+                <span asp-validation-for="priority" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DateTime" class="control-label"></label>
-                <input asp-for="DateTime" type="datetime-local" class="form-control" />
-                <span asp-validation-for="DateTime" class="text-danger"></span>
+                <label asp-for="datetime" class="control-label"></label>
+                <input asp-for="datetime" type="datetime-local" class="form-control" />
+                <span asp-validation-for="datetime" class="text-danger"></span>
             </div>
             <input type="hidden" name="selectStatus" value="To Do">
             <div class="form-group">

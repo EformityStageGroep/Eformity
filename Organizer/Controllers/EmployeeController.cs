@@ -51,11 +51,11 @@ namespace Organizer.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,Description,Priority,DateTime,SelectStatus,TenantId,UserId")] Entities.Task task)
+        public async Task<IActionResult> Create([Bind("title,description,priority,datetime,selectstatus,tenantid,userid")] Entities.Task task)
         {
             if (ModelState.IsValid)
             {
-                task.Id = Guid.NewGuid();
+                task.id = Guid.NewGuid();
                 await _taskRepository.Create(task);
                 await _taskRepository.SaveChangesAsync();
                 return RedirectToAction(nameof(EmployeeDashboard));
@@ -67,14 +67,14 @@ namespace Organizer.Controllers
                     Console.WriteLine($"Errorrrrr: {modelError.ErrorMessage}");
                 }
             }
-            Console.WriteLine($"Current TenantId controller: {task}");
+            Console.WriteLine($"Current tenantid controller: {task}");
             return View(task);
         }
         [HttpPost]
 
-        public async Task<IActionResult> EditTask(Guid id, [Bind("Id,Title,Description,Priority,DateTime,SelectStatus,TenantId,UserId")] Entities.Task task)
+        public async Task<IActionResult> EditTask(Guid id, [Bind("id,title,description,priority,datetime,selectstatus,tenantid,userid")] Entities.Task task)
         {
-            if (id != task.Id)
+            if (id != task.id)
             {
                 return NotFound();
             }
@@ -83,7 +83,7 @@ namespace Organizer.Controllers
             {
                 try
                 {
-                    Console.WriteLine($"Current TenantId EDIT: {task}");
+                    Console.WriteLine($"Current tenantid EDIT: {task}");
                     await _taskRepository.Edit(task);
                     await _taskRepository.SaveChangesAsync();
                 }
@@ -101,7 +101,7 @@ namespace Organizer.Controllers
                     Console.WriteLine($"Errorr: {modelError.ErrorMessage}");
                 }
             }
-            Console.WriteLine($"Current TenantId EDITtt: {task}");
+            Console.WriteLine($"Current tenantid EDITtt: {task}");
             return View(task);
         }
         [HttpPost, ActionName("Delete")]

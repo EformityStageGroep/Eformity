@@ -1,6 +1,6 @@
 ﻿@model List<Organizer.Entities.Task>
 @{
-    ViewData["Title"] = "Homepage";
+    ViewData["title"] = "Homepage";
 
 
     @* <div class="min-w-40 bg-white border-gray-200 mx-auto max-w-md cursor-pointer overflow-hidden border shadow-md duration-300 hover:transform hover:scale-105">
@@ -15,10 +15,10 @@
 
  *@
 
-    var TenantId = @User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
-    Console.WriteLine(TenantId); 
-    var UserId = @User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
-    Console.WriteLine(UserId);
+    var tenantid = @User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
+    Console.WriteLine(tenantid); 
+    var userid = @User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
+    Console.WriteLine(userid);
 }
 
 
@@ -42,24 +42,24 @@
                         <form asp-controller="Employee" asp-action="Create" method="post" class="mt-4">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="mt-2">
-                                <label for="TenantId" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
-                                <input type="hidden" id="TenantId" name="TenantId" value="@TenantId">
+                                <label for="tenantid" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
+                                <input type="hidden" id="tenantid" name="tenantid" value="@tenantid">
                             </div>
                             <div class="mt-2">
-                                <label for="UserId" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
-                                <input type="hidden" id="UserId" name="UserId" value="@UserId">
+                                <label for="userid" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
+                                <input type="hidden" id="userid" name="userid" value="@userid">
                             </div>
 
                             <div class="mt-2">
-                                <label for="title" class="text-gray-700 block text-sm font-medium">Title</label>
+                                <label for="title" class="text-gray-700 block text-sm font-medium">title</label>
                                 <input type="text" name="title" id="title" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                             </div>
                             <div class="mt-2">
-                                <label for="description" class="text-gray-700 block text-sm font-medium">Description</label>
+                                <label for="description" class="text-gray-700 block text-sm font-medium">description</label>
                                 <textarea id="description" name="description" rows="3" class="p-3 mt-1 border-gray-300 block w-full rounded-md border shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
                             </div>
                             <div class="mt-2">
-                                <label for="priority" class="text-gray-700 block text-sm font-medium">Priority</label>
+                                <label for="priority" class="text-gray-700 block text-sm font-medium">priority</label>
                                 <select id="priority" name="priority" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     <option value="high">High</option>
                                     <option value="medium">Medium</option>
@@ -72,8 +72,8 @@
                                 <input type="datetime-local" id="datetime" name="datetime" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                             </div>
                             <div class="mt-2">
-                                <label for="SelectStatus" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
-                                <input type="hidden" id="SelectStatus" name="SelectStatus" value="To Do">
+                                <label for="selectstatus" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
+                                <input type="hidden" id="selectstatus" name="selectstatus" value="To Do">
                             </div>
 
                             <div class="mt-2">
@@ -120,23 +120,23 @@ else
                     <form asp-controller="Employee" asp-action="Create"  method="post" class="mt-4">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="mt-2">
-                            <label for="TenantId" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
-                            <input type="hidden" id="TenantId" name="TenantId" value="@TenantId">
+                            <label for="tenantid" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
+                            <input type="hidden" id="tenantid" name="tenantid" value="@tenantid">
                         </div>
                             <div class="mt-2">
-                                <label for="UserId" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
-                                <input type="hidden" id="UserId" name="UserId" value="@UserId">
+                                <label for="userid" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
+                                <input type="hidden" id="userid" name="userid" value="@userid">
                             </div>
                         <div class="mt-2">
                             <label for="title" class="text-gray-700 block text-sm font-medium">@User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value</label>
                             <input type="text" name="title" id="title" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                         </div>
                         <div class="mt-2">
-                            <label for="description" class="text-gray-700 block text-sm font-medium">Description</label>
+                            <label for="description" class="text-gray-700 block text-sm font-medium">description</label>
                             <textarea id="description" name="description" rows="3" class="p-3 mt-1 border-gray-300 block w-full rounded-md border shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
                         </div>
                         <div class="mt-2">
-                            <label for="priority" class="text-gray-700 block text-sm font-medium">Priority</label>
+                            <label for="priority" class="text-gray-700 block text-sm font-medium">priority</label>
                             <select id="priority" name="priority" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                 <option value="high">High</option>
                                 <option value="medium">Medium</option>
@@ -149,8 +149,8 @@ else
                             <input type="datetime-local" id="datetime" name="datetime" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                         </div>
                         <div class="mt-2">
-                            <label for="SelectStatus" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
-                            <input type="hidden" id="SelectStatus" name="SelectStatus" value="To Do">
+                            <label for="selectstatus" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
+                            <input type="hidden" id="selectstatus" name="selectstatus" value="To Do">
                         </div>
 
                         <div class="px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">

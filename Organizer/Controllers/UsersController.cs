@@ -52,7 +52,7 @@ namespace Organizer.Views.Shared.Controllers
         }
         [HttpPost]
         // GET: Users/Create
-        public async Task<IActionResult> Create([Bind("Id,Tenant_Id,FullName,Email")] User user)
+        public async Task<IActionResult> Create([Bind("id,tenant_id,fullname,email")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -85,9 +85,9 @@ namespace Organizer.Views.Shared.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string? id, [Bind("Id,Tenant_Id,FullName,Email")] User user)
+        public async Task<IActionResult> Edit(string? id, [Bind("id,tenant_id,fullname,email")] User user)
         {
-            if (id != user.Id)
+            if (id != user.id)
             {
                 return NotFound();
             }

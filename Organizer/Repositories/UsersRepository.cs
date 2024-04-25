@@ -28,14 +28,14 @@ namespace Organizer.Repositories
         public async Task<List<Entities.Team>> GetTeamsByUser()
         {
             
-            var userId = _currentUserService.UserId;
+            var userId = _currentUserService.userid;
             Console.WriteLine(userId);
             // Find the user in the database
             
                 var user = _context.Users
                 .Include(u => u.Users_Teams)
                 .ThenInclude(ut => ut.Team)
-                .FirstOrDefault(u => u.Id == userId);
+                .FirstOrDefault(u => u.id == userId);
             Console.WriteLine(user);
             // Check if the user is found
             if (user == null)
@@ -90,21 +90,21 @@ namespace Organizer.Repositories
         }
         public async Task<List<Entities.User>> GetTasksAsync()
         {
-            var UserId = _currentUserService.UserId;
+            var userid = _currentUserService.userid;
 
             
             var Users = await _context.Users.ToListAsync();
             // Debugging: Print the fetched tasks
             foreach (var task in Users)
             {
-                Console.WriteLine($"TaskId: {task.Id}, TenantId: {task.Email}, Title: {task.FullName}, Title: {task.Tenant_Id}");
+                Console.WriteLine($"TaskId: {task.id}, tenantid: {task.email}, title: {task.fullname}, title: {task.tenant_id}");
             }
             return Users;
         }
         public async Task Create(Entities.User user)
         {
             // Check if a user with the same ID already exists in the database
-            var existingUser = await _context.Users.FindAsync(user.Id);
+            var existingUser = await _context.Users.FindAsync(user.id);
             if (existingUser != null)
             {
                 // A user with the same ID already exists, throw an exception or handle the case appropriately
@@ -125,14 +125,14 @@ namespace Organizer.Repositories
 
         public async Task Delete(string? id)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(m => m.Id == id);
+            var user = await _context.Users.FirstOrDefaultAsync(m => m.id == id);
 
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();
         }
         public async Task UserExists(string? id)
         {
-            _context.Users.Any(e => e.Id == id);
+            _context.Users.Any(e => e.id == id);
             await _context.SaveChangesAsync();
         }
         public async Task<int> SaveChangesAsync()

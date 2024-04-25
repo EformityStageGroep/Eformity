@@ -17,11 +17,11 @@ namespace Organizer.Entities
     public class UserTeam
     {
         [ForeignKey("User")]
-        public string User_Id { get; set; }
+        public string user_id { get; set; }
         public virtual User User { get; set; }
 
         [ForeignKey("Team")]
-        public Guid Team_Id { get; set; }
+        public Guid team_id { get; set; }
         public virtual Team Team { get; set; }
     }
 }

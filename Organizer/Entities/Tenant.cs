@@ -6,7 +6,7 @@ namespace Organizer.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public string Id { get; set; }
-        public string Name { get; set; }
+        public string id { get; set; }
+        public string name { get; set; }
     }
 }
