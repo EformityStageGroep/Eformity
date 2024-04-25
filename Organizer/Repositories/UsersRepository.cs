@@ -27,15 +27,15 @@ namespace Organizer.Repositories
 
         public async Task<List<Entities.Team>> GetTeamsByUser()
         {
-            
+
             var userId = _currentUserService.userid;
             Console.WriteLine(userId);
             // Find the user in the database
-            
-                var user = _context.Users
-                .Include(u => u.Users_Teams)
-                .ThenInclude(ut => ut.Team)
-                .FirstOrDefault(u => u.id == userId);
+
+            var user = _context.Users
+            .Include(u => u.Users_Teams)
+            .ThenInclude(ut => ut.Team)
+            .FirstOrDefault(u => u.id == userId);
             Console.WriteLine(user);
             // Check if the user is found
             if (user == null)
@@ -62,27 +62,27 @@ namespace Organizer.Repositories
                 Console.WriteLine($"TaskId: {task.id}");
             }
             return teams;
-
+        }
         public async Task<List<Entities.User>> GetUserInfo()
         {
-            var UserId = _currentUserService.UserId;
-            var Users = await _context.Users.Where(t => t.Id == UserId).ToListAsync();
+            var UserId = _currentUserService.userid;
+            var Users = await _context.Users.Where(t => t.id == UserId).ToListAsync();
             foreach (var task in Users)
             {
-                Console.WriteLine($"UserId: {task.Id}, Email: {task.Email}, Name: {task.FullName}, Tenant: {task.Tenant_Id}");
+                Console.WriteLine($"UserId: {task.id}, Email: {task.email}, Name: {task.fullname}, Tenant: {task.tenant_id}");
             }
             return Users;
         }
         public async Task<List<Entities.User>> GetUserIdsByTenant()
         {
-            var tenantId = _currentTenantService.TenantId;
+            var tenantId = _currentTenantService.tenantid;
             // Query to get all user IDs for the specified tenant ID
             var userIds = await _context.Users
-              .Where(user => user.Tenant_Id == tenantId)
+              .Where(user => user.tenant_id == tenantId)
               .ToListAsync();
             foreach (var task in userIds)
             {
-                Console.WriteLine($"TaskId: {task.Id}, TenantId: {task.Email}, Title: {task.FullName}, Title: {task.Tenant_Id}");
+                Console.WriteLine($"TaskId: {task.id}, TenantId: {task.email}, Title: {task.fullname}, Title: {task.tenant_id}");
             }
             // Return the list of user IDs
             return userIds;
