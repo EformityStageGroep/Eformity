@@ -48,7 +48,7 @@ namespace Organizer.Repositories
                 Console.WriteLine($"TaskId: {task.Team_Id}, TenantId: {task.User_Id}");
             }
             return teams;
-
+        }
         public async Task<List<Entities.User>> GetUserInfo()
         {
             var UserId = _currentUserService.UserId;
