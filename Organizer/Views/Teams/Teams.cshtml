@@ -46,12 +46,13 @@
                         <h3 class="text-gray-900 text-lg font-medium leading-6" id="modalTitle">
                             Create a Team
                         </h3>
+                  
                             <div class="mt-2">
-                                <label for="tenantid" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
+                                <label for="tenantid" class="text-gray-700 block hidden text-sm font-medium"></label>
                                 <input type="hidden" id="tenantid" name="tenantid" value="">
                             </div>
                             <div class="mt-2">
-                                <label for="userid" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
+                                <label for="userid" class="text-gray-700 block hidden text-sm font-medium"></label>
                                 <input type="hidden" id="userid" name="userid" value="">
                             </div>
 
@@ -63,21 +64,21 @@
 
                                @*HERE*@
 
-                                <label for="title" class="text-gray-700 block text-sm font-medium">Add Team Members</label>
+                                <label for="user_id" class="text-gray-700 block text-sm font-medium">Add Team Members</label>
                                 <p class="text-gray-500 text-sm">Pick the members you want to be in this team.</p>
+                                @Html.Partial("../Users/teamMultiSelect")
+                                <input type="text" name="user_id" value="" id="user_id" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
 
 
-                               @Html.Partial("../Users/teamMultiSelect")
-
-                            <div class="py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <div class="py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                 <button id="closeModalButton" onclick="closeCreateTeamModal()" type="button" class="border-transparent px-4 py-2 bg-indigo-600 text-white inline-flex w-full justify-center rounded-md border text-base font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
                                     Close
                                 </button>
-                                <button id="createTeamButton" type="submit" class="border-transparent px-4 py-2 bg-indigo-600 text-white inline-flex w-full justify-center rounded-md border text-base font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
+                        <button id="createTeamButton" type="submit" onclick="CreateTeam()" class="border-transparent px-4 py-2 bg-indigo-600 text-white inline-flex w-full justify-center rounded-md border text-base font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
                                     Create Team
                                 </button>
                             </div>
-
+                 
 
 
                     </div>

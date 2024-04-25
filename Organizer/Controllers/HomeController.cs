@@ -56,12 +56,7 @@ namespace Organizer.Controllers
 
         }
 
-        public IActionResult Teams()
-        {
-            /*var viewModel = new PageIdentifier();
-            viewModel.PageValue = "Teams";*/
-            return View();
-        }
+     
 
         public IActionResult Homepage()
         {

@@ -1,8 +1,13 @@
-﻿namespace Organizer.Models
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace Organizer.Models
 {
-    public class TaskViewModel
-    {
-        public List<Entities.Task>? Tasks { get; set; }
-        public Entities.Task? Task { get; set; }
-    }
+   
+        public class TeamUserViewModel
+        {
+            public Task<IActionResult> Teams { get; set; }
+            public List<Organizer.Entities.User> Users { get; set; }
+        }
+
+    
 }

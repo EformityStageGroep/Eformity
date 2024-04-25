@@ -1,4 +1,4 @@
-﻿@model List<Organizer.Entities.User>
+﻿@model Organizer.Models.TeamUserViewModel
 
 <style>
     .top-100 {
@@ -24,8 +24,7 @@
 
 
 
-                   @foreach (var item in Model)
-                    {
+                    
                         <div id="userClicked_@item.id" class="m-1 py-1 px-2 bg-white text-white bg-indigo-700 border-indigo-700 flex hidden items-center justify-center rounded-full border font-medium">
                             <div class="flex-initborder-gray-100 w-full max-w-full cursor-pointer rounded-t border-b text-xs font-normal leading-none hover:bg-teal-100ial">@item.fullname</div>
                             <div class="flex flex-auto flex-row-reverse">
@@ -37,7 +36,7 @@
                                 </div>
                             </div>
                         </div>
-                        }
+                        
 
 
 
@@ -65,9 +64,9 @@
                         <div id="user_@item.id" onclick="userClicked('@item.id')" class="user-item border-gray-100 w-full cursor-pointer rounded-t border-b hover:bg-indigo-700 hover:text-white">
                             <div id="userBorder_@item.id" onclick="userClicked('@item.id')" class="p-2 pl-2 border-transparent relative flex w-full items-center border-l-2 hover:indigo-700">
                                 <div class="flex w-full items-center">
-                                    <div class="mx-2 leading-6">@item.fullname </div>
+                                    <div class="mx-2 leading-6">@item.id </div>
                                 </div>
-                                <p>@item.email</p>
+                                <p>@item.id</p>
                             </div>
                         </div>
                     }
@@ -166,5 +165,9 @@
         userList = document.getElementById("userList")
         userList.classList.toggle("hidden")
     }
-
+    function CreateTeam() {
+        document.getElementById("user_id").value = clickedNamesList;
+        console.log("Test");
+        console.log(clickedNamesList);
+    }
 </script>
