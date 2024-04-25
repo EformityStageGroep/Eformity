@@ -21,12 +21,12 @@ namespace Organizer.Entities
         public DateTime DateTime { get; set; }
     
         public string SelectStatus { get; set; }
-     
+        [ForeignKey("Tenants")]
         public string TenantId { get; set; }
-
+        [ForeignKey("Users")]
         public string UserId { get; set; }
         public Task() => Id = Guid.NewGuid();
-
+        public virtual ICollection<UserTeam> Users_Teams { get; set; }
     }
     
  /*   public class PageIdentifier

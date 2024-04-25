@@ -24,6 +24,31 @@ namespace Organizer.Repositories
           
             return users;
         }
+
+        public async Task<List<Entities.Team>> GetTeamsByUser()
+        {
+            var userId = _currentUserService.UserId;
+            // Find the user in the database
+            var user = _context.Users
+                .Include(u => u.Users_Teams)
+                .ThenInclude(ut => ut.Team)
+                .FirstOrDefault(u => u.Id == userId);
+            Console.WriteLine("test");
+            // Check if the user is found
+            if (user == null)
+            {
+                // Handle the case where the user is not found (return an empty list or handle as needed)
+                return new List<Entities.Team>();
+            }
+            Console.WriteLine("test3");
+            // Extract teams from the join table and return them
+            var teams = user.Users_Teams.Select(ut => ut.Team).ToList();
+            foreach (var task in teams)
+            {
+                Console.WriteLine($"TaskId: {task.Team_Id}, TenantId: {task.User_Id}");
+            }
+            return teams;
+
         public async Task<List<Entities.User>> GetUserInfo()
         {
             var UserId = _currentUserService.UserId;
@@ -47,6 +72,7 @@ namespace Organizer.Repositories
             }
             // Return the list of user IDs
             return userIds;
+
         }
         public async Task<List<Entities.User>> GetTasksAsync()
         {
