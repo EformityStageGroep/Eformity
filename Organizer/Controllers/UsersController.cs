@@ -1,9 +1,11 @@
 ﻿#nullable disable
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using Organizer.Contexts;
 using Organizer.Entities;
 using Organizer.Repositories;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace Organizer.Views.Shared.Controllers
@@ -172,6 +174,50 @@ namespace Organizer.Views.Shared.Controllers
                 }
             }
         }
+        [Route("api/UserController")]
+        [HttpGet("GetUserProfilePicture/{userId}")]
+        public async Task<string> GetUserProfilePicture(string userId)
+        {
+            // ConfidentialClientApplicationBuilder should be configured with your app's details
+            var app = ConfidentialClientApplicationBuilder.Create("92314824-59b0-4d59-b8fb-b4028c90f7bc")
+                .WithClientSecret("2R58Q~NU6TiDr1lZ-opf6nSdmmdBsudA.5BBMbQ-")
+                .WithAuthority(new Uri("https://login.microsoftonline.com/common"))
+                .Build();
+
+            // Attempt to acquire a token
+            var result = await app.AcquireTokenForClient(new[] { "https://graph.microsoft.com/.default" }).ExecuteAsync();
+
+            // Setup HTTP client to call Graph API
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", result.AccessToken);
+
+            // Replace 'userIdentifier' with 'userId' to use the method's parameter
+            var response = await httpClient.GetAsync($"https://graph.microsoft.com/v1.0/users/{userId}/photo/$value");
+
+            if (response.IsSuccessStatusCode)
+            {
+                // Assuming you want the picture as a base64 string to embed in an HTML img tag
+                var imageBytes = await response.Content.ReadAsByteArrayAsync();
+                return Convert.ToBase64String(imageBytes);
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
+            {
+                // Handle the 'No Content' scenario
+                // Optionally, return a default image's base64 string or a special indicator
+                return "No profile picture available"; // Or load a default image if you have one
+            }
+            else
+            {
+                // Optionally handle other statuses or log errors
+                return null; // Indicate failure or other error condition
+            }
+        }
+
 
     }
+
+
+
+
+
 }

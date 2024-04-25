@@ -10,6 +10,8 @@ namespace Organizer.Entities
         public string FullName { get; set; }
         public string Email { get; set; }
 
+
+
         public virtual ICollection<UserTeam> Users_Teams { get; set; }
     }
 }

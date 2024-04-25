@@ -1,0 +1,128 @@
+﻿
+
+<div id="slideoverDiv_">
+    <div data-prefix="slideover" id="slideoverModal_test" class="invisible relative z-50 transition-all duration-300 ease-out" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+
+        <div class="inset-0 absolute overflow-hidden">
+            <div class="inset-y-0 right-0 pl-10 active pointer-events-none fixed flex h-auto max-w-full drop-shadow-2xl sm:pl-16">
+                <!-- Your content here -->
+                <div class="pointer-events-auto w-screen max-w-2xl transition-all duration-500 ease-in">
+                    <div id="slideover_test" class="bg-white py-6 flex h-full translate-x-full translate-x-full flex-col overflow-y-scroll shadow-xl transition-all duration-500 ease-in">
+                        <div class="px-4 sm:px-6">
+                            <div class="flex items-start justify-between">
+                                <div class="flex">
+                                    <h2 class="text-gray-900 text-base font-semibold leading-6" id="slide-over-title_">Editing: </h2>
+                                    <div class="ml-3 flex items-center">
+                                    </div>
+                                </div>
+                                <button onclick="toggleSlideover('test')" type="button" class="p-1 bg-white text-gray-400 font-sm h-0 relative cursor-pointer rounded-md text-xs hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                                    <span class="-inset-2.5 absolute"></span>
+                                    <span class="sr-only">Close panel</span>
+                                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+
+                            </div>
+
+                        </div>
+                        <div class="mt-6 px-4 relative flex-1 sm:px-6">
+
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+<div class="bg-white overflow-visible shadow">
+    <ul role="list" class="divide-gray-100 bg-white ring-gray-900/5 l divide-y overflow-hidden shadow-sm">
+
+            <li onclick="toggleSlideover('test')" class="px-4 py-4 cursor-pointer hover:bg-gray-100 sm:px-6">
+            <ul role="list" class="">
+                <li class="flex justify-between">
+                <li class="gap-x-6 py-5 flex justify-between">
+                    <div class="min-w-0 gap-x-4 flex">
+                            <svg class="mt-3 h-6 w-6 text-gray-400 shrink-0 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+                            </svg>
+                        <div class="min-w-0 flex-auto">
+
+                            <p class="text-gray-900 text-sm font-semibold leading-6">
+                                <a href="#" class="hover:underline">Development planner app</a>
+                            </p>
+                            <p class="mt-1 text-gray-500 flex text-xs leading-5">
+                                <a class="">This team is for the development of planner app for Eformity</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="gap-x-6 flex shrink-0 items-center">
+                        <div class="hidden sm:flex sm:flex-col sm:items-end">
+                            <p class="text-gray-900 text-sm leading-6">5 Members</p>
+                            <p class="mt-1 text-gray-500 text-xs leading-5">Created on: 24-4-2024</p>
+                        </div>
+                        <div class="relative flex-none">
+                            <button type="button" class="-m-2.5 p-2.5 text-gray-500 block hover:text-gray-900" id="options-menu-0-button" aria-expanded="false" aria-haspopup="true">
+                                <span class="sr-only">Open options</span>
+                                    <svg id="threeDots" onclick="threeDots(event)" class="h-5 w-5 radius-200 z-10 rounded-md hover:cursor-pointer hover:bg-gray-200" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <path d="M10 3a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM10 8.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM11.5 15.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0z" />
+                                </svg>
+                            </button>
+
+                            <div class="right-0 mt-2 w-32 bg-white py-2 ring-gray-900/5 absolute z-10 hidden origin-top-right rounded-md shadow-lg ring-1 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu-0-button" tabindex="-1">
+                                <a href="#" class="px-3 py-1 text-gray-900 block text-sm leading-6" role="menuitem" tabindex="-1" id="options-menu-0-item-0">View profile<span class="sr-only">, Leslie Alexander</span></a>
+                                <a href="#" class="px-3 py-1 text-gray-900 block text-sm leading-6" role="menuitem" tabindex="-1" id="options-menu-0-item-1">Message<span class="sr-only">, Leslie Alexander</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                </li>
+            </ul>
+        </li>
+
+    <li class="px-4 py-4 cursor-pointer hover:bg-gray-100 sm:px-6">
+        <ul role="list" class="divide-gray-100 divide-y">
+            <li class="gap-x-6 py-5 flex justify-between">
+               test123
+            </li>
+        </ul>
+    </li>
+
+
+    </ul> 
+</div>
+
+
+
+
+<script>
+
+        function threeDots(event) {
+            event.stopPropagation()
+        }
+        
+        document.addEventListener('DOMContentLoaded', function () {
+            window.addEventListener('click', function (event) {
+                const statusDropdowns = document.querySelectorAll('[data-prefix="statusDropdown"]');
+                const slideover = document.querySelectorAll('[data-prefix="slideover"]');
+
+
+                statusDropdowns.forEach(function (dropdown) {
+                    if (!dropdown.classList.contains("hidden")) {
+                        dropdown.classList.add("hidden");
+                    }
+                });
+            });
+        });
+
+        function toggleSlideover(taskId) {
+
+            document.getElementById("slideoverModal_" + taskId).classList.toggle('invisible');
+            document.getElementById("slideover_" + taskId).classList.toggle('translate-x-full');
+            console.log(taskId);
+        }
+</script>

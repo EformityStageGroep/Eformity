@@ -1,4 +1,14 @@
-﻿
+﻿@*@model List<Organizer.Entities.User>
+
+<div>
+    test12345
+<img src="@Url.Action("GetUserProfilePicture", "Users", new { userId = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier" })" alt="User Profile Picture">
+
+
+</Div>*@
+
+
+
 <div class="border-gray-200 pb-5 mb-3 border-b sm:flex sm:items-center sm:justify-between">
     <div class="flex">
         <h3 class="text-gray-900 mr-3 mt-1 text-base font-semibold leading-6">Teams</h3>
@@ -33,6 +43,8 @@
     </div>
 </div>
 
+@Html.Partial("../Users/_team_interface")
+
 
 <div id="createTeamModal" class="inset-0 fixed z-50 flex hidden items-center justify-center overflow-y-auto">
 
@@ -57,10 +69,13 @@
 
                             <div class="mt-2 mb-2">
                                 <label for="title" class="text-gray-700 block text-sm font-medium">Team Title</label>
-                                <input type="text" name="title" id="title" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <input type="text" name="title" id="title" placeholder="Marketing team" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                             </div>
       
-
+                                <div class="mt-2 mb-2">
+                                <label for="description" class="text-gray-700 block text-sm font-medium">Team Description</label>
+                                <textarea type="description" placeholder="Tasks for the marketing team." name="description" id="description" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+                            </div>
                                @*HERE*@
 
                                 <label for="title" class="text-gray-700 block text-sm font-medium">Add Team Members</label>
@@ -68,6 +83,10 @@
 
 
                                @Html.Partial("../Users/teamMultiSelect")
+
+
+                               
+
 
                             <div class="py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                 <button id="closeModalButton" onclick="closeCreateTeamModal()" type="button" class="border-transparent px-4 py-2 bg-indigo-600 text-white inline-flex w-full justify-center rounded-md border text-base font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
