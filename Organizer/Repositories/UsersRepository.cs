@@ -24,13 +24,16 @@ namespace Organizer.Repositories
         }
         public async Task<List<Entities.Team>> GetTeamsByUser()
         {
+            
             var userId = _currentUserService.UserId;
+            Console.WriteLine(userId);
             // Find the user in the database
-            var user = _context.Users
+            
+                var user = _context.Users
                 .Include(u => u.Users_Teams)
                 .ThenInclude(ut => ut.Team)
                 .FirstOrDefault(u => u.Id == userId);
-            Console.WriteLine("test");
+            Console.WriteLine(user);
             // Check if the user is found
             if (user == null)
             {
@@ -40,9 +43,20 @@ namespace Organizer.Repositories
             Console.WriteLine("test3");
             // Extract teams from the join table and return them
             var teams = user.Users_Teams.Select(ut => ut.Team).ToList();
+            if (teams.Count > 0)
+            {
+                // The list has elements
+                Console.WriteLine("There are teams in the list.");
+            }
+            else
+            {
+                // The list is empty
+                Console.WriteLine("The list is empty.");
+            }
+
             foreach (var task in teams)
             {
-                Console.WriteLine($"TaskId: {task.Team_Id}, TenantId: {task.User_Id}");
+                Console.WriteLine($"TaskId: {task.id}");
             }
             return teams;
         }

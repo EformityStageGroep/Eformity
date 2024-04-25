@@ -6,9 +6,10 @@ namespace Organizer.Entities
     public class Team
     {
         [Key]
-        public string Team_Id { get; set; }
+        public Guid id { get; set; }
         
-        public string User_Id { get; set; }
+        public string tenant_id { get; set; }
+        public string title { get; set; }
     
         // Navigation property for the users associated with the team
         public virtual ICollection<UserTeam> Users_Teams { get; set; }
@@ -20,7 +21,7 @@ namespace Organizer.Entities
         public virtual User User { get; set; }
 
         [ForeignKey("Team")]
-        public string Team_Id { get; set; }
+        public Guid Team_Id { get; set; }
         public virtual Team Team { get; set; }
     }
 }

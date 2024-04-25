@@ -26,7 +26,7 @@ namespace Organizer.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
+            Console.WriteLine("testtttt");
             // Configuring the many-to-many relationship
             modelBuilder.Entity<UserTeam>()
                 .HasKey(ut => new { ut.User_Id, ut.Team_Id });

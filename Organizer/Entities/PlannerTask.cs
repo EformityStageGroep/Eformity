@@ -26,7 +26,7 @@ namespace Organizer.Entities
         [ForeignKey("Users")]
         public string UserId { get; set; }
         public Task() => Id = Guid.NewGuid();
-        public virtual ICollection<UserTeam> Users_Teams { get; set; }
+
     }
     
  /*   public class PageIdentifier

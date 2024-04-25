@@ -19,7 +19,8 @@ namespace Organizer.Views.Shared.Controllers
 
         // GET: Users
         public async Task<IActionResult> Index()
-        {
+        
+            {
             try
             {
                 var users = await _userRepository.GetTeamsByUser(); // Fetch tasks based on current tenant
