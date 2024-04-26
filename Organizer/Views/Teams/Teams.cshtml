@@ -1,4 +1,7 @@
 ﻿@model ParentViewModel
+@{
+ var tenant_id = @User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
+}
 <div class="border-gray-200 pb-5 mb-3 border-b sm:flex sm:items-center sm:justify-between">
     <div class="flex">
         <h3 class="text-gray-900 mr-3 mt-1 text-base font-semibold leading-6">Teams</h3>
@@ -139,7 +142,23 @@
                     <form asp-action="CreateTeam" >
 
 
+                   
+                            <div class="mt-2 mb-2">
+                                <label for="title" class="text-gray-700 block text-sm font-medium">Team title</label>
+                                <input type="text" name="title" id="title" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            </div>
                         <div class="mt-2 mb-2">
+                            <label for="tenant_id" class="text-gray-700 block text-sm font-medium">Team title</label>
+                            <input type="hidden" value="@tenant_id"name="tenant_id" id="tenant_id" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        </div>
+                        <div class="mt-2 mb-2">
+                            <label for="Users_Teams" class="text-gray-700 block text-sm font-medium">Team title</label>
+                            <input type="hidden" name="Users_Teams" id="Users_Teams" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        </div>
+                               @*HERE*@
+
+
+                        @*<div class="mt-2 mb-2">
                             <label for="title" class="text-gray-700 block text-sm font-medium">Team Title</label>
                             <input type="text" name="title" id="title" placeholder="Marketing team" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                         </div>
@@ -147,16 +166,16 @@
                         <div class="mt-2 mb-2">
                             <label for="description" class="text-gray-700 block text-sm font-medium">Team Description</label>
                             <textarea type="description" placeholder="Tasks for the marketing team." name="description" id="description" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
-                        </div>
+                        </div>*@
                         
       
 
                                @*HERE*@
 
-                                <label for="user_id" class="text-gray-700 block text-sm font-medium">Add Team Members</label>
+                        <label for="user_id" class="text-gray-700 block text-sm font-medium">Add Team Members</label>
                                 <p class="text-gray-500 text-sm">Pick the members you want to be in this team.</p>
                                 @Html.Partial("../Teams/teamMultiSelect")
-                                <input type="hidden" name="user_id" value="" id="user_id" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <input type="hidden" name="user_id" value="" id="user_id" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
 
 
                         <div class="py-3 sm:px-6 sm:flex sm:flex-row-reverse">

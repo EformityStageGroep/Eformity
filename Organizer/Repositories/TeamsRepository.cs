@@ -18,11 +18,11 @@ namespace Organizer.Repositories
         }
         public async Task CreateTeam(Entities.Team team)
         {
-            team.id = Guid.NewGuid();
+     
             team.tenant_id = _currentTenantService.tenantid;
 
             // Check if a team with the same ID already exists in the database
-            var existingTeam = await _context.Teams.FindAsync(team);
+            var existingTeam = await _context.Teams.FindAsync(team.id);
 
             if (existingTeam != null)
             {
@@ -34,6 +34,16 @@ namespace Organizer.Repositories
             _context.Teams.Add(team); 
             await _context.SaveChangesAsync(); // Make sure to save changes after adding the team
         }
+
+        public async Task CreateUserTeam(Entities.UserTeam userteam)
+        {
+            _context.Users_Teams.Add(userteam);
+            await _context.SaveChangesAsync();
+        }
+
+
+
+
         public async Task<List<Entities.Team>> GetTeamsByUser()
         {
 
