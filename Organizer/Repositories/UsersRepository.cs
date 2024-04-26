@@ -25,7 +25,7 @@ namespace Organizer.Repositories
             return users;
         }
 
-    
+
         public async Task<List<Entities.User>> GetUserInfo()
         {
             var UserId = _currentUserService.userid;
