@@ -93,8 +93,6 @@
 
 
 
-    clickedNamesList = []
-
 
 
         window.addEventListener('click', function (event) {
@@ -147,20 +145,39 @@
     }
 
 
-    function userClicked(userId) {
-        userClickedBorder = document.getElementById('userBorder_'+userId)
-        console.log('User: '+userId+' clicked')
-        userClickedName = document.getElementById('userClicked_'+userId)
-        userClickedName.classList.remove('hidden')
-        userClickedBorder.classList.add('border-blue-700')
-        if (!clickedNamesList.includes(userId)) {
-            clickedNamesList.push(userId)
-            console.log(clickedNamesList)
-        }
-        document.getElementById("user_id").value = clickedNamesList;
-        console.log("Test");
-        console.log(clickedNamesList);
+    let clickedNamesList = [];
 
+    function userClicked(userId) {
+        // Update the UI for the clicked user
+        const userClickedBorder = document.getElementById('userBorder_' + userId);
+        const userClickedName = document.getElementById('userClicked_' + userId);
+        console.log('User: ' + userId + ' clicked');
+
+        userClickedName.classList.remove('hidden');
+        userClickedBorder.classList.add('border-blue-700');
+
+        // Add userId to clickedNamesList if not already included
+        if (!clickedNamesList.includes(userId)) {
+            clickedNamesList.push(userId);
+            console.log(clickedNamesList);
+        }
+
+        // Update the hidden form field to store the list of clicked user IDs
+        document.getElementById("user_id").value = clickedNamesList.join(',');
+
+        // Update the UI to show the list of clicked users
+        updateClickedUsersDisplay();
+    }
+
+    function updateClickedUsersDisplay() {
+        const displayElement = document.getElementById('clickedUsersList');
+        displayElement.innerHTML = ''; // Clear previous entries
+        clickedNamesList.forEach(userId => {
+            const userElement = document.createElement('li');
+            userElement.textContent = 'User ID: ' + userId;
+            displayElement.appendChild(userElement);
+        });
+        console.log("Updated user list display.");
     }
 
     function clickUserlistButton() {
