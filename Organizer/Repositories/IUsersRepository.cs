@@ -8,7 +8,7 @@
         Task Delete(string? id);
         Task UserExists(string? id);
         Task<List<Entities.User>> GetUserInfo();
-        Task<List<Entities.User>> Getuser_idsByTenant();
+        Task<List<Entities.User>> GetUserIdsByTenant();
         Task<List<Entities.User>> GetTasksAsync();
         Task<List<Entities.Team>> GetTeamsByUser();
         Task<int> SaveChangesAsync();

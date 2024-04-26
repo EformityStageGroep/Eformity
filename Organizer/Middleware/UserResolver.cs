@@ -19,7 +19,7 @@ namespace Organizer.Middleware
 
             if (UserClaim != null)
             {
-                currentUserService.user_id = UserClaim.Value; // Set user_id based on tid claim
+                currentUserService.UserId = UserClaim.Value; // Set UserId based on tid claim
             }
 
             await _next(context);

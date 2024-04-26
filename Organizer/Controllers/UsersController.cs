@@ -53,7 +53,7 @@ namespace Organizer.Views.Shared.Controllers
         }
         [HttpPost]
         // GET: Users/Create
-        public async Task<IActionResult> Create([Bind("Id,Tenant_Id,FullName,Email")] User user)
+        public async Task<IActionResult> Create([Bind("Id,TenantID,FullName,Email")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace Organizer.Views.Shared.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string? id, [Bind("Id,Tenant_Id,FullName,Email")] User user)
+        public async Task<IActionResult> Edit(string? id, [Bind("Id,TenantID,FullName,Email")] User user)
         {
             if (id != user.Id)
             {
@@ -135,7 +135,7 @@ namespace Organizer.Views.Shared.Controllers
             {
                 try
                 {
-                    var users = await _userRepository.Getuser_idsByTenant(); // Fetch tasks based on current tenant
+                    var users = await _userRepository.GetUserIdsByTenant(); // Fetch tasks based on current tenant
 
 
                     if (users == null || !users.Any())
@@ -175,8 +175,8 @@ namespace Organizer.Views.Shared.Controllers
             }
         }
         [Route("api/UserController")]
-        [HttpGet("GetUserProfilePicture/{user_id}")]
-        public async Task<string> GetUserProfilePicture(string user_id)
+        [HttpGet("GetUserProfilePicture/{UserId}")]
+        public async Task<string> GetUserProfilePicture(string UserId)
         {
             // ConfidentialClientApplicationBuilder should be configured with your app's details
             var app = ConfidentialClientApplicationBuilder.Create("92314824-59b0-4d59-b8fb-b4028c90f7bc")
@@ -191,8 +191,8 @@ namespace Organizer.Views.Shared.Controllers
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", result.AccessToken);
 
-            // Replace 'user_identifier' with 'user_id' to use the method's parameter
-            var response = await httpClient.GetAsync($"https://graph.microsoft.com/v1.0/users/{user_id}/photo/$value");
+            // Replace 'UserIdentifier' with 'UserId' to use the method's parameter
+            var response = await httpClient.GetAsync($"https://graph.microsoft.com/v1.0/users/{UserId}/photo/$value");
 
             if (response.IsSuccessStatusCode)
             {

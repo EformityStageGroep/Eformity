@@ -15,10 +15,10 @@
 
  *@
 
-    var tenant_id = @User.FindFirst("http://schemas.microsoft.com/identity/claims/tenant_id")?.Value;
-    Console.WriteLine(tenant_id); 
-    var user_id = @User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
-    Console.WriteLine(user_id);
+    var TenantID = @User.FindFirst("http://schemas.microsoft.com/identity/claims/TenantID")?.Value;
+    Console.WriteLine(TenantID); 
+    var UserId = @User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
+    Console.WriteLine(UserId);
 }
 
 
@@ -42,12 +42,12 @@
                         <form asp-controller="Employee" asp-action="Create" method="post" class="mt-4">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="mt-2">
-                                <label for="tenant_id" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
-                                <input type="hidden" id="tenant_id" name="tenant_id" value="@tenant_id">
+                                <label for="TenantID" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
+                                <input type="hidden" id="TenantID" name="TenantID" value="@TenantID">
                             </div>
                             <div class="mt-2">
-                                <label for="user_id" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
-                                <input type="hidden" id="user_id" name="user_id" value="@user_id">
+                                <label for="UserId" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
+                                <input type="hidden" id="UserId" name="UserId" value="@UserId">
                             </div>
 
                             <div class="mt-2">
@@ -120,15 +120,15 @@ else
                     <form asp-controller="Employee" asp-action="Create"  method="post" class="mt-4">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="mt-2">
-                            <label for="tenant_id" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
-                            <input type="hidden" id="tenant_id" name="tenant_id" value="@tenant_id">
+                            <label for="TenantID" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
+                            <input type="hidden" id="TenantID" name="TenantID" value="@TenantID">
                         </div>
                             <div class="mt-2">
-                                <label for="user_id" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
-                                <input type="hidden" id="user_id" name="user_id" value="@user_id">
+                                <label for="UserId" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
+                                <input type="hidden" id="UserId" name="UserId" value="@UserId">
                             </div>
                         <div class="mt-2">
-                            <label for="title" class="text-gray-700 block text-sm font-medium">@User.FindFirst("http://schemas.microsoft.com/identity/claims/tenant_id")?.Value</label>
+                            <label for="title" class="text-gray-700 block text-sm font-medium">@User.FindFirst("http://schemas.microsoft.com/identity/claims/TenantID")?.Value</label>
                             <input type="text" name="title" id="title" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                         </div>
                         <div class="mt-2">

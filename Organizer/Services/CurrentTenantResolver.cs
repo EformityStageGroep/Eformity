@@ -13,14 +13,14 @@ namespace Organizer.Services
             _context = context;
         }
 
-        public string? tenant_id { get; set; }
+        public string? TenantID { get; set; }
 
         public async Task<bool> SetTenant(string tenant)
         {
             var tenantInfo = await _context.Tenants.Where(x => x.Id == tenant).FirstOrDefaultAsync();
             if (tenantInfo != null)
             {
-                tenant_id = tenantInfo.Id;
+                TenantID = tenantInfo.Id;
                 return true;
             }
             else

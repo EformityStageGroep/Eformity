@@ -6,7 +6,7 @@ namespace Organizer.Entities
     {
         [Key]
         public string Id { get; set; }
-        public string Tenant_Id { get; set; }
+        public string TenantID { get; set; }
         public string FullName { get; set; }
         public string Email { get; set; }
 

@@ -13,7 +13,7 @@ namespace Organizer.Services
             _context = context;
         }
 
-        public string? user_id { get; set; }
+        public string? UserId { get; set; }
 
         public async Task<bool> SetUser(string? User)
         {

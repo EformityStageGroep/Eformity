@@ -29,12 +29,12 @@ namespace Organizer.Contexts
 
             // Configuring the many-to-many relationship
             modelBuilder.Entity<UserTeam>()
-                .HasKey(ut => new { ut.User_Id, ut.Team_Id });
+                .HasKey(ut => new { ut.UserId, ut.Team_Id });
 
             modelBuilder.Entity<UserTeam>()
                 .HasOne(ut => ut.User)
                 .WithMany(u => u.Users_Teams)
-                .HasForeignKey(ut => ut.User_Id);
+                .HasForeignKey(ut => ut.UserId);
 
             modelBuilder.Entity<UserTeam>()
                 .HasOne(ut => ut.Team)

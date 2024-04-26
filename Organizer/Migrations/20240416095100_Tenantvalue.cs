@@ -9,7 +9,7 @@ namespace Organizer.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "tenant_id",
+                name: "TenantID",
                 table: "Tasks",
                 type: "nvarchar(max)",
                 nullable: false,
@@ -19,7 +19,7 @@ namespace Organizer.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "tenant_id",
+                name: "TenantID",
                 table: "Tasks");
         }
     }

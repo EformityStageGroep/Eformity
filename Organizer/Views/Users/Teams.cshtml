@@ -2,7 +2,7 @@
 
 <div>
     test12345
-<img src="@Url.Action("GetUserProfilePicture", "Users", new { user_id = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier" })" alt="User Profile Picture">
+<img src="@Url.Action("GetUserProfilePicture", "Users", new { UserId = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier" })" alt="User Profile Picture">
 
 
 </Div>*@
@@ -59,12 +59,12 @@
                             Create a Team
                         </h3>
                             <div class="mt-2">
-                                <label for="tenant_id" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
-                                <input type="hidden" id="tenant_id" name="tenant_id" value="">
+                                <label for="TenantID" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
+                                <input type="hidden" id="TenantID" name="TenantID" value="">
                             </div>
                             <div class="mt-2">
-                                <label for="user_id" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
-                                <input type="hidden" id="user_id" name="user_id" value="">
+                                <label for="UserId" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
+                                <input type="hidden" id="UserId" name="UserId" value="">
                             </div>
 
                             <div class="mt-2 mb-2">

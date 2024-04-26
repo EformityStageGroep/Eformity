@@ -8,7 +8,7 @@ namespace Organizer.Entities
         [Key]
         public string Team_Id { get; set; }
         
-        public string User_Id { get; set; }
+        public string UserId { get; set; }
     
         // Navigation property for the users associated with the team
         public virtual ICollection<UserTeam> Users_Teams { get; set; }
@@ -16,7 +16,7 @@ namespace Organizer.Entities
     public class UserTeam
     {
         [ForeignKey("User")]
-        public string User_Id { get; set; }
+        public string UserId { get; set; }
         public virtual User User { get; set; }
 
         [ForeignKey("Team")]

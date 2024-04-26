@@ -39,8 +39,8 @@
                                 <form id="MyForm" asp-action="EditTask" asp-route-id="@task.Id">
                                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                     <input type="hidden" asp-for="@task.Id" />
-                                    <input type="hidden" asp-for="@task.tenant_id" />
-                                    <input type="hidden" asp-for="@task.user_id" />
+                                    <input type="hidden" asp-for="@task.TenantID" />
+                                    <input type="hidden" asp-for="@task.UserId" />
                                     <div class="form-group">
 
                                         <label asp-for="@task.Title" class="control-label"></label>
@@ -105,8 +105,8 @@
                         <form id="myForm_@task.Id" asp-action="EditTask" asp-route-id="@task.Id">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <input type="hidden" asp-for="@task.Id" />
-                            <input type="hidden" asp-for="@task.tenant_id" />
-                            <input type="hidden" asp-for="@task.user_id" />
+                            <input type="hidden" asp-for="@task.TenantID" />
+                            <input type="hidden" asp-for="@task.UserId" />
                             <input type="invisible" asp-for="@task.Title" class="hidden">
                             <span asp-validation-for="@task.Title" class="text-danger"></span>
 

@@ -2,7 +2,7 @@
 {
     public interface ICurrentUserService
     {
-        string? user_id { get; set; }
+        string? UserId { get; set; }
         public Task<bool> SetUser(string? User);
     }
 }

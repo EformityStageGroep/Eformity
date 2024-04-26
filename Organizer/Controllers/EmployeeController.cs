@@ -51,7 +51,7 @@ namespace Organizer.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,Description,Priority,DateTime,SelectStatus,tenant_id,user_id")] Entities.Task task)
+        public async Task<IActionResult> Create([Bind("Title,Description,Priority,DateTime,SelectStatus,TenantID,UserId")] Entities.Task task)
         {
             if (ModelState.IsValid)
             {
@@ -67,12 +67,12 @@ namespace Organizer.Controllers
                     Console.WriteLine($"Errorrrrr: {modelError.ErrorMessage}");
                 }
             }
-            Console.WriteLine($"Current tenant_id controller: {task}");
+            Console.WriteLine($"Current TenantID controller: {task}");
             return View(task);
         }
         [HttpPost]
 
-        public async Task<IActionResult> EditTask(Guid id, [Bind("Id,Title,Description,Priority,DateTime,SelectStatus,tenant_id,user_id")] Entities.Task task)
+        public async Task<IActionResult> EditTask(Guid id, [Bind("Id,Title,Description,Priority,DateTime,SelectStatus,TenantID,UserId")] Entities.Task task)
         {
             if (id != task.Id)
             {
@@ -83,7 +83,7 @@ namespace Organizer.Controllers
             {
                 try
                 {
-                    Console.WriteLine($"Current tenant_id EDIT: {task}");
+                    Console.WriteLine($"Current TenantID EDIT: {task}");
                     await _taskRepository.Edit(task);
                     await _taskRepository.SaveChangesAsync();
                 }
@@ -101,7 +101,7 @@ namespace Organizer.Controllers
                     Console.WriteLine($"Errorr: {modelError.ErrorMessage}");
                 }
             }
-            Console.WriteLine($"Current tenant_id EDITtt: {task}");
+            Console.WriteLine($"Current TenantID EDITtt: {task}");
             return View(task);
         }
         [HttpPost, ActionName("Delete")]
