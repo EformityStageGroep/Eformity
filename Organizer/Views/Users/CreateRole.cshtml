@@ -1,17 +1,20 @@
 ﻿@model Organizer.Entities.Role
 
+@{
+    ViewData["Title"] = "CreateRole";
+}
 <form method="post">
     <div class="form-group">
-        <label for="title">Title:</label>
-        <input type="text" class="form-control" id="title" name="title" required>
+        <label asp-for="title">Title:</label>
+        <input asp-for="title" class="form-control" >
     </div>
     <div class="form-group">
-        <label for="createTeam">Create Team:</label>
-        <input type="checkbox" class="form-control" id="createTeam" name="createTeam">
+        <label asp-for="create_team">Create Team:</label>
+        <input asp-for="create_team" type="checkbox" class="form-control">
     </div>
     <div class="form-group">
-        <label for="assignTask">Assign Task:</label>
-        <input type="checkbox" class="form-control" id="assignTask" name="assignTask">
+        <label asp-for="assign_task">Assign Task:</label>
+        <input asp-for="assign_task" type="checkbox" class="form-control">
     </div>
     <button type="submit" class="btn btn-primary">Create Role</button>
 </form>
