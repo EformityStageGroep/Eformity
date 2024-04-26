@@ -54,16 +54,38 @@ namespace Organizer.Controllers
                 return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }
-        public async Task<IActionResult> CreateTeam([Bind("user_id,title")] Team team)
+        public async Task<IActionResult> CreateTeam([Bind("title, tenant_id, Users_Teams")] Team team, string user_id)
         {
-
             if (ModelState.IsValid)
             {
-                //CreateGUID()
-                await _teamRepository.CreateTeam(new Team { title = team.title });
-                await _teamRepository.SaveChangesAsync();
+                // Generate a new GUID for the team
+                var guid = Guid.NewGuid();
+                team.id = guid;
+                string input = user_id;
+                List<string> users = input.Split(',').ToList();
+                // Add users to the team if user IDs are provided
+                if (user_id != null && user_id.Any())
+                {
+                    foreach (var userId in users)
+                    {
+                         Console.WriteLine($"Number of user IDs: {users.Count}");
 
+                        // Create a new UserTeam object for each user ID
+                        var userTeam = new UserTeam { user_id = userId, team_id = guid };
+                        Console.WriteLine(userTeam);
+                        team.Users_Teams.Add(userTeam);
+
+                        // Save each userTeam separately
+                        await _teamRepository.CreateUserTeam(userTeam);
+                        await _teamRepository.SaveChangesAsync();
+                    }
+                }
+                Console.WriteLine(user_id);
+                // Save the team to the database
+                await _teamRepository.CreateTeam(team);
+                await _teamRepository.SaveChangesAsync();
             }
+
             return View();
         }
         public async Task<IActionResult> Teams()
