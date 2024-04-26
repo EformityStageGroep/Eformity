@@ -16,19 +16,23 @@ namespace Organizer.Repositories
             _currentUserService = currentUserService;
             _currentTenantService = currentTenantService;
         }
-        public async Task Create(Entities.Team team)
+        public async Task CreateTeam(Entities.Team team)
         {
-            // Check if a user with the same ID already exists in the database
-            var existingUser = await _context.Teams.FindAsync(team.id);
-            if (existingUser != null)
+            team.id = Guid.NewGuid();
+            team.tenant_id = _currentTenantService.tenantid;
+
+            // Check if a team with the same ID already exists in the database
+            var existingTeam = await _context.Teams.FindAsync(team);
+
+            if (existingTeam != null)
             {
-                // A user with the same ID already exists, throw an exception or handle the case appropriately
-                return;
+                // A team with the same ID already exists, throw an exception or handle the case appropriately
+                throw new InvalidOperationException("A team with the same ID already exists.");
             }
 
-            // If the user ID does not exist, add the new user to the database
-            _context.Teams.Add(team);
-            await _context.SaveChangesAsync(); // Make sure to save changes after adding the user
+            // Add the new team to the database
+            _context.Teams.Add(team); 
+            await _context.SaveChangesAsync(); // Make sure to save changes after adding the team
         }
         public async Task<List<Entities.Team>> GetTeamsByUser()
         {

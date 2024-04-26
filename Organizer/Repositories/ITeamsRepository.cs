@@ -4,7 +4,7 @@
     {
         Task<int> SaveChangesAsync();
         
-        Task Create(Entities.Team team);
+        Task CreateTeam(Entities.Team team);
             
         Task Delete(string? id);
 

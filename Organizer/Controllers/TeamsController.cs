@@ -54,11 +54,13 @@ namespace Organizer.Controllers
                 return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }
-        public async Task<IActionResult> CreateTeam([Bind("id,tenant_id,fullname,email")] Team team)
+        public async Task<IActionResult> CreateTeam([Bind("user_id,title")] Team team)
         {
+
             if (ModelState.IsValid)
             {
-                await _teamRepository.Create(team);
+                //CreateGUID()
+                await _teamRepository.CreateTeam(new Team { title = team.title });
                 await _teamRepository.SaveChangesAsync();
 
             }
