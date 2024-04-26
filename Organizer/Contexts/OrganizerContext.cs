@@ -26,20 +26,20 @@ namespace Organizer.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
+            Console.WriteLine("testtttt");
             // Configuring the many-to-many relationship
             modelBuilder.Entity<UserTeam>()
-                .HasKey(ut => new { ut.User_Id, ut.Team_Id });
+                .HasKey(ut => new { ut.user_id, ut.team_id });
 
             modelBuilder.Entity<UserTeam>()
                 .HasOne(ut => ut.User)
                 .WithMany(u => u.Users_Teams)
-                .HasForeignKey(ut => ut.User_Id);
+                .HasForeignKey(ut => ut.user_id);
 
             modelBuilder.Entity<UserTeam>()
                 .HasOne(ut => ut.Team)
                 .WithMany(t => t.Users_Teams)
-                .HasForeignKey(ut => ut.Team_Id);
+                .HasForeignKey(ut => ut.team_id);
         }
     }
 }

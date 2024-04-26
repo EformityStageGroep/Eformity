@@ -19,15 +19,13 @@ namespace Organizer.Views.Shared.Controllers
 
         // GET: Users
         public async Task<IActionResult> Index()
-        {
+        
+            {
             try
             {
-                var users = await _userRepository.GetTeamsByUser(); // Fetch tasks based on current tenant
+             
 
-
-               
-
-                return View(users);
+                return View();
             }
             catch (Exception ex)
             {
@@ -51,7 +49,7 @@ namespace Organizer.Views.Shared.Controllers
         }
         [HttpPost]
         // GET: Users/Create
-        public async Task<IActionResult> Create([Bind("Id,Tenant_Id,FullName,Email")] User user)
+        public async Task<IActionResult> Create([Bind("id,tenant_id,fullname,email")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -61,7 +59,7 @@ namespace Organizer.Views.Shared.Controllers
             }
             return View();
         }
-
+     
         // POST: Users/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -84,9 +82,9 @@ namespace Organizer.Views.Shared.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string? id, [Bind("Id,Tenant_Id,FullName,Email")] User user)
+        public async Task<IActionResult> Edit(string? id, [Bind("id,tenant_id,fullname,email")] User user)
         {
-            if (id != user.Id)
+            if (id != user.id)
             {
                 return NotFound();
             }

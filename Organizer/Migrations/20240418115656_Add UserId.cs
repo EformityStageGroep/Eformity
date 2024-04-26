@@ -16,7 +16,7 @@ namespace Organizer.Migrations
                 defaultValue: "");
 
             migrationBuilder.AddColumn<string>(
-                name: "UserId",
+                name: "userid",
                 table: "Tasks",
                 type: "nvarchar(max)",
                 nullable: false,
@@ -30,7 +30,7 @@ namespace Organizer.Migrations
                 table: "Users");
 
             migrationBuilder.DropColumn(
-                name: "UserId",
+                name: "userid",
                 table: "Tasks");
         }
     }

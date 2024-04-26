@@ -13,11 +13,11 @@ namespace Organizer.Services
             _context = context;
         }
 
-        public string? UserId { get; set; }
+        public string? userid { get; set; }
 
         public async Task<bool> SetUser(string? User)
         {
-            var UserInfo = await _context.Users.Where(x => x.Id == User).FirstOrDefaultAsync();
+            var UserInfo = await _context.Users.Where(x => x.id == User).FirstOrDefaultAsync();
             if (UserInfo != null)
             {
                

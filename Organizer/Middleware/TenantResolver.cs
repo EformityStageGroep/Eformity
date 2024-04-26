@@ -19,7 +19,7 @@ namespace Organizer.Middleware
 
             if (tenantClaim != null)
             {
-                currentTenantService.TenantId = tenantClaim.Value; // Set TenantId based on tid claim
+                currentTenantService.tenantid = tenantClaim.Value; // Set tenantid based on tid claim
             }
 
             await _next(context);

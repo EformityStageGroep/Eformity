@@ -1,0 +1,196 @@
+﻿@model ParentViewModel
+<div class="border-gray-200 pb-5 mb-3 border-b sm:flex sm:items-center sm:justify-between">
+    <div class="flex">
+        <h3 class="text-gray-900 mr-3 mt-1 text-base font-semibold leading-6">Teams</h3>
+        <button id="createTeamModalButton" onclick="openModal()" type="button" class="bg-indigo-600 p-2 text-white rounded-full shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+  <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+    <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+  </svg>
+    </div>
+    <div class="mt-3 sm:ml-4 sm:mt-0">
+        <label for="mobile-search-candidate" class="sr-only">Search</label>
+        <label for="desktop-search-candidate" class="sr-only">Search</label>
+        <div class="flex rounded-md shadow-sm">
+            <div class="relative flex-grow focus-within:z-10">
+                <div class="inset-y-0 left-0 pl-3 pointer-events-none absolute flex items-center">
+                    <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <input type="text" name="mobile-search-candidate" id="mobile-search-candidate" class="py-1.5 pl-10 text-gray-900 ring-gray-300 block w-full rounded-none rounded-l-md border-0 ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:hidden" placeholder="Search">
+                <input type="text" name="desktop-search-candidate" id="desktop-search-candidate" class="py-1.5 pl-10 text-gray-900 ring-gray-300 hidden w-full rounded-none rounded-l-md border-0 text-sm leading-6 ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:block" placeholder="Search Teams">
+            </div>
+            <button type="button" class="-ml-px gap-x-1.5 px-3 py-2 text-gray-900 ring-gray-300 relative inline-flex items-center rounded-r-md text-sm font-semibold ring-1 ring-inset hover:bg-gray-50">
+                <svg class="-ml-0.5 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M2 3.75A.75.75 0 012.75 3h11.5a.75.75 0 010 1.5H2.75A.75.75 0 012 3.75zM2 7.5a.75.75 0 01.75-.75h6.365a.75.75 0 010 1.5H2.75A.75.75 0 012 7.5zM14 7a.75.75 0 01.55.24l3.25 3.5a.75.75 0 11-1.1 1.02l-1.95-2.1v6.59a.75.75 0 01-1.5 0V9.66l-1.95 2.1a.75.75 0 11-1.1-1.02l3.25-3.5A.75.75 0 0114 7zM2 11.25a.75.75 0 01.75-.75H7A.75.75 0 017 12H2.75a.75.75 0 01-.75-.75z" clip-rule="evenodd" />
+                </svg>
+                Sort
+                <svg class="-mr-1 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+@*
+    <div>
+  <h2 class="text-gray-500 text-sm font-medium">Pinned Projects</h2>
+
+  <ul role="list" class="mt-3 gap-5 grid grid-cols-1 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
+    <li class="col-span-1 flex rounded-md shadow-sm">*@
+
+
+
+<ul role="list" class="mt-3 gap-5 grid grid-cols-1 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4">
+
+    @foreach (var item in Model.Teams)
+    {
+@*        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.title)
+            </td>
+            <td>
+
+                @Html.DisplayFor(modelItem => item.id)
+            </td>
+
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+            </td>
+        </tr>*@
+
+
+    // Define the list of Tailwind background color classes
+    List<string> colors = new List<string> { "bg-red-500", "bg-green-500", "bg-blue-500", "bg-yellow-500", "bg-indigo-700" };
+    Random rand = new Random();
+
+    // Function to get a random background color class
+    string selectedColor = colors[rand.Next(colors.Count)];
+
+    string input = item.title;
+    string initials = GetFirstLettersOfFirstTwoWords(input);
+
+    string GetFirstLettersOfFirstTwoWords(string input)
+    {
+        // Split the input string into words based on spaces.
+        var words = input.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+
+        if (words.Length < 1)
+        {
+            throw new ArgumentException("The input string must contain at least one word.");
+        }
+
+        // If there's only one word, return the first two letters of that word.
+        if (words.Length == 1)
+        {
+            return words[0].Substring(0, Math.Min(2, words[0].Length));
+        }
+
+        // If there are at least two words, build the result string by taking the first letter of each.
+        string initialsVar = words[0][0] + words[1].Substring(0, 1);
+        return initialsVar;
+    }
+
+
+
+
+                <div>
+
+                <li class="col-span-1 flex rounded-md shadow-sm">
+
+                <div class="w-16 h-16 text-white @selectedColor flex items-center justify-center rounded-l-md text-sm font-medium">
+                    @initials
+                </div>
+                  <div class="border-gray-200 bg-white flex flex-1 items-center justify-between truncate rounded-r-md border-b border-r border-t">
+                    <div class="px-4 py-2 flex-1 truncate text-sm">
+                            <a href="#" class="text-gray-900 font-medium hover:text-gray-600">@item.title</a>
+                      <p class="text-gray-500">16 Members</p>
+                    </div>
+                    <div class="pr-2 flex-shrink-0">
+                      <button type="button" class="h-8 w-8 bg-transparent bg-white text-gray-400 inline-flex items-center justify-center rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                        <span class="sr-only">Open options</span>
+                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                          <path d="M10 3a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM10 8.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM11.5 15.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0z" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </li>
+        </div>
+    
+    }
+</ul>
+
+<div id="createTeamModal" class="inset-0 fixed z-50 flex hidden items-center justify-center overflow-y-auto">
+
+        <div class="inset-0 fixed transition-opacity" aria-hidden="true">
+            <div class="inset-0 bg-gray-500 absolute opacity-75"></div>
+        </div>
+        <div class="bg-white transform overflow-visible rounded-md shadow-xl transition-all sm:max-w-lg sm:w-full">
+            <div class="bg-white px-4 pt-5 pb-4 rounded-md sm:p-6 sm:pb-4">
+                <div class="sm:flex sm:items-start">
+                    <div class="mt-3 w-full text-center sm:mt-0 sm:ml-4 sm:text-left">
+                        <h3 class="text-gray-900 text-lg font-medium leading-6" id="modalTitle">
+                            Create a Team
+                        </h3>
+                    <form asp-action="CreateTeam" >
+
+
+                        <div class="mt-2 mb-2">
+                            <label for="title" class="text-gray-700 block text-sm font-medium">Team Title</label>
+                            <input type="text" name="title" id="title" placeholder="Marketing team" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        </div>
+
+                        <div class="mt-2 mb-2">
+                            <label for="description" class="text-gray-700 block text-sm font-medium">Team Description</label>
+                            <textarea type="description" placeholder="Tasks for the marketing team." name="description" id="description" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+                        </div>
+                        
+      
+
+                               @*HERE*@
+
+                                <label for="user_id" class="text-gray-700 block text-sm font-medium">Add Team Members</label>
+                                <p class="text-gray-500 text-sm">Pick the members you want to be in this team.</p>
+                                @Html.Partial("../Teams/teamMultiSelect")
+                                <input type="hidden" name="user_id" value="" id="user_id" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+
+
+                        <div class="py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                                    <button id="closeModalButton" onclick="closeCreateTeamModal()" type="button" class="border-transparent px-4 py-2 bg-indigo-600 text-white inline-flex w-full justify-center rounded-md border text-base font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
+                                        Close
+                                    </button>
+                            <button id="createTeamButton" type="submit" onclick="CreateTeam()" class="border-transparent px-4 py-2 bg-indigo-600 text-white inline-flex w-full justify-center rounded-md border text-base font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
+                                        Create Team
+                                    </button>
+                                </div>
+                    </form>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+<script>
+
+    function closeCreateTeamModal() {
+        closeModalButton = document.getElementById('closeModalbutton')
+        modal = document.getElementById('createTeamModal')
+        modal.classList.add('hidden')
+    }
+
+
+    function openModal() {
+        modalButton = document.getElementById('createTeamModalButton')
+        modal = document.getElementById('createTeamModal')
+        modal.classList.remove('hidden')
+    }
+
+</script>

@@ -2,6 +2,6 @@
 {
     public interface IMustHaveUser
     {
-        string UserId { get; set; }
+        string userid { get; set; }
     }
 }

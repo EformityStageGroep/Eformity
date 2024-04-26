@@ -21,76 +21,62 @@ namespace Organizer.Repositories
         public async Task<List<Entities.User>> User()
         {
             var users = await _context.Users.ToListAsync();
-          
+
             return users;
         }
 
-        public async Task<List<Entities.Team>> GetTeamsByUser()
-        {
-            var userId = _currentUserService.UserId;
-            // Find the user in the database
-            var user = _context.Users
-                .Include(u => u.Users_Teams)
-                .ThenInclude(ut => ut.Team)
-                .FirstOrDefault(u => u.Id == userId);
-            Console.WriteLine("test");
-            // Check if the user is found
-            if (user == null)
-            {
-                // Handle the case where the user is not found (return an empty list or handle as needed)
-                return new List<Entities.Team>();
-            }
-            Console.WriteLine("test3");
-            // Extract teams from the join table and return them
-            var teams = user.Users_Teams.Select(ut => ut.Team).ToList();
-            foreach (var task in teams)
-            {
-                Console.WriteLine($"TaskId: {task.Team_Id}, TenantId: {task.User_Id}");
-            }
-            return teams;
-        }
+
         public async Task<List<Entities.User>> GetUserInfo()
         {
-            var UserId = _currentUserService.UserId;
-            var Users = await _context.Users.Where(t => t.Id == UserId).ToListAsync();
+            var UserId = _currentUserService.userid;
+            var Users = await _context.Users.Where(t => t.id == UserId).ToListAsync();
             foreach (var task in Users)
             {
-                Console.WriteLine($"UserId: {task.Id}, Email: {task.Email}, Name: {task.FullName}, Tenant: {task.Tenant_Id}");
+                Console.WriteLine($"UserId: {task.id}, Email: {task.email}, Name: {task.fullname}, Tenant: {task.tenant_id}");
             }
             return Users;
         }
         public async Task<List<Entities.User>> GetUserIdsByTenant()
         {
-            var tenantId = _currentTenantService.TenantId;
+            var tenantId = _currentTenantService.tenantid;
             // Query to get all user IDs for the specified tenant ID
             var userIds = await _context.Users
-              .Where(user => user.Tenant_Id == tenantId)
+              .Where(user => user.tenant_id == tenantId)
               .ToListAsync();
             foreach (var task in userIds)
             {
-                Console.WriteLine($"TaskId: {task.Id}, TenantId: {task.Email}, Title: {task.FullName}, Title: {task.Tenant_Id}");
+                Console.WriteLine($"TaskId: {task.id}, TenantId: {task.email}, Title: {task.fullname}, Title: {task.tenant_id}");
             }
             // Return the list of user IDs
             return userIds;
 
         }
+    
+        /*public async Task<List<Entities.Team>> InsertMultipleUsers(Entities.Team user)
+        {
+            user.id = Guid.NewGuid();
+            var userIds = await _context.Users;
+            return userIds;
+        }*/
+
+
         public async Task<List<Entities.User>> GetTasksAsync()
         {
-            var UserId = _currentUserService.UserId;
+            var userid = _currentUserService.userid;
 
             
             var Users = await _context.Users.ToListAsync();
             // Debugging: Print the fetched tasks
             foreach (var task in Users)
             {
-                Console.WriteLine($"TaskId: {task.Id}, TenantId: {task.Email}, Title: {task.FullName}, Title: {task.Tenant_Id}");
+                Console.WriteLine($"TaskId: {task.id}, tenantid: {task.email}, title: {task.fullname}, title: {task.tenant_id}");
             }
             return Users;
         }
         public async Task Create(Entities.User user)
         {
             // Check if a user with the same ID already exists in the database
-            var existingUser = await _context.Users.FindAsync(user.Id);
+            var existingUser = await _context.Users.FindAsync(user.id);
             if (existingUser != null)
             {
                 // A user with the same ID already exists, throw an exception or handle the case appropriately
@@ -111,14 +97,14 @@ namespace Organizer.Repositories
 
         public async Task Delete(string? id)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(m => m.Id == id);
+            var user = await _context.Users.FirstOrDefaultAsync(m => m.id == id);
 
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();
         }
         public async Task UserExists(string? id)
         {
-            _context.Users.Any(e => e.Id == id);
+            _context.Users.Any(e => e.id == id);
             await _context.SaveChangesAsync();
         }
         public async Task<int> SaveChangesAsync()

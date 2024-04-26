@@ -25,7 +25,6 @@ namespace Organizer.Controllers
             {
                 return View("EmployeeDashboard");
             }
-
             else
             {
                 // Handle other roles or unauthorized access

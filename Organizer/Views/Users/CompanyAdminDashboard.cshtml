@@ -1,15 +1,15 @@
 ﻿@model Organizer.Entities.User
 
 @{
-    ViewData["Title"] = "Create";
-    var UserId = @User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
-    var Email = @User.FindFirst("preferred_username")?.Value;
-    var FullName = @User.FindFirst("name")?.Value;
-    var Tenant_Id = @User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
-    Console.WriteLine(UserId);
-    Console.WriteLine(Email);
-    Console.WriteLine(FullName);
-    Console.WriteLine(Tenant_Id);
+    ViewData["title"] = "Create";
+    var userid = @User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
+    var email = @User.FindFirst("preferred_username")?.Value;
+    var fullname = @User.FindFirst("name")?.Value;
+    var tenant_id = @User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
+    Console.WriteLine(userid);
+    Console.WriteLine(email);
+    Console.WriteLine(fullname);
+    Console.WriteLine(tenant_id);
 
 
 }
@@ -24,24 +24,24 @@
         <form asp-action="Create" id="taskForm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="FullName" class="control-label"></label>
-                <input asp-for="FullName" value="@FullName" class="form-control" />
-                <span asp-validation-for="FullName" class="text-danger"></span>
+                <label asp-for="fullname" class="control-label"></label>
+                <input asp-for="fullname" value="@fullname" class="form-control" />
+                <span asp-validation-for="fullname" class="text-danger"></span>
             </div>
             <div type="hidden" class="hidden form-group">
-                <label asp-for="Tenant_Id" type="hidden" class="control-label"></label>
-                <input asp-for="Tenant_Id" type="hidden" value="@Tenant_Id" class="form-control" />
-                <span asp-validation-for="Tenant_Id" type="hidden" class="text-danger"></span>
+                <label asp-for="tenant_id" type="hidden" class="control-label"></label>
+                <input asp-for="tenant_id" type="hidden" value="@tenant_id" class="form-control" />
+                <span asp-validation-for="tenant_id" type="hidden" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" value="@Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+                <label asp-for="email" class="control-label"></label>
+                <input asp-for="email" value="@email" class="form-control" />
+                <span asp-validation-for="email" class="text-danger"></span>
             </div>
             <div  class="form-group hidden">
-                <label asp-for="Id"  class="control-label"></label>
-                <input asp-for="Id"  value="@UserId" class="form-control" />
-                <span asp-validation-for="Id"  class="text-danger"></span>
+                <label asp-for="id"  class="control-label"></label>
+                <input asp-for="id"  value="@userid" class="form-control" />
+                <span asp-validation-for="id"  class="text-danger"></span>
             </div>
 
             <div class="form-group">
