@@ -12,8 +12,8 @@ using Organizer.Contexts;
 namespace Organizer.Migrations
 {
     [DbContext(typeof(OrganizerContext))]
-    [Migration("20240418115656_Add UserId")]
-    partial class AddUserId
+    [Migration("20240418115656_Add user_id")]
+    partial class Adduser_id
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -45,7 +45,7 @@ namespace Organizer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TenantId")
+                    b.Property<string>("tenant_id")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -53,7 +53,7 @@ namespace Organizer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("user_id")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

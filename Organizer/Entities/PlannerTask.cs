@@ -22,9 +22,9 @@ namespace Organizer.Entities
     
         public string SelectStatus { get; set; }
         [ForeignKey("Tenants")]
-        public string TenantId { get; set; }
+        public string tenant_id { get; set; }
         [ForeignKey("Users")]
-        public string UserId { get; set; }
+        public string user_id { get; set; }
         public Task() => Id = Guid.NewGuid();
         public virtual ICollection<UserTeam> Users_Teams { get; set; }
     }

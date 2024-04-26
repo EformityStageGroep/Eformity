@@ -4,7 +4,7 @@
 
 namespace Organizer.Migrations
 {
-    public partial class AddUserId : Migration
+    public partial class Adduser_id : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,7 +16,7 @@ namespace Organizer.Migrations
                 defaultValue: "");
 
             migrationBuilder.AddColumn<string>(
-                name: "UserId",
+                name: "user_id",
                 table: "Tasks",
                 type: "nvarchar(max)",
                 nullable: false,
@@ -30,7 +30,7 @@ namespace Organizer.Migrations
                 table: "Users");
 
             migrationBuilder.DropColumn(
-                name: "UserId",
+                name: "user_id",
                 table: "Tasks");
         }
     }

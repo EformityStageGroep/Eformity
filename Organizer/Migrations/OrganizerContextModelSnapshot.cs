@@ -43,7 +43,7 @@ namespace Organizer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TenantId")
+                    b.Property<string>("tenant_id")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -51,7 +51,7 @@ namespace Organizer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("user_id")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

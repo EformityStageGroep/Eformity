@@ -24,11 +24,11 @@ namespace Organizer.Repositories
 
         public async Task<List<Entities.Task>> GetTasksAsync()
         {
-            var tenantId = _currentTenantService.TenantId;
-            var UserId = _currentUserService.UserId;
+            var tenant_id = _currentTenantService.tenant_id;
+            var user_id = _currentUserService.user_id;
             
-            var tasks = await _context.Task.Where(t => t.TenantId == tenantId).ToListAsync();
-            var Users = await _context.Task.Where(t => t.UserId == UserId).ToListAsync();
+            var tasks = await _context.Task.Where(t => t.tenant_id == tenant_id).ToListAsync();
+            var Users = await _context.Task.Where(t => t.user_id == user_id).ToListAsync();
             // Debugging: Print the fetched tasks
 
             return Users;
@@ -37,7 +37,7 @@ namespace Organizer.Repositories
         public async System.Threading.Tasks.Task Create(Entities.Task task)
         {
             task.Id = Guid.NewGuid();
-            task.TenantId = _currentTenantService.TenantId; // Set TenantId
+            task.tenant_id = _currentTenantService.tenant_id; // Set tenant_id
             _context.Task.Add(task);
             await _context.SaveChangesAsync(); // Make sure to save changes after adding the task
         }

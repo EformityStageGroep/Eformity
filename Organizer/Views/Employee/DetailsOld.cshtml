@@ -36,7 +36,7 @@
                                 <form id="MyForm" asp-action="EditTask" asp-route-id="@task.Id">
                                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                     <input type="hidden" asp-for="@task.Id" />
-                                    <input type="hidden" asp-for="@task.TenantId" />
+                                    <input type="hidden" asp-for="@task.tenant_id" />
                                     <div class="form-group">
 
                                         <label asp-for="@task.Title" class="control-label"></label>
@@ -101,7 +101,7 @@
                         <form id="myForm_@task.Id" asp-action="EditTask" asp-route-id="@task.Id">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <input type="hidden" asp-for="@task.Id" />
-                            <input type="hidden" asp-for="@task.TenantId" />
+                            <input type="hidden" asp-for="@task.tenant_id" />
 
                             <input type="invisible" asp-for="@task.Title" class="hidden">
                             <span asp-validation-for="@task.Title" class="text-danger"></span>

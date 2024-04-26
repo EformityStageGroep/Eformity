@@ -135,7 +135,7 @@ namespace Organizer.Views.Shared.Controllers
             {
                 try
                 {
-                    var users = await _userRepository.GetUserIdsByTenant(); // Fetch tasks based on current tenant
+                    var users = await _userRepository.Getuser_idsByTenant(); // Fetch tasks based on current tenant
 
 
                     if (users == null || !users.Any())
@@ -175,8 +175,8 @@ namespace Organizer.Views.Shared.Controllers
             }
         }
         [Route("api/UserController")]
-        [HttpGet("GetUserProfilePicture/{userId}")]
-        public async Task<string> GetUserProfilePicture(string userId)
+        [HttpGet("GetUserProfilePicture/{user_id}")]
+        public async Task<string> GetUserProfilePicture(string user_id)
         {
             // ConfidentialClientApplicationBuilder should be configured with your app's details
             var app = ConfidentialClientApplicationBuilder.Create("92314824-59b0-4d59-b8fb-b4028c90f7bc")
@@ -191,8 +191,8 @@ namespace Organizer.Views.Shared.Controllers
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", result.AccessToken);
 
-            // Replace 'userIdentifier' with 'userId' to use the method's parameter
-            var response = await httpClient.GetAsync($"https://graph.microsoft.com/v1.0/users/{userId}/photo/$value");
+            // Replace 'user_identifier' with 'user_id' to use the method's parameter
+            var response = await httpClient.GetAsync($"https://graph.microsoft.com/v1.0/users/{user_id}/photo/$value");
 
             if (response.IsSuccessStatusCode)
             {

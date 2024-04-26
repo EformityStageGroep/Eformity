@@ -5,7 +5,7 @@
     var UserId = @User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
     var Email = @User.FindFirst("preferred_username")?.Value;
     var FullName = @User.FindFirst("name")?.Value;
-    var Tenant_Id = @User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
+    var Tenant_Id = @User.FindFirst("http://schemas.microsoft.com/identity/claims/tenant_id")?.Value;
     Console.WriteLine(UserId);
     Console.WriteLine(Email);
     Console.WriteLine(FullName);
@@ -28,7 +28,7 @@
                 <input asp-for="FullName" value="@FullName" class="form-control" />
                 <span asp-validation-for="FullName" class="text-danger"></span>
             </div>
-            <div type="hidden" class="hidden form-group">
+            <div type="hidden" class="form-group hidden">
                 <label asp-for="Tenant_Id" type="hidden" class="control-label"></label>
                 <input asp-for="Tenant_Id" type="hidden" value="@Tenant_Id" class="form-control" />
                 <span asp-validation-for="Tenant_Id" type="hidden" class="text-danger"></span>
