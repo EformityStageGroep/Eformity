@@ -1,28 +1,10 @@
-﻿@model List<Organizer.Entities.Team>
-
+﻿@model ParentViewModel
 @{
     ViewData["title"] = "Index";
 }
 
 <h1>Index</h1>
-public IActionResult Index()
-{
-    // Assuming you have methods to retrieve data from your data source
-    List<Organizer.Entities.Team>
-    teams = GetTeams(); // Replace with your data retrieval logic
-    List<Organizer.Entities.User>
-        users = GetUsers(); // Replace with your data retrieval logic
 
-        // Create an instance of the view model
-        TeamUserViewModel viewModel = new TeamUserViewModel
-        {
-        Teams = teams,
-        Users = users
-        };
-
-        // Pass the view model to the view
-        return View(viewModel);
-        }
 
 <p>
     <a asp-action="Details">Create New</a>
@@ -39,13 +21,15 @@ public IActionResult Index()
             <th></th>
         </tr>
     </thead>
-    <tbody>
-        @foreach (var item in Model)
+            <tbody>
+            
+        @foreach (var item in Model.Users)
         {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.id)
                 </td>
+                <br />
                 <td>
 
                     @Html.DisplayFor(modelItem => item.tenant_id)
@@ -59,4 +43,25 @@ public IActionResult Index()
             </tr>
         }
     </tbody>
+            <tbody>
+
+                @foreach (var item in Model.Teams)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.title)
+                        </td>
+                        <td>
+
+                            @Html.DisplayFor(modelItem => item.id)
+                        </td>
+
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
 </table>

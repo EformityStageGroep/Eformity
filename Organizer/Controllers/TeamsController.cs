@@ -3,39 +3,45 @@ using Organizer.Repositories;
 using Organizer.Entities;
 using Organizer.Models;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using System.Dynamic;
 
 namespace Organizer.Controllers
 {
     public class TeamsController : Controller
     {
         private readonly ITeamsRepository _teamRepository;
+        private readonly IUserRepository _userRepository;
 
-        public TeamsController(ITeamsRepository teamRepository)
+
+        public TeamsController(ITeamsRepository teamRepository, IUserRepository userRepository)
         {
             _teamRepository = teamRepository;
+            _userRepository = userRepository;
         }
         public async Task<IActionResult> Index()
-
         {
-            // Assuming you have methods to retrieve data from your data source
-            List<Organizer.Entities.Team> teams = GetTeamsByUser(); // Replace with your data retrieval logic
-            
-            // Create an instance of the view model
-            TeamUserViewModel viewModel = new TeamUserViewModel
+            // Fetch data for the view
+            ParentViewModel mymodel = new ParentViewModel();
+            List<User> users = await _userRepository.GetUserIdsByTenant();
+            List<Team> teams = await _teamRepository.GetTeamsByUser();
+
+            // Create the ParentViewModel and populate it with data
+            var model = new ParentViewModel
             {
-                Teams = teams,
-               
+                Users = users,
+                Teams = teams
             };
 
-            // Pass the view model to the view
-            return View(viewModel);
+            // Return the view with the model
+            return View(model);
         }
-        public async Task <List<Organizer.Entities.Team>> GetTeamsByUser()
+        public async Task<IActionResult> GetTeamsByUser()
 
         {
             try
             {
-                var users = await _teamRepository.GetTeamsByUser(); // Fetch tasks based on current tenant
+                var users =  _teamRepository.GetTeamsByUser(); // Fetch tasks based on current tenant
 
 
 
@@ -58,11 +64,21 @@ namespace Organizer.Controllers
             }
             return View();
         }
-        public IActionResult Teams()
+        public async Task<IActionResult> Teams()
         {
-            /*var viewModel = new PageIdentifier();
-            viewModel.PageValue = "Teams";*/
-            return View();
+            ParentViewModel mymodel = new ParentViewModel();
+            List<User> users = await _userRepository.GetUserIdsByTenant();
+            List<Team> teams = await _teamRepository.GetTeamsByUser();
+
+            // Create the ParentViewModel and populate it with data
+            var model = new ParentViewModel
+            {
+                Users = users,
+                Teams = teams
+            };
+
+            // Return the view with the model
+            return View(model);
         }
     }
 }

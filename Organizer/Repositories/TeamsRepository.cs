@@ -48,11 +48,18 @@ namespace Organizer.Repositories
                 // Handle the case where the user is not found (return an empty list or handle as needed)
                 return new List<Entities.Team>();
             }
-            Console.WriteLine("test3");
+            
             // Extract teams from the join table and return them
             var teams = user.Users_Teams.Select(ut => ut.Team).ToList();
-
-
+            Console.WriteLine(teams);
+            if (teams.Count > 0)
+            {
+                Console.WriteLine("zit iets in");
+            }
+            else
+            {
+                Console.WriteLine("helemaal niks");
+            }
             foreach (var task in teams)
             {
                 Console.WriteLine($"TaskId: {task.id}");

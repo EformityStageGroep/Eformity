@@ -1,4 +1,4 @@
-﻿
+﻿@model ParentViewModel
 <div class="border-gray-200 pb-5 mb-3 border-b sm:flex sm:items-center sm:justify-between">
     <div class="flex">
         <h3 class="text-gray-900 mr-3 mt-1 text-base font-semibold leading-6">Teams</h3>
@@ -32,7 +32,27 @@
         </div>
     </div>
 </div>
+<tbody>
 
+    @foreach (var item in Model.Teams)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.title)
+            </td>
+            <td>
+
+                @Html.DisplayFor(modelItem => item.id)
+            </td>
+
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+            </td>
+        </tr>
+    }
+</tbody>
 
 <div id="createTeamModal" class="inset-0 fixed z-50 flex hidden items-center justify-center overflow-y-auto">
 
@@ -66,7 +86,7 @@
 
                                 <label for="user_id" class="text-gray-700 block text-sm font-medium">Add Team Members</label>
                                 <p class="text-gray-500 text-sm">Pick the members you want to be in this team.</p>
-                                @Html.Partial("../Users/teamMultiSelect")
+                                @Html.Partial("../Teams/teamMultiSelect")
                                 <input type="text" name="user_id" value="" id="user_id" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
 
 
