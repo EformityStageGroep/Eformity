@@ -104,7 +104,7 @@
 
                 <li class="col-span-1 flex rounded-md shadow-sm">
 
-                <div class="w-16 h-16 text-white @selectedColor flex items-center justify-center rounded-l-md text-sm font-medium">
+            <div id="@item.id" class="w-16 h-16 text-white team-element flex items-center justify-center rounded-l-md text-sm font-medium">
                     @initials
                 </div>
                   <div class="border-gray-200 bg-white flex flex-1 items-center justify-between truncate rounded-r-md border-b border-r border-t">
@@ -211,5 +211,55 @@
         modal = document.getElementById('createTeamModal')
         modal.classList.remove('hidden')
     }
+    // Define the list of Tailwind background color classes
+    // Define the list of Tailwind background color classes
+    // Define the list of Tailwind background color classes
+    const colors = ['bg-red-500', 'bg-green-500', 'bg-blue-500', 'bg-yellow-500', 'bg-indigo-700'];
+
+    // Function to generate a random background color
+    function generateRandomColor() {
+        return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    // Function to get or set the color for a team element
+    function getOrSetColorForTeam(teamElement) {
+        // Use the unique ID or data attribute of the team element as the key
+        const teamId = teamElement.id; // In your case, the ID of the team element
+        if (!teamId) {
+            return;
+        }
+
+        // Check if there is a stored color in localStorage for this team
+        let teamColor = localStorage.getItem(`teamColor-${teamId}`);
+
+        // If there's no stored color, generate a new random color
+        if (!teamColor) {
+            teamColor = generateRandomColor();
+            // Store the new color in localStorage
+            localStorage.setItem(`teamColor-${teamId}`, teamColor);
+        }
+
+        // Apply the color to the team element
+        // Remove existing background color classes
+        colors.forEach(colorClass => {
+            teamElement.classList.remove(colorClass);
+        });
+        // Add the new color class
+        teamElement.classList.add(teamColor);
+    }
+
+    // Function to apply colors to all team elements
+    function applyColorsToTeams() {
+        // Get all team elements
+        const teamElements = document.querySelectorAll('.team-element');
+
+        // Apply a color to each team element
+        teamElements.forEach(teamElement => {
+            getOrSetColorForTeam(teamElement);
+        });
+    }
+
+    // Call the function to apply colors to all team elements when the page loads
+    window.onload = applyColorsToTeams;
 
 </script>
