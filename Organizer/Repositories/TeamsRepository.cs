@@ -95,10 +95,9 @@ namespace Organizer.Repositories
             }
             return teams;
         }
-        public async Task Edit(Entities.User user)
+        public async Task EditTeam(Entities.Team team)
         {
-            var users = await _context.Users.FindAsync(user);
-            _context.Users.Update(users);
+            _context.Teams.Update(team);
             await _context.SaveChangesAsync();
         }
 

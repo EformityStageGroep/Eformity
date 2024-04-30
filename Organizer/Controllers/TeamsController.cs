@@ -94,6 +94,40 @@ namespace Organizer.Controllers
             await _teamRepository.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+        public async Task<IActionResult> EditTeam(Guid id, [Bind("id,title,tenant_id,Users_Teams")] Team team)
+        {
+            if (id != team.id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    Console.WriteLine($"Current tenantid EDIT: {team}");
+                    await _teamRepository.EditTeam(team);
+                    await _teamRepository.SaveChangesAsync();
+                }
+                catch (Exception)
+                {
+                    // Handle exception, log, etc.
+                    throw;
+                }
+                return RedirectToAction(nameof(Teams));
+            }
+            if (!ModelState.IsValid)
+            {
+                foreach (var modelError in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    Console.WriteLine($"Errorr: {modelError.ErrorMessage}");
+                }
+            }
+            Console.WriteLine($"Current tenantid EDITtt: {team}");
+            return View(team);
+        }
+
         public async Task<IActionResult> Teams()
         {
             ParentViewModel mymodel = new ParentViewModel();
