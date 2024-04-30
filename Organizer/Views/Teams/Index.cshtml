@@ -22,7 +22,9 @@
         </tr>
     </thead>
             <tbody>
-            
+        <form method="post" action="@Url.Action("LeaveTeam", "Teams", new { user_id = "ErI23EPbSbsniBExNcOfLBoQt_wb0j__PPz320hXzog", team_id = "e6f8c7d0-1a34-4872-bb95-b4d8e0c1f2c9" })">
+            <button type="submit">Leave Team</button>
+        </form>
         @foreach (var item in Model.Users)
         {
             <tr>

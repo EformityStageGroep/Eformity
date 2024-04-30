@@ -88,6 +88,12 @@ namespace Organizer.Controllers
 
             return View();
         }
+        public async Task<IActionResult> LeaveTeam(string user_id, Guid team_id)
+        {
+            await _teamRepository.DeleteUserFromTeam(user_id, team_id);
+            await _teamRepository.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
         public async Task<IActionResult> Teams()
         {
             ParentViewModel mymodel = new ParentViewModel();
