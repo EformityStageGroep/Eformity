@@ -3,6 +3,16 @@
 </body>
 @Html.Partial("../Home/Homepage")
 
+<div class="mt-4 flex justify-end">
+<h1>Filter:</h1>
+<select id="statusLabel_" class="ml-2 border-gray-900 pl-[7px] pb-[1px] text-black w-[100px] h-[27px] relative z-10 flex cursor-pointer cursor-pointer items-center justify-center self-baseline rounded-sm border border border-solid text-xs font-medium hover:bg-gray-200">
+        <option value="personal">Personal</option>
+
+</select>
+</div>
+
+
+
 
 <ul role="list" class="mt-5 bg-white mb-3 border shadow-sm">
     <div class="divide-gray-100 grid sm:grid-cols-1 xl:grid-cols-2">
@@ -41,6 +51,7 @@
                                     <input type="hidden" asp-for="@task.id" />
                                     <input type="hidden" asp-for="@task.tenantid" />
                                     <input type="hidden" asp-for="@task.userid" />
+
                                     <div class="form-group">
 
                                         <label asp-for="@task.title" class="control-label"></label>
@@ -107,6 +118,7 @@
                             <input type="hidden" asp-for="@task.id" />
                             <input type="hidden" asp-for="@task.tenantid" />
                             <input type="hidden" asp-for="@task.userid" />
+
                             <input type="invisible" asp-for="@task.title" class="hidden">
                             <span asp-validation-for="@task.title" class="text-danger"></span>
 
