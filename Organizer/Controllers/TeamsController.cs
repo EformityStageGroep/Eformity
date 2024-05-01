@@ -88,6 +88,46 @@ namespace Organizer.Controllers
 
             return View();
         }
+        public async Task<IActionResult> LeaveTeam(string user_id, Guid team_id)
+        {
+            await _teamRepository.DeleteUserFromTeam(user_id, team_id);
+            await _teamRepository.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> EditTeam(Guid id, [Bind("id,title,tenant_id,Users_Teams")] Team team)
+        {
+            if (id != team.id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    Console.WriteLine($"Current tenantid EDIT: {team}");
+                    await _teamRepository.EditTeam(team);
+                    await _teamRepository.SaveChangesAsync();
+                }
+                catch (Exception)
+                {
+                    // Handle exception, log, etc.
+                    throw;
+                }
+                return RedirectToAction(nameof(Teams));
+            }
+            if (!ModelState.IsValid)
+            {
+                foreach (var modelError in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    Console.WriteLine($"Errorr: {modelError.ErrorMessage}");
+                }
+            }
+            Console.WriteLine($"Current tenantid EDITtt: {team}");
+            return View(team);
+        }
+
         public async Task<IActionResult> Teams()
         {
             ParentViewModel mymodel = new ParentViewModel();
@@ -103,6 +143,10 @@ namespace Organizer.Controllers
 
             // Return the view with the model
             return View(model);
+        }
+          public IActionResult teamMultiSelectSlideover()
+        {
+            return View();
         }
     }
 }

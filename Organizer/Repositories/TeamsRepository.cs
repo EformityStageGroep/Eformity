@@ -41,7 +41,22 @@ namespace Organizer.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task DeleteUserFromTeam(string user_id, Guid team_id)
+        {
+            // Find the user-team relationship entry based on both user_id and team_id
+            var userTeamEntry = await _context.Users_Teams
+                .FirstOrDefaultAsync(ut => ut.user_id == user_id && ut.team_id == team_id);
 
+            // Check if the entry was found
+            if (userTeamEntry != null)
+            {
+                // Remove the found entry
+                _context.Users_Teams.Remove(userTeamEntry);
+
+                // Save changes to the database
+                await _context.SaveChangesAsync();
+            }
+        }
 
 
         public async Task<List<Entities.Team>> GetTeamsByUser()
@@ -80,10 +95,9 @@ namespace Organizer.Repositories
             }
             return teams;
         }
-        public async Task Edit(Entities.User user)
+        public async Task EditTeam(Entities.Team team)
         {
-            var users = await _context.Users.FindAsync(user);
-            _context.Users.Update(users);
+            _context.Teams.Update(team);
             await _context.SaveChangesAsync();
         }
 
