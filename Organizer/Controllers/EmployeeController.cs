@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Graph;
 using Organizer.Contexts;
 using Organizer.Entities;
+using Organizer.Models;
 using Organizer.Repositories;
 using Organizer.Services;
 
@@ -15,16 +16,28 @@ namespace Organizer.Controllers
     public class EmployeeController : Controller
     {
         private readonly IEmployeeRepository _taskRepository;
+        private readonly ITeamsRepository _teamRepository;
 
-        public EmployeeController(IEmployeeRepository taskRepository)
+        public EmployeeController(IEmployeeRepository taskRepository, ITeamsRepository teamRepository)
         {
+            _teamRepository = teamRepository;
             _taskRepository = taskRepository;
         }
         // GET: Tasks
         public async Task<IActionResult> Index()
         {
-            var tasks = await _taskRepository.GetTasksAsync(); // Fetch tasks based on current tenant
-            return View(tasks);
+            TeamTaskModel mymodel = new TeamTaskModel();
+       
+
+            List<Entities.Task> tasks = await _taskRepository.GetTaskIdsByUser();
+            List<Entities.Team> teams = await _teamRepository.GetTeamsByUser();
+
+            var model = new TeamTaskModel
+            {
+                Tasks = tasks,
+                Teams = teams
+            };
+            return View(model);
         }
         // GET: Tasks/Details/5
 
