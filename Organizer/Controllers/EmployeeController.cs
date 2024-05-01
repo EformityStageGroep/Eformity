@@ -12,11 +12,11 @@ using Organizer.Services;
 
 namespace Organizer.Controllers
 {
-    public class TasksController : Controller
+    public class EmployeeController : Controller
     {
-        private readonly ITaskRepository _taskRepository;
+        private readonly IEmployeeRepository _taskRepository;
 
-        public TasksController(ITaskRepository taskRepository)
+        public EmployeeController(IEmployeeRepository taskRepository)
         {
             _taskRepository = taskRepository;
         }
@@ -28,15 +28,16 @@ namespace Organizer.Controllers
         }
         // GET: Tasks/Details/5
 
-        public async Task<IActionResult> Details()
+        public async Task<IActionResult> EmployeeDashboard()
         {
             try
             {
                 var tasks = await _taskRepository.GetTasksAsync(); // Fetch tasks based on current tenant
 
+
                 if (tasks == null || !tasks.Any())
                 {
-                    return NotFound();
+                    return View(new List<Entities.Task>()); // Return an empty list to the view
                 }
 
                 return View(tasks);
@@ -50,14 +51,14 @@ namespace Organizer.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,Description,Priority,DateTime,SelectStatus,TenantId")] Entities.Task task)
+        public async Task<IActionResult> Create([Bind("title,description,priority,datetime,selectstatus,tenantid,userid")] Entities.Task task)
         {
             if (ModelState.IsValid)
             {
-                task.Id = Guid.NewGuid();
+                task.id = Guid.NewGuid();
                 await _taskRepository.Create(task);
                 await _taskRepository.SaveChangesAsync();
-                return RedirectToAction(nameof(Details));
+                return RedirectToAction(nameof(EmployeeDashboard));
             }
             if (!ModelState.IsValid)
             {
@@ -66,14 +67,14 @@ namespace Organizer.Controllers
                     Console.WriteLine($"Errorrrrr: {modelError.ErrorMessage}");
                 }
             }
-            Console.WriteLine($"Current TenantId controller: {task}");
+            Console.WriteLine($"Current tenantid controller: {task}");
             return View(task);
         }
         [HttpPost]
 
-        public async Task<IActionResult> EditTask(Guid id, [Bind("Id,Title,Description,Priority,DateTime,SelectStatus,TenantId")] Entities.Task task)
+        public async Task<IActionResult> EditTask(Guid id, [Bind("id,title,description,priority,datetime,selectstatus,tenantid,userid")] Entities.Task task)
         {
-            if (id != task.Id)
+            if (id != task.id)
             {
                 return NotFound();
             }
@@ -82,7 +83,7 @@ namespace Organizer.Controllers
             {
                 try
                 {
-                    Console.WriteLine($"Current TenantId EDIT: {task}");
+                    Console.WriteLine($"Current tenantid EDIT: {task}");
                     await _taskRepository.Edit(task);
                     await _taskRepository.SaveChangesAsync();
                 }
@@ -91,7 +92,7 @@ namespace Organizer.Controllers
                     // Handle exception, log, etc.
                     throw;
                 }
-                return RedirectToAction(nameof(Details));
+                return RedirectToAction(nameof(EmployeeDashboard));
             }
             if (!ModelState.IsValid)
             {
@@ -100,7 +101,7 @@ namespace Organizer.Controllers
                     Console.WriteLine($"Errorr: {modelError.ErrorMessage}");
                 }
             }
-            Console.WriteLine($"Current TenantId EDITtt: {task}");
+            Console.WriteLine($"Current tenantid EDITtt: {task}");
             return View(task);
         }
         [HttpPost, ActionName("Delete")]
@@ -112,5 +113,9 @@ namespace Organizer.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-    }
+        public  IActionResult EmployeeDashboard2()
+        { 
+            return View(); 
+        }
+        }
 }

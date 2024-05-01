@@ -29,19 +29,34 @@ namespace Organizer.Controllers
             con.ConnectionString = Organizer.Properties.Resources.ConnectionString;
         }
 
+        [Authorize(Roles = "SuperAdmin,Employee")]
         public IActionResult Index()
-        {/*
-            var viewModel = new PageIdentifier();
-            viewModel.PageValue = "Index";*/
-            return View();
-        }
-    
-        public IActionResult Teams()
         {
-            /*var viewModel = new PageIdentifier();
-            viewModel.PageValue = "Teams";*/
-            return View();
+            if (User.IsInRole("SuperAdmin"))
+            {
+                return RedirectToAction("EmployeeDashboard", "Employee");
+            }
+            else if (User.IsInRole("CompanyAdmin"))
+            {
+                return View("CompanyAdminDashboard");
+            }
+            else if (User.IsInRole("EmployeeAdmin"))
+            {
+                return View("EmployeeAdminDashboard");
+            }
+            else if (User.IsInRole("Employee"))
+            {
+                return View("EmployeeDashboard");
+            }
+            else
+            {
+                // Handle other roles or unauthorized access
+                return RedirectToAction("Unauthorized", "Error");
+            }
+
         }
+
+     
 
         public IActionResult Homepage()
         {
@@ -57,19 +72,8 @@ namespace Organizer.Controllers
             return View();
         }
         
-        public IActionResult PostitPage()
-        {
-            /*var viewModel = new PageIdentifier();
-            viewModel.PageValue = "PostitPage";*/
-            return View();
-        }
-
-        public IActionResult Settings()
-        {
-           /* var viewModel = new PageIdentifier();
-            viewModel.PageValue = "Settings";*/
-            return View();
-        }
+      
+   
 
         [AllowAnonymous]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

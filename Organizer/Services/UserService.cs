@@ -22,13 +22,13 @@ namespace Organizer.Services
         public void InsertUserOnStartup()
         {
             Microsoft.Graph.User me = _graphClientService.GetUserProfile();
-            var user = _context.Users.Where(u => u.Email == me.Mail).FirstOrDefault();
+            var user = _context.Users.Where(u => u.email == me.Mail).FirstOrDefault();
 
             if (user == null)
             {
                 user = new();
-                user.Name = me.DisplayName;
-                user.Email = me.Mail;
+                user.fullname = me.DisplayName;
+                user.email = me.Mail;
                 _context.Users.Add(user);
                 _context.SaveChanges();
             }

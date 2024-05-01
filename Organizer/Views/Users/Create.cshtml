@@ -1,7 +1,10 @@
 ﻿@model Organizer.Entities.User
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["title"] = "Create";
+    var userid = @User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
+    var tenantid = @User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
+    Console.WriteLine(userid);
 }
 
 <h1>Create</h1>
@@ -10,29 +13,79 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" id="autoSubmitForm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="fullname" class="control-label"></label>
+                <input asp-for="fullname" value="Stefanmnnn" class="form-control" />
+                <span asp-validation-for="fullname" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="email" class="control-label"></label>
+                <input asp-for="email" value="Stefan" class="form-control" />
+                <span asp-validation-for="email" class="text-danger"></span>
+            </div>
+            <div type="hidden"  class="hidden form-group">
+                <label asp-for="tenant_id" type="hidden" class="control-label"></label>
+                <input asp-for="tenant_id" type="hidden" value="@tenantid" class="form-control" />
+                <span asp-validation-for="tenant_id" type="hidden" class="text-danger"></span>
+            </div>
+            <div type="hidden" class="hidden form-group">
+                <label asp-for="id" type="hidden" class="control-label"></label>
+                <input asp-for="id" type="hidden" value="@userid" class="form-control" />
+                <span asp-validation-for="id" type="hidden" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" id="submitBtn" />
             </div>
         </form>
     </div>
 </div>
-
+<button onclick="deleteTask()">test</button>
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        const csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
+   
+        const formData = new FormData(data);
+        function deleteTask() {
+            // Get the CSRF token from the form
+            console.log(formData);
+
+            // Send a POST request with the task ID and CSRF token
+            fetch('@Url.Action("Create", "Employee")', {
+                method: 'POST', // Use POST method to send data
+               
+                body: formData // Convert the data object to a JSON string
+            })
+                .then(response => {
+                    // Handle the response from the server
+                    if (response.ok) {
+                        // Request was successful
+                        console.log('Data sent successfully!');
+                        // You can also handle the response as needed
+                        return response.json();
+                    } else {
+                        // Request failed
+                        console.error('Failed to send data');
+                    }
+                })
+                .then(data => {
+                    console.log(data); // Log response data
+                    // Optionally, you can update the UI or display a success message
+                })
+                .catch(error => {
+                    // Handle any errors that occurred during the request
+                    console.error('Error:', error);
+                });
+         
+        }
+        
+       
+    </script>
 }

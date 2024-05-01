@@ -1,0 +1,192 @@
+﻿@model ParentViewModel
+<style>
+    .top-100 {
+        top: 100%
+    }
+
+    .bottom-100 {
+        bottom: 100%
+    }
+
+    .max-h-select {
+        max-height: 300px;
+    }
+</style>
+
+<div class="h-19 mx-auto flex w-full flex-col items-center">
+    <div class="w-full">
+        <div class="relative flex flex-col items-center">
+            <div id="inputField" class="svelte-1l8159u w-full">
+                <div class="my-2 p-1 border-gray-200 bg-white svelte-1l8159u round mt-1 py-2 px-3 border-gray-300 bg-white block flex w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <div class="flex flex-auto flex-wrap">
+
+
+
+                          @foreach (var item in Model.Users)
+                    {
+                    
+                            <div id="userClicked_@item.id" class="m-1 py-1 px-2 bg-white text-white bg-indigo-700 border-indigo-700 flex hidden items-center justify-center rounded-full border font-medium">
+                            <div class="flex-initborder-gray-100 w-full max-w-full cursor-pointer rounded-t border-b text-xs font-normal leading-none hover:bg-teal-100ial">@item.fullname</div>
+                            <div class="flex flex-auto flex-row-reverse">
+                                <div>
+                                    <svg id="removeNameButton" onclick="removeNameFunction('@item.id')" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x w-4 h-4 ml-2 cursor-pointer rounded-full hover:text-gray-300">
+                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+                        }
+
+
+                        <div class="flex-1">
+                            <input id="filterInput" placeholder="" class="bg-transparent p-1 px-2 text-gray-800 h-full w-full appearance-none outline-none">
+                        </div>
+                    </div>
+                    <div id="userlistButton"  onclick="clickUserlistButton()" class="text-gray-300 w-8 py-1 pl-2 pr-1 border-gray-200 svelte-1l8159u flex items-center border-l">
+                        <button type="button" class="w-6 h-6 text-gray-600 cursor-pointer outline-none focus:outline-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-up w-4 h-4">
+                                <polyline points="18 15 12 9 6 15"></polyline>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="userList" class="top-100 bg-white lef-0 max-h-select svelte-5uyqqj absolute z-40 hidden w-full overflow-y-auto rounded shadow">
+                <div class="flex w-full flex-col">
+                    
+                    @foreach (var item in Model.Users)
+                    {
+                        <div id="user_@item.id" onclick="userClicked('@item.id')" class="user-item border-gray-100 w-full cursor-pointer rounded-t border-b hover:bg-indigo-700 hover:text-white">
+                            <div id="userBorder_@item.id" onclick="userClicked('@item.id')" class="p-2 pl-2 border-transparent relative flex w-full items-center border-l-2 hover:indigo-700">
+                                <div class="flex w-full items-center">
+                                    <div class="mx-2 leading-6">@item.fullname </div>
+                                </div>
+                                <p>@item.email</p>
+                            </div>
+                        </div>
+                    }
+
+
+
+
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+</div>
+
+<script>
+
+
+
+
+
+        window.addEventListener('click', function (event) {
+            userListButton = document.getElementById('userlistButton')
+            userList = document.getElementById('userList')
+            inputFIeld = document.getElementById('inputField')
+
+
+        if (!userList.contains(event.target) && !userListButton.contains(event.target) && !inputField.contains(event.target)) {
+                userList.classList.add('hidden');
+
+                
+            }
+        });
+
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var filterInput = document.getElementById('filterInput');
+        var userList = document.getElementById('userList');
+        var users = userList.getElementsByClassName('user-item');  // Assuming each user div has a class 'user-item'
+
+        filterInput.addEventListener('keyup', function () {
+            var searchText = filterInput.value.toLowerCase();
+            Array.from(users).forEach(function (user) {
+                var userName = user.textContent || user.innerText;
+                if (userName.toLowerCase().indexOf(searchText) > -1) {
+                    user.style.display = "";  // User matches, display it
+                } else {
+                    user.style.display = "none";  // User does not match, hide it
+                }
+            });
+        });
+    });
+
+
+    function removeNameFunction(userId) {
+        userClickedBorder = document.getElementById('userBorder_' + userId)
+        removeButton = document.getElementById('removeNameButton')
+        userList = document.getElementById('userClicked_'+userId)
+        userList.classList.add('hidden')
+        userClickedBorder.classList.remove('border-blue-700')
+
+        var index = clickedNamesList.indexOf(userId.toString());
+        if (index !== -1) {
+            clickedNamesList.splice(index, 1);  // Remove the item at the found index
+        }
+        console.log(clickedNamesList);
+
+    }
+
+
+    let clickedNamesList = [];
+
+    function userClicked(userId) {
+        // Update the UI for the clicked user
+        const userClickedBorder = document.getElementById('userBorder_' + userId);
+        const userClickedName = document.getElementById('userClicked_' + userId);
+        console.log('User: ' + userId + ' clicked');
+
+        userClickedName.classList.remove('hidden');
+        userClickedBorder.classList.add('border-blue-700');
+
+        // Add userId to clickedNamesList if not already included
+        if (!clickedNamesList.includes(userId)) {
+            clickedNamesList.push(userId);
+            console.log(clickedNamesList);
+        }
+
+        // Update the hidden form field to store the list of clicked user IDs
+        document.getElementById("user_id").value = clickedNamesList.join(',');
+
+        // Update the UI to show the list of clicked users
+        updateClickedUsersDisplay();
+    }
+
+    function updateClickedUsersDisplay() {
+        const displayElement = document.getElementById('clickedUsersList');
+        displayElement.innerHTML = ''; // Clear previous entries
+        clickedNamesList.forEach(userId => {
+            const userElement = document.createElement('li');
+            userElement.textContent = 'User ID: ' + userId;
+            displayElement.appendChild(userElement);
+        });
+        console.log("Updated user list display.");
+    }
+
+    function clickUserlistButton() {
+        console.log('clicked userlistbutton')
+        button = document.getElementById("userlistButton")
+        userList = document.getElementById("userList")
+        userList.classList.toggle("hidden")
+    }
+    function CreateTeam() {
+        
+    }
+</script>

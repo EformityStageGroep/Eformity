@@ -9,22 +9,23 @@ namespace Organizer.Entities
     {
         [Key]
         
-        public Guid Id { get; set; }
+        public Guid id { get; set; }
 
-        public string Title { get; set; }
+        public string title { get; set; }
 
-        public string Description { get; set; }
+        public string description { get; set; }
 
-        public string Priority { get; set; }
+        public string priority { get; set; }
 
         [Display(Name = "Date & Time")]
-        public DateTime DateTime { get; set; }
+        public DateTime datetime { get; set; }
     
-        public string SelectStatus { get; set; }
-     
-        public string TenantId { get; set; }
-
-        public Task() => Id = Guid.NewGuid();
+        public string selectstatus { get; set; }
+        [ForeignKey("Tenants")]
+        public string tenantid { get; set; }
+        [ForeignKey("Users")]
+        public string userid { get; set; }
+        public Task() => id = Guid.NewGuid();
 
     }
     

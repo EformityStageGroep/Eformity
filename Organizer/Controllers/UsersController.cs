@@ -3,79 +3,99 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Organizer.Contexts;
 using Organizer.Entities;
+using Organizer.Repositories;
+using System.Threading.Tasks;
 
-namespace Organizer.Controllers
+namespace Organizer.Views.Shared.Controllers
 {
     public class UsersController : Controller
     {
-        private readonly OrganizerContext _context;
+        private readonly IUserRepository _userRepository;
 
-        public UsersController(OrganizerContext context)
+        public UsersController(IUserRepository userRepository)
         {
-            _context = context;
+            _userRepository = userRepository;
         }
 
         // GET: Users
         public async Task<IActionResult> Index()
-        {
-            return View(await _context.Users.ToListAsync());
+        
+            {
+            try
+            {
+             
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as required
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
         }
 
+
         // GET: Users/Details/5
-        public async Task<IActionResult> Details(Guid? id)
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var user = await _context.Users
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (user == null)
+
+
+            return View();
+        }
+        [HttpPost]
+        // GET: Users/Create
+        public async Task<IActionResult> Create([Bind("id,tenant_id,fullname,email,Users_Teams")] User user)
+        {
+            // Initialize Users_Teams if it's null
+            if (user.Users_Teams == null)
             {
-                return NotFound();
+                user.Users_Teams = new HashSet<UserTeam>();
             }
 
-            return View(user);
-        }
+            if (ModelState.IsValid)
+            {
+                await _userRepository.Create(user);
+                await _userRepository.SaveChangesAsync();
+                
+            }
 
-        // GET: Users/Create
-        public IActionResult Create()
-        {
-            return View();
+            // If ModelState is invalid, handle errors
+            foreach (var state in ModelState)
+            {
+                var key = state.Key; // Property name
+                var errors = state.Value.Errors; // List of errors for the property
+
+                foreach (var error in errors)
+                {
+                    // Log the error message or handle it as needed
+                    Console.WriteLine($"Error in {key}: {error.ErrorMessage}");
+                }
+            }
+
+            // Return the view with the form and error messages
+            return RedirectToAction("EmployeeDashboard", "Employee");
         }
 
         // POST: Users/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Email")] User user)
-        {
-            if (ModelState.IsValid)
-            {
-                user.Id = Guid.NewGuid();
-                _context.Add(user);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(user);
-        }
 
+        [HttpPost]
         // GET: Users/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            return View(user);
+
+            return View();
         }
 
         // POST: Users/Edit/5
@@ -83,9 +103,9 @@ namespace Organizer.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,Email")] User user)
+        public async Task<IActionResult> Edit(string? id, [Bind("id,tenant_id,fullname,email")] User user)
         {
-            if (id != user.Id)
+            if (id != user.id)
             {
                 return NotFound();
             }
@@ -94,19 +114,12 @@ namespace Organizer.Controllers
             {
                 try
                 {
-                    _context.Update(user);
-                    await _context.SaveChangesAsync();
+                    await _userRepository.Edit(user);
+                    await _userRepository.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UserExists(user.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -114,37 +127,70 @@ namespace Organizer.Controllers
         }
 
         // GET: Users/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var user = await _context.Users
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (user == null)
+
+
+            return View();
+        }
+
+        public IActionResult CompanyAdminDashboard()
+        {/*
+            var viewModel = new PageIdentifier();
+            viewModel.PageValue = "Profile";*/
+            return View();
+        }
+
+
+        public async Task<IActionResult> Teams()
+        {
             {
-                return NotFound();
+                try
+                {
+                    var users = await _userRepository.GetUserIdsByTenant(); // Fetch tasks based on current tenant
+
+
+                    if (users == null || !users.Any())
+                    {
+                        return View(new List<User>()); // Return an empty list to the view
+                    }
+
+                    return View(users);
+                }
+                catch (Exception ex)
+                {
+                    // Log the exception or handle it as required
+                    return StatusCode(500, $"An error occurred: {ex.Message}");
+                }
             }
-
-            return View(user);
         }
-
-        // POST: Users/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        public async Task<IActionResult> Settings()
         {
-            var user = await _context.Users.FindAsync(id);
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            {
+                try
+                {
+                    var users = await _userRepository.GetUserInfo(); // Fetch tasks based on current tenant
+
+
+                    if (users == null || !users.Any())
+                    {
+                        return View(new List<User>()); // Return an empty list to the view
+                    }
+
+                    return View(users);
+                }
+                catch (Exception ex)
+                {
+                    // Log the exception or handle it as required
+                    return StatusCode(500, $"An error occurred: {ex.Message}");
+                }
+            }
         }
 
-        private bool UserExists(Guid id)
-        {
-            return _context.Users.Any(e => e.Id == id);
-        }
     }
 }

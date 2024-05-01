@@ -1,0 +1,99 @@
+﻿@model Organizer.Entities.User
+
+@{
+    ViewData["title"] = "Create";
+    var userid = @User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
+    var email = @User.FindFirst("preferred_username")?.Value;
+    var fullname = @User.FindFirst("name")?.Value;
+    var tenant_id = @User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
+    Console.WriteLine(userid);
+    Console.WriteLine(email);
+    Console.WriteLine(fullname);
+    Console.WriteLine(tenant_id);
+
+
+}
+
+<h1>Create</h1>
+
+<h4>User</h4>
+<hr />
+
+<div class="row hidden">
+    <div class="col-md-4">
+        <form asp-action="Create" id="taskForm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="fullname" class="control-label"></label>
+                <input asp-for="fullname" value="@fullname" class="form-control" />
+                <span asp-validation-for="fullname" class="text-danger"></span>
+            </div>
+            <div type="hidden" class="hidden form-group">
+                <label asp-for="tenant_id" type="hidden" class="control-label"></label>
+                <input asp-for="tenant_id" type="hidden" value="@tenant_id" class="form-control" />
+                <span asp-validation-for="tenant_id" type="hidden" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="email" class="control-label"></label>
+                <input asp-for="email" value="@email" class="form-control" />
+                <span asp-validation-for="email" class="text-danger"></span>
+            </div>
+            <div  class="form-group hidden">
+                <label asp-for="id"  class="control-label"></label>
+                <input asp-for="id"  value="@userid" class="form-control" />
+                <span asp-validation-for="id"  class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" id="submitBtn" />
+            </div>
+        </form>
+    </div>
+</div>
+<button id="SubmitButton" onclick="deleteTask()">test</button>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        window.onload = function () {
+            var button = document.getElementById("SubmitButton");
+            setTimeout(function () {
+                button.click();
+            }, 100);
+            
+        };
+        const csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+        const formData = new FormData(taskForm);
+    
+            function deleteTask() {
+                fetch('@Url.Action("Create", "Users")', {
+                    method: 'POST', // Use POST method to send data
+
+                body: formData // Convert the data object to a JSON string
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            console.log('Data sent successfully!');
+                            return response.json();
+                        } else {
+                            // Request failed
+                            console.error('Failed to send data');
+                        }
+                    })
+                    .then(data => {
+                        console.log(data); // Log response data
+                        // Optionally, you can update the UI or display a success message
+                    })
+                    .catch(error => {
+                        // Handle any errors that occurred during the request
+                        console.error('Error:', error);
+                    });
+            }
+    </script>
+}

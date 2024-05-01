@@ -1,0 +1,43 @@
+﻿@model List<Organizer.Entities.User>
+@{
+    ViewData["Title"] = "Settings";
+
+}
+@foreach (var user in Model)
+{
+<body>
+
+<div class="mx-auto max-w-7xl lg:flex lg:gap-x-16 lg:px-8">
+    <h1 class="sr-only">General Settings</h1>
+
+
+            <main class="px-4 py-5 sm:px-6 lg:flex-auto lg:px-0 lg:py-5">
+        <div class="space-y-16 mx-auto max-w-2xl sm:space-y-20 lg:mx-0 lg:max-w-none">
+            <div>
+                <h2 class="text-gray-900 text-base font-semibold leading-7">Profile</h2>
+                <p class="mt-1 text-gray-500 text-sm leading-6">This is your profile's information.</p>
+                <form>
+                    <dl class="mt-6 space-y-6 divide-gray-100 border-gray-200 divide-y border-t text-sm leading-6">
+                        <div class="pt-6 sm:flex">
+                            <dt class="text-gray-900 font-medium sm:w-64 sm:flex-none sm:pr-6">Full name</dt>
+                            <dd class="mt-1 gap-x-6 flex justify-between sm:mt-0 sm:flex-auto">
+                                <div class="text-gray-900">@user.fullname</div>
+                                <button type="button" class="text-gray-500 cursor-default font-semibold">Update</button>
+                            </dd>
+                        </div>
+                        <div class="pt-6 sm:flex">
+                            <dt class="text-gray-900 font-medium sm:w-64 sm:flex-none sm:pr-6">Email address</dt>
+                            <dd class="mt-1 gap-x-6 flex justify-between sm:mt-0 sm:flex-auto">
+                                        <div class="text-gray-900">@user.email</div>
+                                <button type="button" class="text-gray-500 cursor-default font-semibold">Update</button>
+                            </dd>
+                        </div>
+                        
+                    </dl>
+                </form>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+}
