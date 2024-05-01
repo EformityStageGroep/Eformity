@@ -43,23 +43,19 @@ namespace Organizer.Controllers
 
         public async Task<IActionResult> EmployeeDashboard()
         {
-            try
+            TeamTaskModel mymodel = new TeamTaskModel();
+
+
+            List<Entities.Task> tasks = await _taskRepository.GetTasksAsync();
+            List<Entities.Team> teams = await _teamRepository.GetTeamsByUser();
+
+            var model = new TeamTaskModel
             {
-                var tasks = await _taskRepository.GetTasksAsync(); // Fetch tasks based on current tenant
-
-
-                if (tasks == null || !tasks.Any())
-                {
-                    return View(new List<Entities.Task>()); // Return an empty list to the view
-                }
-
-                return View(tasks);
-            }
-            catch (Exception ex)
-            {
-                // Log the exception or handle it as required
-                return StatusCode(500, $"An error occurred: {ex.Message}");
-            }
+                Tasks = tasks,
+                Teams = teams
+            };
+           
+        return View(model);
         }
 
 
@@ -68,13 +64,14 @@ namespace Organizer.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,title,description,priority,datetime,selectstatus,tenantid,userid")] Entities.Task task)
+        public async Task<IActionResult> Create([Bind("id,title,description,priority,datetime,selectstatus,tenantid,teamid,userid")] Entities.Task task)
         {
             if (ModelState.IsValid)
             {
                 task.id = Guid.NewGuid();
                 await _taskRepository.Create(task);
                 await _taskRepository.SaveChangesAsync();
+                Console.WriteLine($"Current tenantid controller: {task}");
                 return RedirectToAction(nameof(EmployeeDashboard));
             }
             if (!ModelState.IsValid)

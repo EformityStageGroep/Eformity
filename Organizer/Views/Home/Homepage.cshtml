@@ -1,4 +1,4 @@
-﻿@model List<Organizer.Entities.Task>
+﻿@model TeamTaskModel
 @{
     ViewData["title"] = "Homepage";
 
@@ -25,7 +25,7 @@
 <body onload="filterTasksWhenLoaded('Done')">
 </body>
 @*EMPLOYEE ADMIN CREATE VIEW*@
-@foreach (var task in Model)
+@foreach (var task in Model.Tasks)
 {
 @if (User.IsInRole("SuperAdmin"))
 {
@@ -70,7 +70,16 @@
                                     <option value="low">Low</option>
                                 </select>
                             </div>
-
+                                <div class="mt-2">
+                                    <label for="teamid" class="text-gray-700 block text-sm font-medium">Team</label>
+                                    <select id="teamid" name="teamid" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                        <option value="User_Task">Eigen taak</option>
+                                        @foreach (var teams in Model.Teams)
+                                        {
+                                            <option value="@teams.id">@teams.title</option>
+                                        }
+                                    </select>
+                                </div>
                             <div class="mt-2">
                                 <label for="datetime" class="text-gray-700 block text-sm font-medium">Date and Time</label>
                                 <input type="datetime-local" id="datetime" name="datetime" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
@@ -88,6 +97,7 @@
                                     <option value="low">Low</option>
                                 </select>
                             </div>
+                                
 
                             <div class="py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                 <button id="closeModalButton" type="button" class="border-transparent px-4 py-2 bg-indigo-600 text-white inline-flex w-full justify-center rounded-md border text-base font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
@@ -146,6 +156,15 @@ else
                                 <option value="high">High</option>
                                 <option value="medium">Medium</option>
                                 <option value="low">Low</option>
+                            </select>
+                        </div>
+                        <div class="mt-2">
+                            <label for="teamid" class="text-gray-700 block text-sm font-medium">priority</label>
+                            <select id="teamid" name="teamid" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                @foreach (var teams in Model.Teams)
+                                {
+                                    <option value="@teams.id">@teams.title</option>
+                                }
                             </select>
                         </div>
 

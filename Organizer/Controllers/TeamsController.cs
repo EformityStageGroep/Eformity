@@ -37,24 +37,7 @@ namespace Organizer.Controllers
             // Return the view with the model
             return View(model);
         }
-        public async Task<IActionResult> GetTeamsByUser()
-
-        {
-            try
-            {
-                var users =  _teamRepository.GetTeamsByUser(); // Fetch tasks based on current tenant
-
-
-
-
-                return View(users);
-            }
-            catch (Exception ex)
-            {
-                // Log the exception or handle it as required
-                return StatusCode(500, $"An error occurred: {ex.Message}");
-            }
-        }
+      
         public async Task<IActionResult> CreateTeam([Bind("title, tenant_id, Users_Teams")] Team team, string user_id)
         {
             if (ModelState.IsValid)
