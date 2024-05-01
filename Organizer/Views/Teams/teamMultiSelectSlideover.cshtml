@@ -12,6 +12,8 @@
         max-height: 300px;
     }
 </style>
+@foreach (var Team in Model.Teams)
+                    {
 
 <div class="h-19 mx-auto flex w-full flex-col items-center">
     <div class="w-full">
@@ -69,6 +71,7 @@
     </div>
 </div>
 
+}
 <script>
     window.addEventListener('click', function (event) {
         const userListButton = document.getElementById('userlistButtonSlideover');
@@ -147,11 +150,9 @@
         userList1 = document.getElementById("userListSlideover");
         console.log(userList1);
         userList1.classList.toggle("hidden");
-        console.log(userList);
+        console.log(userListSlideover);
         console.log("testttttt");
     }
 
-    function CreateTeam() {
-        // Function to create a team from selected users
-    }
+    
 </script>

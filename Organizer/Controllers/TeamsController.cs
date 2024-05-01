@@ -144,5 +144,9 @@ namespace Organizer.Controllers
             // Return the view with the model
             return View(model);
         }
+          public IActionResult teamMultiSelectSlideover()
+        {
+            return View();
+        }
     }
 }
