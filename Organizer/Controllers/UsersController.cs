@@ -23,12 +23,9 @@ namespace Organizer.Views.Shared.Controllers
             {
             try
             {
-                var users = await _userRepository.GetTeamsByUser(); // Fetch tasks based on current tenant
+             
 
-
-               
-
-                return View(users);
+                return View();
             }
             catch (Exception ex)
             {
@@ -52,15 +49,36 @@ namespace Organizer.Views.Shared.Controllers
         }
         [HttpPost]
         // GET: Users/Create
-        public async Task<IActionResult> Create([Bind("id,tenant_id,fullname,email")] User user)
+        public async Task<IActionResult> Create([Bind("id,tenant_id,fullname,email,Users_Teams")] User user)
         {
+            // Initialize Users_Teams if it's null
+            if (user.Users_Teams == null)
+            {
+                user.Users_Teams = new HashSet<UserTeam>();
+            }
+
             if (ModelState.IsValid)
             {
                 await _userRepository.Create(user);
                 await _userRepository.SaveChangesAsync();
-             
+                
             }
-            return View();
+
+            // If ModelState is invalid, handle errors
+            foreach (var state in ModelState)
+            {
+                var key = state.Key; // Property name
+                var errors = state.Value.Errors; // List of errors for the property
+
+                foreach (var error in errors)
+                {
+                    // Log the error message or handle it as needed
+                    Console.WriteLine($"Error in {key}: {error.ErrorMessage}");
+                }
+            }
+
+            // Return the view with the form and error messages
+            return RedirectToAction("EmployeeDashboard", "Employee");
         }
 
         // POST: Users/Create
