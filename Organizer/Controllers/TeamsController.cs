@@ -23,6 +23,7 @@ namespace Organizer.Controllers
         {
             // Fetch data for the view
             ParentViewModel mymodel = new ParentViewModel();
+           
             List<User> users = await _userRepository.GetUserIdsByTenant();
             List<Team> teams = await _teamRepository.GetTeamsByUser();
 
