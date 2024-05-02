@@ -1,0 +1,125 @@
+﻿@model ParentViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+
+
+<!-- component -->
+    <div class="flex">
+    <h1 class="text-gray-900 mr-3 mt-1 text-base font-semibold leading-6">Users</h1>
+    </div>
+    <div class="border-gray-200 pb-5 mb-3 border-b sm:flex sm:items-center sm:justify-between"></div>
+    <div class="px-3 py-4 flex justify-center">
+        <table class="text-md bg-white mb-4 border-gray-100 w-full rounded border shadow-md">
+            <tbody>
+                <tr class="border-b">
+                    <th class="p-3 px-5 text-left">Name</th>
+                    <th class="p-3 px-5 text-left">Email</th>
+                    <th class="p-3 px-5 text-left">Role</th>
+                    <th></th>
+                </tr>
+
+            @foreach (var item in Model.Users)
+            {
+
+                    <tr class="border-b hover:bg-gray-100">
+                        <td class="p-3 px-5">
+                        <input type="text" value="@item.fullname" class="bg-transparent border-gray-300 py-2 border-b-2 border-l-0 border-r-0 border-t-0">
+                    </td>
+                    <td class="p-3 px-5">
+                        <input type="text" value="@item.email" class="bg-transparent border-gray-300 py-2 border-b-2 border-l-0 border-r-0 border-t-0">
+                    </td>
+                    <td class="p-3 px-5">
+                        <select value="user" class="bg-transparent border-gray-300 py-2 border-b-2 border-l-0 border-r-0 border-t-0">
+                            <option value="user">test</option>
+                            <option value="admin">admin</option>
+                        </select>
+                    </td>
+                    <td class="p-3 py-6 px-5 flex justify-end">
+                        <button type="button"
+                                class="mr-3 h-[40px] w-[75px] bg-blue-500 text-white py-1 px-2 rounded text-sm hover:bg-blue-700 focus:outline-none focus:shadow-outline">
+                            Save
+                        </button><button type="button"
+                                     class="bg-red-500 h-[40px] w-[75px] text-white py-1 px-2 rounded text-sm hover:bg-red-700 focus:outline-none focus:shadow-outline">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+
+            }
+
+        </tbody>
+        </table>
+
+    </div>
+
+
+
+
+
+@*<h1>Roles</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Roles[0].title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Roles[0].create_team)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Roles[0].assign_task)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Roles)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.create_team)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.assign_task)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                    <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                </td>
+            </tr>
+        }
+        @foreach (var item in Model.Users)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.id)
+                </td>
+                <td>
+
+                    @Html.DisplayFor(modelItem => item.tenant_id)
+                </td>
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+*@
