@@ -12,12 +12,16 @@ namespace Organizer.Controllers
     {
         private readonly IRoleRepository _roleRepository;
         private readonly IUserRepository _userRepository;
+        private readonly ITeamsRepository _teamRepository;
 
 
-        public RolesController(IRoleRepository roleRepository, IUserRepository userRepository)
+
+        public RolesController(ITeamsRepository teamRepository, IRoleRepository roleRepository, IUserRepository userRepository)
         {
             _userRepository = userRepository;
             _roleRepository = roleRepository;
+            _teamRepository = teamRepository;
+
         }
 
         // GET: Roles
@@ -27,12 +31,15 @@ namespace Organizer.Controllers
             ParentViewModel mymodel = new ParentViewModel();
             List<User> users = await _userRepository.GetUserIdsByTenant();
             List<Role> roles = await _roleRepository.GetAllRolesAsync();
+            List<Team> teams = await _teamRepository.GetTeamsByUser();
+
 
             // Create the ParentViewModel and populate it with data
             var model = new ParentViewModel
             {
                 Users = users,
-                Roles = roles
+                Roles = roles,
+                Teams = teams
             };
 
             // Return the view with the model

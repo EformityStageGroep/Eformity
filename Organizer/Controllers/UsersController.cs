@@ -177,8 +177,8 @@ namespace Organizer.Controllers
         {
             {
                 ParentViewModel mymodel = new ParentViewModel();
-                List<User> users = await _userRepository.GetUserInfo();
                 List<Team> teams = await _teamRepository.GetTeamsByUser();
+                List<User> users = await _userRepository.GetUserInfo();
                 List<Entities.Task> tasks = await _employeeRepository.GetTasksAsync();
 
                 var model = new ParentViewModel
