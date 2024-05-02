@@ -51,15 +51,36 @@ namespace Organizer.Repositories
             return userIds;
 
         }
-    
+
         /*public async Task<List<Entities.Team>> InsertMultipleUsers(Entities.Team user)
         {
             user.id = Guid.NewGuid();
             var userIds = await _context.Users;
             return userIds;
         }*/
+        public async Task<List<Entities.User>> GetRoleNameByUser()
+        {
+            var userId = _currentUserService.userid;
+            // Query the user from the context
+            var users = _context.Users
+             .Include(u => u.Role) // Include the Roles collection
+             .ToList(); // Convert the result to a list of users
 
+            // Iterate over the list of users and print their information
+            foreach (var user in users)
+            {
+                Console.WriteLine($"User ID: {user.id}");
+                Console.WriteLine($"User Name: {user.fullname}");
 
+                // Access the associated role
+                if (user.Role != null)
+                {
+                    Console.WriteLine($"Role ID: {user.Role.id}");
+                    Console.WriteLine($"Role Title: {user.Role.title}");
+                }
+            }
+            return users;
+        }
         public async Task<List<Entities.User>> GetTasksAsync()
         {
             var userid = _currentUserService.userid;

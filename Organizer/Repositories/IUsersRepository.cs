@@ -13,5 +13,6 @@
        
        /* Task<List<Entities.User>> InsertMultipleUsers();*/
         Task<int> SaveChangesAsync();
+        Task<List<Entities.User>> GetRoleNameByUser();
     }
 }
