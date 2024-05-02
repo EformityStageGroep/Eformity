@@ -155,31 +155,18 @@ namespace Organizer.Controllers
         // POST: Roles/AssignRole
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AssignRole(Guid userId, Guid role_Id)
+        public async Task<IActionResult> EditRole(Guid role_Id, User user)
         {
+            Console.WriteLine("User object details:");
+            Console.WriteLine($"Id: {user.id}");
+            Console.WriteLine($"Name: {user.fullname}");
             // Retrieve the user and role objects
-            var user = await _userRepository.GetUserIdsByTenant();
-            var role = await _roleRepository.GetRoleByIdAsync(role_Id);
+            await _userRepository.GetUserIdsByTenant();
+             await _roleRepository.GetRoleByIdAsync(role_Id);
+            await _userRepository.Edit(user);
+           
+            return RedirectToAction(nameof(Index));
 
-            if (user == null || role == null)
-            {
-                // Handle invalid user or role
-                return NotFound();
-            }
-
-            try
-            {
-                // Assign the role to the user
-                user.role_Id = role_Id;
-                await _userRepository.UpdateUserAsync(user);
-                return RedirectToAction(nameof(Index));
-            }
-            catch (Exception ex)
-            {
-                // Handle any errors
-                Console.WriteLine($"Error assigning role to user: {ex.Message}");
-                return RedirectToAction(nameof(Index)); // Redirect to index page
-            }
         }
     }
 }

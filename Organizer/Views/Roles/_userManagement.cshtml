@@ -18,15 +18,21 @@
                 <th class="p-3 px-5 text-left">Role</th>
                 <th></th>
             </tr>
-
+             <form method="post" asp-controller="Roles" asp-action="EditRole">
             @foreach (var item in Model.Users)
             {
                 <tr class="border-b hover:bg-gray-100">
                     <td class="p-3 px-5">
-                        <input type="text" value="@item.fullname" class="bg-transparent border-gray-300 py-2 border-b-2 border-l-0 border-r-0 border-t-0">
+                        <label asp-for="@item.fullname" class="control-label"></label>
+                        <input asp-for="@item.fullname" value="@item.fullname" class="form-control" />
+                        <span asp-validation-for="@item.fullname" class="text-danger"></span>
+                        
                     </td>
                     <td class="p-3 px-5">
-                        <input type="text" value="@item.email" class="bg-transparent border-gray-300 py-2 border-b-2 border-l-0 border-r-0 border-t-0">
+                        <label asp-for="@item.id" class="control-label"></label>
+                        <input asp-for="@item.id" value="@item.fullname" class="form-control" />
+                        <span asp-validation-for="@item.id" class="text-danger"></span>
+                        
                     </td>
                     <td class="p-3 px-5">
                         <select class="bg-transparent border-gray-300 py-2 border-b-2 border-l-0 border-r-0 border-t-0">
@@ -44,19 +50,19 @@
                         </select>
                     </td>
                     <td class="p-3 py-6 px-5 flex justify-end">
-                        <form method="post" asp-controller="Roles" asp-action="AssignRole">
+                       
                             <input type="hidden" name="userId" value="@item.id">
-                            <button type="submit" class="mr-3 h-[40px] w-[75px] bg-blue-500 text-white py-1 px-2 rounded text-sm hover:bg-blue-700 focus:outline-none focus:shadow-outline">
-                                Save
-                            </button>
-                        </form>
-                        <button type="button" class="bg-red-500 h-[40px] w-[75px] text-white py-1 px-2 rounded text-sm hover:bg-red-700 focus:outline-none focus:shadow-outline">
-                            Delete
-                        </button>
+                           
                     </td>
                 </tr>
             }
-
+            <button type="submit" class="mr-3 h-[40px] w-[75px] bg-blue-500 text-white py-1 px-2 rounded text-sm hover:bg-blue-700 focus:outline-none focus:shadow-outline">
+                Save
+            </button>
+            </form>
+            <button type="button" class="bg-red-500 h-[40px] w-[75px] text-white py-1 px-2 rounded text-sm hover:bg-red-700 focus:outline-none focus:shadow-outline">
+                Delete
+            </button>
         </tbody>
     </table>
 </div>

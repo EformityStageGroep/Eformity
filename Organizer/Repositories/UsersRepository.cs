@@ -90,8 +90,11 @@ namespace Organizer.Repositories
 
         public async Task Edit(Entities.User user)
         {
-            var users = await _context.Users.FindAsync(user);
-            _context.Users.Update(users);
+            var users = await _context.Users.FindAsync(user.id);
+            Console.WriteLine("User object details:");
+            Console.WriteLine($"Id: {user.id}");
+            Console.WriteLine($"Name: {user.fullname}");
+            _context.Users.Update(user);
             await _context.SaveChangesAsync();
         }
 
