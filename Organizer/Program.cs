@@ -43,7 +43,7 @@ builder.Services.AddDbContext<TenantDbContext>();
 builder.Services.AddDbContext<UserDbContext>();
 
 
-// Scope services
+builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<IGraphClientService, GraphClientService>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
