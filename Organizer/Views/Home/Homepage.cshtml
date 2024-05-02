@@ -1,4 +1,4 @@
-﻿@model List<Organizer.Entities.Task>
+﻿@model ParentViewModel
 @{
     ViewData["title"] = "Homepage";
 
@@ -25,7 +25,7 @@
 <body onload="filterTasksWhenLoaded('Done')">
 </body>
 @*EMPLOYEE ADMIN CREATE VIEW*@
-@foreach (var task in Model)
+@foreach (var task in Model.Tasks)
 {
 @if (User.IsInRole("SuperAdmin"))
 {

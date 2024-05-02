@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Graph;
 using Organizer.Contexts;
 using Organizer.Entities;
+using Organizer.Models;
 using Organizer.Repositories;
 using Organizer.Services;
 
@@ -14,39 +15,42 @@ namespace Organizer.Controllers
 {
     public class EmployeeController : Controller
     {
+        private readonly ITeamsRepository _teamRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IEmployeeRepository _taskRepository;
 
-        public EmployeeController(IEmployeeRepository taskRepository)
+
+        public EmployeeController(ITeamsRepository teamRepository, IUserRepository userRepository, IEmployeeRepository employeeRepository)
         {
-            _taskRepository = taskRepository;
+            _teamRepository = teamRepository;
+            _userRepository = userRepository;
+            _taskRepository = employeeRepository;
         }
         // GET: Tasks
         public async Task<IActionResult> Index()
         {
-            var tasks = await _taskRepository.GetTasksAsync(); // Fetch tasks based on current tenant
-            return View(tasks);
+          
+
+            return View();
         }
         // GET: Tasks/Details/5
 
         public async Task<IActionResult> EmployeeDashboard()
         {
-            try
+            ParentViewModel mymodel = new ParentViewModel();
+            List<Entities.User> users = await _userRepository.GetUserIdsByTenant();
+            List<Entities.Team> teams = await _teamRepository.GetTeamsByUser();
+            List<Entities.Task> tasks = await _taskRepository.GetTasksAsync();
+
+            var model = new ParentViewModel
             {
-                var tasks = await _taskRepository.GetTasksAsync(); // Fetch tasks based on current tenant
-
-
-                if (tasks == null || !tasks.Any())
-                {
-                    return View(new List<Entities.Task>()); // Return an empty list to the view
-                }
-
-                return View(tasks);
-            }
-            catch (Exception ex)
-            {
-                // Log the exception or handle it as required
-                return StatusCode(500, $"An error occurred: {ex.Message}");
-            }
+                Users = users,
+                Teams = teams,
+                Tasks = tasks
+            };
+           return View(model);
+            
+           
         }
 
 

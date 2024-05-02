@@ -1,4 +1,4 @@
-﻿@model List<Organizer.Entities.Task>
+﻿@model ParentViewModel
 <body onload="filterTasksWhenLoaded('Done')">
 </body>
 @Html.Partial("../Home/Homepage")
@@ -16,7 +16,7 @@
 
 <ul role="list" class="mt-5 bg-white mb-3 border shadow-sm">
     <div class="divide-gray-100 grid sm:grid-cols-1 xl:grid-cols-2">
-    @foreach (var task in Model)
+    @foreach (var task in Model.Tasks)
     {
     <div id="slideoverDiv_@task.id">
         <div data-prefix="slideover" id="slideoverModal_@task.id" class="invisible relative z-50 transition-all duration-300 ease-out" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">

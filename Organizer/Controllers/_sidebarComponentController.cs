@@ -1,22 +1,23 @@
 ﻿using Organizer.Services; 
 using Microsoft.AspNetCore.Mvc;
+using Organizer.Repositories;
 
 namespace Organizer.Controllers
 {
     public class teamListController : Controller
     {
-        private readonly ITeamService _teamService;
+        private readonly ITeamsRepository _teamRepository;
 
-        public teamListController(ITeamService teamService)
+        public teamListController(ITeamsRepository teamRepository)
         {
-            _teamService = teamService;
+            _teamRepository = teamRepository;
         }
 
-/*        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index()
         {
-            var teams = await _teamService.GetTeamsAsync();
+            var teams = await _teamRepository.GetTeamsByUser();
             return View(teams);
-        }*/
+        }
 
     }
 

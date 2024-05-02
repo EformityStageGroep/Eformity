@@ -1,4 +1,4 @@
-﻿@model object
+﻿@model ParentViewModel
 @inject Organizer.Services.ITeamService teamService
 <div>
 
@@ -227,12 +227,9 @@
                         <ul role="list" class="-mx-2 mt-2 space-y-1">
                             <li>
 
-                                @{
-                                    var parentViewModel = await teamService.GetParentViewModelAsync();
-                                    var team = await teamService.GetTeamsAsync();
-                                }
+                               
                                 
-                                @foreach (var team in parentViewModel.Teams)
+                                @foreach (var team in Model.Teams)
                                 {
                                     <a href="#" class="text-gray-700 gap-x-3 p-2 group flex rounded-md text-sm font-semibold leading-6 hover:text-indigo-600 hover:bg-gray-50">
                                         <span class="h-6 w-6 text-[0.625rem] bg-white text-gray-400 border-gray-200 flex shrink-0 items-center justify-center rounded-lg border font-medium group-hover:border-indigo-600 group-hover:text-indigo-600">H</span>
