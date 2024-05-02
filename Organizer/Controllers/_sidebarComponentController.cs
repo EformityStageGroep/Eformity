@@ -12,6 +12,13 @@ namespace Organizer.Controllers
             _teamService = teamService;
         }
 
-        // Controller actions here
+/*        public async Task<IActionResult> Index()
+        {
+            var teams = await _teamService.GetTeamsAsync();
+            return View(teams);
+        }*/
+
     }
+
+
 }

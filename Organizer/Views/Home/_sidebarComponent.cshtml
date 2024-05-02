@@ -1,4 +1,4 @@
-﻿@model List<Organizer.Entities.Task>
+﻿@model object
 @inject Organizer.Services.ITeamService teamService
 <div>
 
@@ -229,6 +229,7 @@
 
                                 @{
                                     var parentViewModel = await teamService.GetParentViewModelAsync();
+                                    var team = await teamService.GetTeamsAsync();
                                 }
                                 
                                 @foreach (var team in parentViewModel.Teams)

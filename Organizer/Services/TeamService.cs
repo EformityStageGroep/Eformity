@@ -1,6 +1,8 @@
-﻿using Organizer.Models;
+﻿using Organizer.Services.Interfaces;  // This imports the ITeamService interface
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Organizer.Repositories;
-using Organizer.Services;
+using Organizer.Models;  // Ensure this is where ParentViewModel is defined
 
 namespace Organizer.Services
 {
@@ -25,6 +27,12 @@ namespace Organizer.Services
                 Teams = teams
             };
             return model;
+        }
+
+        public async Task<List<Organizer.Entities.Team>> GetTeamsAsync()
+        {
+            var teams = await _teamRepository.GetTeamsByUser();
+            return teams; // Returns just the list of teams
         }
     }
 }
