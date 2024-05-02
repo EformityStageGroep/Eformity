@@ -49,7 +49,7 @@ namespace Organizer.Views.Shared.Controllers
         }
         [HttpPost]
         // GET: Users/Create
-        public async Task<IActionResult> Create([Bind("id,tenant_id,fullname,email,Users_Teams")] User user)
+        public async Task<IActionResult> Create([Bind("id,tenant_id,fullname,email,Users_Teams,role_id")] User user)
         {
             // Initialize Users_Teams if it's null
             if (user.Users_Teams == null)

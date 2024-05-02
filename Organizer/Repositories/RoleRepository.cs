@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Organizer.Contexts;
 using Organizer.Entities;
+using Organizer.Services;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,10 +12,12 @@ namespace Organizer.Repositories
     public class RoleRepository : IRoleRepository
     {
         private readonly OrganizerContext _context;
+        private readonly ICurrentUserService _currentUserService;
 
-        public RoleRepository(OrganizerContext context)
+        public RoleRepository(OrganizerContext context, ICurrentUserService currentUserService)
         {
             _context = context;
+            _currentUserService = currentUserService;
         }
 
         public async Task<List<Role>> GetAllRolesAsync()

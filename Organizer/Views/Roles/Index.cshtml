@@ -1,4 +1,4 @@
-﻿@model List<Organizer.Entities.Role>
+﻿@model ParentViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -13,19 +13,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model[0].title)
+                @Html.DisplayNameFor(model => model.Roles[0].title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model[0].create_team)
+                @Html.DisplayNameFor(model => model.Roles[0].create_team)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model[0].assign_task)
+                @Html.DisplayNameFor(model => model.Roles[0].assign_task)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Roles)
         {
             <tr>
                 <td>
@@ -44,5 +44,24 @@
                 </td>
             </tr>
         }
+        @foreach (var item in Model.Users)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.id)
+                </td>
+                <td>
+
+                    @Html.DisplayFor(modelItem => item.tenant_id)
+                </td>
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
+
 </table>

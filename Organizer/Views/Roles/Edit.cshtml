@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Edit";
+    var tenantid = @User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
 }
 
 <h1>Edit</h1>
@@ -25,6 +26,11 @@
                 <label asp-for="assign_task" class="control-label"></label>
                 <input asp-for="assign_task" class="form-control" />
                 <span asp-validation-for="assign_task" class="text-danger"></span>
+                <div type="hidden" class="hidden form-group">
+                    <label asp-for="tenant_id" type="hidden" class="control-label"></label>
+                    <input asp-for="tenant_id" type="hidden" value="@tenantid" class="form-control" />
+                    <span asp-validation-for="tenant_id" type="hidden" class="text-danger"></span>
+                </div>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

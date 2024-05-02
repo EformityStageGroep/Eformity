@@ -6,6 +6,7 @@
     var email = @User.FindFirst("preferred_username")?.Value;
     var fullname = @User.FindFirst("name")?.Value;
     var tenant_id = @User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
+    var role_id = "527d6362-eee6-4c25-9e96-a5fd6225dab9";
     Console.WriteLine(userid);
     Console.WriteLine(email);
     Console.WriteLine(fullname);
@@ -43,7 +44,11 @@
                 <input asp-for="id"  value="@userid" class="form-control" />
                 <span asp-validation-for="id"  class="text-danger"></span>
             </div>
-
+            <div type="hidden" class="hidden form-group">
+                <label asp-for="role_id" type="hidden" class="control-label"></label>
+                <input asp-for="role_id" type="hidden" value="@role_id" class="form-control" />
+                <span asp-validation-for="role_id" type="hidden" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" id="submitBtn" />
             </div>
