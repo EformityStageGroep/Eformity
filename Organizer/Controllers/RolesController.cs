@@ -90,13 +90,14 @@ namespace Organizer.Controllers
             {
                 return NotFound();
             }
+
             return View(role);
         }
 
         // POST: Roles/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("id,title,create_team,assign_task.tenant_id")] Role role)
+        public async Task<IActionResult> Edit(Guid id, [Bind("id,title,create_team,assign_task,tenant_id")] Role role)
         {
             if (id != role.id)
             {
@@ -122,7 +123,18 @@ namespace Organizer.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(role);
+            foreach (var state in ModelState)
+            {
+                var key = state.Key; // Property name
+                var errors = state.Value.Errors; // List of errors for the property
+
+                foreach (var error in errors)
+                {
+                    // Log the error message or handle it as needed
+                    Console.WriteLine($"Error in {key}: {error.ErrorMessage}");
+                }
+            }
+                return View(role);
         }
 
         // GET: Roles/Delete/5
