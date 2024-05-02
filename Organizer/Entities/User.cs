@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Organizer.Entities
 {
@@ -9,6 +10,9 @@ namespace Organizer.Entities
         public string tenant_id { get; set; }
         public string fullname { get; set; }
         public string email { get; set; }
+
+        [ForeignKey("roles")]
+        public Guid role_id { get; set; }
 
         public User()
         {

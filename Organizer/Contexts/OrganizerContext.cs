@@ -23,6 +23,9 @@ namespace Organizer.Contexts
         public DbSet<Team> Teams { get; set; }
         public DbSet<UserTeam> Users_Teams { get; set; }
 
+        public DbSet<Role> Roles { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
