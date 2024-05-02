@@ -3,22 +3,26 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Organizer.Contexts;
 using Organizer.Entities;
+using Organizer.Models;
 using Organizer.Repositories;
 using System.Threading.Tasks;
 
-namespace Organizer.Views.Shared.Controllers
+namespace Organizer.Controllers
 {
     public class UsersController : Controller
     {
+        private readonly ITeamsRepository _teamRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IEmployeeRepository _employeeRepository;
 
-        public UsersController(IUserRepository userRepository)
+        public UsersController(ITeamsRepository teamRepository, IUserRepository userRepository, IEmployeeRepository employeeRepository)
         {
+            _teamRepository = teamRepository;
             _userRepository = userRepository;
+            _employeeRepository = employeeRepository;
         }
-
-        // GET: Users
-        public async Task<IActionResult> Index()
+            // GET: Users
+            public async Task<IActionResult> Index()
         
             {
             try
@@ -172,23 +176,19 @@ namespace Organizer.Views.Shared.Controllers
         public async Task<IActionResult> Settings()
         {
             {
-                try
+                ParentViewModel mymodel = new ParentViewModel();
+                List<Team> teams = await _teamRepository.GetTeamsByUser();
+                List<User> users = await _userRepository.GetUserInfo();
+                List<Entities.Task> tasks = await _employeeRepository.GetTasksAsync();
+
+                var model = new ParentViewModel
                 {
-                    var users = await _userRepository.GetUserInfo(); // Fetch tasks based on current tenant
+                    Users = users,
+                    Teams = teams,
+                    Tasks = tasks
+                };
+                return View(model);
 
-
-                    if (users == null || !users.Any())
-                    {
-                        return View(new List<User>()); // Return an empty list to the view
-                    }
-
-                    return View(users);
-                }
-                catch (Exception ex)
-                {
-                    // Log the exception or handle it as required
-                    return StatusCode(500, $"An error occurred: {ex.Message}");
-                }
             }
         }
 
