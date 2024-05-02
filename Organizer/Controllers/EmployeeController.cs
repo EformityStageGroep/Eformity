@@ -68,9 +68,11 @@ namespace Organizer.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 task.id = Guid.NewGuid();
                 await _taskRepository.Create(task);
                 await _taskRepository.SaveChangesAsync();
+                
                 Console.WriteLine($"Current tenantid controller: {task}");
                 return RedirectToAction(nameof(EmployeeDashboard));
             }
