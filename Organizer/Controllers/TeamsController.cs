@@ -12,12 +12,14 @@ namespace Organizer.Controllers
     {
         private readonly ITeamsRepository _teamRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IEmployeeRepository _employeeRepository;
 
 
-        public TeamsController(ITeamsRepository teamRepository, IUserRepository userRepository)
+        public TeamsController(ITeamsRepository teamRepository, IUserRepository userRepository, IEmployeeRepository employeeRepository)
         {
             _teamRepository = teamRepository;
             _userRepository = userRepository;
+            _employeeRepository = employeeRepository;
         }
         public async Task<IActionResult> Index()
         {
@@ -25,12 +27,14 @@ namespace Organizer.Controllers
             ParentViewModel mymodel = new ParentViewModel();
             List<User> users = await _userRepository.GetUserIdsByTenant();
             List<Team> teams = await _teamRepository.GetTeamsByUser();
+            List<Entities.Task> tasks = await _employeeRepository.GetTasksAsync();
 
             // Create the ParentViewModel and populate it with data
             var model = new ParentViewModel
             {
                 Users = users,
-                Teams = teams
+                Teams = teams,
+                Tasks = tasks
             };
 
             // Return the view with the model
@@ -112,7 +116,6 @@ namespace Organizer.Controllers
                 }
                 catch (Exception)
                 {
-                    // Handle exception, log, etc.
                     throw;
                 }
                 return RedirectToAction(nameof(Teams));

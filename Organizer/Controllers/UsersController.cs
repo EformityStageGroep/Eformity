@@ -3,22 +3,26 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Organizer.Contexts;
 using Organizer.Entities;
+using Organizer.Models;
 using Organizer.Repositories;
 using System.Threading.Tasks;
 
-namespace Organizer.Views.Shared.Controllers
+namespace Organizer.Controllers
 {
     public class UsersController : Controller
     {
+        private readonly ITeamsRepository _teamRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IEmployeeRepository _employeeRepository;
 
-        public UsersController(IUserRepository userRepository)
+        public UsersController(ITeamsRepository teamRepository, IUserRepository userRepository, IEmployeeRepository employeeRepository)
         {
+            _teamRepository = teamRepository;
             _userRepository = userRepository;
+            _employeeRepository = employeeRepository;
         }
-
-        // GET: Users
-        public async Task<IActionResult> Index()
+            // GET: Users
+            public async Task<IActionResult> Index()
         
             {
             try
