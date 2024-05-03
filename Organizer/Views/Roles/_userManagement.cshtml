@@ -1,8 +1,5 @@
 ﻿@model ParentViewModel
 
-@{
-    ViewData["Title"] = "Index";
-}
 
 <!-- component -->
 <div class="flex">
@@ -29,23 +26,21 @@
                         <input type="text" value="@item.email" class="bg-transparent border-gray-300 py-2 border-b-2 border-l-0 border-r-0 border-t-0">
                     </td>
                     <td class="p-3 px-5">
-                        <select class="bg-transparent border-gray-300 py-2 border-b-2 border-l-0 border-r-0 border-t-0">
-                            @foreach (var role in Model.Roles)
-                            {
-                                if (role.id == item.role_id)
-                                {
-                                    <option value="@role.id" selected>@role.title</option>
-                                }
-                                else
-                                {
-                                    <option value="@role.id">@role.title</option>
-                                }
-                            }
-                        </select>
-                    </td>
-                    <td class="p-3 py-6 px-5 flex justify-end">
-                        <form method="post" asp-controller="Roles" asp-action="AssignRole">
+                        <form id="assignRoleForm_@item.id" method="post" action="@Url.Action("SaveUserRole", "Users")">
                             <input type="hidden" name="userId" value="@item.id">
+                            <select name="roleId" id="roleSelect_@item.id" class="bg-transparent border-gray-300 py-2 border-b-2 border-l-0 border-r-0 border-t-0">
+                                @foreach (var role in Model.Roles)
+                                {
+                                    if (role.id == item.role_id)
+                                    {
+                                        <option value="@role.id" selected>@role.title</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@role.id">@role.title</option>
+                                    }
+                                }
+                            </select>
                             <button type="submit" class="mr-3 h-[40px] w-[75px] bg-blue-500 text-white py-1 px-2 rounded text-sm hover:bg-blue-700 focus:outline-none focus:shadow-outline">
                                 Save
                             </button>

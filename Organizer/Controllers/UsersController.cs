@@ -11,10 +11,13 @@ namespace Organizer.Views.Shared.Controllers
     public class UsersController : Controller
     {
         private readonly IUserRepository _userRepository;
+        private readonly IRoleRepository _roleRepository;
 
-        public UsersController(IUserRepository userRepository)
+        public UsersController(IUserRepository userRepository, IRoleRepository roleRepository)
         {
             _userRepository = userRepository;
+            _roleRepository = roleRepository;
+
         }
 
         // GET: Users
@@ -192,5 +195,32 @@ namespace Organizer.Views.Shared.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> SaveUserRole(string userId, Guid roleId)
+        {
+            try
+            {
+                // Find the user by ID
+                var user = await _userRepository.GetUserById(userId);
+
+                if (user == null)
+                {
+                    return NotFound("User not found");
+                }
+
+                // Update the user's role ID
+                user.role_id = roleId;
+
+                // Save changes to the database
+                await _userRepository.SaveChangesAsync();
+
+                return RedirectToAction("Index", "Roles");
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as required
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
+        }
     }
 }

@@ -10,8 +10,9 @@
         Task<List<Entities.User>> GetUserInfo();
         Task<List<Entities.User>> GetUserIdsByTenant();
         Task<List<Entities.User>> GetTasksAsync();
-       
-       /* Task<List<Entities.User>> InsertMultipleUsers();*/
+        Task<Entities.User> GetUserById(string id);
+
+        /* Task<List<Entities.User>> InsertMultipleUsers();*/
         Task<int> SaveChangesAsync();
     }
 }
