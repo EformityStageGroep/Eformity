@@ -35,6 +35,17 @@ namespace Organizer.Controllers
             {
                 var tasks = await _taskRepository.GetTasksAsync(); // Fetch tasks based on current tenant
 
+                // Get the current user's ID
+                var currentUserId = @User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
+                var userRole = await _context.Users
+                .Where(u => u.id == currentUserId)
+                .Select(u => u.Role)
+                .FirstOrDefaultAsync();
+
+                bool assignTaskPermission = userRole != null && userRole.assign_task;
+
+                ViewBag.AssignTaskPermission = assignTaskPermission;
+
 
                 if (tasks == null || !tasks.Any())
                 {
