@@ -11,12 +11,11 @@ namespace Organizer.Views.Shared.Controllers
     public class UsersController : Controller
     {
         private readonly IUserRepository _userRepository;
-        private readonly IRoleRepository _roleRepository;
 
-        public UsersController(IUserRepository userRepository, IRoleRepository roleRepository)
+
+        public UsersController(IUserRepository userRepository )
         {
             _userRepository = userRepository;
-            _roleRepository = roleRepository;
 
         }
 
