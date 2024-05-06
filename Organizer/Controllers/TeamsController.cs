@@ -146,12 +146,12 @@ namespace Organizer.Controllers
             return View(model);
         }
 
-        
-        
+
+        [HttpGet("/Teams/GetUserIdsByTeamId/{teamId}")]
         public async Task<IActionResult> GetUserIdsByTeamId(Guid teamId)
         {
             Console.WriteLine(teamId);
-            var Users = await _teamRepository.GetUsersByTeam(teamId);
+            List<Team> Users = await _teamRepository.GetUsersByTeam(teamId);
             Console.WriteLine($"{Users.Count} users");
             return View(Users);
         }

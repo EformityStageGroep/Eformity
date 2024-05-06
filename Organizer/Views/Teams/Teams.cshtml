@@ -349,8 +349,22 @@
                     return response.json();
                 })
                 .then(data => {
-                    // Task deleted successfully, you can perform any necessary actions (e.g., hide task element)
-                    // For simplicity, let's reload the page
+                    // Clear the current list (optional, depends on the desired behavior)
+                    const taskListElement = document.getElementById('task-list');
+                    taskListElement.innerHTML = '';
+
+                    // Iterate over the data returned from the server
+                    data.forEach(task => {
+                        // Create a new list item element
+                        const listItem = document.createElement('li');
+
+                        // Assuming each task has a 'name' property to display
+                        listItem.textContent = task.name;
+
+                        // Append the list item to the task list element
+                        taskListElement.appendChild(listItem);
+                        console.log(listItem);
+                    });
                    
                 })
                 .catch(error => {
