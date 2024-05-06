@@ -109,6 +109,7 @@ namespace Organizer.Controllers
                     Console.WriteLine($"Current tenantid EDIT: {team}");
                     await _teamRepository.EditTeam(team);
                     await _teamRepository.SaveChangesAsync();
+                   
                 }
                 catch (Exception)
                 {
@@ -144,9 +145,15 @@ namespace Organizer.Controllers
             // Return the view with the model
             return View(model);
         }
-          public IActionResult teamMultiSelectSlideover()
+
+        
+        
+        public async Task<IActionResult> GetUserIdsByTeamId(Guid teamId)
         {
-            return View();
+            Console.WriteLine(teamId);
+            var Users = await _teamRepository.GetUsersByTeam(teamId);
+            Console.WriteLine($"{Users.Count} users");
+            return View(Users);
         }
     }
 }

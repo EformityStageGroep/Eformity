@@ -241,12 +241,14 @@
                       <p class="text-gray-500">16 Members</p>
                     </div>
                     <div class="pr-2 flex-shrink-0">
-                      <button type="button" class="h-8 w-8 bg-transparent bg-white text-gray-400 inline-flex items-center justify-center rounded-full hover:text-gray-500 focus:outline-none">
+
+                    <button onclick="GetUsers('@team.id')"  type="button" class="h-8 w-8 bg-transparent bg-white text-gray-400 inline-flex items-center justify-center rounded-full hover:text-gray-500 focus:outline-none">
                         <span class="sr-only">Open options</span>
                         <svg onclick="toggleSlideover('@team.id')" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                           <path d="M10 3a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM10 8.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM11.5 15.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0z" />
                         </svg>
                       </button>
+                    
                     </div>
                   </div>
                 </li>
@@ -328,6 +330,75 @@
 
     @section scripts{
 <script>
+        function GetUsers(teamId) {
+            // Get the CSRF token from the form
+
+            console.log(teamId);
+            // Send a POST request with the task ID and CSRF token
+            fetch(`/Teams/GetUserIdsByTeamId/${teamId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                  
+                }
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to delete task');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Task deleted successfully, you can perform any necessary actions (e.g., hide task element)
+                    // For simplicity, let's reload the page
+                   
+                })
+                .catch(error => {
+                    console.error('Error deleting task:', error);
+                    // Handle error scenario
+                });
+         
+        }
+            // Function to handle button click
+            function handleButtonClick(event) {
+                const button = event.target; // The button that was clicked
+            const teamId = $(this).attr("data-team-id"); // Get the team ID from the data attribute
+                console.log(teamId);
+                // Make an AJAX request using the Fetch API
+                fetch(`/Teams/GetUserIdsByTeamId/${teamId}`)
+                    .then(response => response.json()) // Parse JSON response
+                    .then(users => {
+                        // Display the list of user IDs in the corresponding container
+                        const containerId = `userIdsContainer_${teamId}`;
+                        const container = document.getElementById(containerId);
+
+                        // Clear previous content in the container
+                        container.innerHTML = '';
+
+                        // Display user IDs
+                        if (users.length > 0) {
+                            users.forEach(userId => {
+                                const listItem = document.createElement('li');
+                                listItem.textContent = `User ID: ${userId}`;
+                                container.appendChild(listItem);
+                            });
+                        } else {
+                            container.textContent = 'No users found.';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        // Handle any errors
+                    });
+            }
+
+        // Attach the click event listener to the button
+        document.querySelectorAll('button[id^="getUserIdsButton_"]').forEach(button => {
+            button.addEventListener('click', handleButtonClick);
+        });
+
+
+
 
     function toggleSlideover(teamId) {
         console.log('passed slideover')
