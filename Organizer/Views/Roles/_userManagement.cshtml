@@ -74,7 +74,16 @@
 
 <div class="flex justify-between">
     <h1 class="text-gray-900 mr-3 mt-4 text-base font-semibold leading-6">Users</h1>
-    <div class="inline-block">
+    <div class="inline-block flex">
+         <button onclick="toggleModal()" class="border-gray-500 bg-gray-500 text-white px-3 py-2 my-2 mx-2 flex items-center rounded-lg border text-center text-sm font-semibold hover:bg-gray-250">
+            Manage Roles<i class="fab fa-facebook ml-1"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 48 48" id="setting">
+                <path fill="none" d="M0 0h48v48H0z" />
+                <path fill="white" d="M38.86 25.95c.08-.64.14-1.29.14-1.95s-.06-1.31-.14-1.95l4.23-3.31c.38-.3.49-.84.24-1.28l-4-6.93c-.25-.43-.77-.61-1.22-.43l-4.98 2.01c-1.03-.79-2.16-1.46-3.38-1.97L29 4.84c-.09-.47-.5-.84-1-.84h-8c-.5 0-.91.37-.99.84l-.75 5.3a14.8 14.8 0 0 0-3.38 1.97L9.9 10.1a1 1 0 0 0-1.22.43l-4 6.93c-.25.43-.14.97.24 1.28l4.22 3.31C9.06 22.69 9 23.34 9 24s.06 1.31.14 1.95l-4.22 3.31c-.38.3-.49.84-.24 1.28l4 6.93c.25.43.77.61 1.22.43l4.98-2.01c1.03.79 2.16 1.46 3.38 1.97l.75 5.3c.08.47.49.84.99.84h8c.5 0 .91-.37.99-.84l.75-5.3a14.8 14.8 0 0 0 3.38-1.97l4.98 2.01a1 1 0 0 0 1.22-.43l4-6.93c.25-.43.14-.97-.24-1.28l-4.22-3.31zM24 31c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z" />
+            </svg>
+
+
+        </button>
         <button onclick="toggleModal()" class="bg-blue-500 text-white px-3 py-2 my-2 mx-2 flex items-center rounded-lg text-center text-sm font-semibold hover:bg-blue-600">
             Create New Role <i class="fab fa-facebook ml-1"></i>
             <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-white" width="30" height="30" viewBox="0 0 24 24">
