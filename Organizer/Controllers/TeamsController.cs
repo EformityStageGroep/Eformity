@@ -25,6 +25,7 @@ namespace Organizer.Controllers
         {
             // Fetch data for the view
             ParentViewModel mymodel = new ParentViewModel();
+           
             List<User> users = await _userRepository.GetUserIdsByTenant();
             List<Team> teams = await _teamRepository.GetTeamsByUser();
             List<Entities.Task> tasks = await _employeeRepository.GetTasksAsync();
@@ -40,24 +41,7 @@ namespace Organizer.Controllers
             // Return the view with the model
             return View(model);
         }
-        public async Task<IActionResult> GetTeamsByUser()
-
-        {
-            try
-            {
-                var users =  _teamRepository.GetTeamsByUser(); // Fetch tasks based on current tenant
-
-
-
-
-                return View(users);
-            }
-            catch (Exception ex)
-            {
-                // Log the exception or handle it as required
-                return StatusCode(500, $"An error occurred: {ex.Message}");
-            }
-        }
+      
         public async Task<IActionResult> CreateTeam([Bind("title, tenant_id, Users_Teams")] Team team, string user_id)
         {
             if (ModelState.IsValid)
@@ -94,10 +78,24 @@ namespace Organizer.Controllers
         }
         public async Task<IActionResult> LeaveTeam(string user_id, Guid team_id)
         {
-            await _teamRepository.DeleteUserFromTeam(user_id, team_id);
+            // Call the DeleteUserFromTeam method and get whether the user was the last one in the team
+            bool isLastUser = await _teamRepository.DeleteUserFromTeam(user_id, team_id);
+
+            // Save changes
             await _teamRepository.SaveChangesAsync();
+
+            // If the user was the last one in the team, execute another line
+            if (isLastUser)
+            {
+                  await _teamRepository.DeleteTeam(team_id);
+                Console.WriteLine("testestststsetsts");
+            }
+
+            // Redirect to the Index action
             return RedirectToAction(nameof(Index));
         }
+    
+
 
         public async Task<IActionResult> EditTeam(Guid id, [Bind("id,title,tenant_id,Users_Teams")] Team team)
         {

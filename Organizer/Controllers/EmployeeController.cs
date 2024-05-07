@@ -18,6 +18,7 @@ namespace Organizer.Controllers
         private readonly ITeamsRepository _teamRepository;
         private readonly IUserRepository _userRepository;
         private readonly IEmployeeRepository _taskRepository;
+
         private readonly OrganizerContext _context;
 
 
@@ -28,18 +29,30 @@ namespace Organizer.Controllers
             _userRepository = userRepository;
             _taskRepository = employeeRepository;
 
+
         }
         // GET: Tasks
         public async Task<IActionResult> Index()
         {
 
-            var tasks = await _taskRepository.GetTasksAsync();  // Fetch tasks based on current tenant
-            return View(tasks);
+            TeamTaskModel mymodel = new TeamTaskModel();
+       
+
+            List<Entities.Task> tasks = await _taskRepository.GetTaskIdsByUser();
+            List<Entities.Team> teams = await _teamRepository.GetTeamsByUser();
+
+            var model = new TeamTaskModel
+            {
+                Tasks = tasks,
+                Teams = teams
+            };
+            return View(model);
 
         }
         // GET: Tasks/Details/5
         public async Task<IActionResult> EmployeeDashboard()
         {
+
             ParentViewModel mymodel = new ParentViewModel();
             List<Entities.User> users = await _userRepository.GetUserIdsByTenant();
             List<Entities.Team> teams = await _teamRepository.GetTeamsByUser();
@@ -71,18 +84,22 @@ namespace Organizer.Controllers
 
 
 
-                return View(tasks);
-            }
-            catch (Exception ex)
+
+            var model = new TeamTaskModel
             {
-                return StatusCode(500, $"An error occurred: {ex.Message}");
-            }
+
+                Tasks = tasks,
+                Teams = teams
+            };
+           
+        return View(model);
+
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,title,description,priority,datetime,selectstatus,tenantid,userid")] Entities.Task task)
+        public async Task<IActionResult> Create([Bind("id,title,description,priority,datetime,selectstatus,tenantid,teamid,userid")] Entities.Task task)
         {
             var userRole = await _context.Users
                 .Where(u => u.id == task.userid)
@@ -105,6 +122,14 @@ namespace Organizer.Controllers
             }
             else
             {
+
+                
+                task.id = Guid.NewGuid();
+                await _taskRepository.Create(task);
+                await _taskRepository.SaveChangesAsync();
+                
+                Console.WriteLine($"Current tenantid controller: {task}");
+
                 return RedirectToAction(nameof(EmployeeDashboard));
             }
             

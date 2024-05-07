@@ -11,6 +11,11 @@ namespace Organizer.Models
         public List<Entities.Role> Roles { get; set; }
 
     }
+    public class TeamTaskModel
+    {
+        public List<Entities.Task> Tasks { get; set; }
+        public List<Entities.Team> Teams { get; set; }
+    }
 
 
 }

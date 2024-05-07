@@ -5,6 +5,7 @@ using Organizer.Controllers;
 using System.Threading.Tasks; // Import this namespace for Task
 using Organizer.Services;
 using System.Linq;
+using Microsoft.Graph;
 
 
 namespace Organizer.Repositories
@@ -31,6 +32,39 @@ namespace Organizer.Repositories
             var Users = await _context.Task.Where(t => t.userid == userid).ToListAsync();
             // Debugging: Print the fetched tasks
 
+            return Users;
+        }
+        public async Task<List<Entities.Task>> GetTaskIdsByUser()
+        {
+
+            var userId = _currentUserService.userid;
+            Console.WriteLine(userId);
+            // Find the user in the database
+            var Users = await _context.Task.Where(t => t.userid == userId).ToListAsync();
+
+            Console.WriteLine(Users);
+            // Check if the user is found
+            if (Users == null)
+            {
+                // Handle the case where the user is not found (return an empty list or handle as needed)
+                return new List<Entities.Task>();
+            }
+
+            // Extract teams from the join table and return them
+       
+            Console.WriteLine(Users);
+            if (Users.Count > 0)
+            {
+                Console.WriteLine("zit iets in");
+            }
+            else
+            {
+                Console.WriteLine("helemaal niks");
+            }
+            foreach (var task in Users)
+            {
+                Console.WriteLine($"TaskId: {task.id}");
+            }
             return Users;
         }
 
