@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Organizer.Contexts;
 using Microsoft.Graph;
 using Organizer.Entities;
+using Organizer.Models;
 using Organizer.Repositories;
 using Organizer.Services;
 
@@ -14,26 +15,47 @@ namespace Organizer.Controllers
 {
     public class EmployeeController : Controller
     {
+        private readonly ITeamsRepository _teamRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IEmployeeRepository _taskRepository;
         private readonly OrganizerContext _context;
 
-        public EmployeeController(IEmployeeRepository taskRepository, OrganizerContext context)
+
+
+        public EmployeeController(ITeamsRepository teamRepository, IUserRepository userRepository, IEmployeeRepository employeeRepository)
         {
-            _taskRepository = taskRepository;
-            _context = context;
+            _teamRepository = teamRepository;
+            _userRepository = userRepository;
+            _taskRepository = employeeRepository;
+
         }
         // GET: Tasks
         public async Task<IActionResult> Index()
         {
+
             var tasks = await _taskRepository.GetTasksAsync();  // Fetch tasks based on current tenant
             return View(tasks);
+
         }
         // GET: Tasks/Details/5
         public async Task<IActionResult> EmployeeDashboard()
         {
-            try
+            ParentViewModel mymodel = new ParentViewModel();
+            List<Entities.User> users = await _userRepository.GetUserIdsByTenant();
+            List<Entities.Team> teams = await _teamRepository.GetTeamsByUser();
+            List<Entities.Task> tasks = await _taskRepository.GetTasksAsync();
+
+            var model = new ParentViewModel
             {
-                var tasks = await _taskRepository.GetTasksAsync(); // Fetch tasks based on current tenant
+                Users = users,
+                Teams = teams,
+                Tasks = tasks
+            };
+           return View(model);
+            
+           
+        }
+
 
                 // Get the current user's ID
                 var currentUserId = @User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
@@ -47,10 +69,7 @@ namespace Organizer.Controllers
                 ViewBag.AssignTaskPermission = assignTaskPermission;
 
 
-                if (tasks == null || !tasks.Any())
-                {
-                    return View(new List<Entities.Task>()); // Return an empty list to the view
-                }
+
 
                 return View(tasks);
             }
@@ -60,9 +79,10 @@ namespace Organizer.Controllers
             }
         }
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("title,description,priority,datetime,selectstatus,tenantid,userid")] Entities.Task task)
+        public async Task<IActionResult> Create([Bind("id,title,description,priority,datetime,selectstatus,tenantid,userid")] Entities.Task task)
         {
             var userRole = await _context.Users
                 .Where(u => u.id == task.userid)
@@ -110,7 +130,11 @@ namespace Organizer.Controllers
                 .Select(u => u.Role)
                 .FirstOrDefaultAsync();
 
+
             if (userRole != null && userRole.assign_task)
+
+            
+
             {
                 if (id != task.id)
                 {

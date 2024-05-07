@@ -316,6 +316,7 @@
                         <input type="text" value="@item.email" class="bg-transparent border-gray-300 py-2 w-100 border-b-2 border-l-0 border-r-0 border-t-0">
                     </td>
                     <td class="p-3 px-5">
+
                         <form id="assignRoleForm_@item.id"  method="post" action="@Url.Action("SaveUserRole", "Users")">
                             <input type="hidden" name="userId" value="@item.id">
                             <div class="flex justify-between">
@@ -343,6 +344,7 @@
                             </div>
 
                         </form>
+
 
                     </td>
                 </tr>

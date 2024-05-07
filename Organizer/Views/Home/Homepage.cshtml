@@ -1,4 +1,4 @@
-﻿@model List<Organizer.Entities.Task>
+﻿@model ParentViewModel
 @{
     ViewData["title"] = "Homepage";
 
@@ -28,6 +28,8 @@
 <body onload="filterTasksWhenLoaded('Done')">
 </body>
 @*EMPLOYEE ADMIN CREATE VIEW*@
+@foreach (var task in Model.Tasks)
+{
 @if (User.IsInRole("SuperAdmin"))
 {
     <div id="modal" class="inset-0 fixed z-50 flex hidden items-center justify-center overflow-y-auto">
@@ -43,7 +45,9 @@
                             Create Task
                         </h3>
                         <form asp-controller="Employee" asp-action="Create" method="post" class="mt-4">
+
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
                             <div class="mt-2">
                                 <label for="tenantid" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
                                 <input type="hidden" id="tenantid" name="tenantid" value="@tenantid">
@@ -124,6 +128,7 @@ else
 
                     <form asp-controller="Employee" asp-action="Create"  method="post" class="mt-4">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
                         <div class="mt-2">
                             <label for="tenantid" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
                             <input type="hidden" id="tenantid" name="tenantid" value="@tenantid">
@@ -176,7 +181,7 @@ else
     </div>
 </div>
 }
-
+}
 
 
 
