@@ -51,34 +51,12 @@ namespace Organizer.Controllers
                 Teams = teams,
                 Tasks = tasks
             };
-           return View(model);
-            
-           
+            return View(model);
+
+
+
+
         }
-
-
-                // Get the current user's ID
-                var currentUserId = @User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
-                var userRole = await _context.Users
-                .Where(u => u.id == currentUserId)
-                .Select(u => u.Role)
-                .FirstOrDefaultAsync();
-
-                bool assignTaskPermission = userRole != null && userRole.assign_task;
-
-                ViewBag.AssignTaskPermission = assignTaskPermission;
-
-
-
-
-                return View(tasks);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"An error occurred: {ex.Message}");
-            }
-        }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -86,28 +64,24 @@ namespace Organizer.Controllers
         {
             var userRole = await _context.Users
                 .Where(u => u.id == task.userid)
-                .Select(u => u.Role)
+                .Select(u => u.role_id)
                 .FirstOrDefaultAsync();
 
-            if (userRole != null && userRole.assign_task)
+
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    task.id = Guid.NewGuid();
-                    await _taskRepository.Create(task);
-                    await _taskRepository.SaveChangesAsync();
-                    return RedirectToAction(nameof(EmployeeDashboard));
-                }
-                else
-                {
-                    return View(task); // Return the same view if ModelState is invalid
-                }
+                task.id = Guid.NewGuid();
+                await _taskRepository.Create(task);
+                await _taskRepository.SaveChangesAsync();
+                return RedirectToAction(nameof(EmployeeDashboard));
             }
             else
             {
-                return RedirectToAction(nameof(EmployeeDashboard));
+                return View(task); // Return the same view if ModelState is invalid
             }
-            
+
+
+
         }
 
         /*if (!ModelState.IsValid)
@@ -127,44 +101,36 @@ namespace Organizer.Controllers
         {
             var userRole = await _context.Users
                 .Where(u => u.id == task.userid)
-                .Select(u => u.Role)
+                .Select(u => u.role_id)
                 .FirstOrDefaultAsync();
 
 
-            if (userRole != null && userRole.assign_task)
 
-            
-
+            if (id != task.id)
             {
-                if (id != task.id)
-                {
-                    return NotFound();
-                }
+                return NotFound();
+            }
 
-                if (ModelState.IsValid)
+            if (ModelState.IsValid)
+            {
+                try
                 {
-                    try
-                    {
-                        Console.WriteLine($"Current tenantid EDIT: {task}");
-                        await _taskRepository.Edit(task);
-                        await _taskRepository.SaveChangesAsync();
-                        return RedirectToAction(nameof(EmployeeDashboard));
-                    }
-                    catch (Exception)
-                    {
-                        return StatusCode(500, "Internal Server Error");
-                    }
+                    Console.WriteLine($"Current tenantid EDIT: {task}");
+                    await _taskRepository.Edit(task);
+                    await _taskRepository.SaveChangesAsync();
+                    return RedirectToAction(nameof(EmployeeDashboard));
                 }
-                else
+                catch (Exception)
                 {
-                    return View(task);
+                    return StatusCode(500, "Internal Server Error");
                 }
             }
             else
             {
-                return RedirectToAction(nameof(EmployeeDashboard));
+                return View(task);
             }
-     
+
+
         }
 
         [HttpPost, ActionName("Delete")]
@@ -179,20 +145,16 @@ namespace Organizer.Controllers
 
             var userRole = await _context.Users
                 .Where(u => u.id == task.userid)
-                .Select(u => u.Role)
+                .Select(u => u.role_id)
                 .FirstOrDefaultAsync();
 
-            if (userRole != null && userRole.assign_task)
-            {
-                _context.Task.Remove(task);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            else
-            {
-                return RedirectToAction(nameof(EmployeeDashboard));
-            }
+
+            _context.Task.Remove(task);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
+    
+        
 
 
         public IActionResult EmployeeDashboard2()
