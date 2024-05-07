@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Organizer.Contexts;
 using Organizer.Services;
 
@@ -41,7 +42,7 @@ namespace Organizer.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteUserFromTeam(string user_id, Guid team_id)
+        public async Task<bool> DeleteUserFromTeam(string user_id, Guid team_id)
         {
             // Find the user-team relationship entry based on both user_id and team_id
             var userTeamEntry = await _context.Users_Teams
@@ -55,7 +56,23 @@ namespace Organizer.Repositories
 
                 // Save changes to the database
                 await _context.SaveChangesAsync();
+
+                // Check if the user is the last one in the team
+                int remainingUsersInTeam = await _context.Users_Teams
+                    .CountAsync(ut => ut.team_id == team_id);
+
+                // Return whether the user was the last one in the team
+                return remainingUsersInTeam == 0;
             }
+
+            // Return false if no entry was found
+            return false;
+        }
+        public async Task DeleteTeam(Guid team_id)
+        {
+            var team = await _context.Teams.FindAsync(team_id);
+            _context.Teams.Remove(team);
+            await _context.SaveChangesAsync();
         }
 
 
