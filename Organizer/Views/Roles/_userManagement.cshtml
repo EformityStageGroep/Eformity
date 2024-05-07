@@ -10,7 +10,7 @@
 }
 
 
-<div id="modal" class="inset-0 fixed z-50 flex hidden items-center justify-center overflow-y-auto">
+<div id="createRoleModal" class="inset-0 fixed z-50 flex hidden items-center justify-center overflow-y-auto">
 
     <div class="inset-0 fixed transition-opacity" aria-hidden="true">
         <div class="inset-0 bg-gray-500 absolute opacity-75"></div>
@@ -38,7 +38,7 @@
 
                         </div>
                         <h1 class="mt-2 text-gray-700 block text-sm font-medium">Permissions</h1>
-                        <p class="text-gray-500 mb-2 text-sm">Select the permission(s) you want this role to have</p>
+                        <p class="text-gray-500 mb-2 text-sm">Select the permission(s) you want this role to have.</p>
 
                         <div class="grid grid-cols-2">
                             <div class="form-group">
@@ -54,9 +54,10 @@
                         </div>
                         
                         <div class="py-3 mt-4 sm:px-6 sm:flex sm:flex-row-reverse">
-                            <button onclick="toggleModal()" id="closeModalButton" type="button" class="mb-3 border-transparent px-4 py-2 bg-indigo-600 text-white inline-flex w-full justify-center rounded-md border text-base font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
+                            <button onclick="toggleCreateRoleModal()" id="closeModalButton" type="button" class="border-transparent px-4 py-2 bg-indigo-600 text-white inline-flex w-full justify-center rounded-md border text-base font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
                                 Close
                             </button>
+                            <div class="py-1"></div>
                             <button id="createTaskButton" type="submit" class="border-transparent px-4 py-2 bg-indigo-600 text-white inline-flex w-full justify-center rounded-md border text-base font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
                                 Create Role
                             </button>
@@ -72,10 +73,92 @@
 
 
 
+<div id="manageRoleModal" class="inset-0 fixed z-50 flex hidden items-center justify-center overflow-y-auto">
+
+    <div class="inset-0 fixed transition-opacity" aria-hidden="true">
+        <div class="inset-0 bg-gray-500 absolute opacity-75"></div>
+    </div>
+    <div class="bg-white transform overflow-hidden rounded-lg shadow-xl transition-all sm:max-w-lg sm:w-full">
+        <div class="bg-white px-4 pt-5 pb-4 max-h-[85vh] overflow-y-auto sm:p-6 sm:pb-4">
+            <div class="sm:flex sm:items-start">
+                <div class="mt-3 w-full text-center sm:mt-0 sm:ml-4 sm:text-left">
+                    <h3 class="text-gray-900 text-lg font-medium leading-6" id="modalTitle">
+                        Manage Roles
+                    </h3>
+                    <form asp-controller="Roles" asp-action="Create" method="post" class="mt-4">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="mt-2">
+                            <label for="tenant_id" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
+                            <input type="hidden" id="tenant_id" name="tenant_id" value="@tenantid">
+                        </div>
+
+                        <div class="mt-2">
+                            <label for="title" class="text-gray-700 block text-sm font-medium">Your Roles</label>
+                            <p class="text-gray-500 text-sm">
+                                A list of your company's created roles.</p>
+
+                                <div class="bg-white overflow-hidden shadow sm:rounded-md">
+                          <ul role="list" class="divide-gray-200 divide-y">
+                                </ul>
+                                <div class="bg-white mt-3 max-h-[35vh] overflow-y-auto rounded-md">
+                                    <ul role="list" class="divide-gray-200 divide-y hover:cursor-pointer">
+                                        @foreach (var item in Model.Roles)
+                                        {
+                                            <li class="px-6 py-4 border-left border">
+                                                @Html.DisplayFor(modelItem => item.title)
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+
+
+</div>
+
+
+                        </div>
+                        <h1 class="mt-2 text-gray-700 block text-sm font-medium">Permissions</h1>
+                        <p class="text-gray-500 mb-2 text-sm">Select the permission(s) you want this role to have</p>
+
+                        <div class="grid grid-cols-2">
+                            <div class="form-group">
+                                <label for="create_team" class="control-label"></label>
+                                <input id="create_team" name="create_team" class="form-check-input mr-2 mb-1" type="checkbox" value="true">Create Team</input>
+                                <span for="create_team" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="assign_task" class="control-label"></label>
+                                <input id="assign_task" name="assign_task" class="form-check-input mr-2 mb-1" type="checkbox" value="true">Assign Task</input>
+                                <span for="assign_task" class="text-danger"></span>
+                            </div>
+                        </div>
+
+    <div class="bottom-0 right-0 pb-4 pr-4 space-x-3 absolute flex w-full items-end justify-end sm:space-x-4">
+
+        <button id="createTaskButton" type="submit"
+                class="px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Save
+        </button>
+                            <button onclick="toggleManageRoleModal()" id="closeModalButton" type="button"
+                                    class="px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                Close
+                            </button>
+    </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
 <div class="flex justify-between">
     <h1 class="text-gray-900 mr-3 mt-4 text-base font-semibold leading-6">Users</h1>
     <div class="inline-block flex">
-         <button onclick="toggleModal()" class="border-gray-500 bg-gray-500 text-white px-3 py-2 my-2 mx-2 flex items-center rounded-lg border text-center text-sm font-semibold hover:bg-gray-250">
+        <button onclick="toggleManageRoleModal()" class="border-gray-500 bg-gray-500 text-white px-3 py-2 my-2 mx-2 flex items-center rounded-lg border text-center text-sm font-semibold hover:bg-gray-600 hover:bg-gray-250">
             Manage Roles<i class="fab fa-facebook ml-1"></i>
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 48 48" id="setting">
                 <path fill="none" d="M0 0h48v48H0z" />
@@ -84,7 +167,7 @@
 
 
         </button>
-        <button onclick="toggleModal()" class="bg-blue-500 text-white px-3 py-2 my-2 mx-2 flex items-center rounded-lg text-center text-sm font-semibold hover:bg-blue-600">
+        <button onclick="toggleCreateRoleModal()" class="bg-blue-500 text-white px-3 py-2 my-2 mx-2 flex items-center rounded-lg text-center text-sm font-semibold hover:bg-blue-600">
             Create New Role <i class="fab fa-facebook ml-1"></i>
             <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-white" width="30" height="30" viewBox="0 0 24 24">
                 <path d="M12,2C6.477,2,2,6.477,2,12s4.477,10,10,10s10-4.477,10-10S17.523,2,12,2z M17,13h-4v4h-2v-4H7v-2h4V7h2v4h4V13z"></path>
@@ -95,7 +178,7 @@
 <div class="border-gray-200 pb-5 mb-3 border-b sm:flex sm:items-center sm:justify-between"></div>
 <div class="px-3 py-4 flex justify-center">
 
-    <table class="text-md bg-white mb-4 border-gray-100 w-full rounded border shadow-md">
+    <table class="text-md bg-white mb-4 w-full rounded border">
         <tbody>
             <tr class="border-b">
                 <th class="p-3 px-5 text-left">Name</th>
@@ -159,10 +242,16 @@
 </div>
 <script>
 
-    function toggleModal() {
-        modalCreateRole = document.getElementById('modal')
+    function toggleCreateRoleModal() {
+        modalCreateRole = document.getElementById('createRoleModal')
 
         modalCreateRole.classList.toggle('hidden')
+    }
+
+    function toggleManageRoleModal() {
+        modalManageRole = document.getElementById('manageRoleModal')
+
+        modalManageRole.classList.toggle('hidden')
     }
 
 </script>
