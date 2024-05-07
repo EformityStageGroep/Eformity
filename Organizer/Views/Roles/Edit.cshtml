@@ -5,35 +5,42 @@
     var tenantid = @User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
 }
 
-<h1>Edit</h1>
-
+<h3 class="text-gray-900 text-base font-semibold leading-6">Edit Role</h3>
+<div class="border-gray-200 pb-5 mb-3 border-b sm:flex sm:items-center sm:justify-between"></div>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
+
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="id" />
-            <div class="form-group">
-                <label asp-for="title" class="control-label"></label>
-                <input asp-for="title" class="form-control" />
-                <span asp-validation-for="title" class="text-danger"></span>
+            <div class="form-group flex">
+                <div class="mt-2 mb-2">
+                    <label asp-for="title" for="title" class="text-gray-700 block text-sm font-medium">Team title</label>
+                    <input asp-for="title" type="text" name="title" id="title" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <span asp-validation-for="title" class="text-danger"></span>
+
+                </div>
+
             </div>
             <div class="form-group">
                 <label asp-for="create_team" class="control-label"></label>
                 <input asp-for="create_team" class="form-control" />
                 <span asp-validation-for="create_team" class="text-danger"></span>
             </div>
+            <div class="flex">
             <div class="form-group">
                 <label asp-for="assign_task" class="control-label"></label>
                 <input asp-for="assign_task" class="form-control" />
                 <span asp-validation-for="assign_task" class="text-danger"></span>
             </div>
-                <div type="hidden" class="form-group hidden">
-                    <label asp-for="tenant_id" type="hidden" class="control-label"></label>
-                    <input asp-for="tenant_id" type="hidden" value="@tenantid" class="form-control" />
-                    <span asp-validation-for="tenant_id" type="hidden" class="text-danger"></span>
-                </div>
+            <div type="hidden" class="form-group hidden">
+                <label asp-for="tenant_id" type="hidden" class="control-label"></label>
+                <input asp-for="tenant_id" type="hidden" value="@tenantid" class="form-control" />
+                <span asp-validation-for="tenant_id" type="hidden" class="text-danger"></span>
+            </div>
+            </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <button type="submit" class="btn btn-primary mr-3 h-[40px] w-[75px] bg-blue-500 text-white py-1 px-2 rounded text-sm hover:bg-blue-700 focus:outline-none focus:shadow-outline">Save</button>
             </div>
         </form>
     </div>

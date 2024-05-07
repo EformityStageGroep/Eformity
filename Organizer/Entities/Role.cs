@@ -10,7 +10,6 @@ namespace Organizer.Entities
         [Key]
         public Guid id { get; set; }
 
-        [ForeignKey("Tenants")]
         public string tenant_id { get; set; }
 
         public string title { get; set; }

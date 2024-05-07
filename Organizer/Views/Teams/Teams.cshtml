@@ -278,11 +278,13 @@
                             </div>
                         <div class="mt-2 mb-2">
                             <label for="tenant_id" class="text-gray-700 block text-sm font-medium"></label>
-                            <input type="hidden" value="@tenant_id"name="tenant_id" id="tenant_id" class="mt-1 py-2 px-3 border-gray-300 bg-white block hidden w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+
+                            <input type="hidden" value="@tenant_id"name="tenant_id" id="tenant_id" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                         </div>
                         <div class="mt-2 mb-2">
                             <label for="Users_Teams" class="text-gray-700 block text-sm font-medium"></label>
-                            <input type="hidden" name="Users_Teams" id="Users_Teams" class="mt-1 py-2 px-3 border-gray-300 bg-white block hidden w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <input type="hidden" name="Users_Teams" id="Users_Teams" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+
                         </div>
                                @*HERE*@
 
@@ -311,6 +313,8 @@
                                     <button id="closeModalButton" onclick="closeCreateTeamModal()" type="button" class="border-transparent px-4 py-2 bg-indigo-600 text-white inline-flex w-full justify-center rounded-md border text-base font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
                                         Close
                                     </button>
+                            <div class="py-1"></div>
+
                             <button id="createTeamButton" type="submit" onclick="CreateTeam()" class="border-transparent px-4 py-2 bg-indigo-600 text-white inline-flex w-full justify-center rounded-md border text-base font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
                                         Create Team
                                     </button>
