@@ -85,22 +85,7 @@ namespace Organizer.Controllers
             return RedirectToAction("EmployeeDashboard", "Employee");
         }
 
-        // POST: Users/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-
-        [HttpPost]
-        // GET: Users/Edit/5
-        public async Task<IActionResult> Edit(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-
-            return View();
-        }
+    
 
         // POST: Users/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -143,11 +128,20 @@ namespace Organizer.Controllers
             return View();
         }
 
-        public IActionResult CompanyAdminDashboard()
-        {/*
-            var viewModel = new PageIdentifier();
-            viewModel.PageValue = "Profile";*/
-            return View();
+        public async Task<IActionResult> CompanyAdminDashboard()
+        {
+           ParentViewModel mymodel = new ParentViewModel();
+                List<User> users = await _userRepository.GetUserInfo();
+                List<Team> teams = await _teamRepository.GetTeamsByUser();
+                List<Entities.Task> tasks = await _employeeRepository.GetTasksAsync();
+
+                var model = new ParentViewModel
+                {
+                    Users = users,
+                    Teams = teams,
+                    Tasks = tasks
+                };
+                return View(model);
         }
 
 
