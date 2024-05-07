@@ -58,14 +58,14 @@ namespace Organizer.Repositories
             }
         }
 
-        public async Task<List<Entities.Team>> GetUsersByTeam(Guid team_id)
+        public async Task<List<string>> GetUsersByTeam(Guid team_id)
         {
             Console.WriteLine(team_id);
             var userIds = _context.Users_Teams
-                  .Where(ut => ut.team_id == team_id) // Filter Users_Teams by the specified team_id
-                  .Include(ut => ut.Team) // Eagerly load the related User for each Users_Teams entry
-                  .Select(ut => ut.Team) // Select the User from each Users_Teams entry
-                  .ToList();
+                .Where(ut => ut.team_id == team_id) // Filter Users_Teams by the specified team_id
+                .Include(ut => ut.User) // Eagerly load the related User for each Users_Teams entry
+                .Select(ut => ut.User.id) // Select the User from each Users_Teams entry
+                .ToList();
             Console.WriteLine(userIds);
             if (userIds.Count > 0)
             {

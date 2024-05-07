@@ -151,9 +151,9 @@ namespace Organizer.Controllers
         public async Task<IActionResult> GetUserIdsByTeamId(Guid teamId)
         {
             Console.WriteLine(teamId);
-            List<Team> Users = await _teamRepository.GetUsersByTeam(teamId);
+            var Users = await _teamRepository.GetUsersByTeam(teamId);
             Console.WriteLine($"{Users.Count} users");
-            return View(Users);
+            return Json(Users);
         }
     }
 }

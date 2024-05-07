@@ -3,9 +3,6 @@
  var tenant_id = @User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
 }
 
-
-
-
 <div class="border-gray-200 pb-5 mb-3 border-b sm:flex sm:items-center sm:justify-between">
     <div class="flex">
         <h3 class="text-gray-900 mr-3 mt-1 text-base font-semibold leading-6">Teams</h3>
@@ -39,15 +36,6 @@
         </div>
     </div>
 </div>
-
-@*
-    <div>
-  <h2 class="text-gray-500 text-sm font-medium">Pinned Projects</h2>
-
-  <ul role="list" class="mt-3 gap-5 grid grid-cols-1 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
-    <li class="col-span-1 flex rounded-md shadow-sm">*@
-
-
 
 <ul role="list" class="mt-3 gap-5 grid grid-cols-1 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4">
 
@@ -84,11 +72,6 @@
             string initialsVar = words[0][0] + words[1].Substring(0, 1);
             return initialsVar;
         }
-
-
-
-
-
 
         <div id="slideoverDiv_@team.id">
         <div data-prefix="slideover" id="slideoverModal_@team.id" class="invisible relative z-50 transition-all duration-300 ease-out" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
@@ -151,11 +134,12 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            }
+                                                            
 
                                                             <div class="flex-1">
-                                                                    <input id="filterInputSlideover" placeholder="" class="bg-transparent p-1 px-2 text-gray-800 h-full w-full appearance-none outline-none">
+                                                                    <input id="filterInputSlideover_@item.id" placeholder="" class="bg-transparent p-1 px-2 text-gray-800 h-full w-full appearance-none outline-none">
                                                             </div>
+                                                                }
                                                         </div>
                                                             <div id="userlistButtonSlideover" onclick="clickUserlistButtonSlideover('@team.id')" class="text-gray-300 w-8 py-1 pl-2 pr-1 border-gray-200 svelte-1l8159u flex items-center border-l">
                                                             <button type="button" class="w-6 h-6 text-gray-600 cursor-pointer outline-none focus:outline-none">
@@ -188,7 +172,7 @@
                                 </div>
 
                                         <div class="form-group right-0 mt-4 mb-4 mr-4 fixed">
-                                            <input type="submit" value="Create" class="m1 auto bg-indigo-500 px-3.5 py-2.5 text-white rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+                                            <input type="submit" value="Edit" class="m1 auto bg-indigo-500 px-3.5 py-2.5 text-white rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
                                             <button type="button" class="m1 auto bg-indigo-500 px-3.5 py-2.5 text-white rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Leave Team</button>
 
                                         </div>
@@ -199,36 +183,7 @@
                 </div>
             </div>
         </div>
-
-
-
-
-
-
-
-@*        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => team.title)
-            </td>
-            <td>
-
-                @Html.DisplayFor(modelItem => team.id)
-            </td>
-
-            <td>
-                <a asp-action="Edit" asp-route-id="@team.id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@team.id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@team.id">Delete</a>
-            </td>
-        </tr>*@
-
-
-
-
-
-
-
-                <div>
+            <div>
 
                 <li class="col-span-1 flex rounded-md shadow-sm">
 
@@ -253,7 +208,7 @@
                   </div>
                 </li>
         </div>
-        </div>
+    </div>
     
     }
 </ul>
@@ -271,13 +226,10 @@
                             Create a Team
                         </h3>
                     <form asp-action="CreateTeam" >
-
-
-                   
-                            <div class="mt-2 mb-2">
-                                <label for="title" class="text-gray-700 block text-sm font-medium">Team title</label>
-                                <input type="text" name="title" id="title" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                            </div>
+                        <div class="mt-2 mb-2">
+                            <label for="title" class="text-gray-700 block text-sm font-medium">Team title</label>
+                            <input type="text" name="title" id="title" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        </div>
                         <div class="mt-2 mb-2">
                             <label for="tenant_id" class="text-gray-700 block text-sm font-medium">Team title</label>
                             <input type="hidden" value="@tenant_id"name="tenant_id" id="tenant_id" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
@@ -286,23 +238,7 @@
                             <label for="Users_Teams" class="text-gray-700 block text-sm font-medium">Team title</label>
                             <input type="hidden" name="Users_Teams" id="Users_Teams" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                         </div>
-                               @*HERE*@
-
-
-                        @*<div class="mt-2 mb-2">
-                            <label for="title" class="text-gray-700 block text-sm font-medium">Team Title</label>
-                            <input type="text" name="title" id="title" placeholder="Marketing team" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                        </div>
-
-                        <div class="mt-2 mb-2">
-                            <label for="description" class="text-gray-700 block text-sm font-medium">Team Description</label>
-                            <textarea type="description" placeholder="Tasks for the marketing team." name="description" id="description" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
-                        </div>*@
-                        
-      
-
-                               @*HERE*@
-
+                    
                         <label for="user_id" class="text-gray-700 block text-sm font-medium">Add Team Members</label>
                                 <p class="text-gray-500 text-sm">Pick the members you want to be in this team.</p>
                                 @Html.Partial("../Teams/teamMultiSelect")
@@ -318,8 +254,6 @@
                                     </button>
                                 </div>
                     </form>
-
-
                     </div>
                 </div>
             </div>
@@ -339,7 +273,6 @@
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                  
                 }
             })
                 .then(response => {
@@ -350,20 +283,28 @@
                 })
                 .then(data => {
                     // Clear the current list (optional, depends on the desired behavior)
-                    const taskListElement = document.getElementById('task-list');
-                    taskListElement.innerHTML = '';
+
+                    // Log the data array to inspect it
+                    console.log('Fetched data:', data);
 
                     // Iterate over the data returned from the server
                     data.forEach(task => {
+                        const taskListElement = document.getElementById('filterInputSlideover_' + task);
+                        console.log(taskString);
+                        taskListElement.innerHTML = ''; // Clear the current list
+                        let taskStrings = [];
+
                         // Create a new list item element
-                        const listItem = document.createElement('li');
-
-                        // Assuming each task has a 'name' property to display
-                        listItem.textContent = task.name;
-
-                        // Append the list item to the task list element
-                        taskListElement.appendChild(listItem);
-                        console.log(listItem);
+                        // Convert the task to a string representation (e.g., task.toString())
+                        // Assuming task is an object and has a 'name' property
+                        let taskString = task;
+                        
+                        // Store the string representation in the array
+                        taskStrings.push(taskString);
+                        userClickedSlideover(taskString);
+                        // Optionally, log the taskString for debugging
+                        console.log(taskString);
+                        console.log("testset");
                     });
                    
                 })
@@ -378,7 +319,6 @@
                 const button = event.target; // The button that was clicked
             const teamId = $(this).attr("data-team-id"); // Get the team ID from the data attribute
                 console.log(teamId);
-                // Make an AJAX request using the Fetch API
                 fetch(`/Teams/GetUserIdsByTeamId/${teamId}`)
                     .then(response => response.json()) // Parse JSON response
                     .then(users => {
@@ -412,8 +352,6 @@
         });
 
 
-
-
     function toggleSlideover(teamId) {
         console.log('passed slideover')
 
@@ -435,8 +373,6 @@
         modal = document.getElementById('createTeamModal')
         modal.classList.remove('hidden')
     }
-    // Define the list of Tailwind background color classes
-    // Define the list of Tailwind background color classes
     // Define the list of Tailwind background color classes
     const colors = ['bg-red-500', 'bg-green-500', 'bg-blue-500', 'bg-yellow-500', 'bg-indigo-700'];
 
@@ -487,19 +423,6 @@
     window.onload = applyColorsToTeams;
      let clickedNamesListSlideover = [];
 
-
-
-        
-            window.addEventListener('click', function (event) {
-                const userListButton = document.getElementById('userlistButtonSlideover');
-                const userList = document.getElementById('userListSlideover');
-                const inputField = document.getElementById('inputFieldSlideover');
-
-                if (!userList.contains(event.target) && !userListButton.contains(event.target) && !inputField.contains(event.target)) {
-                    userList.classList.add('hidden');
-                }
-            });
-
         document.addEventListener('DOMContentLoaded', function () {
             const filterInput = document.getElementById('filterInputSlideover');
             const userList = document.getElementById('userListSlideover');
@@ -531,8 +454,6 @@
             console.log(clickedNamesListSlideover);
         }
 
-
-
         function userClickedSlideover(userId) {
             const userClickedBorder = document.getElementById('userBorderSlideover_' + userId);
             const userClickedName = document.getElementById('userClickedSlideover_' + userId);
@@ -547,16 +468,17 @@
             }
 
             document.getElementById("user_id").value = clickedNamesListSlideover.join(',');
-            updateClickedUsersDisplay();
+            updateClickedUsersDisplay(userId);
         }
 
-        function updateClickedUsersDisplay() {
-            const displayElement = document.getElementById('clickedUsersList');
+        function updateClickedUsersDisplay(userId) {
+            const displayElement = document.getElementById('filterInputSlideover_' + userId);
             displayElement.innerHTML = '';
             clickedNamesListSlideover.forEach(userId => {
                 const userElement = document.createElement('li');
                 userElement.textContent = 'User ID: ' + userId;
                 displayElement.appendChild(userElement);
+                    console.log("Updated user list displddddday.");
             });
             console.log("Updated user list display.");
         }
@@ -567,11 +489,9 @@
             userList1 = document.getElementById("userListSlideover_" + Teamid);
             console.log(userList1);
             userList1.classList.toggle("hidden");
-            console.log(userListSlideover);
+           
             console.log("testttttt");
         }
-
-
-    </script>
+</script>
 
 }
