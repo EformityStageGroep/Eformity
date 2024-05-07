@@ -87,7 +87,8 @@ namespace Organizer.Controllers
             // If the user was the last one in the team, execute another line
             if (isLastUser)
             {
-                  await _teamRepository.DeleteTeam(team_id);
+              
+                await _teamRepository.DeleteTeam(team_id);
                 Console.WriteLine("testestststsetsts");
             }
 

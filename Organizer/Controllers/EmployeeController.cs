@@ -35,19 +35,7 @@ namespace Organizer.Controllers
         public async Task<IActionResult> Index()
         {
 
-            TeamTaskModel mymodel = new TeamTaskModel();
-       
-
-            List<Entities.Task> tasks = await _taskRepository.GetTaskIdsByUser();
-            List<Entities.Team> teams = await _teamRepository.GetTeamsByUser();
-
-            var model = new TeamTaskModel
-            {
-                Tasks = tasks,
-                Teams = teams
-            };
-            return View(model);
-
+            return View();
         }
         // GET: Tasks/Details/5
         public async Task<IActionResult> EmployeeDashboard()
