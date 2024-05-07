@@ -51,7 +51,12 @@ namespace Organizer.Repositories
             return userIds;
 
         }
-    
+
+        public async Task<Entities.User> GetUserById(string id)
+        {
+            return await _context.Users.FindAsync(id);
+        }
+
         /*public async Task<List<Entities.Team>> InsertMultipleUsers(Entities.Team user)
         {
             user.id = Guid.NewGuid();

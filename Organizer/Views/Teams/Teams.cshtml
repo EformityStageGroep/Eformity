@@ -1,6 +1,7 @@
 ﻿@model ParentViewModel
 @{
  var tenant_id = @User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
+ var user_id = @User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
 }
 
 
@@ -53,7 +54,7 @@
 
     @foreach (var team in Model.Teams)
     {
-
+        
         // Define the list of Tailwind background color classes
         List<string> colors = new List<string> { "bg-red-500", "bg-green-500", "bg-blue-500", "bg-yellow-500", "bg-indigo-700" };
         Random rand = new Random();
@@ -118,8 +119,8 @@
                             </div>
                             <div class="mt-6 px-4 relative flex-1 sm:px-6">
 
-
-                                <form id="editTeamForm" asp-action="EditTeam" asp-route-id="@team.id">
+                                   
+                                    <form method="post" action="@Url.Action("LeaveTeam", "Teams", new { user_id = user_id, team_id = @team.id })">
                                     <div class="form-group">
 
                                         <label asp-for="@team.title" class="control-label"></label>
@@ -186,13 +187,13 @@
                                             </div>
                                         </div>
                                 </div>
-
                                         <div class="form-group right-0 mt-4 mb-4 mr-4 fixed">
                                             <input type="submit" value="Create" class="m1 auto bg-indigo-500 px-3.5 py-2.5 text-white rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
-                                            <button type="button" class="m1 auto bg-indigo-500 px-3.5 py-2.5 text-white rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Leave Team</button>
+                                                <button type="submit" class="m1 auto bg-indigo-500 px-3.5 py-2.5 text-white rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" onclick="updateTeam()">Leave Team</button>
 
                                         </div>
                                 </form>
+                                    
                             </div>
                         </div>
                     </div>
@@ -254,6 +255,7 @@
         </div>
     
     }
+   
 </ul>
 
 <div id="createTeamModal" class="inset-0 fixed z-50 flex hidden items-center justify-center overflow-y-auto">
@@ -277,12 +279,14 @@
                                 <input type="text" name="title" id="title" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                             </div>
                         <div class="mt-2 mb-2">
-                            <label for="tenant_id" class="text-gray-700 block text-sm font-medium">Team title</label>
+                            <label for="tenant_id" class="text-gray-700 block text-sm font-medium"></label>
+
                             <input type="hidden" value="@tenant_id"name="tenant_id" id="tenant_id" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                         </div>
                         <div class="mt-2 mb-2">
-                            <label for="Users_Teams" class="text-gray-700 block text-sm font-medium">Team title</label>
+                            <label for="Users_Teams" class="text-gray-700 block text-sm font-medium"></label>
                             <input type="hidden" name="Users_Teams" id="Users_Teams" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+
                         </div>
                                @*HERE*@
 
@@ -311,6 +315,8 @@
                                     <button id="closeModalButton" onclick="closeCreateTeamModal()" type="button" class="border-transparent px-4 py-2 bg-indigo-600 text-white inline-flex w-full justify-center rounded-md border text-base font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
                                         Close
                                     </button>
+                            <div class="py-1"></div>
+
                             <button id="createTeamButton" type="submit" onclick="CreateTeam()" class="border-transparent px-4 py-2 bg-indigo-600 text-white inline-flex w-full justify-center rounded-md border text-base font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
                                         Create Team
                                     </button>
@@ -329,6 +335,14 @@
     @section scripts{
 <script>
 
+        function updateTeam() {
+
+            setTimeout(() => {
+                location.reload();
+            }, 300); // 1000 milliseconds = 1 second
+
+
+        }
     function toggleSlideover(teamId) {
         console.log('passed slideover')
 
@@ -350,8 +364,7 @@
         modal = document.getElementById('createTeamModal')
         modal.classList.remove('hidden')
     }
-    // Define the list of Tailwind background color classes
-    // Define the list of Tailwind background color classes
+
     // Define the list of Tailwind background color classes
     const colors = ['bg-red-500', 'bg-green-500', 'bg-blue-500', 'bg-yellow-500', 'bg-indigo-700'];
 

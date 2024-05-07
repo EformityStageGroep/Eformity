@@ -25,6 +25,12 @@ namespace Organizer.Entities
         public string tenantid { get; set; }
         [ForeignKey("Users")]
         public string userid { get; set; }
+        public string teamid { get; set; }
+
+
+
+
+
         public Task() => id = Guid.NewGuid();
 
     }
