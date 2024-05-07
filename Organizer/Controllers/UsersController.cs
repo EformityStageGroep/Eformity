@@ -3,22 +3,30 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Organizer.Contexts;
 using Organizer.Entities;
+using Organizer.Models;
 using Organizer.Repositories;
 using System.Threading.Tasks;
 
-namespace Organizer.Views.Shared.Controllers
+namespace Organizer.Controllers
 {
     public class UsersController : Controller
     {
+        private readonly ITeamsRepository _teamRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IEmployeeRepository _employeeRepository;
 
-        public UsersController(IUserRepository userRepository)
+
+        public UsersController(ITeamsRepository teamRepository, IUserRepository userRepository, IEmployeeRepository employeeRepository)
+
         {
+            _teamRepository = teamRepository;
             _userRepository = userRepository;
-        }
 
-        // GET: Users
-        public async Task<IActionResult> Index()
+            _employeeRepository = employeeRepository;
+
+        }
+            // GET: Users
+            public async Task<IActionResult> Index()
         
             {
             try
@@ -49,7 +57,7 @@ namespace Organizer.Views.Shared.Controllers
         }
         [HttpPost]
         // GET: Users/Create
-        public async Task<IActionResult> Create([Bind("id,tenant_id,fullname,email,Users_Teams")] User user)
+        public async Task<IActionResult> Create([Bind("id,tenant_id,fullname,email,Users_Teams,role_id")] User user)
         {
             // Initialize Users_Teams if it's null
             if (user.Users_Teams == null)
@@ -81,22 +89,7 @@ namespace Organizer.Views.Shared.Controllers
             return RedirectToAction("EmployeeDashboard", "Employee");
         }
 
-        // POST: Users/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-
-        [HttpPost]
-        // GET: Users/Edit/5
-        public async Task<IActionResult> Edit(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-
-            return View();
-        }
+    
 
         // POST: Users/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -139,11 +132,20 @@ namespace Organizer.Views.Shared.Controllers
             return View();
         }
 
-        public IActionResult CompanyAdminDashboard()
-        {/*
-            var viewModel = new PageIdentifier();
-            viewModel.PageValue = "Profile";*/
-            return View();
+        public async Task<IActionResult> CompanyAdminDashboard()
+        {
+           ParentViewModel mymodel = new ParentViewModel();
+                List<User> users = await _userRepository.GetUserInfo();
+                List<Team> teams = await _teamRepository.GetTeamsByUser();
+                List<Entities.Task> tasks = await _employeeRepository.GetTasksAsync();
+
+                var model = new ParentViewModel
+                {
+                    Users = users,
+                    Teams = teams,
+                    Tasks = tasks
+                };
+                return View(model);
         }
 
 
@@ -172,25 +174,48 @@ namespace Organizer.Views.Shared.Controllers
         public async Task<IActionResult> Settings()
         {
             {
-                try
+                ParentViewModel mymodel = new ParentViewModel();
+                List<User> users = await _userRepository.GetUserInfo();
+                List<Team> teams = await _teamRepository.GetTeamsByUser();
+                List<Entities.Task> tasks = await _employeeRepository.GetTasksAsync();
+
+                var model = new ParentViewModel
                 {
-                    var users = await _userRepository.GetUserInfo(); // Fetch tasks based on current tenant
+                    Users = users,
+                    Teams = teams,
+                    Tasks = tasks
+                };
+                return View(model);
 
-
-                    if (users == null || !users.Any())
-                    {
-                        return View(new List<User>()); // Return an empty list to the view
-                    }
-
-                    return View(users);
-                }
-                catch (Exception ex)
-                {
-                    // Log the exception or handle it as required
-                    return StatusCode(500, $"An error occurred: {ex.Message}");
-                }
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> SaveUserRole(string userId, Guid roleId)
+        {
+            try
+            {
+                // Find the user by ID
+                var user = await _userRepository.GetUserById(userId);
+
+                if (user == null)
+                {
+                    return NotFound("User not found");
+                }
+
+                // Update the user's role ID
+                user.role_id = roleId;
+
+                // Save changes to the database
+                await _userRepository.SaveChangesAsync();
+
+                return RedirectToAction("Index", "Roles");
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as required
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
+        }
     }
 }

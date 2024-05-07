@@ -23,6 +23,9 @@ namespace Organizer.Contexts
         public DbSet<Team> Teams { get; set; }
         public DbSet<UserTeam> Users_Teams { get; set; }
 
+        public DbSet<Role> Roles { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -40,6 +43,12 @@ namespace Organizer.Contexts
                 .HasOne(ut => ut.Team)
                 .WithMany(t => t.Users_Teams)
                 .HasForeignKey(ut => ut.team_id);
+
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.Role)
+                .WithMany()
+                .HasForeignKey(u => u.role_id)
+                .HasPrincipalKey(r => r.id);
         }
     }
 }
