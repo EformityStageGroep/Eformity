@@ -34,7 +34,9 @@ namespace Organizer.Controllers
         // GET: Tasks/Details/5
         public async Task<IActionResult> EmployeeDashboard()
         {
+           
 
+       
             ParentViewModel mymodel = new ParentViewModel();
             List<Entities.User> users = await _userRepository.GetUserIdsByTenant();
             List<Entities.Team> teams = await _teamRepository.GetTeamsByUser();
@@ -53,10 +55,6 @@ namespace Organizer.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("id,title,description,priority,datetime,selectstatus,tenantid,teamid,userid")] Entities.Task task)
         {
-            var userRole = await _context.Users
-                .Where(u => u.id == task.userid)
-                .Select(u => u.role_id)
-                .FirstOrDefaultAsync();
 
             if (ModelState.IsValid)
             {
@@ -73,15 +71,6 @@ namespace Organizer.Controllers
         [HttpPost]
         public async Task<IActionResult> EditTask(Guid id, [Bind("id,title,description,priority,datetime,selectstatus,tenantid,userid")] Entities.Task task)
         {
-            var userRole = await _context.Users
-                .Where(u => u.id == task.userid)
-                .Select(u => u.role_id)
-                .FirstOrDefaultAsync();
-
-            if (id != task.id)
-            {
-                return NotFound();
-            }
 
             if (ModelState.IsValid)
             {
@@ -113,10 +102,7 @@ namespace Organizer.Controllers
                 return NotFound();
             }
 
-            var userRole = await _context.Users
-                .Where(u => u.id == task.userid)
-                .Select(u => u.role_id)
-                .FirstOrDefaultAsync();
+
 
             _context.Task.Remove(task);
             await _context.SaveChangesAsync();
