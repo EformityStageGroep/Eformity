@@ -180,7 +180,6 @@
                         <div class="text-gray-400 text-xs font-semibold leading-6">Your teams</div>
                         <ul role="list" class="-mx-2 mt-2 space-y-1">
                             <li>
-
                                 @foreach (var team in Model.Teams)
                                 {
                                     <a href="#" class="text-gray-700 gap-x-3 p-2 group flex rounded-md text-sm font-semibold leading-6 hover:text-indigo-600 hover:bg-gray-50">
@@ -188,9 +187,7 @@
                                         <span class="truncate">@team.title</span>
                                     </a>
                                 }
-
                             </li>
-                            
                         </ul>
                     </li>
                     <li class="mt-auto">
@@ -207,7 +204,6 @@
         </div>
     </div>
 
-
     <div class="lg:pl-72">
         <div class="top-0 h-16 mb-12 gap-x-4 border-gray-200 bg-white px-4 sticky z-40 flex shrink-0 items-center border-b shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
             <button type="button" class="-m-2.5 p-2.5 text-gray-700 lg:hidden">
@@ -216,7 +212,6 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                 </svg>
             </button>
-
             <!-- Separator -->
             <div class="h-6 w-px bg-gray-200 lg:hidden" aria-hidden="true"></div>
 
@@ -274,9 +269,6 @@
                 </div>
             </div>
         </div>
-
-
-     
     </div>
 </div>
 
@@ -291,8 +283,6 @@
         setTimeout(function () {
             offCanvasBackground.classList.add("opacity-100")
         }, 50);
-
-
 
         offCanvas.classList.remove('hidden');
 
@@ -318,23 +308,19 @@
         offCanvas.classList.add("hidden")
         }, 500);
        
-
     }
 
     document.addEventListener("DOMContentLoaded", function () {
         const profileName = document.getElementById('user-menu-button');
         const dropdownMenu = document.querySelector("[role='menu']");
 
-
         profileName.addEventListener("click", function (event) {
             if (dropdownMenu.classList.contains("hidden")) {
                 dropdownMenu.classList.remove("hidden");
-
             }
             else {
                 dropdownMenu.classList.add("hidden");
             }
-
         })
 
         document.addEventListener("click", function (event) {
@@ -342,6 +328,5 @@
                 dropdownMenu.classList.add("hidden");
             }
         });
-
     });
 </script>

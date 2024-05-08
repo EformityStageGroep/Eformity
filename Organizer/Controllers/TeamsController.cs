@@ -55,7 +55,7 @@ namespace Organizer.Controllers
                 {
                     foreach (var userId in users)
                     {
-                         Console.WriteLine($"Number of user IDs: {users.Count}");
+                        Console.WriteLine($"Number of user IDs: {users.Count}");
 
                         // Create a new UserTeam object for each user ID
                         var userTeam = new UserTeam { user_id = userId, team_id = guid };
