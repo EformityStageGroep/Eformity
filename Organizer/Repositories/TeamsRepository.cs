@@ -75,7 +75,6 @@ namespace Organizer.Repositories
             await _context.SaveChangesAsync();
         }
 
-
         public async Task<List<Entities.Team>> GetTeamsByUser()
         {
 

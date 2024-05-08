@@ -78,7 +78,6 @@ namespace Organizer.Repositories
 
         public async System.Threading.Tasks.Task Edit(Entities.Task task)
         {
-
             _context.Task.Update(task);
             await _context.SaveChangesAsync();
         }

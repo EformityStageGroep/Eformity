@@ -14,15 +14,11 @@ namespace Organizer.Contexts
         {
             base.OnConfiguring(optionsBuilder);
             optionsBuilder.UseSqlServer(Organizer.Properties.Resources.ConnectionString);
-
-        
-
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Entities.Task> Task { get; set; }
         public DbSet<Team> Teams { get; set; }
         public DbSet<UserTeam> Users_Teams { get; set; }
-
         public DbSet<Role> Roles { get; set; }
 
 

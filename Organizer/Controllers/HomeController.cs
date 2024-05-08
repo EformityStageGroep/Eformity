@@ -12,7 +12,6 @@ namespace Organizer.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        public static string _variableToChange = "_sectionHeading";
         SqlCommand com = new SqlCommand();
         SqlDataReader dr;
         SqlConnection con = new SqlConnection();

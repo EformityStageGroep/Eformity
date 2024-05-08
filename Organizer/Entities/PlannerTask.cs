@@ -8,7 +8,6 @@ namespace Organizer.Entities
     public class Task : IMustHaveTenant
     {
         [Key]
-        
         public Guid id { get; set; }
 
         public string title { get; set; }

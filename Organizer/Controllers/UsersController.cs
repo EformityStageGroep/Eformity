@@ -21,18 +21,14 @@ namespace Organizer.Controllers
         {
             _teamRepository = teamRepository;
             _userRepository = userRepository;
-
             _employeeRepository = employeeRepository;
 
         }
             // GET: Users
-            public async Task<IActionResult> Index()
-        
-            {
+        public async Task<IActionResult> Index()
+        {
             try
             {
-             
-
                 return View();
             }
             catch (Exception ex)
@@ -51,8 +47,6 @@ namespace Organizer.Controllers
                 return NotFound();
             }
 
-
-
             return View();
         }
         [HttpPost]
@@ -69,7 +63,6 @@ namespace Organizer.Controllers
             {
                 await _userRepository.Create(user);
                 await _userRepository.SaveChangesAsync();
-                
             }
 
             // If ModelState is invalid, handle errors
@@ -88,9 +81,6 @@ namespace Organizer.Controllers
             // Return the view with the form and error messages
             return RedirectToAction("EmployeeDashboard", "Employee");
         }
-
-    
-
         // POST: Users/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -126,9 +116,6 @@ namespace Organizer.Controllers
             {
                 return NotFound();
             }
-
-
-
             return View();
         }
 
@@ -155,7 +142,6 @@ namespace Organizer.Controllers
                 try
                 {
                     var users = await _userRepository.GetUserIdsByTenant(); // Fetch tasks based on current tenant
-
 
                     if (users == null || !users.Any())
                     {
@@ -186,7 +172,6 @@ namespace Organizer.Controllers
                     Tasks = tasks
                 };
                 return View(model);
-
             }
         }
 

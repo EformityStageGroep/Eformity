@@ -55,7 +55,6 @@ namespace Organizer.Controllers
             {
                 return NotFound();
             }
-
             return View(role);
         }
 
@@ -159,8 +158,5 @@ namespace Organizer.Controllers
             var role = _roleRepository.GetRoleByIdAsync(id);
             return role != null;
         }
-
-      
-        
     }
 }

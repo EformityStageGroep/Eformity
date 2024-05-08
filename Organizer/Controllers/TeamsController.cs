@@ -14,7 +14,6 @@ namespace Organizer.Controllers
         private readonly IUserRepository _userRepository;
         private readonly IEmployeeRepository _employeeRepository;
 
-
         public TeamsController(ITeamsRepository teamRepository, IUserRepository userRepository, IEmployeeRepository employeeRepository)
         {
             _teamRepository = teamRepository;
@@ -95,9 +94,7 @@ namespace Organizer.Controllers
             // Redirect to the Index action
             return RedirectToAction(nameof(Index));
         }
-    
-
-
+  
         public async Task<IActionResult> EditTeam(Guid id, [Bind("id,title,tenant_id,Users_Teams")] Team team)
         {
             if (id != team.id)

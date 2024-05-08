@@ -13,16 +13,21 @@ namespace Organizer.Repositories
     {
         private readonly OrganizerContext _context;
         private readonly ICurrentUserService _currentUserService;
+        private readonly ICurrentTenantService _currentTenantService;
 
-        public RoleRepository(OrganizerContext context, ICurrentUserService currentUserService)
+        public RoleRepository(OrganizerContext context, ICurrentUserService currentUserService, ICurrentTenantService currentTenantService)
         {
             _context = context;
             _currentUserService = currentUserService;
+            _currentTenantService = currentTenantService;
         }
 
         public async Task<List<Role>> GetAllRolesAsync()
         {
-            return await _context.Roles.ToListAsync();
+            var tenantId = _currentTenantService.tenantid;
+          
+            var roles = await _context.Roles.Where(t => t.tenant_id == tenantId).ToListAsync();
+            return roles;
         }
 
         public async Task<Role> GetRoleByIdAsync(Guid id)

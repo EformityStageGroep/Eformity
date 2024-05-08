@@ -12,13 +12,11 @@ namespace Organizer.Controllers
             // Pass the user profile data to the view
             return View();
         }
-
         // Sign out action
         public IActionResult SignOut()
         {
             // Perform sign-out
             HttpContext.SignOutAsync();
-
             // Redirect to home page or any other page after sign-out
             return RedirectToAction("Index", "Home");
         }

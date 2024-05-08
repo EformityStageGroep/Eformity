@@ -18,23 +18,17 @@ namespace Organizer.Controllers
         private readonly ITeamsRepository _teamRepository;
         private readonly IUserRepository _userRepository;
         private readonly IEmployeeRepository _taskRepository;
-
         private readonly OrganizerContext _context;
-
-
 
         public EmployeeController(ITeamsRepository teamRepository, IUserRepository userRepository, IEmployeeRepository employeeRepository)
         {
             _teamRepository = teamRepository;
             _userRepository = userRepository;
             _taskRepository = employeeRepository;
-
-
         }
         // GET: Tasks
         public async Task<IActionResult> Index()
         {
-
             return View();
         }
         // GET: Tasks/Details/5
@@ -53,10 +47,6 @@ namespace Organizer.Controllers
                 Tasks = tasks
             };
             return View(model);
-
-
-
-
         }
 
         [HttpPost]
@@ -67,7 +57,6 @@ namespace Organizer.Controllers
                 .Where(u => u.id == task.userid)
                 .Select(u => u.role_id)
                 .FirstOrDefaultAsync();
-
 
             if (ModelState.IsValid)
             {
@@ -80,23 +69,7 @@ namespace Organizer.Controllers
             {
                 return View(task); // Return the same view if ModelState is invalid
             }
-
-
-
         }
-
-        /*if (!ModelState.IsValid)
-            {
-                foreach (var modelError in ModelState.Values.SelectMany(v => v.Errors))
-                {
-                    Console.WriteLine($"Errorrrrr: {modelError.ErrorMessage}");
-                }
-            }
-            Console.WriteLine($"Current tenantid controller: {task}");
-            return View(task);
-        }
-         */
-
         [HttpPost]
         public async Task<IActionResult> EditTask(Guid id, [Bind("id,title,description,priority,datetime,selectstatus,tenantid,userid")] Entities.Task task)
         {
@@ -104,8 +77,6 @@ namespace Organizer.Controllers
                 .Where(u => u.id == task.userid)
                 .Select(u => u.role_id)
                 .FirstOrDefaultAsync();
-
-
 
             if (id != task.id)
             {
@@ -130,8 +101,6 @@ namespace Organizer.Controllers
             {
                 return View(task);
             }
-
-
         }
 
         [HttpPost, ActionName("Delete")]
@@ -149,15 +118,10 @@ namespace Organizer.Controllers
                 .Select(u => u.role_id)
                 .FirstOrDefaultAsync();
 
-
             _context.Task.Remove(task);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-    
-        
-
-
         public IActionResult EmployeeDashboard2()
         {
             return View();

@@ -91,23 +91,22 @@
                     </h3>
                     <form asp-controller="Roles" asp-action="Create" method="post" class="mt-4">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <div class="mt-2">
-                            <label for="tenant_id" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
-                            <input type="hidden" id="tenant_id" name="tenant_id" value="@tenantid">
-                        </div>
+                            <div class="mt-2">
+                                <label for="tenant_id" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
+                                <input type="hidden" id="tenant_id" name="tenant_id" value="@tenantid">
+                            </div>
 
-                        <div class="mt-2">
-                            <label for="title" class="text-gray-700 block text-sm font-medium">Your Roles</label>
-                            <p class="text-gray-500 text-sm">
-                                A list of your company's created roles.
-                            </p>
+                            <div class="mt-2">
+                                <label for="title" class="text-gray-700 block text-sm font-medium">Your Roles</label>
+                                <p class="text-gray-500 text-sm">
+                                    A list of your company's created roles.
+                                </p>
 
-                            <div class="bg-white overflow-hidden shadow sm:rounded-md">
-                                <ul role="list" class="divide-gray-200 divide-y">
-                                </ul>
-                                <div class="bg-white mt-3 max-h-[35vh] overflow-y-auto rounded-md">
+                                <div class="bg-white overflow-hidden shadow sm:rounded-md">
                                     <ul role="list" class="divide-gray-200 divide-y">
-
+                                    </ul>
+                                    <div class="bg-white mt-3 max-h-[35vh] overflow-y-auto rounded-md">
+                                        <ul role="list" class="divide-gray-200 divide-y">
                                             <li class="px-6 py-4 border-left border">
                                                 <h3 class="text-gray-900 text-base font-semibold leading-6">@edit.title</h3>
                                                 <div class="border-gray-200 pb-5 mb-3 border-b sm:flex sm:items-center sm:justify-between"></div>
@@ -148,43 +147,36 @@
                                                     </div>
                                                 </div>
                                             </li>
-
-
-
-                                    </ul>
+                                        </ul>
+                                    </div>
                                 </div>
-
-
                             </div>
 
+                        <div id="buttonsEdit" class="bottom-0 right-0 pb-4 pr-4 space-x-3 w-[92%] absolute flex items-end justify-end sm:space-x-4">
+                                <!-- Left-aligned button -->
+                            <div class="pb-1 relative flex w-full items-end justify-between">
+                                <!-- Left-aligned button -->
+                                <div>
+                                    <button id="createTaskButton" type="button" onclick="deleteRole('@edit.id')"
+                                            class="px-4 py-2 bg-red-500 text-white rounded-md shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                        Delete Role
+                                    </button>
+                                </div>
+
+                                <!-- Right-aligned buttons -->
+                                <div class="space-x-3 flex sm:space-x-4">
+                                    <button onclick="toggleEditRoleModal('@edit.id')" id="saveModalButton" type="button"
+                                            class="px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                        Save
+                                    </button>
+                                    <button onclick="toggleEditRoleModal('@edit.id')" id="closeModalButton" type="button"
+                                            class="px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                        Go Back
+                                    </button>
+                                </div>
+                            </div>
 
                         </div>
-
-                            <div id="buttonsEdit" class="bottom-0 right-0 pb-4 pr-4 space-x-3 w-[92%] absolute flex items-end justify-end sm:space-x-4">
-    <!-- Left-aligned button -->
-<div class="pb-1 relative flex w-full items-end justify-between">
-    <!-- Left-aligned button -->
-    <div>
-        <button id="createTaskButton" type="button" onclick="deleteRole('@edit.id')"
-                class="px-4 py-2 bg-red-500 text-white rounded-md shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-            Delete Role
-        </button>
-    </div>
-
-    <!-- Right-aligned buttons -->
-    <div class="space-x-3 flex sm:space-x-4">
-        <button onclick="toggleEditRoleModal('@edit.id')" id="saveModalButton" type="button"
-                class="px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-            Save
-        </button>
-        <button onclick="toggleEditRoleModal('@edit.id')" id="closeModalButton" type="button"
-                class="px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-            Go Back
-        </button>
-    </div>
-</div>
-
-                    </div>
                     </form>
 
                 </div>
@@ -222,9 +214,8 @@
                             <p class="text-gray-500 text-sm">
                                 A list of your company's created roles.</p>
 
-                                <div class="bg-white overflow-hidden shadow sm:rounded-md">
-                          <ul role="list" class="divide-gray-200 divide-y">
-                                </ul>
+                            <div class="bg-white overflow-hidden shadow sm:rounded-md">
+                                <ul role="list" class="divide-gray-200 divide-y"></ul>
                                 <div class="bg-white mt-3 max-h-[35vh] overflow-y-auto rounded-md">
                                     <ul role="list" class="divide-gray-200 divide-y hover:cursor-pointer">
                                         @foreach (var item in Model.Roles)
@@ -234,30 +225,23 @@
                                                 <button  type="button" onclick="toggleEditRoleModal('@item.id')" class="text-gray-400 font-semibold hover:text-gray-600">Edit</button>
 
                                             </li>
- 
                                         }
-
                                     </ul>
                                 </div>
-
-
-</div>
-
-
+                            </div>
                         </div>
-                        
 
-    <div class="bottom-0 right-0 pb-4 pr-4 space-x-3 absolute flex w-full items-end justify-end sm:space-x-4">
+                        <div class="bottom-0 right-0 pb-4 pr-4 space-x-3 absolute flex w-full items-end justify-end sm:space-x-4">
 
-        <button id="createTaskButton" type="submit"
-                class="px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-            Save
-        </button>
+                            <button id="createTaskButton" type="submit"
+                                    class="px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                Save
+                            </button>
                             <button onclick="toggleManageRoleModal()" id="closeModalButton" type="button"
                                     class="px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                 Close
                             </button>
-    </div>
+                        </div>
                     </form>
 
                 </div>
@@ -279,8 +263,6 @@
                 <path fill="none" d="M0 0h48v48H0z" />
                 <path fill="white" d="M38.86 25.95c.08-.64.14-1.29.14-1.95s-.06-1.31-.14-1.95l4.23-3.31c.38-.3.49-.84.24-1.28l-4-6.93c-.25-.43-.77-.61-1.22-.43l-4.98 2.01c-1.03-.79-2.16-1.46-3.38-1.97L29 4.84c-.09-.47-.5-.84-1-.84h-8c-.5 0-.91.37-.99.84l-.75 5.3a14.8 14.8 0 0 0-3.38 1.97L9.9 10.1a1 1 0 0 0-1.22.43l-4 6.93c-.25.43-.14.97.24 1.28l4.22 3.31C9.06 22.69 9 23.34 9 24s.06 1.31.14 1.95l-4.22 3.31c-.38.3-.49.84-.24 1.28l4 6.93c.25.43.77.61 1.22.43l4.98-2.01c1.03.79 2.16 1.46 3.38 1.97l.75 5.3c.08.47.49.84.99.84h8c.5 0 .91-.37.99-.84l.75-5.3a14.8 14.8 0 0 0 3.38-1.97l4.98 2.01a1 1 0 0 0 1.22-.43l4-6.93c.25-.43.14-.97-.24-1.28l-4.22-3.31zM24 31c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z" />
             </svg>
-
-
         </button>
         <button onclick="toggleCreateRoleModal()" class="bg-blue-500 text-white px-3 py-2 my-2 mx-2 flex items-center rounded-lg text-center text-sm font-semibold hover:bg-blue-600">
             Create New Role <i class="fab fa-facebook ml-1"></i>
@@ -299,12 +281,8 @@
                 <th class="p-3 px-5 text-left">Name</th>
                 <th class="p-3 px-5 text-left">Email</th>
                 <th class="p-3 px-5 text-left">Role</th>
-
-
-
                 <th></th>
             </tr>
-
 
             @foreach (var item in Model.Users)
             {
@@ -320,19 +298,19 @@
                         <form id="assignRoleForm_@item.id"  method="post" action="@Url.Action("SaveUserRole", "Users")">
                             <input type="hidden" name="userId" value="@item.id">
                             <div class="flex justify-between">
-                            <select name="roleId" id="roleSelect_@item.id" class="bg-transparent border-gray-300 py-2 border-b-2 border-l-0 border-r-0 border-t-0 hover:cursor-pointer">
-                                @foreach (var role in Model.Roles)
-                                {
-                                    if (role.id == item.role_id)
+                                <select name="roleId" id="roleSelect_@item.id" class="bg-transparent border-gray-300 py-2 border-b-2 border-l-0 border-r-0 border-t-0 hover:cursor-pointer">
+                                    @foreach (var role in Model.Roles)
                                     {
-                                        <option value="@role.id" selected>@role.title</option>
+                                        if (role.id == item.role_id)
+                                        {
+                                            <option value="@role.id" selected>@role.title</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@role.id">@role.title</option>
+                                        }
                                     }
-                                    else
-                                    {
-                                        <option value="@role.id">@role.title</option>
-                                    }
-                                }
-                            </select>
+                                </select>
                                 <div class="flex self-end">
                                     <button type="submit" class="mr-3 h-[40px] w-[75px] bg-blue-500 text-white py-1 px-2 rounded text-sm hover:bg-blue-700 focus:outline-none focus:shadow-outline">
                                         Save
@@ -342,21 +320,18 @@
                                     </button>
                                 </div>
                             </div>
-
                         </form>
-
-
                     </td>
                 </tr>
             }
-
         </tbody>
     </table>
 </div>
 <div class="flex">
     <h3 class="text-gray-900 mr-3 mt-1 text-base font-semibold leading-6">Create Role</h3>
-
 </div>
+
+@section scripts{
 <script>
 
     function deleteRole(roleId) {
@@ -419,3 +394,4 @@
     }
 
 </script>
+}

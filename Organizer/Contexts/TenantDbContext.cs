@@ -14,10 +14,7 @@ namespace Organizer.Contexts
         public TenantDbContext()
         {
         }
-
-
         public DbSet<Tenant> Tenants { get; set; }
-
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
