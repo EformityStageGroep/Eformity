@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Organizer.Entities
 {
@@ -6,9 +9,18 @@ namespace Organizer.Entities
     {
         [Key]
         public string id { get; set; }
+
         public string tenant_id { get; set; }
+
         public string fullname { get; set; }
+
         public string email { get; set; }
+
+        [ForeignKey("role_id")]
+        public Guid role_id { get; set; }
+
+        // Navigation property for the Role
+        public Role Role { get; set; }
 
         public User()
         {

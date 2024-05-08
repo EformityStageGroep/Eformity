@@ -1,4 +1,4 @@
-﻿@model Organizer.Entities.User
+﻿@model ParentViewModel
 
 @{
     ViewData["title"] = "Create";
@@ -6,12 +6,11 @@
     var email = @User.FindFirst("preferred_username")?.Value;
     var fullname = @User.FindFirst("name")?.Value;
     var tenant_id = @User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
+    var role_id = "527d6362-eee6-4c25-9e96-a5fd6225dab9";
     Console.WriteLine(userid);
     Console.WriteLine(email);
     Console.WriteLine(fullname);
     Console.WriteLine(tenant_id);
-
-
 }
 
 <h1>Create</h1>
@@ -22,28 +21,9 @@
 <div class="row hidden">
     <div class="col-md-4">
         <form asp-action="Create" id="taskForm">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="fullname" class="control-label"></label>
-                <input asp-for="fullname" value="@fullname" class="form-control" />
-                <span asp-validation-for="fullname" class="text-danger"></span>
-            </div>
-            <div type="hidden" class="hidden form-group">
-                <label asp-for="tenant_id" type="hidden" class="control-label"></label>
-                <input asp-for="tenant_id" type="hidden" value="@tenant_id" class="form-control" />
-                <span asp-validation-for="tenant_id" type="hidden" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="email" class="control-label"></label>
-                <input asp-for="email" value="@email" class="form-control" />
-                <span asp-validation-for="email" class="text-danger"></span>
-            </div>
-            <div  class="form-group hidden">
-                <label asp-for="id"  class="control-label"></label>
-                <input asp-for="id"  value="@userid" class="form-control" />
-                <span asp-validation-for="id"  class="text-danger"></span>
-            </div>
 
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" id="submitBtn" />
             </div>

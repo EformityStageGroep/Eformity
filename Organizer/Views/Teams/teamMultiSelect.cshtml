@@ -19,13 +19,9 @@
             <div id="inputField" class="svelte-1l8159u w-full">
                 <div class="my-2 p-1 border-gray-200 bg-white svelte-1l8159u round mt-1 py-2 px-3 border-gray-300 bg-white block flex w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     <div class="flex flex-auto flex-wrap">
-
-
-
-                          @foreach (var item in Model.Users)
+                    @foreach (var item in Model.Users)
                     {
-                    
-                            <div id="userClicked_@item.id" class="m-1 py-1 px-2 bg-white text-white bg-indigo-700 border-indigo-700 flex hidden items-center justify-center rounded-full border font-medium">
+                        <div id="userClicked_@item.id" class="m-1 py-1 px-2 bg-white text-white bg-indigo-700 border-indigo-700 flex hidden items-center justify-center rounded-full border font-medium">
                             <div class="flex-initborder-gray-100 w-full max-w-full cursor-pointer rounded-t border-b text-xs font-normal leading-none hover:bg-teal-100ial">@item.fullname</div>
                             <div class="flex flex-auto flex-row-reverse">
                                 <div>
@@ -36,10 +32,7 @@
                                 </div>
                             </div>
                         </div>
-                        
-
                         }
-
 
                         <div class="flex-1">
                             <input id="filterInput" placeholder="" class="bg-transparent p-1 px-2 text-gray-800 h-full w-full appearance-none outline-none">
@@ -55,7 +48,6 @@
                 </div>
             </div>
 
-
             <div id="userList" class="top-100 bg-white lef-0 max-h-select svelte-5uyqqj absolute z-40 hidden w-full overflow-y-auto rounded shadow">
                 <div class="flex w-full flex-col">
                     
@@ -70,45 +62,22 @@
                             </div>
                         </div>
                     }
-
-
-
-
                 </div>
             </div>
-
-
-
-
-
-
-
-
-
         </div>
     </div>
 </div>
 
 <script>
-
-
-
-
-
         window.addEventListener('click', function (event) {
             userListButton = document.getElementById('userlistButton')
             userList = document.getElementById('userList')
             inputFIeld = document.getElementById('inputField')
 
-
         if (!userList.contains(event.target) && !userListButton.contains(event.target) && !inputField.contains(event.target)) {
-                userList.classList.add('hidden');
-
-                
+                userList.classList.add('hidden'); 
             }
         });
-
-
 
     document.addEventListener('DOMContentLoaded', function () {
         var filterInput = document.getElementById('filterInput');
@@ -128,7 +97,6 @@
         });
     });
 
-
     function removeNameFunction(userId) {
         userClickedBorder = document.getElementById('userBorder_' + userId)
         removeButton = document.getElementById('removeNameButton')
@@ -141,9 +109,7 @@
             clickedNamesList.splice(index, 1);  // Remove the item at the found index
         }
         console.log(clickedNamesList);
-
     }
-
 
     let clickedNamesList = [];
 
@@ -185,8 +151,5 @@
         button = document.getElementById("userlistButton")
         userList = document.getElementById("userList")
         userList.classList.toggle("hidden")
-    }
-    function CreateTeam() {
-        
     }
 </script>

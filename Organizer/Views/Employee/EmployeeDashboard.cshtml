@@ -1,229 +1,260 @@
-﻿@model List<Organizer.Entities.Task>
+@model ParentViewModel
+
 <body onload="filterTasksWhenLoaded('Done')">
 </body>
 @Html.Partial("../Home/Homepage")
 
+<div class="mt-4 flex justify-end">
+<h1>Filter:</h1>
+    <select id="teamLabel_" onchange="FilterTaskByTeam(this.value)" class="ml-2 border-gray-900 pl-[7px] pb-[1px] text-black w-[100px] h-[27px] relative z-10 flex cursor-pointer cursor-pointer items-center justify-center self-baseline rounded-sm border border border-solid text-xs font-medium hover:bg-gray-200">
+        <option value="ALL">ALL</option>
+        <option value="User_Task">Personal</option>
+        @foreach (var teams in Model.Teams)
+            {
+                <option value="@teams.id">@teams.title</option>
+            }
+    </select>
+</div>
+
+<script>
+    function FilterTaskByTeam(Teamid) {
+        console.log(Teamid);
+        var tasks = document.querySelectorAll('[data-team-id]');
+       
+        tasks.forEach(function (task) {
+            var taskTeamId = task.dataset.teamId;
+
+            if (Teamid === "ALL" || taskTeamId === Teamid) {
+                task.style.display = 'block';
+            } else {
+                task.style.display = 'none';
+            }
+        });
+    }
+    function filterTasksByPriority(priority, status) {
+        var tasks = document.querySelectorAll('[data-postit-id]');
+       
+        tasks.forEach(function (task) {
+            var taskId = task.id.split("_")[1]; // Extracting task ID from element ID
+            var priorityLabel = document.getElementById('priorityLabel_' + taskId).innerText;
+            var statusLabel = document.getElementById('statusLabel_' + taskId);
+            var selectedOption = statusLabel.options[statusLabel.selectedIndex].value;
+
+            if (selectedOption === status) {
+                task.style.display = 'none';
+            }
+            else if ((priority === "ALL" || priorityLabel === priority) && statusLabel !== "Done") {
+                task.style.display = 'block'; // Show the task if the priority matches and the status is not "done", or if "ALL" is selected
+            } else {
+                task.style.display = 'none'; // Hide the task if priority does not match or status is "done"
+            }
+        });
+    }
+</script>
 
 <ul role="list" class="mt-5 bg-white mb-3 border shadow-sm">
     <div class="divide-gray-100 grid sm:grid-cols-1 xl:grid-cols-2">
-    @foreach (var task in Model)
-    {
-    <div id="slideoverDiv_@task.id">
-        <div data-prefix="slideover" id="slideoverModal_@task.id" class="invisible relative z-50 transition-all duration-300 ease-out" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+        @foreach (var task in Model.Tasks)
+        {
+        <div id="slideoverDiv_@task.id" data-team-id="@task.teamid" data-postit-id="@task.id">
+            <div data-prefix="slideover" id="slideoverModal_@task.id" class="invisible relative z-50 transition-all duration-300 ease-out" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
 
-            <div class="inset-0 absolute overflow-hidden">
-                <div class="inset-y-0 right-0 pl-10 active pointer-events-none fixed flex h-auto max-w-full drop-shadow-2xl sm:pl-16">
-                    <!-- Your content here -->
-                    <div class="pointer-events-auto w-screen max-w-2xl transition-all duration-500 ease-in">
-                        <div id="slideover_@task.id" class="bg-white py-6 flex h-full translate-x-full flex-col overflow-y-scroll shadow-xl transition-all duration-500 ease-in">
-                            <div class="px-4 sm:px-6">
-                                <div class="flex items-start justify-between">
-                                    <div class="flex">
-                                        <h2 class="text-gray-900 text-base font-semibold leading-6" id="slide-over-title_@task.id">Editing: @task.title</h2>
-                                        <div class="ml-3 flex items-center">
+                <div class="inset-0 absolute overflow-hidden">
+                    <div class="inset-y-0 right-0 pl-10 active pointer-events-none fixed flex h-auto max-w-full drop-shadow-2xl sm:pl-16">
+                        <!-- Your content here -->
+                        <div class="pointer-events-auto w-screen max-w-2xl transition-all duration-500 ease-in">
+                            <div id="slideover_@task.id" class="bg-white py-6 flex h-full translate-x-full flex-col overflow-y-scroll shadow-xl transition-all duration-500 ease-in">
+                                <div class="px-4 sm:px-6">
+                                    <div class="flex items-start justify-between">
+                                        <div class="flex">
+                                            <h2 class="text-gray-900 text-base font-semibold leading-6" id="slide-over-title_@task.id">Editing: @task.title</h2>
+                                            <div class="ml-3 flex items-center">
+                                            </div>
                                         </div>
+                                        <button onclick="toggleSlideover('@task.id')" type="button" class="p-1 bg-white text-gray-400 font-sm h-0 relative cursor-pointer rounded-md text-xs hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                                            <span class="-inset-2.5 absolute"></span>
+                                            <span class="sr-only">Close panel</span>
+                                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        </button>
                                     </div>
-                                    <button onclick="toggleSlideover('@task.id')" type="button" class="p-1 bg-white text-gray-400 font-sm h-0 relative cursor-pointer rounded-md text-xs hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                                        <span class="-inset-2.5 absolute"></span>
-                                        <span class="sr-only">Close panel</span>
-                                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                        </svg>
-                                    </button>
-
                                 </div>
+                                <div class="mt-6 px-4 relative flex-1 sm:px-6">
 
+                                    <form id="MyForm" asp-action="EditTask" asp-route-id="@task.id">
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                        <input type="hidden" asp-for="@task.id" />
+                                        <input type="hidden" asp-for="@task.tenantid" />
+                                        <input type="hidden" asp-for="@task.userid" />
+                                        <input id="teamLabel_@task.teamid" value="@task.teamid" type="hidden" asp-for="@task.teamid" />
+
+                                        <div class="form-group">
+
+                                            <label asp-for="@task.title" class="control-label"></label>
+                                            <input asp-for="@task.title" class="p-2 py-1.5 text-gray-900 ring-gray-300 block w-full rounded-md border-0 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" value="@task.title">
+
+                                            <span asp-validation-for="@task.title" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label asp-for="@task.description" class="control-label"></label>
+                                            <textarea asp-for="@task.description" class="p-2 py-1.5 text-gray-900 ring-gray-300 block w-full rounded-md border-0 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Put James in the CC!"></textarea>
+
+                                            <span asp-validation-for="@task.description" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label asp-for="@task.priority" class="control-label"></label>
+                                            <p class="text-gray-500 text-sm">What priority would you like to set the post-it to?</p>
+
+                                            <select asp-for="@task.priority" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                                <option value="high">High</option>
+                                                <option value="medium">Medium</option>
+                                                <option value="low">Low</option>
+                                            </select>
+                                            <span asp-validation-for="@task.priority" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label asp-for="@task.datetime" class="control-label"></label>
+                                            <p class="text-gray-500 text-sm">Set the date and time this task is due for</p>
+
+                                            <input asp-for="@task.datetime" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+
+                                            <span asp-validation-for="@task.datetime" class="text-danger"></span>
+
+                                        </div>
+                                        <input type="hidden" asp-for="@task.selectstatus" />
+                                        <div class="form-group right-0 mt-4 mb-4 mr-4 fixed">
+                                            <input type="submit" value="Save" class="m1 auto bg-indigo-500 px-3.5 py-2.5 text-white rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" onclick="updateTask()">
+                                            <button type="button" class="m1 auto bg-indigo-500 px-3.5 py-2.5 text-white rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" onclick="deleteTask('@task.id')">Delete</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
-                            <div class="mt-6 px-4 relative flex-1 sm:px-6">
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                                <form id="MyForm" asp-action="EditTask" asp-route-id="@task.id">
+            <div data-team-id="@task.teamid" data-postit-id="@task.id" id="postit_@task.id" name="postit_@task.teamid" class="border-gray-100 border">
+                <li class="gap-x-6 px-4 py-5 min-w-40 relative flex justify-between hover:bg-gray-50 sm:px-6">
+                    <div class="min-w-0 gap-x-4 flex">
+                        <div class="min-w-0 flex-auto">
+                            <div class="flex">
+                                <p class="text-gray-900 text-sm font-semibold leading-6">
+                                    <a href="#">
+                                        <span class="inset-x-0 -top-px bottom-0 absolute z-0" onclick="toggleSlideover('@task.id')"></span>
+                                            @task.title
+                                    </a>
+                                </p>
+
+                                <form id="myForm_@task.id" asp-action="EditTask" asp-route-id="@task.id">
                                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                     <input type="hidden" asp-for="@task.id" />
                                     <input type="hidden" asp-for="@task.tenantid" />
                                     <input type="hidden" asp-for="@task.userid" />
+                                    <input id="teamLabel_@task.teamid" value="@task.teamid" type="hidden" asp-for="@task.teamid" />
+
+                                    <input type="invisible" asp-for="@task.title" class="hidden">
+                                    <span asp-validation-for="@task.title" class="text-danger"></span>
+
                                     <div class="form-group">
-
-                                        <label asp-for="@task.title" class="control-label"></label>
-                                        <input asp-for="@task.title" class="p-2 py-1.5 text-gray-900 ring-gray-300 block w-full rounded-md border-0 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" value="@task.title">
-
-                                        <span asp-validation-for="@task.title" class="text-danger"></span>
-                                    </div>
-                                    <div class="form-group mb-3">
-                                        <label asp-for="@task.description" class="control-label"></label>
-                                        <textarea asp-for="@task.description" class="p-2 py-1.5 text-gray-900 ring-gray-300 block w-full rounded-md border-0 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Put James in the CC!"></textarea>
-
+                                        <input type="invisible" asp-for="@task.description" class="hidden">
                                         <span asp-validation-for="@task.description" class="text-danger"></span>
                                     </div>
-                                    <div class="form-group mb-3">
-                                        <label asp-for="@task.priority" class="control-label"></label>
-                                        <p class="text-gray-500 text-sm">What priority would you like to set the post-it to?</p>
-
-                                        <select asp-for="@task.priority" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    <div class="form-group">
+                                        <select type="invisible" asp-for="@task.priority" class="hidden">
                                             <option value="high">High</option>
                                             <option value="medium">Medium</option>
                                             <option value="low">Low</option>
                                         </select>
-                                        <span asp-validation-for="@task.priority" class="text-danger"></span>
+                                        <span asp-validation-for="@task.priority" class="hidden"></span>
                                     </div>
-                                    <div class="form-group mb-3">
-                                        <label asp-for="@task.datetime" class="control-label"></label>
-                                        <p class="text-gray-500 text-sm">Set the date and time this task is due for</p>
-
-                                        <input asp-for="@task.datetime" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-
+                                    <div class="form-group">
+                                        <input type="invisible" asp-for="@task.datetime" class="hidden">
                                         <span asp-validation-for="@task.datetime" class="text-danger"></span>
+                                    </div>
 
-                                    </div>
-                                    <input type="hidden" asp-for="@task.selectstatus" />
-                                    <div class="form-group right-0 mt-4 mb-4 mr-4 fixed">
-                                        <input type="submit" value="Save" class="m1 auto bg-indigo-500 px-3.5 py-2.5 text-white rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" onclick="updateTask()">
-                                        <button type="button" class="m1 auto bg-indigo-500 px-3.5 py-2.5 text-white rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" onclick="deleteTask('@task.id')">Delete</button>
-                                    </div>
+                                    <select asp-for="@task.selectstatus" id="statusLabel_@task.id" onchange="updateSelectStatus('@task.id')" class="ml-3 border-gray-900 text-black ml-1 p-1 w-[105px] relative z-10 flex cursor-pointer cursor-pointer items-center justify-center self-baseline rounded-lg border border border-solid text-xs font-medium hover:bg-gray-200">
+                                        <option value="To Do">To Do</option>
+                                        <option value="In Progress">In Progress</option>
+                                        <option value="Done">Done</option>
+
+                                    </select>
+                                    <span asp-validation-for="@task.selectstatus" class="text-danger"></span>
                                 </form>
                             </div>
+                            <p class="mt-1 text-gray-500 flex text-xs leading-5">
+                                @{
+                                    string description = @task.description;
+                                    string displayDescription = description.Length > 30 ? description.Substring(0, 30) + "..." : description;
+                                }
+                                <span id="shortDesc_@task.id" class="inline-block">@displayDescription</span>
+                                <a id="moreLink_@task.id" href="#" ml-3 class="text-blue-500 z-10 cursor-pointer hover:text-blue-600" onclick="toggleDescription('@task.id')">more</a>
+                                <span id="fullDesc_@task.id" class="mt-1 block hidden">@description</span>
+                                <a id="lessLink_@task.id" href="#" ml-3 class="text-blue-500 z-10 hidden cursor-pointer hover:text-blue-600" onclick="toggleDescription('@task.id')">less</a>
+                            </p>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
 
-                <div data-prefix="postit" id="postit_@task.id" class="border-gray-100 border">
-        <li class="gap-x-6 px-4 py-5 min-w-40 relative flex justify-between hover:bg-gray-50 sm:px-6">
-            <div class="min-w-0 gap-x-4 flex">
-                <div class="min-w-0 flex-auto">
-                    <div class="flex">
-
-                        <p class="text-gray-900 text-sm font-semibold leading-6">
-                            <a href="#">
-                                <span class="inset-x-0 -top-px bottom-0 absolute z-0" onclick="toggleSlideover('@task.id')"></span>
-                                    @task.title
-                            </a>
-                        </p>
-
-
-
-                        <form id="myForm_@task.id" asp-action="EditTask" asp-route-id="@task.id">
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <input type="hidden" asp-for="@task.id" />
-                            <input type="hidden" asp-for="@task.tenantid" />
-                            <input type="hidden" asp-for="@task.userid" />
-                            <input type="invisible" asp-for="@task.title" class="hidden">
-                            <span asp-validation-for="@task.title" class="text-danger"></span>
-
-                            <div class="form-group">
-                                <input type="invisible" asp-for="@task.description" class="hidden">
-                                <span asp-validation-for="@task.description" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <select type="invisible" asp-for="@task.priority" class="hidden">
-                                    <option value="high">High</option>
-                                    <option value="medium">Medium</option>
-                                    <option value="low">Low</option>
-                                </select>
-                                <span asp-validation-for="@task.priority" class="hidden"></span>
-                            </div>
-                            <div class="form-group">
-                                <input type="invisible" asp-for="@task.datetime" class="hidden">
-                                <span asp-validation-for="@task.datetime" class="text-danger"></span>
-                            </div>
-
-                            <select asp-for="@task.selectstatus" id="statusLabel_@task.id" onchange="updateSelectStatus('@task.id')" class="ml-3 border-gray-900 text-black ml-1 p-1 w-[105px] relative z-10 flex cursor-pointer cursor-pointer items-center justify-center self-baseline rounded-lg border border border-solid text-xs font-medium hover:bg-gray-200">
-                                <option value="To Do">To Do</option>
-                                <option value="In Progress">In Progress</option>
-                                <option value="Done">Done</option>
-
-                            </select>
-                            <span asp-validation-for="@task.selectstatus" class="text-danger"></span>
-                        </form>
-                    </div>
-                    <p class="mt-1 text-gray-500 flex text-xs leading-5">
-                            @{
-                                string description = @task.description;
-                                string displayDescription = description.Length > 30 ? description.Substring(0, 30) + "..." : description;
-                            }
-
-
-                        <span id="shortDesc_@task.id" class="inline-block">@displayDescription</span>
-
-                        <a id="moreLink_@task.id" href="#" ml-3 class="text-blue-500 z-10 cursor-pointer hover:text-blue-600" onclick="toggleDescription('@task.id')">more</a>
-                        <span id="fullDesc_@task.id" class="mt-1 block hidden">@description</span>
-                        <a id="lessLink_@task.id" href="#" ml-3 class="text-blue-500 z-10 hidden cursor-pointer hover:text-blue-600" onclick="toggleDescription('@task.id')">less</a>
-
-                    </p>
-                </div>
-
-            </div>
-
-
-            <div class="gap-x-4 flex shrink-0 items-center">
-                <div class="hidden sm:flex sm:flex-col sm:items-end">
-                    
-                        @if (task.priority == "HIGH")
-                        {
-                        <div class="flex flex-row">
-                            <p id="priorityLabel_@task.id" class="border-red-500 text-red-600 p-1 h-6.5 rounded-lg border border border-solid text-xs font-medium" leading-6">@task.priority</p>
+                    <div class="gap-x-4 flex shrink-0 items-center">
+                        <div class="hidden sm:flex sm:flex-col sm:items-end">
+                            @if (task.priority == "HIGH")
+                            {
+                            <div class="flex flex-row">
+                                <p id="priorityLabel_@task.id" class="border-red-500 text-red-600 p-1 h-6.5 rounded-lg border border border-solid text-xs font-medium" leading-6">@task.priority</p>
                                 @if (task.selectstatus == "Done")
                                 {
-                                <p id="priorityLabel_@task.id" class="ml-2 border-green-500 text-white bg-green-500 p-1 h-6.5 rounded-lg border border border-solid text-xs font-medium" leading-6">DONE</p>
-
+                                    <p id="priorityLabel_@task.id" class="ml-2 border-green-500 text-white bg-green-500 p-1 h-6.5 rounded-lg border border border-solid text-xs font-medium" leading-6">DONE</p>
                                 }
+                            </div>
+                            }
+                            @if (task.priority == "MEDIUM")
+                            {
+                                <div class="flex flex-row">
+                                    <p id="priorityLabel_@task.id" class="border-orange-600 text-orange-500 p-1 h-6.5 rounded-lg border border border-solid text-xs font-medium" leading-6">@task.priority</p>
+                                    @if (task.selectstatus == "Done")
+                                    {
+                                        <p id="priorityLabel_@task.id" class="ml-2 border-green-500 text-white bg-green-500 p-1 h-6.5 rounded-lg border border border-solid text-xs font-medium" leading-6">DONE</p>
+                                    }
+                                </div>
+                            }
+                            @if (task.priority == "LOW")
+                            {
+                                <div class="flex flex-row">
+                                    <p id="priorityLabel_@task.id" class="border-green-500 text-green-500 p-1 h-6.5 rounded-lg border border border-solid text-xs font-medium" leading-6">@task.priority</p>
+                                    @if (task.selectstatus == "Done") 
+                                    {
+                                    <p id="priorityLabel_@task.id" class="ml-2 border-green-500 text-white bg-green-500 p-1 h-6.5 rounded-lg border border border-solid text-xs font-medium" leading-6">DONE</p>
+                                    }
+                                </div>
 
+                            }
+                            <p class="mt-1 text-gray-500 text-xs leading-5">@task.datetime</p>
                         </div>
-                        }
-                        @if (task.priority == "MEDIUM")
-                        {
-                            <div class="flex flex-row">
-                             <p id="priorityLabel_@task.id" class="border-orange-600 text-orange-500 p-1 h-6.5 rounded-lg border border border-solid text-xs font-medium" leading-6">@task.priority</p>
-                             @if (task.selectstatus == "Done") {
-                                <p id="priorityLabel_@task.id" class="ml-2 border-green-500 text-white bg-green-500 p-1 h-6.5 rounded-lg border border border-solid text-xs font-medium" leading-6">DONE</p>
+                        <div class="relative flex-none">
+                            <button type="button" class="-m-2.5 p-2.5 text-gray-500 TeamsGroup block hover:text-gray-900" id="options-menu_@task.id" aria-expanded="false" aria-haspopup="true">
+                                <span class="sr-only">Open options</span>
+                                <svg class="h-5 w-5 radius-200 z-10 rounded-md hover:cursor-pointer hover:bg-gray-200" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <path d="M10 3a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM10 8.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM11.5 15.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0z"></path>
+                                </svg>
+                            </button>
 
-                             }
-
+                            <div class="right-0 mt-2 w-32 bg-white py-2 ring-gray-900/5 absolute z-20 hidden origin-top-right rounded-md shadow-lg ring-1 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu_@task.id" tabindex="-1">
+                                <!-- Active: "bg-gray-50", Not Active: "" -->
+                                <a href="#" class="px-3 py-1 text-gray-900 block text-sm leading-6" role="menuitem" onclick="toggleSlideover('@task.id')" tabindex="-1" id="options-menu_@task.id-item-0">Edit<span class="sr-only">, Michael Foster</span></a>
+                                <a href="#" class="px-3 py-1 text-gray-900 block text-sm leading-6" role="menuitem" onclick="deleteTask('@task.id')" tabindex="-1" id="options-menu_@task.id-item-1">Delete<span class="sr-only">, Michael Foster</span></a>
                             </div>
-                        }
-                        @if (task.priority == "LOW")
-                        {
-                            <div class="flex flex-row">
-                             <p id="priorityLabel_@task.id" class="border-green-500 text-green-500 p-1 h-6.5 rounded-lg border border border-solid text-xs font-medium" leading-6">@task.priority</p>
-                             @if (task.selectstatus == "Done") {
-                                <p id="priorityLabel_@task.id" class="ml-2 border-green-500 text-white bg-green-500 p-1 h-6.5 rounded-lg border border border-solid text-xs font-medium" leading-6">DONE</p>
-
-                             }
-
-                            </div>
-
-                        }
-                        
-                    <p class="mt-1 text-gray-500 text-xs leading-5">@task.datetime</p>
-                </div>
-                <div class="relative flex-none">
-                    <button type="button" class="-m-2.5 p-2.5 text-gray-500 TeamsGroup block hover:text-gray-900" id="options-menu_@task.id" aria-expanded="false" aria-haspopup="true">
-                        <span class="sr-only">Open options</span>
-                        <svg class="h-5 w-5 radius-200 z-10 rounded-md hover:cursor-pointer hover:bg-gray-200" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                            <path d="M10 3a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM10 8.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM11.5 15.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0z"></path>
-                        </svg>
-                    </button>
-
-                    <div class="right-0 mt-2 w-32 bg-white py-2 ring-gray-900/5 absolute z-20 hidden origin-top-right rounded-md shadow-lg ring-1 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu_@task.id" tabindex="-1">
-                        <!-- Active: "bg-gray-50", Not Active: "" -->
-                        <a href="#" class="px-3 py-1 text-gray-900 block text-sm leading-6" role="menuitem" onclick="toggleSlideover('@task.id')" tabindex="-1" id="options-menu_@task.id-item-0">Edit<span class="sr-only">, Michael Foster</span></a>
-                        <a href="#" class="px-3 py-1 text-gray-900 block text-sm leading-6" role="menuitem" onclick="deleteTask('@task.id')" tabindex="-1" id="options-menu_@task.id-item-1">Delete<span class="sr-only">, Michael Foster</span></a>
+                        </div>
                     </div>
-                </div>
+                </li>
             </div>
-        </li>
         </div>
-    </div>
-
-    }
+        }
     </div>
 </ul>
 
 
-
-
 @section scripts {
-
 
     <script>
         function filterTasksWhenLoaded(status) {
@@ -249,10 +280,8 @@
                     tasks.style.display = 'block'; // Show the task if priority matches or if "ALL" is selected
                 } else {
                     tasks.style.display = 'none'; // Hide the task if priority does not match and "ALL" is not selected
-                }
-                
-            });
-            
+                }                
+            });            
         }
 
          function filterTasksByStatus(status) {
@@ -280,43 +309,6 @@
                     tasks.style.display = 'none'; // Hide the task if priority does not match and "ALL" is not selected
                 }
             });
-        }
-
-        function filterTasksByPriority(priority, status) {
-            var tasks = document.querySelectorAll('[id^="postit_"]');
-            var slideovers = document.querySelectorAll('[id^="slideoverDiv_"]');
-
-            tasks.forEach(function (task) {
-                var taskId = task.id.split("_")[1]; // Extracting task ID from element ID
-                var priorityLabel = document.getElementById('priorityLabel_' + taskId).innerText;
-                var statusLabel = document.getElementById('statusLabel_' + taskId);
-                var selectedOption = statusLabel.options[statusLabel.selectedIndex].value;
-                
-                if (selectedOption === status) { 
-                    task.style.display = 'none'; 
-                }
-                else if ((priority === "ALL" || priorityLabel === priority) && statusLabel !== "Done") {
-                    task.style.display = 'block'; // Show the task if the priority matches and the status is not "done", or if "ALL" is selected
-                } else {
-                    task.style.display = 'none'; // Hide the task if priority does not match or status is "done"
-                }
-            });
-            slideovers.forEach(function (slide) {
-                var taskId = slide.id.split("_")[1]; // Extracting task ID from element ID
-                var priorityLabel = document.getElementById('priorityLabel_' + taskId).innerText;
-                var statusLabel = document.getElementById('statusLabel_' + taskId);
-                var selectedOption = statusLabel.options[statusLabel.selectedIndex].value;
-                console.log("Test");
-                if (selectedOption === status) {
-                    slide.style.display = 'none';
-                }
-                else if ((priority === "ALL" || priorityLabel === priority) && statusLabel !== "Done") {
-                    slide.style.display = 'block'; // Show the task if the priority matches and the status is not "done", or if "ALL" is selected
-                } else {
-                    slide.style.display = 'none'; // Hide the task if priority does not match or status is "done"
-                }
-            });
-            
         }
        
         function toggleDescription(taskId) {
@@ -346,9 +338,7 @@
         }
         function updateSelectStatus(taskId) {
             console.log("Test");
-
             document.getElementById('myForm_' + taskId).submit(); // Submit the form
-
         }
 
         document.addEventListener("DOMContentLoaded", function () {
@@ -381,13 +371,10 @@
             });
         });
 
-
-
         document.addEventListener('DOMContentLoaded', function () {
             window.addEventListener('click', function (event) {
                 const statusDropdowns = document.querySelectorAll('[data-prefix="statusDropdown"]');
                 const slideover = document.querySelectorAll('[data-prefix="slideover"]');
-
 
                 statusDropdowns.forEach(function (dropdown) {
                     if (!dropdown.classList.contains("hidden")) {
@@ -396,10 +383,6 @@
                 });
             });
         });
-
-
-
-
 
         function openStatusDropdown(taskId) {
             console.log("dropdown clicked")
@@ -410,24 +393,18 @@
             if (dropdownMenu.classList.contains("hidden")) {
                 dropdownMenu.classList.remove("hidden")
                 console.log("dropdown hidden")
-
             }
             else {
                 console.log("dropdown visible")
                 dropdownMenu.classList.add("hidden")
             }
-
-
-
         }
-
 
         function hideStatusDropdown(taskId) {
             const statusDropDownPostit = document.getElementById("dropdown_" + taskId)
             statusDropDownPostit.classList.add("hidden")
 
         }
-
 
         function statusDropDown(event, taskId) {
             console.log("Dropdown pass")
@@ -486,28 +463,18 @@
                 postIt.classList.add('hover:bg-gray-200')
                 postIt.classList.remove('hover:bg-gray-100')
             }
-
         }
-
-      
-
-
-
-
 
         function toggleSlideover(taskId) {
             console.log('passed slideover')
-           
             document.getElementById("slideoverModal_" + taskId).classList.toggle('invisible');
             document.getElementById("slideover_" + taskId).classList.toggle('translate-x-full');
             console.log(taskId);
-
         }
 
         function deleteTask(taskId) {
             // Get the CSRF token from the form
             const csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
-
 
             // Send a POST request with the task ID and CSRF token
             fetch(`/Employee/Delete/${taskId}`, {
@@ -536,9 +503,6 @@
                 location.reload();
             }, 300);
         }
-
-
-
 
         document.addEventListener("DOMContentLoaded", function (taskId) {
             const tabs = document.querySelectorAll(".tab");
@@ -598,14 +562,7 @@
                 setTimeout(() => {
                     location.reload();
                 }, 300); // 1000 milliseconds = 1 second
-
-
             }
-
-
-
         })
-
-
     </script>
 }

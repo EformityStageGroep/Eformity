@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Build.Framework;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Graph;
 using Organizer.Contexts;
+using Microsoft.Graph;
 using Organizer.Entities;
+using Organizer.Models;
 using Organizer.Repositories;
 using Organizer.Services;
 
@@ -14,45 +15,47 @@ namespace Organizer.Controllers
 {
     public class EmployeeController : Controller
     {
+        private readonly ITeamsRepository _teamRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IEmployeeRepository _taskRepository;
+        private readonly OrganizerContext _context;
 
-        public EmployeeController(IEmployeeRepository taskRepository)
+        public EmployeeController(ITeamsRepository teamRepository, IUserRepository userRepository, IEmployeeRepository employeeRepository)
         {
-            _taskRepository = taskRepository;
+            _teamRepository = teamRepository;
+            _userRepository = userRepository;
+            _taskRepository = employeeRepository;
         }
         // GET: Tasks
         public async Task<IActionResult> Index()
         {
-            var tasks = await _taskRepository.GetTasksAsync(); // Fetch tasks based on current tenant
-            return View(tasks);
+            return View();
         }
         // GET: Tasks/Details/5
-
         public async Task<IActionResult> EmployeeDashboard()
         {
-            try
+           
+
+       
+            ParentViewModel mymodel = new ParentViewModel();
+            List<Entities.User> users = await _userRepository.GetUserIdsByTenant();
+            List<Entities.Team> teams = await _teamRepository.GetTeamsByUser();
+            List<Entities.Task> tasks = await _taskRepository.GetTasksAsync();
+
+            var model = new ParentViewModel
             {
-                var tasks = await _taskRepository.GetTasksAsync(); // Fetch tasks based on current tenant
-
-
-                if (tasks == null || !tasks.Any())
-                {
-                    return View(new List<Entities.Task>()); // Return an empty list to the view
-                }
-
-                return View(tasks);
-            }
-            catch (Exception ex)
-            {
-                // Log the exception or handle it as required
-                return StatusCode(500, $"An error occurred: {ex.Message}");
-            }
+                Users = users,
+                Teams = teams,
+                Tasks = tasks
+            };
+            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("title,description,priority,datetime,selectstatus,tenantid,userid")] Entities.Task task)
+        public async Task<IActionResult> Create([Bind("id,title,description,priority,datetime,selectstatus,tenantid,teamid,userid")] Entities.Task task)
         {
+
             if (ModelState.IsValid)
             {
                 task.id = Guid.NewGuid();
@@ -60,25 +63,14 @@ namespace Organizer.Controllers
                 await _taskRepository.SaveChangesAsync();
                 return RedirectToAction(nameof(EmployeeDashboard));
             }
-            if (!ModelState.IsValid)
+            else
             {
-                foreach (var modelError in ModelState.Values.SelectMany(v => v.Errors))
-                {
-                    Console.WriteLine($"Errorrrrr: {modelError.ErrorMessage}");
-                }
+                return View(task); // Return the same view if ModelState is invalid
             }
-            Console.WriteLine($"Current tenantid controller: {task}");
-            return View(task);
         }
         [HttpPost]
-
-        public async Task<IActionResult> EditTask(Guid id, [Bind("id,title,description,priority,datetime,selectstatus,tenantid,userid")] Entities.Task task)
+        public async Task<IActionResult> EditTask(Guid id, [Bind("id,title,description,priority,datetime,selectstatus,tenantid,userid,teamid")] Entities.Task task)
         {
-            if (id != task.id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
                 try
@@ -86,36 +78,30 @@ namespace Organizer.Controllers
                     Console.WriteLine($"Current tenantid EDIT: {task}");
                     await _taskRepository.Edit(task);
                     await _taskRepository.SaveChangesAsync();
+                    return RedirectToAction(nameof(EmployeeDashboard));
                 }
                 catch (Exception)
                 {
-                    // Handle exception, log, etc.
-                    throw;
+                    return StatusCode(500, "Internal Server Error");
                 }
-                return RedirectToAction(nameof(EmployeeDashboard));
             }
-            if (!ModelState.IsValid)
+            else
             {
-                foreach (var modelError in ModelState.Values.SelectMany(v => v.Errors))
-                {
-                    Console.WriteLine($"Errorr: {modelError.ErrorMessage}");
-                }
+                return View(task);
             }
-            Console.WriteLine($"Current tenantid EDITtt: {task}");
-            return View(task);
         }
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(Guid id)
         {
             await _taskRepository.Delete(id);
             await _taskRepository.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(EmployeeDashboard));
         }
-
-        public  IActionResult EmployeeDashboard2()
-        { 
-            return View(); 
+        public IActionResult EmployeeDashboard2()
+        {
+            return View();
         }
-        }
+    }
 }
