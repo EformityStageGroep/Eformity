@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.Graph;
+using Organizer.Contexts;
 using Organizer.Models;
+using Organizer.Repositories;
 using Organizer.Services;
 using System.Diagnostics;
 
@@ -19,7 +21,17 @@ namespace Organizer.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IGraphClientService _graphClientService;
         private readonly GraphServiceClient graphServiceClient;
+        private readonly ITeamsRepository _teamRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IEmployeeRepository _taskRepository;
+        private readonly OrganizerContext _context;
 
+        public HomeController(ITeamsRepository teamRepository, IUserRepository userRepository, IEmployeeRepository employeeRepository)
+        {
+            _teamRepository = teamRepository;
+            _userRepository = userRepository;
+            _taskRepository = employeeRepository;
+        }
         public HomeController(ILogger<HomeController> logger, IGraphClientService graphClientService)
         {
             _logger = logger;
@@ -55,13 +67,24 @@ namespace Organizer.Controllers
 
         }
 
-     
 
-        public IActionResult Homepage()
+
+        public async Task<IActionResult> Homepage()
         {
-           /* var viewModel = new PageIdentifier();
-            viewModel.PageValue = "Homepage";*/
-            return View();
+
+
+            ParentViewModel mymodel = new ParentViewModel();
+            List<Entities.User> users = await _userRepository.GetUserIdsByTenant();
+            List<Entities.Team> teams = await _teamRepository.GetTeamsByUser();
+            List<Entities.Task> tasks = await _taskRepository.GetTasksAsync();
+
+            var model = new ParentViewModel
+            {
+                Users = users,
+                Teams = teams,
+                Tasks = tasks
+            };
+            return View(model);
         }
 
         public IActionResult Profile()

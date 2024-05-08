@@ -1,5 +1,4 @@
 @model ParentViewModel
-
 @{
     ViewData["title"] = "Homepage";
 
@@ -20,17 +19,12 @@
     Console.WriteLine(tenantid); 
     var userid = @User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
     Console.WriteLine(userid);
-    bool assignTaskPermission = ViewBag.AssignTaskPermission ?? false;
-
-
 }
 
 
 <body onload="filterTasksWhenLoaded('Done')">
 </body>
 @*EMPLOYEE ADMIN CREATE VIEW*@
-@foreach (var task in Model.Tasks)
-{
 @if (User.IsInRole("SuperAdmin"))
 {
     <div id="modal" class="inset-0 fixed z-50 flex hidden items-center justify-center overflow-y-auto">
@@ -46,18 +40,19 @@
                             Create Task
                         </h3>
                         <form asp-controller="Employee" asp-action="Create" method="post" class="mt-4">
-
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
                             <div class="mt-2">
                                 <label for="tenantid" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
                                 <input type="hidden" id="tenantid" name="tenantid" value="@tenantid">
                             </div>
-                            <div class="mt-2">
+                            <div class="mt-2"> 
                                 <label for="userid" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
                                 <input type="hidden" id="userid" name="userid" value="@userid">
                             </div>
-
+                            <div class="mt-2">
+                                <label for="teamid" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
+                                    <input type="hidden" id="teamid" name="teamid" value="User_task">
+                            </div>
                             <div class="mt-2">
                                 <label for="title" class="text-gray-700 block text-sm font-medium">title</label>
                                 <input type="text" name="title" id="title" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
@@ -74,16 +69,7 @@
                                     <option value="low">Low</option>
                                 </select>
                             </div>
-                                <div class="mt-2">
-                                    <label for="teamid" class="text-gray-700 block text-sm font-medium">Team</label>
-                                    <select id="teamid" name="teamid" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                        <option value="User_Task">Eigen taak</option>
-                                        @foreach (var teams in Model.Teams)
-                                        {
-                                            <option value="@teams.id">@teams.title</option>
-                                        }
-                                    </select>
-                                </div>
+
                             <div class="mt-2">
                                 <label for="datetime" class="text-gray-700 block text-sm font-medium">Date and Time</label>
                                 <input type="datetime-local" id="datetime" name="datetime" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
@@ -101,14 +87,11 @@
                                     <option value="low">Low</option>
                                 </select>
                             </div>
-                                
 
                             <div class="py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                 <button id="closeModalButton" type="button" class="border-transparent px-4 py-2 bg-indigo-600 text-white inline-flex w-full justify-center rounded-md border text-base font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
                                     Close
                                 </button>
-                            <div class="py-1"></div>
-
                                 <button id="createTaskButton" type="submit" class="border-transparent px-4 py-2 bg-indigo-600 text-white inline-flex w-full justify-center rounded-md border text-base font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
                                     Create Task
                                 </button>
@@ -139,15 +122,18 @@ else
 
                     <form asp-controller="Employee" asp-action="Create"  method="post" class="mt-4">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
                         <div class="mt-2">
                             <label for="tenantid" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
                             <input type="hidden" id="tenantid" name="tenantid" value="@tenantid">
                         </div>
-                            <div class="mt-2">
-                                <label for="userid" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
-                                <input type="hidden" id="userid" name="userid" value="@userid">
-                            </div>
+                        <div class="mt-2">
+                            <label for="userid" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
+                            <input type="hidden" id="userid" name="userid" value="@userid">
+                        </div>
+                        <div class="mt-2">
+                            <label for="teamid" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
+                            <input type="hidden" id="teamid" name="teamid" value="User_task">
+                        </div>
                         <div class="mt-2">
                             <label for="title" class="text-gray-700 block text-sm font-medium">@User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value</label>
                             <input type="text" name="title" id="title" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
@@ -164,15 +150,6 @@ else
                                 <option value="low">Low</option>
                             </select>
                         </div>
-                        <div class="mt-2">
-                            <label for="teamid" class="text-gray-700 block text-sm font-medium">priority</label>
-                            <select id="teamid" name="teamid" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                @foreach (var teams in Model.Teams)
-                                {
-                                    <option value="@teams.id">@teams.title</option>
-                                }
-                            </select>
-                        </div>
 
                         <div class="mt-2">
                             <label for="datetime" class="text-gray-700 block text-sm font-medium">Date and Time</label>
@@ -187,8 +164,6 @@ else
                             <button id="closeModalButton" type="button" class="border-transparent px-4 py-2 bg-indigo-600 text-white inline-flex w-full justify-center rounded-md border text-base font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
                                 Close
                             </button>
-                            <div class="py-1"></div>
-
                             <button id="createTaskButton" type="submit" class="border-transparent px-4 py-2 bg-indigo-600 text-white inline-flex w-full justify-center rounded-md border text-base font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
                                 Create Task
                             </button>
@@ -201,7 +176,7 @@ else
     </div>
 </div>
 }
-}
+
 
 
 
@@ -212,10 +187,7 @@ else
         <h3 class="text-gray-900 text-base font-semibold leading-6">Tasks</h3>
 
     <div class="">
-    @if(assignTaskPermission)
-{
       <button type="button" id="openModalButton" class="ml-30 bg-indigo-600 px-3 py-2 text-white inline-flex items-center rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Create</button>
-}
         </div>
     </div>
     <div class="mt-4">
@@ -293,4 +265,3 @@ else
 
     </script>
 }
-

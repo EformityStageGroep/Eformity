@@ -105,6 +105,12 @@ namespace Organizer.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, [Bind("id,title,create_team,assign_task,tenant_id")] Role role)
         {
+            Console.WriteLine($"Role ID: {role.id}");
+            Console.WriteLine($"Title: {role.title}");
+            Console.WriteLine($"Create Team: {role.create_team}");
+            Console.WriteLine($"Assign Task: {role.assign_task}");
+            Console.WriteLine($"Tenant ID: {role.tenant_id}");
+
             if (id != role.id)
             {
                 return NotFound();
@@ -128,6 +134,14 @@ namespace Organizer.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
+
+            }
+            if (!ModelState.IsValid)
+            {
+                foreach (var modelError in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    Console.WriteLine($"Errorr: {modelError.ErrorMessage}");
+                }
             }
             return View(role);
         }
