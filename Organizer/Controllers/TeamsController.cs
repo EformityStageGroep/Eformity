@@ -71,6 +71,7 @@ namespace Organizer.Controllers
                 // Save the team to the database
                 await _teamRepository.CreateTeam(team);
                 await _teamRepository.SaveChangesAsync();
+                return RedirectToAction(nameof(Teams));
             }
 
             return View();

@@ -69,9 +69,8 @@ namespace Organizer.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> EditTask(Guid id, [Bind("id,title,description,priority,datetime,selectstatus,tenantid,userid")] Entities.Task task)
+        public async Task<IActionResult> EditTask(Guid id, [Bind("id,title,description,priority,datetime,selectstatus,tenantid,userid,teamid")] Entities.Task task)
         {
-
             if (ModelState.IsValid)
             {
                 try
@@ -96,17 +95,9 @@ namespace Organizer.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var task = await _context.Task.FindAsync(id);
-            if (task == null)
-            {
-                return NotFound();
-            }
-
-
-
-            _context.Task.Remove(task);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            await _taskRepository.Delete(id);
+            await _taskRepository.SaveChangesAsync();
+            return RedirectToAction(nameof(EmployeeDashboard));
         }
         public IActionResult EmployeeDashboard2()
         {
