@@ -82,6 +82,7 @@
     <div class="inset-0 fixed transition-opacity" aria-hidden="true">
         <div class="inset-0 bg-gray-500 absolute opacity-75"></div>
     </div>
+
     <div class="bg-white transform overflow-hidden rounded-lg shadow-xl transition-all sm:max-w-lg sm:w-full">
         <div class="bg-white px-4 pt-5 pb-4 max-h-[85vh] mb-16 overflow-y-auto sm:p-6 sm:pb-4">
             <div class="sm:flex sm:items-start">
@@ -89,13 +90,15 @@
                     <h3 class="text-gray-900 text-lg font-medium leading-6" id="modalTitle">
                         Edit Role
                     </h3>
-                    <form asp-controller="Roles" asp-action="Create" method="post" class="mt-4">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                  
                             <div class="mt-2">
                                 <label for="tenant_id" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
                                 <input type="hidden" id="tenant_id" name="tenant_id" value="@tenantid">
                             </div>
-
+                            <div class="mt-2">
+                                <label for="title" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
+                                <input type="hidden" id="title" name="title" value="@edit.title">
+                            </div>
                             <div class="mt-2">
                                 <label for="title" class="text-gray-700 block text-sm font-medium">Your Roles</label>
                                 <p class="text-gray-500 text-sm">
@@ -112,10 +115,11 @@
                                                 <div class="border-gray-200 pb-5 mb-3 border-b sm:flex sm:items-center sm:justify-between"></div>
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        <form asp-action="Edit">
+                                                    <form asp-action="Edit" asp-route-id="@edit.id" method="post">
 
                                                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                                             <input type="hidden" asp-for="@edit.id" />
+                                                        <input type="hidden" asp-for="@edit.tenant_id" />
                                                             <div class="form-group flex">
                                                                 <div class="mt-2 mb-2">
                                                                     <label asp-for="@edit.title" for="title" class="text-gray-700 block text-sm font-medium">Team title</label>
@@ -127,22 +131,24 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label asp-for="@edit.create_team" class="control-label"></label>
-                                                                <input asp-for="@edit.create_team" class="form-control" />
+                                                            <input asp-for="@edit.create_team" name="create_team" class="form-control" />
                                                                 <span asp-validation-for="@edit.create_team" class="text-danger"></span>
                                                             </div>
                                                             <div class="flex">
                                                                 <div class="form-group">
                                                                     <label asp-for="@edit.assign_task" class="control-label"></label>
-                                                                    <input asp-for="@edit.assign_task" class="form-control" />
+                                                                <input asp-for="@edit.assign_task" name="assign_task" class="form-control" />
                                                                     <span asp-validation-for="@edit.assign_task" class="text-danger"></span>
                                                                 </div>
                                                                 <div type="hidden" class="form-group hidden">
                                                                     <label asp-for="@edit.tenant_id" type="hidden" class="control-label"></label>
-                                                                    <input asp-for="@edit.tenant_id" type="hidden" value="@tenantid" class="form-control" />
+                                                                <input asp-for="@edit.tenant_id" type="hidden" name="tenant_id" value="@tenantid" class="form-control" />
                                                                     <span asp-validation-for="@edit.tenant_id" type="hidden" class="text-danger"></span>
                                                                 </div>
                                                             </div>
-
+                                                            <button onclick="toggleEditRoleModal('@edit.id')" id="saveModalButton" type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                                                Save
+                                                            </button>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -165,10 +171,7 @@
 
                                 <!-- Right-aligned buttons -->
                                 <div class="space-x-3 flex sm:space-x-4">
-                                    <button onclick="toggleEditRoleModal('@edit.id')" id="saveModalButton" type="button"
-                                            class="px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                        Save
-                                    </button>
+                                    
                                     <button onclick="toggleEditRoleModal('@edit.id')" id="closeModalButton" type="button"
                                             class="px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                         Go Back
@@ -177,8 +180,7 @@
                             </div>
 
                         </div>
-                    </form>
-
+                    
                 </div>
             </div>
         </div>
@@ -202,7 +204,7 @@
                     <h3 class="text-gray-900 text-lg font-medium leading-6" id="modalTitle">
                         Manage Roles
                     </h3>
-                    <form asp-controller="Roles" asp-action="Create" method="post" class="mt-4">
+                    <form asp-controller="Roles" asp-action="Edit" method="post" class="mt-4">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="mt-2">
                             <label for="tenant_id" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
