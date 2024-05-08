@@ -49,7 +49,10 @@
                                 <label for="userid" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
                                 <input type="hidden" id="userid" name="userid" value="@userid">
                             </div>
-
+                            <div class="mt-2">
+                                <label for="teamid" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
+                                    <input type="hidden" id="teamid" name="teamid" value="User_task">
+                            </div>
                             <div class="mt-2">
                                 <label for="title" class="text-gray-700 block text-sm font-medium">title</label>
                                 <input type="text" name="title" id="title" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
@@ -123,10 +126,14 @@ else
                             <label for="tenantid" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
                             <input type="hidden" id="tenantid" name="tenantid" value="@tenantid">
                         </div>
-                            <div class="mt-2">
-                                <label for="userid" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
-                                <input type="hidden" id="userid" name="userid" value="@userid">
-                            </div>
+                        <div class="mt-2">
+                            <label for="userid" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
+                            <input type="hidden" id="userid" name="userid" value="@userid">
+                        </div>
+                        <div class="mt-2">
+                            <label for="teamid" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
+                            <input type="hidden" id="teamid" name="teamid" value="User_task">
+                        </div>
                         <div class="mt-2">
                             <label for="title" class="text-gray-700 block text-sm font-medium">@User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value</label>
                             <input type="text" name="title" id="title" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
