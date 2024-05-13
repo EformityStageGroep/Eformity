@@ -12,14 +12,18 @@ namespace Organizer.Controllers
     public class UsersController : Controller
     {
         private readonly ITeamsRepository _teamRepository;
+        private readonly IRoleRepository _roleRepository;
+
         private readonly IUserRepository _userRepository;
         private readonly IEmployeeRepository _employeeRepository;
 
 
-        public UsersController(ITeamsRepository teamRepository, IUserRepository userRepository, IEmployeeRepository employeeRepository)
+        public UsersController(ITeamsRepository teamRepository, IRoleRepository roleRepository, IUserRepository userRepository, IEmployeeRepository employeeRepository)
 
         {
             _teamRepository = teamRepository;
+            _roleRepository = roleRepository;
+
             _userRepository = userRepository;
             _employeeRepository = employeeRepository;
 
@@ -124,13 +128,14 @@ namespace Organizer.Controllers
            ParentViewModel mymodel = new ParentViewModel();
                 List<User> users = await _userRepository.GetUserInfo();
                 List<Team> teams = await _teamRepository.GetTeamsByUser();
-                List<Entities.Task> tasks = await _employeeRepository.GetTasksAsync();
+
+            List<Entities.Task> tasks = await _employeeRepository.GetTasksAsync();
 
                 var model = new ParentViewModel
                 {
                     Users = users,
                     Teams = teams,
-                    Tasks = tasks
+                    Tasks = tasks,
                 };
                 return View(model);
         }
