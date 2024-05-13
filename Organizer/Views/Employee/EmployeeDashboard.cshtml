@@ -22,14 +22,17 @@
     var previousStatus = "ALL";
 
     function filterTasksByStatus(Teamid, status) {
+
         Teamid = previousTeamid;
         var tasks = document.querySelectorAll('[data-postit-id][data-team-id]');
         tasks.forEach(function (task) {
             var taskTeamId = task.dataset.teamId;
+
            var taskId = task.id.split("_")[1];
             var statusLabels = document.getElementById('statusLabel_' + taskId)
             var selectedOption = statusLabels.options[statusLabels.selectedIndex].value;
               if ((Teamid === "ALL" || taskTeamId === Teamid) && (selectedOption === status)) {
+
                 task.style.display = 'block'; // Show the task if priority matches or if "ALL" is selected
             } else {
                 task.style.display = 'none'; // Hide the task if priority does not match and "ALL" is not selected
@@ -42,7 +45,9 @@
         if (Teamid === 'teamid'){
             Teamid = previousTeamid
         }
+
           previousTeamid = Teamid;
+
         previousPriority = priority;
         previousStatus = status;
         filterTasksByPriority(Teamid, priority, status);
@@ -67,10 +72,12 @@
         
         tasks.forEach(function (task) {
             var taskTeamId = task.dataset.teamId;
+
             var taskId = task.id.split("_")[1]; // Extracting task ID from element ID
             var priorityLabel = document.getElementById('priorityLabel_' + taskId).innerText;
             var statusLabel = document.getElementById('statusLabel_' + taskId);
             var selectedOption = statusLabel.options[statusLabel.selectedIndex].value;
+
             if ((Teamid === "ALL" || taskTeamId === Teamid) && (selectedOption !== status) && ((priority === "ALL" || priorityLabel === priority) && statusLabel !== "Done")) {
                 task.style.display = 'block';
             } else {
