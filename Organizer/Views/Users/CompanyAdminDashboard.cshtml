@@ -37,14 +37,22 @@
         DateTime currentDateTime = DateTime.Now;
         // Calculate the difference between the current time and the task time
         TimeSpan timeDifference = currentDateTime.Subtract(taskDateTime);
-        int hours = timeDifference.Hours;
+
+        // Get total hours as a double
+        double totalHours = timeDifference.TotalHours;
+
+        // If you need the total hours as an integer
+        int hours = (int)totalHours;
 
 
         // Check if the difference is 24 hours or less
-        if (timeDifference.TotalHours <= 24 && task.selectstatus != "Done")
+        if (timeDifference.TotalHours >= -24 && timeDifference.TotalHours < 0 && task.selectstatus != "Done")
         {
+
             amountLessThanDay += 1;
-                @*<text>The time difference is 24 hours or less.</text>*@
+
+
+            @*<text>The time difference is 24 hours or less.</text>*@
             }
 
         if(task.selectstatus != "Done")
