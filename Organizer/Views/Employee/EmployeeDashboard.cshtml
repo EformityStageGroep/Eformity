@@ -6,9 +6,9 @@
 
 <div class="mt-4 flex justify-end">
 <h1>Filter:</h1>
-    <select id="teamLabel_" onchange="FilterTaskByTeam(this.value)" class="ml-2 border-gray-900 pl-[7px] pb-[1px] text-black w-[100px] h-[27px] relative z-10 flex cursor-pointer cursor-pointer items-center justify-center self-baseline rounded-sm border border border-solid text-xs font-medium hover:bg-gray-200">
+    <select id="teamLabel_" onchange="combinedFilter(this.value)" class="ml-2 border-gray-900 pl-[7px] pb-[1px] text-black w-[100px] h-[27px] relative z-10 flex cursor-pointer cursor-pointer items-center justify-center self-baseline rounded-sm border border border-solid text-xs font-medium hover:bg-gray-200">
         <option value="ALL">ALL</option>
-        <option value="User_Task">Personal</option>
+        <option value="User_task">Personal</option>
         @foreach (var teams in Model.Teams)
             {
                 <option value="@teams.id">@teams.title</option>
@@ -17,13 +17,53 @@
 </div>
 
 <script>
+    var previousTeamid = "ALL";
+    var previousPriority = "ALL";
+    var previousStatus = "ALL";
+
+    function filterTasksByStatus(Teamid, status) {
+        console.log(Teamid);
+        Teamid = previousTeamid;
+        var tasks = document.querySelectorAll('[data-postit-id][data-team-id]');
+        tasks.forEach(function (task) {
+            var taskTeamId = task.dataset.teamId;
+            console.log(taskTeamId);
+            var taskId = task.id.split("_")[1];
+            var statusLabels = document.getElementById('statusLabel_' + taskId)
+            var selectedOption = statusLabels.options[statusLabels.selectedIndex].value;
+            //console.log("t"+ selectedOption);
+            //console.log("Teamid condition:", (Teamid === "ALL" || taskTeamId === Teamid));
+
+            //console.log("Status condition:", (statusLabels == "Done"));
+            if ((Teamid === "ALL" || taskTeamId === Teamid) && (selectedOption === status)) {
+                task.style.display = 'block'; // Show the task if priority matches or if "ALL" is selected
+            } else {
+                task.style.display = 'none'; // Hide the task if priority does not match and "ALL" is not selected
+            }
+        });
+    }
+
+    function combinedFilter(Teamid = previousTeamid, priority = previousPriority, status = previousStatus) {
+        // Update previous selections with the current ones
+        if (Teamid === 'teamid'){
+            Teamid = previousTeamid
+        }
+        console.log("t"+ Teamid);
+        console.log("p"+ priority);
+        console.log("s" + status);
+        previousTeamid = Teamid;
+        previousPriority = priority;
+        previousStatus = status;
+        filterTasksByPriority(Teamid, priority, status);
+    }
+
     function FilterTaskByTeam(Teamid) {
         console.log(Teamid);
         var tasks = document.querySelectorAll('[data-team-id]');
-       
+        
         tasks.forEach(function (task) {
             var taskTeamId = task.dataset.teamId;
-
+            //console.log(taskTeamId);
             if (Teamid === "ALL" || taskTeamId === Teamid) {
                 task.style.display = 'block';
             } else {
@@ -31,25 +71,31 @@
             }
         });
     }
-    function filterTasksByPriority(priority, status) {
-        var tasks = document.querySelectorAll('[data-postit-id]');
-       
+    function filterTasksByPriority(Teamid, priority, status) {
+        var tasks = document.querySelectorAll('[data-postit-id][data-team-id]');
+        
         tasks.forEach(function (task) {
+            var taskTeamId = task.dataset.teamId;
+            console.log(taskTeamId);
+            console.log(status);
             var taskId = task.id.split("_")[1]; // Extracting task ID from element ID
             var priorityLabel = document.getElementById('priorityLabel_' + taskId).innerText;
             var statusLabel = document.getElementById('statusLabel_' + taskId);
             var selectedOption = statusLabel.options[statusLabel.selectedIndex].value;
-
-            if (selectedOption === status) {
+            console.log(selectedOption);
+            console.log("Teamid condition:", (Teamid === "ALL" || taskTeamId === Teamid));
+            console.log("Selected option condition:", (selectedOption !== status));
+            console.log("Priority condition:", (priority === "ALL" || priorityLabel === priority));
+            console.log("Status condition:", (statusLabel !== "Done"));
+            if ((Teamid === "ALL" || taskTeamId === Teamid) && (selectedOption !== status) && ((priority === "ALL" || priorityLabel === priority) && statusLabel !== "Done")) {
+                task.style.display = 'block';
+            } else {
                 task.style.display = 'none';
             }
-            else if ((priority === "ALL" || priorityLabel === priority) && statusLabel !== "Done") {
-                task.style.display = 'block'; // Show the task if the priority matches and the status is not "done", or if "ALL" is selected
-            } else {
-                task.style.display = 'none'; // Hide the task if priority does not match or status is "done"
-            }
+
         });
     }
+  
 </script>
 
 <ul role="list" class="mt-5 bg-white mb-3 border shadow-sm">
@@ -284,32 +330,7 @@
             });            
         }
 
-         function filterTasksByStatus(status) {
-            var tasks = document.querySelectorAll('[id^="postit_"]');
-            tasks.forEach(function (task) {
-                var taskId = task.id.split("_")[1];
-                var statusLabels = document.getElementById('statusLabel_' + taskId)
-                var selectedOption = statusLabels.options[statusLabels.selectedIndex].value;
-                console.log(selectedOption);
-                if (selectedOption === status) {
-                    task.style.display = 'block'; // Show the task if priority matches or if "ALL" is selected
-                } else {
-                    task.style.display = 'none'; // Hide the task if priority does not match and "ALL" is not selected
-                }
-            });
-            var task = document.querySelectorAll('[id^="slideoverDiv_"]');
-            task.forEach(function (tasks) {
-                var taskId = tasks.id.split("_")[1];
-                var statusLabels = document.getElementById('statusLabel_' + taskId)
-                var selectedOption = statusLabels.options[statusLabels.selectedIndex].value;
-                console.log(selectedOption);
-                if (selectedOption === status) {
-                    tasks.style.display = 'block'; // Show the task if priority matches or if "ALL" is selected
-                } else {
-                    tasks.style.display = 'none'; // Hide the task if priority does not match and "ALL" is not selected
-                }
-            });
-        }
+         
        
         function toggleDescription(taskId) {
             var moreLink = document.getElementById('moreLink_' + taskId);
