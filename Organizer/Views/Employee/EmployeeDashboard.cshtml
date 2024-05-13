@@ -22,20 +22,14 @@
     var previousStatus = "ALL";
 
     function filterTasksByStatus(Teamid, status) {
-        console.log(Teamid);
         Teamid = previousTeamid;
         var tasks = document.querySelectorAll('[data-postit-id][data-team-id]');
         tasks.forEach(function (task) {
             var taskTeamId = task.dataset.teamId;
-            console.log(taskTeamId);
-            var taskId = task.id.split("_")[1];
+           var taskId = task.id.split("_")[1];
             var statusLabels = document.getElementById('statusLabel_' + taskId)
             var selectedOption = statusLabels.options[statusLabels.selectedIndex].value;
-            //console.log("t"+ selectedOption);
-            //console.log("Teamid condition:", (Teamid === "ALL" || taskTeamId === Teamid));
-
-            //console.log("Status condition:", (statusLabels == "Done"));
-            if ((Teamid === "ALL" || taskTeamId === Teamid) && (selectedOption === status)) {
+              if ((Teamid === "ALL" || taskTeamId === Teamid) && (selectedOption === status)) {
                 task.style.display = 'block'; // Show the task if priority matches or if "ALL" is selected
             } else {
                 task.style.display = 'none'; // Hide the task if priority does not match and "ALL" is not selected
@@ -48,10 +42,7 @@
         if (Teamid === 'teamid'){
             Teamid = previousTeamid
         }
-        console.log("t"+ Teamid);
-        console.log("p"+ priority);
-        console.log("s" + status);
-        previousTeamid = Teamid;
+          previousTeamid = Teamid;
         previousPriority = priority;
         previousStatus = status;
         filterTasksByPriority(Teamid, priority, status);
@@ -76,17 +67,10 @@
         
         tasks.forEach(function (task) {
             var taskTeamId = task.dataset.teamId;
-            console.log(taskTeamId);
-            console.log(status);
             var taskId = task.id.split("_")[1]; // Extracting task ID from element ID
             var priorityLabel = document.getElementById('priorityLabel_' + taskId).innerText;
             var statusLabel = document.getElementById('statusLabel_' + taskId);
             var selectedOption = statusLabel.options[statusLabel.selectedIndex].value;
-            console.log(selectedOption);
-            console.log("Teamid condition:", (Teamid === "ALL" || taskTeamId === Teamid));
-            console.log("Selected option condition:", (selectedOption !== status));
-            console.log("Priority condition:", (priority === "ALL" || priorityLabel === priority));
-            console.log("Status condition:", (statusLabel !== "Done"));
             if ((Teamid === "ALL" || taskTeamId === Teamid) && (selectedOption !== status) && ((priority === "ALL" || priorityLabel === priority) && statusLabel !== "Done")) {
                 task.style.display = 'block';
             } else {
