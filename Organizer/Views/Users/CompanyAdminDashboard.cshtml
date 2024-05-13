@@ -13,26 +13,71 @@
     Console.WriteLine(tenant_id);
 }
 
-<h1>Create</h1>
-
-<h4>User</h4>
-<hr />
-
-<div class="row hidden">
-    <div class="col-md-4">
-        <form asp-action="Create" id="taskForm">
-
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" id="submitBtn" />
-            </div>
-        </form>
+<div class="border-gray-200 pb-5 mb-3 border-b sm:flex sm:items-center sm:justify-between">
+    <div class="flex">
+        <h3 class="text-gray-900 mr-3 mt-1 text-base font-semibold leading-6">Overview</h3>
     </div>
 </div>
-<button id="SubmitButton" onclick="deleteTask()">test</button>
+
 <div>
-    <a asp-action="Index">Back to List</a>
+
+        @{
+            int amountLessThanDay = 0;
+            int openTasks = 0;
+
+        }
+
+        @foreach (var task in Model.Tasks)
+        {
+@*
+            <h1>@task.title: </h1>
+        <h1 class="font-bold">@task.datetime</h1>*@
+
+        DateTime taskDateTime = task.datetime;
+        DateTime currentDateTime = DateTime.Now;
+        // Calculate the difference between the current time and the task time
+        TimeSpan timeDifference = currentDateTime.Subtract(taskDateTime);
+        int hours = timeDifference.Hours;
+
+
+        // Check if the difference is 24 hours or less
+        if (timeDifference.TotalHours <= 24 && task.selectstatus != "Done")
+        {
+            amountLessThanDay += 1;
+                @*<text>The time difference is 24 hours or less.</text>*@
+            }
+
+        if(task.selectstatus != "Done")
+            {
+             openTasks += 1;
+
+            }
+
+            @*<h1>Timedifference: @hours hours</h1>*@
+
+        }
+
+
+
+
+        @if(amountLessThanDay >= 2) {
+        <p class="font-semibold">You have a total of @openTasks open tasks, @amountLessThanDay of which are due today.</p>
+
+        }
+        else {
+        <p class="font-semibold">You have a total of @openTasks open task, @amountLessThanDay of which is due today.</p>
+
+
+        }
+@*        @foreach (var role in Model.Roles)
+        {
+            <p>@role.title</p>
+        }*@
+        <div class="w-[150px]">
+@*        <svg fill="#000000" viewBox="0 0 24 24" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M14.6,21.3c-.3.226-.619.464-.89.7H16a1,1,0,0,1,0,2H12a1,1,0,0,1-1-1c0-1.5,1.275-2.456,2.4-3.3.75-.562,1.6-1.2,1.6-1.7a1,1,0,0,0-2,0,1,1,0,0,1-2,0,3,3,0,0,1,6,0C17,19.5,15.725,20.456,14.6,21.3ZM23,15a1,1,0,0,0-1,1v3H21a1,1,0,0,1-1-1V16a1,1,0,0,0-2,0v2a3,3,0,0,0,3,3h1v2a1,1,0,0,0,2,0V16A1,1,0,0,0,23,15ZM13,12V7a1,1,0,0,0-2,0v4H8a1,1,0,0,0,0,2h4A1,1,0,0,0,13,12ZM23,2a1,1,0,0,0-1,1V5.374A12,12,0,1,0,7.636,23.182,1.015,1.015,0,0,0,8,23.25a1,1,0,0,0,.364-1.932A10,10,0,1,1,20.636,7H18a1,1,0,0,0,0,2h3a3,3,0,0,0,3-3V3A1,1,0,0,0,23,2Z"></path></g></svg>
+
+        </div>*@
+
 </div>
 
 @section Scripts {
