@@ -88,8 +88,8 @@ namespace Organizer.Controllers
         }
 
         public IActionResult Profile()
-        {/*
-            var viewModel = new PageIdentifier();
+        {
+/*            var viewModel = new PageIdentifier();
             viewModel.PageValue = "Profile";*/
             return View();
         }
