@@ -78,6 +78,7 @@ namespace Organizer.Controllers
         }
         public async Task<IActionResult> LeaveTeam(string user_id, Guid team_id)
         {
+           
             // Call the DeleteUserFromTeam method and get whether the user was the last one in the team
             bool isLastUser = await _teamRepository.DeleteUserFromTeam(user_id, team_id);
 
@@ -87,7 +88,7 @@ namespace Organizer.Controllers
             // If the user was the last one in the team, execute another line
             if (isLastUser)
             {
-              
+                await _teamRepository.DeleteAllTasks(team_id);
                 await _teamRepository.DeleteTeam(team_id);
                 Console.WriteLine("testestststsetsts");
             }
