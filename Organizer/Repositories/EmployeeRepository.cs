@@ -27,12 +27,23 @@ namespace Organizer.Repositories
         {
             var tenantId = _currentTenantService.tenantid;
             var userid = _currentUserService.userid;
-            
+            var userTeams = await _context.Users_Teams
+                .Where(ut => ut.user_id == userid) // Filter by the user's ID
+                .Select(ut => ut.team_id) // Select the TeamId
+                .ToListAsync();
+
+            var task = await _context.Task
+                .Where(t => t.tenantid == tenantId) // Filter by tenantId
+                .Where(t => t.userid == userid) // Filter by userId
+                .Where(t => userTeams.Contains((Guid)t.teamid) || t.teamid == null) // Filter by teams user belongs to, including the specific team, and tasks with null TeamId
+                .ToListAsync();
+
+
             var tasks = await _context.Task.Where(t => t.tenantid == tenantId).ToListAsync();
             var Users = await _context.Task.Where(t => t.userid == userid).ToListAsync();
             // Debugging: Print the fetched tasks
 
-            return Users;
+            return task;
         }
         public async Task<List<Entities.Task>> GetTaskIdsByUser()
         {

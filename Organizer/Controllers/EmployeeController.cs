@@ -64,10 +64,15 @@ namespace Organizer.Controllers
                 await _taskRepository.SaveChangesAsync();
                 return RedirectToAction(nameof(EmployeeDashboard));
             }
-            else
+            if (!ModelState.IsValid)
             {
-                return View(task); // Return the same view if ModelState is invalid
+                foreach (var modelError in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    Console.WriteLine($"Errorr: {modelError.ErrorMessage}");
+                }
             }
+            return View(task); // Return the same view if ModelState is invalid
+            
         }
         [HttpPost]
         public async Task<IActionResult> EditTask(Guid id, [Bind("id,title,description,priority,datetime,selectstatus,tenantid,userid,teamid")] Entities.Task task)
