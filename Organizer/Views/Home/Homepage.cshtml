@@ -1,7 +1,7 @@
 @model ParentViewModel
 @{
     ViewData["title"] = "Homepage";
-
+   
 
     @* <div class="min-w-40 bg-white border-gray-200 mx-auto max-w-md cursor-pointer overflow-hidden border shadow-md duration-300 hover:transform hover:scale-105">
     <div class="md:flex">
@@ -69,7 +69,7 @@
                             <div class="mt-2">
                                 <label for="teamid" class="text-gray-700 block text-sm font-medium">Team</label>
                                 <select onchange="Log(this.value)" id="teamid" name="teamid" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                    <option value="b6d8f76c-3a58-4e6e-b408-16c3b17572ec">Eigen taak</option>
+                                    <option value="">Eigen taak</option>
                                     @foreach (var teams in Model.Teams)
                                     {
                                         Console.WriteLine();
@@ -157,7 +157,7 @@ else
                         <div class="mt-2">
                             <label for="teamid" class="text-gray-700 block text-sm font-medium">Team</label>
                             <select onchange="handleTeamChange(this.value)" id="teamid" name="teamid" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                    <option value="b6d8f76c-3a58-4e6e-b408-16c3b17572ec">Eigen taak</option>
+                                    <option value="">Eigen taak</option>
                                 @foreach (var teams in Model.Teams)
                                 {
                                     <option value="@teams.id">@teams.title</option>

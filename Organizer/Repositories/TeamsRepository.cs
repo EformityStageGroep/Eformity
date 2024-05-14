@@ -75,6 +75,11 @@ namespace Organizer.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task DeleteTasksFromUser(string user_id, Guid team_id)
+        {
+
+        }
+
         public async Task DeleteAllTasks(Guid teamid)
         {
             var tasks = await _context.Task.Where(t => t.teamid == teamid).ToListAsync();

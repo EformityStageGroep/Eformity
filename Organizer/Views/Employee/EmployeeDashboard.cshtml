@@ -3,12 +3,15 @@
 <body onload="filterTasksWhenLoaded('Done')">
 </body>
 @Html.Partial("../Home/Homepage")
+@{
+    var userid = @User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
 
+}
 <div class="mt-4 flex justify-end">
 <h1>Filter:</h1>
     <select id="teamLabel_" onchange="combinedFilter(this.value)" class="ml-2 border-gray-900 pl-[7px] pb-[1px] text-black w-[100px] h-[27px] relative z-10 flex cursor-pointer cursor-pointer items-center justify-center self-baseline rounded-sm border border border-solid text-xs font-medium hover:bg-gray-200">
         <option value="ALL">ALL</option>
-        <option value="b6d8f76c-3a58-4e6e-b408-16c3b17572ec">Personal</option>
+        <option value="">Personal</option>
         @foreach (var teams in Model.Teams)
             {
                 <option value="@teams.id">@teams.title</option>

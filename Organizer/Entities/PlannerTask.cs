@@ -24,7 +24,7 @@ namespace Organizer.Entities
         public string tenantid { get; set; }
         [ForeignKey("Users")]
         public string userid { get; set; }
-        public Guid teamid { get; set; }
+        public Guid? teamid { get; set; }
 
 
 
