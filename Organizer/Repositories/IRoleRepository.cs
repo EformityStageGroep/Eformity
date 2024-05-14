@@ -12,5 +12,6 @@ namespace Organizer.Repositories
         Task CreateRoleAsync(Role role);
         Task UpdateRoleAsync(Role role);
         Task DeleteRoleAsync(Guid id);
+        Task<bool> RoleExistsAsync(string roleName);
     }
 }

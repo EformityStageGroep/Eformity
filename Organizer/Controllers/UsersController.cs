@@ -5,6 +5,7 @@ using Organizer.Contexts;
 using Organizer.Entities;
 using Organizer.Models;
 using Organizer.Repositories;
+using Organizer.Services;
 using System.Threading.Tasks;
 
 namespace Organizer.Controllers
@@ -13,17 +14,17 @@ namespace Organizer.Controllers
     {
         private readonly ITeamsRepository _teamRepository;
         private readonly IRoleRepository _roleRepository;
-
+        private readonly ICurrentTenantService _currentTenantService;
         private readonly IUserRepository _userRepository;
         private readonly IEmployeeRepository _employeeRepository;
 
 
-        public UsersController(ITeamsRepository teamRepository, IRoleRepository roleRepository, IUserRepository userRepository, IEmployeeRepository employeeRepository)
+        public UsersController(ITeamsRepository teamRepository, IRoleRepository roleRepository, IUserRepository userRepository, IEmployeeRepository employeeRepository, ICurrentTenantService currentTenantService)
 
         {
             _teamRepository = teamRepository;
             _roleRepository = roleRepository;
-
+            _currentTenantService = currentTenantService;
             _userRepository = userRepository;
             _employeeRepository = employeeRepository;
 
@@ -125,19 +126,37 @@ namespace Organizer.Controllers
 
         public async Task<IActionResult> CompanyAdminDashboard()
         {
-           ParentViewModel mymodel = new ParentViewModel();
-                List<User> users = await _userRepository.GetUserInfo();
-                List<Team> teams = await _teamRepository.GetTeamsByUser();
-
+            ParentViewModel mymodel = new ParentViewModel();
+            List<User> users = await _userRepository.GetUserInfo();
+            List<Team> teams = await _teamRepository.GetTeamsByUser();
             List<Entities.Task> tasks = await _employeeRepository.GetTasksAsync();
 
-                var model = new ParentViewModel
+            // Check if the role exists, if not, create it
+            if (!await _roleRepository.RoleExistsAsync("Default"))
+            {
+                // Create the role with a GUID id
+                var roleId = Guid.NewGuid();
+                var role = new Role
                 {
-                    Users = users,
-                    Teams = teams,
-                    Tasks = tasks,
+                    id = roleId,
+                    title = "Default",
+                    tenant_id = _currentTenantService.tenantid,
+                    create_team = true,
+                    assign_task = true
                 };
-                return View(model);
+
+                await _roleRepository.CreateRoleAsync(role);
+            }
+
+            var model = new ParentViewModel
+            {
+                Users = users,
+                Teams = teams,
+                Tasks = tasks,
+            };
+
+            return View(model);
+
         }
 
 
