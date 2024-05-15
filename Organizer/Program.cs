@@ -35,7 +35,7 @@ builder.Services.AddDbContext<OrganizerContext>();
 builder.Services.AddDbContext<TenantDbContext>();
 builder.Services.AddDbContext<UserDbContext>();
 
-// Add repositories and services
+
 builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<IGraphClientService, GraphClientService>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
@@ -78,7 +78,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseSession();
 app.UseRouting();
 
 app.UseAuthentication();
