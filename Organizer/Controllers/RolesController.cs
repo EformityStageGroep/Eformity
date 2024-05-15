@@ -9,21 +9,21 @@ namespace Organizer.Controllers
         private readonly IRoleRepository _roleRepository;
         private readonly ITeamsRepository _teamRepository;
         private readonly IUserRepository _userRepository;
-        private readonly IEmployeeRepository _employeeRepository;
+        private readonly ITasksRepository _tasksRepository;
 
 
-        public RolesController(IRoleRepository roleRepository, ITeamsRepository teamRepository, IUserRepository userRepository, IEmployeeRepository employeeRepository)
+        public RolesController(IRoleRepository roleRepository, ITeamsRepository teamRepository, IUserRepository userRepository, ITasksRepository tasksRepository)
         {
             _teamRepository = teamRepository;
             _userRepository = userRepository;
-            _employeeRepository = employeeRepository;
+            _tasksRepository = tasksRepository;
             _roleRepository = roleRepository;
         }
 
         // GET: Roles
         public async Task<IActionResult> Index()
         {
-            var ParentViewModel = await _employeeRepository.ParentViewModel("Roles");
+            var ParentViewModel = await _tasksRepository.ParentViewModel("Roles");
 
             return View(ParentViewModel);
         }

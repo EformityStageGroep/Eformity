@@ -14,15 +14,15 @@ namespace Organizer.Controllers
 
         SqlConnection con = new SqlConnection();
        // List<Databron> Databronnen = new List<Databron>();
-        private readonly IEmployeeRepository _employeeRepository;
+        private readonly ITasksRepository _tasksRepository;
 
-        public HomeController(IEmployeeRepository employeeRepository)
+        public HomeController(ITasksRepository tasksRepository)
         {
-            _employeeRepository = employeeRepository;
+            _tasksRepository = tasksRepository;
             con.ConnectionString = Properties.Resources.ConnectionString;
         }
       
-        [Authorize(Roles = "SuperAdmin,Employee")]
+        [Authorize(Roles = "SuperAdmin,Tasks")]
         public IActionResult Index()
         {
             return View();
@@ -30,7 +30,7 @@ namespace Organizer.Controllers
 
         public async Task<IActionResult> Homepage()
         {
-           var ParentViewModel = await _employeeRepository.ParentViewModel("Homepage");
+           var ParentViewModel = await _tasksRepository.ParentViewModel("Homepage");
 
             // Return the view with the model
             return View(ParentViewModel);

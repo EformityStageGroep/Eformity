@@ -7,7 +7,7 @@ using Organizer.Services;
 
 namespace Organizer.Repositories
 {
-    public class EmployeeRepository : IEmployeeRepository
+    public class TasksRepository : ITasksRepository
     {
         private readonly OrganizerContext _context;
         private readonly ICurrentTenantService _currentTenantService;
@@ -16,7 +16,7 @@ namespace Organizer.Repositories
         private readonly ITeamsRepository _teamRepository;
         private readonly IUserRepository _userRepository;
 
-        public EmployeeRepository(OrganizerContext context, ICurrentTenantService currentTenantService, ICurrentUserService currentUserService, IRoleRepository roleRepository, ITeamsRepository teamRepository, IUserRepository userRepository)
+        public TasksRepository(OrganizerContext context, ICurrentTenantService currentTenantService, ICurrentUserService currentUserService, IRoleRepository roleRepository, ITeamsRepository teamRepository, IUserRepository userRepository)
         {
             _context = context;
             _currentTenantService = currentTenantService;

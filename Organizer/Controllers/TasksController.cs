@@ -3,20 +3,20 @@ using Organizer.Contexts;
 using Organizer.Repositories;
 namespace Organizer.Controllers
 {
-    public class EmployeeController : Controller
+    public class TasksController : Controller
     {
         private readonly ITeamsRepository _teamRepository;
         private readonly IUserRepository _userRepository;
-        private readonly IEmployeeRepository _taskRepository;
-        private readonly IEmployeeRepository _employeeRepository;
+        private readonly ITasksRepository _taskRepository;
+        private readonly ITasksRepository _tasksRepository;
         private readonly OrganizerContext _context;
 
-        public EmployeeController(ITeamsRepository teamRepository, IUserRepository userRepository, IEmployeeRepository employeeRepository)
+        public TasksController(ITeamsRepository teamRepository, IUserRepository userRepository, ITasksRepository tasksRepository)
         {
             _teamRepository = teamRepository;
             _userRepository = userRepository;
-            _taskRepository = employeeRepository;
-            _employeeRepository = employeeRepository;
+            _taskRepository = tasksRepository;
+            _tasksRepository = tasksRepository;
         }
         // GET: Tasks
         public async Task<IActionResult> Index()
@@ -24,9 +24,9 @@ namespace Organizer.Controllers
             return View();
         }
         // GET: Tasks/Details/5
-        public async Task<IActionResult> EmployeeDashboard()
+        public async Task<IActionResult> TasksDashboard()
         {
-            var ParentViewModel = await _employeeRepository.ParentViewModel("Tasks");
+            var ParentViewModel = await _tasksRepository.ParentViewModel("Tasks");
 
             return View(ParentViewModel);
         }
@@ -41,7 +41,7 @@ namespace Organizer.Controllers
                 task.id = Guid.NewGuid();
                 await _taskRepository.Create(task);
                 await _taskRepository.SaveChangesAsync();
-                return RedirectToAction(nameof(EmployeeDashboard));
+                return RedirectToAction(nameof(TasksDashboard));
             }
             if (!ModelState.IsValid)
             {
@@ -63,7 +63,7 @@ namespace Organizer.Controllers
                     Console.WriteLine($"Current tenantid EDIT: {task}");
                     await _taskRepository.Edit(task);
                     await _taskRepository.SaveChangesAsync();
-                    return RedirectToAction(nameof(EmployeeDashboard));
+                    return RedirectToAction(nameof(TasksDashboard));
                 }
                 catch (Exception)
                 {
@@ -82,9 +82,9 @@ namespace Organizer.Controllers
         {
             await _taskRepository.Delete(id);
             await _taskRepository.SaveChangesAsync();
-            return RedirectToAction(nameof(EmployeeDashboard));
+            return RedirectToAction(nameof(TasksDashboard));
         }
-        public IActionResult EmployeeDashboard2()
+        public IActionResult TasksDashboard2()
         {
             return View();
         }

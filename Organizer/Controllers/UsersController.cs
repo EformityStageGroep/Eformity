@@ -12,17 +12,17 @@ namespace Organizer.Controllers
         private readonly IRoleRepository _roleRepository;
         private readonly ICurrentTenantService _currentTenantService;
         private readonly IUserRepository _userRepository;
-        private readonly IEmployeeRepository _employeeRepository;
+        private readonly ITasksRepository _tasksRepository;
 
 
-        public UsersController(ITeamsRepository teamRepository, IRoleRepository roleRepository, IUserRepository userRepository, IEmployeeRepository employeeRepository, ICurrentTenantService currentTenantService)
+        public UsersController(ITeamsRepository teamRepository, IRoleRepository roleRepository, IUserRepository userRepository, ITasksRepository tasksRepository, ICurrentTenantService currentTenantService)
 
         {
             _teamRepository = teamRepository;
             _roleRepository = roleRepository;
             _currentTenantService = currentTenantService;
             _userRepository = userRepository;
-            _employeeRepository = employeeRepository;
+            _tasksRepository = tasksRepository;
 
         }
             // GET: Users
@@ -80,7 +80,7 @@ namespace Organizer.Controllers
             }
 
             // Return the view with the form and error messages
-            return RedirectToAction("EmployeeDashboard", "Employee");
+            return RedirectToAction("TasksDashboard", "Tasks");
         }
         // POST: Users/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -115,7 +115,7 @@ namespace Organizer.Controllers
 
         public async Task<IActionResult> CompanyAdminDashboard()
         {
-            var ParentViewModel = await _employeeRepository.ParentViewModel("Dashboard");
+            var ParentViewModel = await _tasksRepository.ParentViewModel("Dashboard");
 
             return View(ParentViewModel);
         }
@@ -143,7 +143,7 @@ namespace Organizer.Controllers
         public async Task<IActionResult> Settings()
         {
             {
-                var ParentViewModel = await _employeeRepository.ParentViewModel("Users");
+                var ParentViewModel = await _tasksRepository.ParentViewModel("Users");
 
 
                 // Return the view with the model

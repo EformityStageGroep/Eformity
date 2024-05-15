@@ -39,7 +39,7 @@
                         <h3 class="text-gray-900 text-lg font-medium leading-6" id="modalTitle">
                             Create Task
                         </h3>
-                        <form asp-controller="Employee" asp-action="Create" method="post" class="mt-4">
+                        <form asp-controller="Tasks" asp-action="Create" method="post" class="mt-4">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="mt-2">
                                 <label for="tenantid" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
@@ -127,7 +127,7 @@ else
                     </h3>
 
 
-                    <form asp-controller="Employee" asp-action="Create"  method="post" class="mt-4">
+                    <form asp-controller="Tasks" asp-action="Create"  method="post" class="mt-4">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="mt-2">
                             <label for="tenantid" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>

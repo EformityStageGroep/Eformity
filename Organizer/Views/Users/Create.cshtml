@@ -58,7 +58,7 @@
             console.log(formData);
 
             // Send a POST request with the task ID and CSRF token
-            fetch('@Url.Action("Create", "Employee")', {
+            fetch('@Url.Action("Create", "Tasks")', {
                 method: 'POST', // Use POST method to send data
                
                 body: formData // Convert the data object to a JSON string

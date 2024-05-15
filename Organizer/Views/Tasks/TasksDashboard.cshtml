@@ -490,7 +490,7 @@
             const csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
 
             // Send a POST request with the task ID and CSRF token
-            fetch(`/Employee/Delete/${taskId}`, {
+            fetch(`/Tasks/Delete/${taskId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

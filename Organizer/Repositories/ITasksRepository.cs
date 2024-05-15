@@ -2,7 +2,7 @@
 
 namespace Organizer.Repositories
 {
-    public interface IEmployeeRepository
+    public interface ITasksRepository
     {
         Task<List<Entities.Task>> GetTaskIdsByUser();
         Task Create(Entities.Task task);
