@@ -106,9 +106,13 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="flex">
-                                                    <form id="editRoleForm" asp-action="Edit" asp-route-id="@edit.id" method="post" class="flex">
-                                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                                        <input type="hidden" asp-for="@edit.id" />
+
+
+                                                    <form id="editRoleForm_@edit.id" asp-action="Edit" asp-route-id="@edit.id" method="post" class="flex">
+
+                                                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                                            <input type="hidden" asp-for="@edit.id" />
+
                                                         <input type="hidden" asp-for="@edit.tenant_id" />
                                                         <div class="form-group flex">
                                                             <div class="mt-2 mb-2">
@@ -116,9 +120,11 @@
                                                                 <input asp-for="@edit.title" type="text" name="title" id="title" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                                                 <span asp-validation-for="@edit.title" class="text-danger"></span>
                                                             </div>
+
                                                         </div>
                                                         <div class="ml-9 pl-9 mt-2 mb-2 border-l">
                                                             <h1 class="text-gray-900 block text-sm font-medium">Permissions:</h1>
+
                                                             <div class="form-group">
                                                                 <label asp-for="@edit.create_team" class="control-label"></label>
                                                                 <input asp-for="@edit.create_team" name="create_team" class="form-control" />
@@ -134,26 +140,41 @@
                                                                 <input asp-for="@edit.tenant_id" type="hidden" name="tenant_id" value="@tenantid" class="form-control" />
                                                                 <span asp-validation-for="@edit.tenant_id" type="hidden" class="text-danger"></span>
                                                             </div>
+
                                                         </div>
                                                     </form>
+
                                                 </div>
                                             </div>
                                         </div>
                                     </li>
                                 </ul>
                             </div>
-                        </div>
-                    </div>
 
-                    <div id="buttonsEdit" class="bottom-0 right-0 pb-4 pr-4 space-x-3 w-[92%] absolute flex items-end justify-end sm:space-x-4">
+                            
+                        <div id="buttonsEdit" class="bottom-0 right-0 pb-4 pr-4 space-x-3 w-[92%] absolute flex items-end justify-end sm:space-x-4">
                             <!-- Left-aligned button -->
-                        <div class="pb-1 relative flex w-full items-end justify-between">
-                            <!-- Left-aligned button -->
-                            <div>
-                                <button id="createTaskButton" type="button" onclick="deleteRole('@edit.id')"
+                            <div class="pb-1 relative flex w-full items-end justify-between">
+                                <!-- Left-aligned button -->
+                                <div>
+                                    <button id="createTaskButton" type="button" onclick="deleteRole('@edit.id')"
                                         class="px-4 py-2 bg-red-500 text-white rounded-md shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                    Delete Role
-                                </button>
+                                        Delete Role
+                                    </button>
+                                </div>
+
+
+                                <!-- Right-aligned buttons -->
+                                <div class="space-x-3 flex sm:space-x-4">
+                                    <button id="submitFormButton" type="submit" form="editRoleForm_@edit.id" class="button-class px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                        Save Changes
+                                    </button>
+                                    <button onclick="toggleEditRoleModal('@edit.id')" id="closeModalButton" type="button"
+                                        class="px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                        Go Back
+                                    </button>
+                                </div>
+
                             </div>
 
                             <!-- Right-aligned buttons -->
@@ -356,7 +377,7 @@
         modalEditRole = document.getElementById('editRoleModal_'+roleId)
         modalManageRole = document.getElementById('manageRoleModal')
 
-        console.log('edit passed')
+        console.log('edit passed' + 'roleid: '+roleId)
         modalManageRole.classList.toggle('hidden')
         modalEditRole.classList.toggle('hidden')
     }

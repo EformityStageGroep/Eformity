@@ -96,6 +96,7 @@ namespace Organizer.Controllers
 
             if (ModelState.IsValid)
             {
+
                 try
                 {
                     await _userRepository.Edit(user);
@@ -107,6 +108,8 @@ namespace Organizer.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+
             return View(user);
         }
 

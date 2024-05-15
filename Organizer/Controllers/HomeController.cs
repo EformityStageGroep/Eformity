@@ -76,12 +76,6 @@ namespace Organizer.Controllers
             return View(ParentViewModel);
         }
 
-        public IActionResult Profile()
-        {
-            var viewModel = new Entities.PageIdentifier();
-            viewModel.PageValue = "Profile";
-            return View();
-        }
         
         [AllowAnonymous]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
