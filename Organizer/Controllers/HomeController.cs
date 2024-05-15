@@ -78,8 +78,10 @@ namespace Organizer.Controllers
 
         public IActionResult Profile()
         {
+
             var viewModel = new Entities.PageIdentifier();
             viewModel.PageValue = "Profile";
+
             return View();
         }
         

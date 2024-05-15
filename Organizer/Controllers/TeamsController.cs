@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Organizer.Authorization;
 using Organizer.Repositories;
 using Organizer.Entities;
+
 namespace Organizer.Controllers
 {
     public class TeamsController : Controller
@@ -8,18 +11,24 @@ namespace Organizer.Controllers
         private readonly ITeamsRepository _teamRepository;
         private readonly IUserRepository _userRepository;
         private readonly IEmployeeRepository _employeeRepository;
+        private readonly IAuthorizationService _authorizationService;
 
-        public TeamsController(ITeamsRepository teamRepository, IUserRepository userRepository, IEmployeeRepository employeeRepository)
+        public TeamsController(ITeamsRepository teamRepository, IUserRepository userRepository, IEmployeeRepository employeeRepository, IAuthorizationService authorizationService)
         {
             _teamRepository = teamRepository;
             _userRepository = userRepository;
             _employeeRepository = employeeRepository;
+            _authorizationService = authorizationService;
         }
         public async Task<IActionResult> Index()
         {
+
             return View();
+
         }
-      
+
+
+[Authorize(Policy = "CreateTeamPolicy")]
         public async Task<IActionResult> CreateTeam([Bind("title, tenant_id, Users_Teams")] Team team, string user_id)
         {
             if (ModelState.IsValid)
@@ -65,7 +74,9 @@ namespace Organizer.Controllers
             // If the user was the last one in the team, execute another line
             if (isLastUser)
             {
+
                 await _teamRepository.DeleteAllTasks(team_id);
+
                 await _teamRepository.DeleteTeam(team_id);
                 Console.WriteLine("testestststsetsts");
             }
@@ -73,7 +84,7 @@ namespace Organizer.Controllers
             // Redirect to the Index action
             return RedirectToAction(nameof(Index));
         }
-  
+
         public async Task<IActionResult> EditTeam(Guid id, [Bind("id,title,tenant_id,Users_Teams")] Team team)
         {
             if (id != team.id)
@@ -112,7 +123,7 @@ namespace Organizer.Controllers
 
             return View(ParentViewModel);
         }
-          public IActionResult teamMultiSelectSlideover()
+        public IActionResult teamMultiSelectSlideover()
         {
             return View();
         }
