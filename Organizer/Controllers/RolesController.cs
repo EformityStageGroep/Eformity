@@ -1,10 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Organizer.Entities;
 using Organizer.Repositories;
-using Organizer.Models;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Organizer.Controllers
 {
@@ -27,24 +23,9 @@ namespace Organizer.Controllers
         // GET: Roles
         public async Task<IActionResult> Index()
         {
+            var ParentViewModel = await _employeeRepository.ParentViewModel("Roles");
 
-            ParentViewModel mymodel = new ParentViewModel();
-            List<User> users = await _userRepository.GetUserIdsByTenant();
-            List<Team> teams = await _teamRepository.GetTeamsByUser();
-            List<Entities.Task> tasks = await _employeeRepository.GetTasksAsync();
-            List<Entities.Role> roles = await _roleRepository.GetAllRolesAsync();
-
-            // Create the ParentViewModel and populate it with data
-            var model = new ParentViewModel
-            {
-                Users = users,
-                Teams = teams,
-                Tasks = tasks,
-                Roles = roles
-            };
-
-            // Return the view with the model
-            return View(model);
+            return View(ParentViewModel);
         }
 
         // GET: Roles/Details/5

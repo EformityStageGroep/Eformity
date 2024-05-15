@@ -24,6 +24,7 @@ namespace Organizer.Controllers
         private readonly ITeamsRepository _teamRepository;
         private readonly IUserRepository _userRepository;
         private readonly IEmployeeRepository _taskRepository;
+        private readonly IEmployeeRepository _employeeRepository;
         private readonly OrganizerContext _context;
 
         public HomeController(ITeamsRepository teamRepository, IUserRepository userRepository, IEmployeeRepository employeeRepository)
@@ -31,13 +32,14 @@ namespace Organizer.Controllers
             _teamRepository = teamRepository;
             _userRepository = userRepository;
             _taskRepository = employeeRepository;
+            _employeeRepository = employeeRepository;
         }
         public HomeController(ILogger<HomeController> logger, IGraphClientService graphClientService)
         {
             _logger = logger;
             _graphClientService = graphClientService;
             graphServiceClient = _graphClientService.GetGraphServiceClient();
-            con.ConnectionString = Organizer.Properties.Resources.ConnectionString;
+            con.ConnectionString = Properties.Resources.ConnectionString;
         }
 
         [Authorize(Roles = "SuperAdmin,Employee")]
@@ -64,39 +66,23 @@ namespace Organizer.Controllers
                 // Handle other roles or unauthorized access
                 return RedirectToAction("Unauthorized", "Error");
             }
-
         }
-
-
 
         public async Task<IActionResult> Homepage()
         {
+           var ParentViewModel = await _employeeRepository.ParentViewModel("Homepage");
 
-
-            ParentViewModel mymodel = new ParentViewModel();
-            List<Entities.User> users = await _userRepository.GetUserIdsByTenant();
-            List<Entities.Team> teams = await _teamRepository.GetTeamsByUser();
-            List<Entities.Task> tasks = await _taskRepository.GetTasksAsync();
-
-            var model = new ParentViewModel
-            {
-                Users = users,
-                Teams = teams,
-                Tasks = tasks
-            };
-            return View(model);
+            // Return the view with the model
+            return View(ParentViewModel);
         }
 
         public IActionResult Profile()
-        {/*
-            var viewModel = new PageIdentifier();
-            viewModel.PageValue = "Profile";*/
+        {
+            var viewModel = new Entities.PageIdentifier();
+            viewModel.PageValue = "Profile";
             return View();
         }
         
-      
-   
-
         [AllowAnonymous]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

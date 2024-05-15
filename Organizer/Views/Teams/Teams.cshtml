@@ -4,8 +4,10 @@
  var user_id = @User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
 }
 
+
 <div class="border-gray-200 pb-5 mb-3 border-b sm:flex sm:items-center sm:justify-between">
     <div class="flex">
+       
         <h3 class="text-gray-900 mr-3 mt-1 text-base font-semibold leading-6">Teams</h3>
         <button id="createTeamModalButton" onclick="openModal()" type="button" class="bg-indigo-600 p-2 text-white rounded-full shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
             <svg  class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -244,9 +246,11 @@
         </div>
     </div>
 </div>
-
 @section scripts{
+
 <script>
+        
+       
     function updateTeam() {
         setTimeout(() => {
             location.reload();
@@ -334,6 +338,7 @@
             const filterInput = document.getElementById('filterInputSlideover');
             const userList = document.getElementById('userListSlideover');
             const users = userList.getElementsByClassName('user-item');
+
 
             filterInput.addEventListener('keyup', function () {
                 const searchText = filterInput.value.toLowerCase();

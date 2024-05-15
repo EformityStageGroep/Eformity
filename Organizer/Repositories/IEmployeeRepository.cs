@@ -1,4 +1,6 @@
-﻿namespace Organizer.Repositories
+﻿using Organizer.Models;
+
+namespace Organizer.Repositories
 {
     public interface IEmployeeRepository
     {
@@ -8,5 +10,6 @@
         Task Delete(Guid id);
         Task<int> SaveChangesAsync();
         Task<List<Entities.Task>> GetTasksAsync();
+        Task<ParentViewModel> ParentViewModel(string pageValue);
     }
 }

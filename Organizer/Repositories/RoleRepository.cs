@@ -2,9 +2,6 @@
 using Organizer.Contexts;
 using Organizer.Entities;
 using Organizer.Services;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Task = System.Threading.Tasks.Task;
 
 namespace Organizer.Repositories
