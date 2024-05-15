@@ -1,11 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Organizer.Contexts;
 using Organizer.Entities;
-using Organizer.Controllers;
-using System.Threading.Tasks; // Import this namespace for Task
+using Organizer.Models;
 using Organizer.Services;
-using System.Linq;
-using Microsoft.Graph;
 
 
 namespace Organizer.Repositories
@@ -15,12 +12,18 @@ namespace Organizer.Repositories
         private readonly OrganizerContext _context;
         private readonly ICurrentTenantService _currentTenantService;
         private readonly ICurrentUserService _currentUserService;
+        private readonly IRoleRepository _roleRepository;
+        private readonly ITeamsRepository _teamRepository;
+        private readonly IUserRepository _userRepository;
 
-        public EmployeeRepository(OrganizerContext context, ICurrentTenantService currentTenantService, ICurrentUserService currentUserService)
+        public EmployeeRepository(OrganizerContext context, ICurrentTenantService currentTenantService, ICurrentUserService currentUserService, IRoleRepository roleRepository, ITeamsRepository teamRepository, IUserRepository userRepository)
         {
             _context = context;
             _currentTenantService = currentTenantService;
             _currentUserService = currentUserService;
+            _teamRepository = teamRepository;
+            _userRepository = userRepository;
+            _roleRepository = roleRepository;
         }
 
         public async Task<List<Entities.Task>> GetTasksAsync()
@@ -62,7 +65,7 @@ namespace Organizer.Repositories
             }
 
             // Extract teams from the join table and return them
-       
+
             Console.WriteLine(Users);
             if (Users.Count > 0)
             {
@@ -92,7 +95,27 @@ namespace Organizer.Repositories
             _context.Task.Update(task);
             await _context.SaveChangesAsync();
         }
+        public async System.Threading.Tasks.Task<ParentViewModel> ParentViewModel(string pageValue)
+        {
+            ParentViewModel mymodel = new ParentViewModel();
+            List<Entities.User> users = await _userRepository.GetUserIdsByTenant();
+            List<Entities.Team> teams = await _teamRepository.GetTeamsByUser();
+            List<Entities.Task> tasks = await GetTasksAsync();
+            List<Entities.Role> roles = await _roleRepository.GetAllRolesAsync();
 
+            var viewModel = new PageIdentifier();
+            viewModel.PageValue = pageValue;
+
+            var model = new ParentViewModel
+            {
+                Users = users,
+                Teams = teams,
+                Tasks = tasks,
+                PageIdentifier = viewModel,
+                Roles = roles
+            };
+            return model;
+        }
         public async System.Threading.Tasks.Task Delete(Guid id)
         {
             var task = await _context.Task.FindAsync(id);

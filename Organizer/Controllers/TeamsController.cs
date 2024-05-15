@@ -1,11 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Organizer.Repositories;
 using Organizer.Entities;
-using Organizer.Models;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using System.Dynamic;
-
 namespace Organizer.Controllers
 {
     public class TeamsController : Controller
@@ -22,23 +17,7 @@ namespace Organizer.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            // Fetch data for the view
-            ParentViewModel mymodel = new ParentViewModel();
-           
-            List<User> users = await _userRepository.GetUserIdsByTenant();
-            List<Team> teams = await _teamRepository.GetTeamsByUser();
-            List<Entities.Task> tasks = await _employeeRepository.GetTasksAsync();
-
-            // Create the ParentViewModel and populate it with data
-            var model = new ParentViewModel
-            {
-                Users = users,
-                Teams = teams,
-                Tasks = tasks
-            };
-
-            // Return the view with the model
-            return View(model);
+            return View();
         }
       
         public async Task<IActionResult> CreateTeam([Bind("title, tenant_id, Users_Teams")] Team team, string user_id)
@@ -56,7 +35,6 @@ namespace Organizer.Controllers
                     foreach (var userId in users)
                     {
                         Console.WriteLine($"Number of user IDs: {users.Count}");
-
                         // Create a new UserTeam object for each user ID
                         var userTeam = new UserTeam { user_id = userId, team_id = guid };
                         Console.WriteLine(userTeam);
@@ -73,7 +51,6 @@ namespace Organizer.Controllers
                 await _teamRepository.SaveChangesAsync();
                 return RedirectToAction(nameof(Teams));
             }
-
             return View();
         }
         public async Task<IActionResult> LeaveTeam(string user_id, Guid team_id)
@@ -131,19 +108,9 @@ namespace Organizer.Controllers
 
         public async Task<IActionResult> Teams()
         {
-            ParentViewModel mymodel = new ParentViewModel();
-            List<User> users = await _userRepository.GetUserIdsByTenant();
-            List<Team> teams = await _teamRepository.GetTeamsByUser();
+            var ParentViewModel = await _employeeRepository.ParentViewModel("Teams");
 
-            // Create the ParentViewModel and populate it with data
-            var model = new ParentViewModel
-            {
-                Users = users,
-                Teams = teams
-            };
-
-            // Return the view with the model
-            return View(model);
+            return View(ParentViewModel);
         }
           public IActionResult teamMultiSelectSlideover()
         {

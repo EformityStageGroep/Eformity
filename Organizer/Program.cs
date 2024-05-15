@@ -42,6 +42,8 @@ builder.Services.AddDbContext<OrganizerContext>();
 builder.Services.AddDbContext<TenantDbContext>();
 builder.Services.AddDbContext<UserDbContext>();
 
+builder.Services.AddControllersWithViews();
+builder.Services.AddSession(); // Add session support
 
 builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<IGraphClientService, GraphClientService>();
@@ -81,7 +83,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseSession();
 app.UseRouting();
 
 app.UseAuthentication();

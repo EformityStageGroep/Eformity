@@ -1,12 +1,8 @@
-﻿#nullable disable
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Organizer.Contexts;
 using Organizer.Entities;
-using Organizer.Models;
 using Organizer.Repositories;
 using Organizer.Services;
-using System.Threading.Tasks;
 
 namespace Organizer.Controllers
 {
@@ -117,51 +113,12 @@ namespace Organizer.Controllers
             return View(user);
         }
 
-        // GET: Users/Delete/5
-        public async Task<IActionResult> Delete(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            return View();
-        }
-
         public async Task<IActionResult> CompanyAdminDashboard()
         {
-            ParentViewModel mymodel = new ParentViewModel();
-            List<User> users = await _userRepository.GetUserInfo();
-            List<Team> teams = await _teamRepository.GetTeamsByUser();
-            List<Entities.Task> tasks = await _employeeRepository.GetTasksAsync();
+            var ParentViewModel = await _employeeRepository.ParentViewModel("Dashboard");
 
-            // Check if the role exists, if not, create it
-            if (!await _roleRepository.RoleExistsAsync("Default"))
-            {
-                // Create the role with a GUID id
-                var roleId = Guid.NewGuid();
-                var role = new Role
-                {
-                    id = roleId,
-                    title = "Default",
-                    tenant_id = _currentTenantService.tenantid,
-                    create_team = true,
-                    assign_task = true
-                };
-
-                await _roleRepository.CreateRoleAsync(role);
-            }
-
-            var model = new ParentViewModel
-            {
-                Users = users,
-                Teams = teams,
-                Tasks = tasks,
-            };
-
-            return View(model);
-
+            return View(ParentViewModel);
         }
-
 
         public async Task<IActionResult> Teams()
         {
@@ -174,7 +131,6 @@ namespace Organizer.Controllers
                     {
                         return View(new List<User>()); // Return an empty list to the view
                     }
-
                     return View(users);
                 }
                 catch (Exception ex)
@@ -187,18 +143,11 @@ namespace Organizer.Controllers
         public async Task<IActionResult> Settings()
         {
             {
-                ParentViewModel mymodel = new ParentViewModel();
-                List<User> users = await _userRepository.GetUserInfo();
-                List<Team> teams = await _teamRepository.GetTeamsByUser();
-                List<Entities.Task> tasks = await _employeeRepository.GetTasksAsync();
+                var ParentViewModel = await _employeeRepository.ParentViewModel("Users");
 
-                var model = new ParentViewModel
-                {
-                    Users = users,
-                    Teams = teams,
-                    Tasks = tasks
-                };
-                return View(model);
+
+                // Return the view with the model
+                return View(ParentViewModel);
             }
         }
 
