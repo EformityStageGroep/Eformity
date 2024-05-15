@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Organizer.Authorization;
 using Organizer.Repositories;
 using Organizer.Entities;
 using Organizer.Models;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using System.Dynamic;
+
 
 namespace Organizer.Controllers
 {
@@ -13,18 +16,20 @@ namespace Organizer.Controllers
         private readonly ITeamsRepository _teamRepository;
         private readonly IUserRepository _userRepository;
         private readonly IEmployeeRepository _employeeRepository;
+        private readonly IAuthorizationService _authorizationService;
 
-        public TeamsController(ITeamsRepository teamRepository, IUserRepository userRepository, IEmployeeRepository employeeRepository)
+        public TeamsController(ITeamsRepository teamRepository, IUserRepository userRepository, IEmployeeRepository employeeRepository, IAuthorizationService authorizationService)
         {
             _teamRepository = teamRepository;
             _userRepository = userRepository;
             _employeeRepository = employeeRepository;
+            _authorizationService = authorizationService;
         }
         public async Task<IActionResult> Index()
         {
             // Fetch data for the view
             ParentViewModel mymodel = new ParentViewModel();
-           
+
             List<User> users = await _userRepository.GetUserIdsByTenant();
             List<Team> teams = await _teamRepository.GetTeamsByUser();
             List<Entities.Task> tasks = await _employeeRepository.GetTasksAsync();
@@ -40,7 +45,9 @@ namespace Organizer.Controllers
             // Return the view with the model
             return View(model);
         }
-      
+
+
+[Authorize(Policy = "CreateTeamPolicy")]
         public async Task<IActionResult> CreateTeam([Bind("title, tenant_id, Users_Teams")] Team team, string user_id)
         {
             if (ModelState.IsValid)
@@ -87,7 +94,7 @@ namespace Organizer.Controllers
             // If the user was the last one in the team, execute another line
             if (isLastUser)
             {
-              
+
                 await _teamRepository.DeleteTeam(team_id);
                 Console.WriteLine("testestststsetsts");
             }
@@ -95,7 +102,7 @@ namespace Organizer.Controllers
             // Redirect to the Index action
             return RedirectToAction(nameof(Index));
         }
-  
+
         public async Task<IActionResult> EditTeam(Guid id, [Bind("id,title,tenant_id,Users_Teams")] Team team)
         {
             if (id != team.id)
@@ -144,7 +151,7 @@ namespace Organizer.Controllers
             // Return the view with the model
             return View(model);
         }
-          public IActionResult teamMultiSelectSlideover()
+        public IActionResult teamMultiSelectSlideover()
         {
             return View();
         }
