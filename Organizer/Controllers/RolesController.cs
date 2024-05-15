@@ -110,6 +110,7 @@ namespace Organizer.Controllers
             Console.WriteLine($"Create Team: {role.create_team}");
             Console.WriteLine($"Assign Task: {role.assign_task}");
             Console.WriteLine($"Tenant ID: {role.tenant_id}");
+            Console.WriteLine("dit is de ID: " + id);
 
             if (id != role.id)
             {

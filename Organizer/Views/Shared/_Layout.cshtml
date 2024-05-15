@@ -16,28 +16,12 @@
 </head>
 <body class="min-w-[1179]">
     <div class="z-100">
-    @Html.Partial("../Home/_sidebarComponent");
+
+
+    @Html.Partial("../Home/_sidebarComponent")
 
     </div>
 
-
-
-@*    <div class="flex h-screen flex-col">
-        <!-- Top bar section -->
-        <div class="top-0 mb-12 h-1/10 w-full">
-            <!-- Render the top bar partial -->
-            @Html.Partial("../Home/_sectionHeading")
-        </div>*@
-
-
-@*       
-        <!-- Sidebar section -->
-        <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
-            <!-- Render the sidebar partial -->
-        </div>*@
-
-        
-            <!-- Main content section -->
 
         <div class="mb-12 ml-4 mr-4 flex-1 lg:pl-72">
             <!-- Render the main content -->
@@ -58,3 +42,11 @@
 @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+
+<script>
+    window.onload = function () {
+        console.log('this is a test')
+        var currentUrl = window.location.href;
+    };
+</script>

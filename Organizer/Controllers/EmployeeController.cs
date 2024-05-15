@@ -58,15 +58,21 @@ namespace Organizer.Controllers
 
             if (ModelState.IsValid)
             {
+                Console.WriteLine($"Task ID: {task.id}, Title: {task.title}, Description: {task.description}, Priority: {task.priority},  TeamId: {task.teamid},etc.");
                 task.id = Guid.NewGuid();
                 await _taskRepository.Create(task);
                 await _taskRepository.SaveChangesAsync();
                 return RedirectToAction(nameof(EmployeeDashboard));
             }
-            else
+            if (!ModelState.IsValid)
             {
-                return View(task); // Return the same view if ModelState is invalid
+                foreach (var modelError in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    Console.WriteLine($"Errorr: {modelError.ErrorMessage}");
+                }
             }
+            return View(task); // Return the same view if ModelState is invalid
+            
         }
         [HttpPost]
         public async Task<IActionResult> EditTask(Guid id, [Bind("id,title,description,priority,datetime,selectstatus,tenantid,userid,teamid")] Entities.Task task)

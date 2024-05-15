@@ -10,6 +10,8 @@
         Task<bool> DeleteUserFromTeam(string user_id, Guid team_id);
         Task EditTeam(Entities.Team team);
         Task DeleteTeam(Guid team_id);
+        Task DeleteAllTasks(Guid teamid);
+        Task DeleteTasksFromUser(string user_id, Guid team_id);
         Task<List<Entities.Team>> GetTeamsByUser();
         
     }
