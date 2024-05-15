@@ -13,6 +13,7 @@
         Task DeleteAllTasks(Guid teamid);
         Task DeleteTasksFromUser(string user_id, Guid team_id);
         Task<List<Entities.Team>> GetTeamsByUser();
+        Task<List<Entities.Team>> GetUsersByTeam();
         
     }
 }
