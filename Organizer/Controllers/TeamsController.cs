@@ -33,7 +33,7 @@ namespace Organizer.Controllers
 
             if (ModelState.IsValid)
             {
-                // Generate a new GUID for the team
+                // Generate a new GUID for the team..
                 var guid = Guid.NewGuid();
                 team.id = guid;
                 string input = user_id;
