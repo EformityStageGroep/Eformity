@@ -10,20 +10,36 @@ namespace Organizer.Controllers
     {
         private readonly ITeamsRepository _teamRepository;
         private readonly IUserRepository _userRepository;
-        private readonly ITasksRepository _tasksRepository;
+        private readonly IEmployeeRepository _employeeRepository;
 
-        public TeamsController(ITeamsRepository teamRepository, IUserRepository userRepository, ITasksRepository tasksRepository)
+        public TeamsController(ITeamsRepository teamRepository, IUserRepository userRepository, IEmployeeRepository employeeRepository)
         {
             _teamRepository = teamRepository;
             _userRepository = userRepository;
-            _tasksRepository = tasksRepository;
+            _employeeRepository = employeeRepository;
         }
 
 
  
         public async Task<IActionResult> Index()
         {
-            return View();
+            // Fetch data for the view
+            ParentViewModel mymodel = new ParentViewModel();
+           
+            List<User> users = await _userRepository.GetUserIdsByTenant();
+            List<Team> teams = await _teamRepository.GetTeamsByUser();
+            List<Entities.Task> tasks = await _employeeRepository.GetTasksAsync();
+
+            // Create the ParentViewModel and populate it with data
+            var model = new ParentViewModel
+            {
+                Users = users,
+                Teams = teams,
+                Tasks = tasks
+            };
+
+            // Return the view with the model
+            return View(model);
         }
 
 
@@ -45,6 +61,7 @@ namespace Organizer.Controllers
                     foreach (var userId in users)
                     {
                         Console.WriteLine($"Number of user IDs: {users.Count}");
+
                         // Create a new UserTeam object for each user ID
                         var userTeam = new UserTeam { user_id = userId, team_id = guid };
                         Console.WriteLine(userTeam);
@@ -61,6 +78,7 @@ namespace Organizer.Controllers
                 await _teamRepository.SaveChangesAsync();
                 return RedirectToAction(nameof(Teams));
             }
+
             return View();
         }
         public async Task<IActionResult> LeaveTeam(string user_id, Guid team_id)
@@ -118,9 +136,19 @@ namespace Organizer.Controllers
 
         public async Task<IActionResult> Teams()
         {
-            var ParentViewModel = await _tasksRepository.ParentViewModel("Teams");
+            ParentViewModel mymodel = new ParentViewModel();
+            List<User> users = await _userRepository.GetUserIdsByTenant();
+            List<Team> teams = await _teamRepository.GetTeamsByUser();
 
-            return View(ParentViewModel);
+            // Create the ParentViewModel and populate it with data
+            var model = new ParentViewModel
+            {
+                Users = users,
+                Teams = teams
+            };
+
+            // Return the view with the model
+            return View(model);
         }
           public IActionResult teamMultiSelectSlideover()
         {

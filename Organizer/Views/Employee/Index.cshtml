@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Organizer.Entities.Task>
+
+@{
+    ViewData["title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.priority)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.datetime)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+       
+    </tbody>
+</table>

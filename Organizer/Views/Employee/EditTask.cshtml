@@ -1,0 +1,19 @@
+﻿@model ParentViewModel
+
+@{
+    ViewData["title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Task</h4>
+
+<div>
+    <a asp-action="EmployeeDashboard">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

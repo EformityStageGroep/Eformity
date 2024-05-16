@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Organizer.Entities;
 using Organizer.Repositories;
+using Organizer.Models;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Organizer.Controllers
 {
@@ -9,23 +13,38 @@ namespace Organizer.Controllers
         private readonly IRoleRepository _roleRepository;
         private readonly ITeamsRepository _teamRepository;
         private readonly IUserRepository _userRepository;
-        private readonly ITasksRepository _tasksRepository;
+        private readonly IEmployeeRepository _employeeRepository;
 
 
-        public RolesController(IRoleRepository roleRepository, ITeamsRepository teamRepository, IUserRepository userRepository, ITasksRepository tasksRepository)
+        public RolesController(IRoleRepository roleRepository, ITeamsRepository teamRepository, IUserRepository userRepository, IEmployeeRepository employeeRepository)
         {
             _teamRepository = teamRepository;
             _userRepository = userRepository;
-            _tasksRepository = tasksRepository;
+            _employeeRepository = employeeRepository;
             _roleRepository = roleRepository;
         }
 
         // GET: Roles
         public async Task<IActionResult> Index()
         {
-            var ParentViewModel = await _tasksRepository.ParentViewModel("Roles");
 
-            return View(ParentViewModel);
+            ParentViewModel mymodel = new ParentViewModel();
+            List<User> users = await _userRepository.GetUserIdsByTenant();
+            List<Team> teams = await _teamRepository.GetTeamsByUser();
+            List<Entities.Task> tasks = await _employeeRepository.GetTasksAsync();
+            List<Entities.Role> roles = await _roleRepository.GetAllRolesAsync();
+
+            // Create the ParentViewModel and populate it with data
+            var model = new ParentViewModel
+            {
+                Users = users,
+                Teams = teams,
+                Tasks = tasks,
+                Roles = roles
+            };
+
+            // Return the view with the model
+            return View(model);
         }
 
         // GET: Roles/Details/5

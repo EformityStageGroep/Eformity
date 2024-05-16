@@ -38,12 +38,10 @@ using (var contextss = new UserDbContext())
 builder.Services.AddDbContext<TenantDbContext>();
 builder.Services.AddDbContext<UserDbContext>();
 
-builder.Services.AddControllersWithViews();
-builder.Services.AddSession(); // Add session support
 
 builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<IGraphClientService, GraphClientService>();
-builder.Services.AddScoped<ITasksRepository, TasksRepository>();
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<ITeamsRepository, TeamsRepository>();
@@ -73,7 +71,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-app.UseSession();
+
 app.UseRouting();
 
 app.UseAuthentication();
