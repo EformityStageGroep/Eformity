@@ -28,23 +28,9 @@ namespace Organizer.Controllers
         public async Task<IActionResult> Index()
         {
 
-            ParentViewModel mymodel = new ParentViewModel();
-            List<User> users = await _userRepository.GetUserIdsByTenant();
-            List<Team> teams = await _teamRepository.GetTeamsByUser();
-            List<Entities.Task> tasks = await _tasksRepository.GetTasksAsync();
-            List<Entities.Role> roles = await _roleRepository.GetAllRolesAsync();
+            var ParentViewModel = await _tasksRepository.ParentViewModel("Roles");
 
-            // Create the ParentViewModel and populate it with data
-            var model = new ParentViewModel
-            {
-                Users = users,
-                Teams = teams,
-                Tasks = tasks,
-                Roles = roles
-            };
-
-            // Return the view with the model
-            return View(model);
+            return View(ParentViewModel);
         }
 
         // GET: Roles/Details/5

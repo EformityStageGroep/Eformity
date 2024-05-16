@@ -129,11 +129,7 @@ namespace Organizer.Controllers
 
         public async Task<IActionResult> CompanyAdminDashboard()
         {
-            ParentViewModel mymodel = new ParentViewModel();
-            List<User> users = await _userRepository.GetUserInfo();
-            List<Team> teams = await _teamRepository.GetTeamsByUser();
-            List<Entities.Task> tasks = await _tasksRepository.GetTasksAsync();
-
+           
             // Check if the role exists, if not, create it
             if (!await _roleRepository.RoleExistsAsync("Default"))
             {
@@ -151,14 +147,11 @@ namespace Organizer.Controllers
                 await _roleRepository.CreateRoleAsync(role);
             }
 
-            var model = new ParentViewModel
-            {
-                Users = users,
-                Teams = teams,
-                Tasks = tasks,
-            };
+            var ParentViewModel = await _tasksRepository.ParentViewModel("Dashboard");
 
-            return View(model);
+
+            // Return the view with the model
+            return View(ParentViewModel);
 
         }
 
@@ -187,18 +180,11 @@ namespace Organizer.Controllers
         public async Task<IActionResult> Settings()
         {
             {
-                ParentViewModel mymodel = new ParentViewModel();
-                List<User> users = await _userRepository.GetUserInfo();
-                List<Team> teams = await _teamRepository.GetTeamsByUser();
-                List<Entities.Task> tasks = await _tasksRepository.GetTasksAsync();
+                var ParentViewModel = await _tasksRepository.ParentViewModel("Users");
 
-                var model = new ParentViewModel
-                {
-                    Users = users,
-                    Teams = teams,
-                    Tasks = tasks
-                };
-                return View(model);
+
+                // Return the view with the model
+                return View(ParentViewModel);
             }
         }
 
