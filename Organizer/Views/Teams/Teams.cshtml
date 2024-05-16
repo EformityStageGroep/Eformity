@@ -319,9 +319,11 @@
             });
         }
 
-        // Call the function to apply colors to all team elements when the page loads
-        window.onload = applyColorsToTeams();
-        let clickedNamesListSlideover = [];
+
+    // Call the function to apply colors to all team elements when the page loads
+    window.onload = applyColorsToTeams();
+     let clickedNamesListSlideover = [];
+
         window.addEventListener('click', function (event) {
             const userListButton = document.getElementById('userlistButtonSlideover');
             const userList = document.getElementById('userListSlideover');
