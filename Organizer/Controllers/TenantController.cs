@@ -5,7 +5,7 @@ namespace Organizer.Controllers
 {
     public class TenantController : Controller
     {
-        [Authorize(Roles = "SuperAdmin,Tasks")]
+        [Authorize(Roles = "SuperAdmin,Employee")]
 
         public ActionResult Dashboard()
         {
@@ -17,13 +17,13 @@ namespace Organizer.Controllers
             {
                 return View("CompanyAdminDashboard");
             }
-            else if (User.IsInRole("TasksAdmin"))
+            else if (User.IsInRole("EmployeeAdmin"))
             {
-                return View("TasksAdminDashboard");
+                return View("EmployeeAdminDashboard");
             }
-            else if (User.IsInRole("Tasks"))
+            else if (User.IsInRole("Employee"))
             {
-                return View("TasksDashboard");
+                return View("EmployeeDashboard");
             }
             else
             {

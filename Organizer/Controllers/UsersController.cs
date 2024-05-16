@@ -1,8 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿#nullable disable
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Organizer.Contexts;
 using Organizer.Entities;
+using Organizer.Models;
 using Organizer.Repositories;
 using Organizer.Services;
+using System.Threading.Tasks;
 
 namespace Organizer.Controllers
 {
@@ -12,17 +16,17 @@ namespace Organizer.Controllers
         private readonly IRoleRepository _roleRepository;
         private readonly ICurrentTenantService _currentTenantService;
         private readonly IUserRepository _userRepository;
-        private readonly ITasksRepository _tasksRepository;
+        private readonly IEmployeeRepository _employeeRepository;
 
 
-        public UsersController(ITeamsRepository teamRepository, IRoleRepository roleRepository, IUserRepository userRepository, ITasksRepository tasksRepository, ICurrentTenantService currentTenantService)
+        public UsersController(ITeamsRepository teamRepository, IRoleRepository roleRepository, IUserRepository userRepository, IEmployeeRepository employeeRepository, ICurrentTenantService currentTenantService)
 
         {
             _teamRepository = teamRepository;
             _roleRepository = roleRepository;
             _currentTenantService = currentTenantService;
             _userRepository = userRepository;
-            _tasksRepository = tasksRepository;
+            _employeeRepository = employeeRepository;
 
         }
             // GET: Users
@@ -80,7 +84,7 @@ namespace Organizer.Controllers
             }
 
             // Return the view with the form and error messages
-            return RedirectToAction("TasksDashboard", "Tasks");
+            return RedirectToAction("EmployeeDashboard", "Employee");
         }
         // POST: Users/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -113,12 +117,51 @@ namespace Organizer.Controllers
             return View(user);
         }
 
+        // GET: Users/Delete/5
+        public async Task<IActionResult> Delete(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            return View();
+        }
+
         public async Task<IActionResult> CompanyAdminDashboard()
         {
-            var ParentViewModel = await _tasksRepository.ParentViewModel("Dashboard");
+            ParentViewModel mymodel = new ParentViewModel();
+            List<User> users = await _userRepository.GetUserInfo();
+            List<Team> teams = await _teamRepository.GetTeamsByUser();
+            List<Entities.Task> tasks = await _employeeRepository.GetTasksAsync();
 
-            return View(ParentViewModel);
+            // Check if the role exists, if not, create it
+            if (!await _roleRepository.RoleExistsAsync("Default"))
+            {
+                // Create the role with a GUID id
+                var roleId = Guid.NewGuid();
+                var role = new Role
+                {
+                    id = roleId,
+                    title = "Default",
+                    tenant_id = _currentTenantService.tenantid,
+                    create_team = true,
+                    assign_task = true
+                };
+
+                await _roleRepository.CreateRoleAsync(role);
+            }
+
+            var model = new ParentViewModel
+            {
+                Users = users,
+                Teams = teams,
+                Tasks = tasks,
+            };
+
+            return View(model);
+
         }
+
 
         public async Task<IActionResult> Teams()
         {
@@ -131,6 +174,7 @@ namespace Organizer.Controllers
                     {
                         return View(new List<User>()); // Return an empty list to the view
                     }
+
                     return View(users);
                 }
                 catch (Exception ex)
@@ -143,11 +187,18 @@ namespace Organizer.Controllers
         public async Task<IActionResult> Settings()
         {
             {
-                var ParentViewModel = await _tasksRepository.ParentViewModel("Users");
+                ParentViewModel mymodel = new ParentViewModel();
+                List<User> users = await _userRepository.GetUserInfo();
+                List<Team> teams = await _teamRepository.GetTeamsByUser();
+                List<Entities.Task> tasks = await _employeeRepository.GetTasksAsync();
 
-
-                // Return the view with the model
-                return View(ParentViewModel);
+                var model = new ParentViewModel
+                {
+                    Users = users,
+                    Teams = teams,
+                    Tasks = tasks
+                };
+                return View(model);
             }
         }
 
