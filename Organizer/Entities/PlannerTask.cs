@@ -33,9 +33,9 @@ namespace Organizer.Entities
         public Task() => id = Guid.NewGuid();
 
     }
-    
- /*   public class PageIdentifier
+
+    public class PageIdentifier
     {
-        public string? PageValue { get; set; }
-    }*/
+        public string PageValue { get; set; }
+    }
 }

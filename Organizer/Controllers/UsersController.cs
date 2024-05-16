@@ -16,17 +16,17 @@ namespace Organizer.Controllers
         private readonly IRoleRepository _roleRepository;
         private readonly ICurrentTenantService _currentTenantService;
         private readonly IUserRepository _userRepository;
-        private readonly IEmployeeRepository _employeeRepository;
+        private readonly ITasksRepository _tasksRepository;
 
 
-        public UsersController(ITeamsRepository teamRepository, IRoleRepository roleRepository, IUserRepository userRepository, IEmployeeRepository employeeRepository, ICurrentTenantService currentTenantService)
+        public UsersController(ITeamsRepository teamRepository, IRoleRepository roleRepository, IUserRepository userRepository, ITasksRepository tasksRepository, ICurrentTenantService currentTenantService)
 
         {
             _teamRepository = teamRepository;
             _roleRepository = roleRepository;
             _currentTenantService = currentTenantService;
             _userRepository = userRepository;
-            _employeeRepository = employeeRepository;
+            _tasksRepository = tasksRepository;
 
         }
             // GET: Users
@@ -84,7 +84,7 @@ namespace Organizer.Controllers
             }
 
             // Return the view with the form and error messages
-            return RedirectToAction("EmployeeDashboard", "Employee");
+            return RedirectToAction("TasksDashboard", "Tasks");
         }
         // POST: Users/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -132,7 +132,7 @@ namespace Organizer.Controllers
             ParentViewModel mymodel = new ParentViewModel();
             List<User> users = await _userRepository.GetUserInfo();
             List<Team> teams = await _teamRepository.GetTeamsByUser();
-            List<Entities.Task> tasks = await _employeeRepository.GetTasksAsync();
+            List<Entities.Task> tasks = await _tasksRepository.GetTasksAsync();
 
             // Check if the role exists, if not, create it
             if (!await _roleRepository.RoleExistsAsync("Default"))
@@ -190,7 +190,7 @@ namespace Organizer.Controllers
                 ParentViewModel mymodel = new ParentViewModel();
                 List<User> users = await _userRepository.GetUserInfo();
                 List<Team> teams = await _teamRepository.GetTeamsByUser();
-                List<Entities.Task> tasks = await _employeeRepository.GetTasksAsync();
+                List<Entities.Task> tasks = await _tasksRepository.GetTasksAsync();
 
                 var model = new ParentViewModel
                 {

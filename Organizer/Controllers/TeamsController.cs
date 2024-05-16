@@ -10,36 +10,22 @@ namespace Organizer.Controllers
     {
         private readonly ITeamsRepository _teamRepository;
         private readonly IUserRepository _userRepository;
-        private readonly IEmployeeRepository _employeeRepository;
+        private readonly ITasksRepository _tasksRepository;
 
-        public TeamsController(ITeamsRepository teamRepository, IUserRepository userRepository, IEmployeeRepository employeeRepository)
+        public TeamsController(ITeamsRepository teamRepository, IUserRepository userRepository, ITasksRepository tasksRepository)
         {
             _teamRepository = teamRepository;
             _userRepository = userRepository;
-            _employeeRepository = employeeRepository;
+            _tasksRepository = tasksRepository;
         }
 
 
  
         public async Task<IActionResult> Index()
         {
-            // Fetch data for the view
-            ParentViewModel mymodel = new ParentViewModel();
-           
-            List<User> users = await _userRepository.GetUserIdsByTenant();
-            List<Team> teams = await _teamRepository.GetTeamsByUser();
-            List<Entities.Task> tasks = await _employeeRepository.GetTasksAsync();
-
-            // Create the ParentViewModel and populate it with data
-            var model = new ParentViewModel
-            {
-                Users = users,
-                Teams = teams,
-                Tasks = tasks
-            };
-
+       
             // Return the view with the model
-            return View(model);
+            return View();
         }
 
 
@@ -136,19 +122,9 @@ namespace Organizer.Controllers
 
         public async Task<IActionResult> Teams()
         {
-            ParentViewModel mymodel = new ParentViewModel();
-            List<User> users = await _userRepository.GetUserIdsByTenant();
-            List<Team> teams = await _teamRepository.GetTeamsByUser();
+            var ParentViewModel = await _tasksRepository.ParentViewModel("Teams");
 
-            // Create the ParentViewModel and populate it with data
-            var model = new ParentViewModel
-            {
-                Users = users,
-                Teams = teams
-            };
-
-            // Return the view with the model
-            return View(model);
+            return View(ParentViewModel);
         }
           public IActionResult teamMultiSelectSlideover()
         {

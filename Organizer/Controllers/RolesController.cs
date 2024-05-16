@@ -13,14 +13,14 @@ namespace Organizer.Controllers
         private readonly IRoleRepository _roleRepository;
         private readonly ITeamsRepository _teamRepository;
         private readonly IUserRepository _userRepository;
-        private readonly IEmployeeRepository _employeeRepository;
+        private readonly ITasksRepository _tasksRepository;
 
 
-        public RolesController(IRoleRepository roleRepository, ITeamsRepository teamRepository, IUserRepository userRepository, IEmployeeRepository employeeRepository)
+        public RolesController(IRoleRepository roleRepository, ITeamsRepository teamRepository, IUserRepository userRepository, ITasksRepository tasksRepository)
         {
             _teamRepository = teamRepository;
             _userRepository = userRepository;
-            _employeeRepository = employeeRepository;
+            _tasksRepository = tasksRepository;
             _roleRepository = roleRepository;
         }
 
@@ -31,7 +31,7 @@ namespace Organizer.Controllers
             ParentViewModel mymodel = new ParentViewModel();
             List<User> users = await _userRepository.GetUserIdsByTenant();
             List<Team> teams = await _teamRepository.GetTeamsByUser();
-            List<Entities.Task> tasks = await _employeeRepository.GetTasksAsync();
+            List<Entities.Task> tasks = await _tasksRepository.GetTasksAsync();
             List<Entities.Role> roles = await _roleRepository.GetAllRolesAsync();
 
             // Create the ParentViewModel and populate it with data

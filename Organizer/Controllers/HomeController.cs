@@ -23,14 +23,14 @@ namespace Organizer.Controllers
         private readonly GraphServiceClient graphServiceClient;
         private readonly ITeamsRepository _teamRepository;
         private readonly IUserRepository _userRepository;
-        private readonly IEmployeeRepository _taskRepository;
+        private readonly ITasksRepository _taskRepository;
         private readonly OrganizerContext _context;
 
-        public HomeController(ITeamsRepository teamRepository, IUserRepository userRepository, IEmployeeRepository employeeRepository)
+        public HomeController(ITeamsRepository teamRepository, IUserRepository userRepository, ITasksRepository tasksRepository)
         {
             _teamRepository = teamRepository;
             _userRepository = userRepository;
-            _taskRepository = employeeRepository;
+            _taskRepository = tasksRepository;
         }
         public HomeController(ILogger<HomeController> logger, IGraphClientService graphClientService)
         {
@@ -40,24 +40,24 @@ namespace Organizer.Controllers
             con.ConnectionString = Organizer.Properties.Resources.ConnectionString;
         }
 
-        [Authorize(Roles = "SuperAdmin,Employee")]
+        [Authorize(Roles = "SuperAdmin,Tasks")]
         public IActionResult Index()
         {
             if (User.IsInRole("SuperAdmin"))
             {
-                return RedirectToAction("EmployeeDashboard", "Employee");
+                return RedirectToAction("TasksDashboard", "Tasks");
             }
             else if (User.IsInRole("CompanyAdmin"))
             {
                 return View("CompanyAdminDashboard");
             }
-            else if (User.IsInRole("EmployeeAdmin"))
+            else if (User.IsInRole("TasksAdmin"))
             {
-                return View("EmployeeAdminDashboard");
+                return View("TasksAdminDashboard");
             }
-            else if (User.IsInRole("Employee"))
+            else if (User.IsInRole("Tasks"))
             {
-                return View("EmployeeDashboard");
+                return View("TasksDashboard");
             }
             else
             {
