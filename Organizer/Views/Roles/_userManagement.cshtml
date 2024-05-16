@@ -1,17 +1,12 @@
 ﻿@model ParentViewModel
 
-
-<!-- component -->
 @{
     ViewData["Title"] = "Create";
     var tenantid = @User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
     var userid = @User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
-    Console.WriteLine(userid);
 }
 
-
 <div id="createRoleModal" class="inset-0 fixed z-50 flex hidden items-center justify-center overflow-y-auto">
-
     <div class="inset-0 fixed transition-opacity" aria-hidden="true">
         <div class="inset-0 bg-gray-500 absolute opacity-75"></div>
     </div>
@@ -28,14 +23,11 @@
                             <label for="tenant_id" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
                             <input type="hidden" id="tenant_id" name="tenant_id" value="@tenantid">
                         </div>
-                        
                         <div class="mt-2">
                             <label for="title" class="text-gray-700 block text-sm font-medium">Title</label>
                             <p class="text-gray-500 text-sm">
                                 Enter this role's name
-
                             <input type="text" name="title" id="title" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-
                         </div>
                         <h1 class="mt-2 text-gray-700 block text-sm font-medium">Permissions</h1>
                         <p class="text-gray-500 mb-2 text-sm">Select the permission(s) you want this role to have.</p>
@@ -52,7 +44,6 @@
                                 <span for="assign_task" class="text-danger"></span>
                             </div>
                         </div>
-                        
                         <div class="py-3 mt-4 sm:px-6 sm:flex sm:flex-row-reverse">
                             <button onclick="toggleCreateRoleModal()" id="closeModalButton" type="button" class="border-transparent px-4 py-2 bg-indigo-600 text-white inline-flex w-full justify-center rounded-md border text-base font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
                                 Close
@@ -71,123 +62,128 @@
     </div>
 </div>
 
-
-
-
 @*EDIT MODAL!!!!!!!!!!!!!!!!!!!!!!!!!*@
-@foreach (var edit in Model.Roles) {
+@foreach (var edit in Model.Roles) 
+{
+    <div id="editRoleModal_@edit.id" class="inset-0 fixed z-50 flex hidden items-center justify-center overflow-y-auto">
+        <div class="inset-0 fixed transition-opacity" aria-hidden="true">
+            <div class="inset-0 bg-gray-500 absolute opacity-75"></div>
+        </div>
+        <div class="bg-white transform overflow-hidden rounded-lg shadow-xl transition-all sm:max-w-lg sm:w-full">
+            <div class="bg-white px-4 pt-5 pb-4 max-h-[85vh] mb-16 overflow-y-auto sm:p-6 sm:pb-4">
+                <div class="sm:flex sm:items-start">
+                    <div class="mt-3 w-full text-center sm:mt-0 sm:ml-4 sm:text-left">
+                        <h3 class="text-gray-900 text-lg font-medium leading-6" id="modalTitle">
+                            Edit Role
+                        </h3>
+                        <div class="mt-2">
+                            <label for="tenant_id" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
+                            <input type="hidden" id="tenant_id" name="tenant_id" value="@tenantid">
+                        </div>
+                        <div class="mt-2">
+                            <label for="title" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
+                            <input type="hidden" id="title" name="title" value="@edit.title">
+                        </div>
+                        <div class="mt-2">
+                            <label for="title" class="text-gray-700 block text-sm font-medium">Your Roles</label>
+                            <p class="text-gray-500 text-sm">
+                                A list of your company's created roles.
+                            </p>
 
-<div id="editRoleModal_@edit.id" class="inset-0 fixed z-50 flex hidden items-center justify-center overflow-y-auto">
-
-    <div class="inset-0 fixed transition-opacity" aria-hidden="true">
-        <div class="inset-0 bg-gray-500 absolute opacity-75"></div>
-    </div>
-
-    <div class="bg-white transform overflow-hidden rounded-lg shadow-xl transition-all sm:max-w-lg sm:w-full">
-        <div class="bg-white px-4 pt-5 pb-4 max-h-[85vh] mb-16 overflow-y-auto sm:p-6 sm:pb-4">
-            <div class="sm:flex sm:items-start">
-                <div class="mt-3 w-full text-center sm:mt-0 sm:ml-4 sm:text-left">
-                    <h3 class="text-gray-900 text-lg font-medium leading-6" id="modalTitle">
-                        Edit Role
-                    </h3>
-                  
-                            <div class="mt-2">
-                                <label for="tenant_id" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
-                                <input type="hidden" id="tenant_id" name="tenant_id" value="@tenantid">
-                            </div>
-                            <div class="mt-2">
-                                <label for="title" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
-                                <input type="hidden" id="title" name="title" value="@edit.title">
-                            </div>
-                            <div class="mt-2">
-                                <label for="title" class="text-gray-700 block text-sm font-medium">Your Roles</label>
-                                <p class="text-gray-500 text-sm">
-                                    A list of your company's created roles.
-                                </p>
-
-                                <div class="bg-white overflow-hidden shadow sm:rounded-md">
+                            <div class="bg-white overflow-hidden shadow sm:rounded-md">
+                                <ul role="list" class="divide-gray-200 divide-y">
+                                </ul>
+                                <div class="bg-white mt-3 max-h-[40vh] overflow-y-auto rounded-md">
                                     <ul role="list" class="divide-gray-200 divide-y">
-                                    </ul>
-                                    <div class="bg-white mt-3 max-h-[40vh] overflow-y-auto rounded-md">
-                                        <ul role="list" class="divide-gray-200 divide-y">
-                                            <li class="px-6 py-4 border-left border">
-                                                <h3 class="text-gray-900 text-base font-semibold leading-6">@edit.title</h3>
-                                                <div class="border-gray-200 pb-5 mb-3 border-b sm:flex sm:items-center sm:justify-between"></div>
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                <div class="flex">
+                                        <li class="px-6 py-4 border-left border">
+                                            <h3 class="text-gray-900 text-base font-semibold leading-6">@edit.title</h3>
+                                            <div class="border-gray-200 pb-5 mb-3 border-b sm:flex sm:items-center sm:justify-between"></div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="flex">
 
-                                                    <form id="editRoleForm_@edit.id" asp-action="Edit" asp-route-id="@edit.id" method="post" class="flex">
 
-                                                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                                            <input type="hidden" asp-for="@edit.id" />
-                                                        <input type="hidden" asp-for="@edit.tenant_id" />
+                                                        <form id="editRoleForm_@edit.id" asp-action="Edit" asp-route-id="@edit.id" method="post" class="flex">
+
+                                                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                                                <input type="hidden" asp-for="@edit.id" />
+
+                                                            <input type="hidden" asp-for="@edit.tenant_id" />
                                                             <div class="form-group flex">
                                                                 <div class="mt-2 mb-2">
                                                                     <label asp-for="@edit.title" for="title" class="text-gray-700 block text-sm font-medium">Team title</label>
                                                                     <input asp-for="@edit.title" type="text" name="title" id="title" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                                                     <span asp-validation-for="@edit.title" class="text-danger"></span>
-
                                                                 </div>
 
                                                             </div>
                                                             <div class="ml-9 pl-9 mt-2 mb-2 border-l">
-                                                            <div class="form-group">
-                                                                <label asp-for="@edit.create_team" class="control-label"></label>
-                                                            <input asp-for="@edit.create_team" name="create_team" class="form-control" />
-                                                                <span asp-validation-for="@edit.create_team" class="text-danger"></span>
-                                                            </div>
+                                                                <h1 class="text-gray-900 block text-sm font-medium">Permissions:</h1>
+
+                                                                <div class="form-group">
+                                                                    <label asp-for="@edit.create_team" class="control-label"></label>
+                                                                    <input asp-for="@edit.create_team" name="create_team" class="form-control" />
+                                                                    <span asp-validation-for="@edit.create_team" class="text-danger"></span>
+                                                                </div>
                                                                 <div class="form-group">
                                                                     <label asp-for="@edit.assign_task" class="control-label"></label>
-                                                                <input asp-for="@edit.assign_task" name="assign_task" class="form-control" />
+                                                                    <input asp-for="@edit.assign_task" name="assign_task" class="form-control" />
                                                                     <span asp-validation-for="@edit.assign_task" class="text-danger"></span>
                                                                 </div>
                                                                 <div type="hidden" class="form-group hidden">
                                                                     <label asp-for="@edit.tenant_id" type="hidden" class="control-label"></label>
-                                                                <input asp-for="@edit.tenant_id" type="hidden" name="tenant_id" value="@tenantid" class="form-control" />
+                                                                    <input asp-for="@edit.tenant_id" type="hidden" name="tenant_id" value="@tenantid" class="form-control" />
                                                                     <span asp-validation-for="@edit.tenant_id" type="hidden" class="text-danger"></span>
                                                                 </div>
+
                                                             </div>
-
-                                                     </form>
-
-
+                                                        </form>
 
                                                     </div>
                                                 </div>
-                                            </li>
-                                        </ul>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id="buttonsEdit" class="bottom-0 right-0 pb-4 pr-4 space-x-3 w-[92%] absolute flex items-end justify-end sm:space-x-4">
+                                    <!-- Left-aligned button -->
+                                    <div class="pb-1 relative flex w-full items-end justify-between">
+                                        <!-- Left-aligned button -->
+                                        <div>
+                                            <button id="createTaskButton" type="button" onclick="deleteRole('@edit.id')"
+                                                class="px-4 py-2 bg-red-500 text-white rounded-md shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                                Delete Role
+                                            </button>
+                                        </div>
+
+
+                                        <!-- Right-aligned buttons -->
+                                        <div class="space-x-3 flex sm:space-x-4">
+                                            <button id="submitFormButton" type="submit" form="editRoleForm_@edit.id" class="button-class px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                                Save Changes
+                                            </button>
+                                            <button onclick="toggleEditRoleModal('@edit.id')" id="closeModalButton" type="button"
+                                                class="px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                                Go Back
+                                            </button>
+                                        </div>
+
                                     </div>
+
                                 </div>
                             </div>
-                            
-                    <div id="buttonsEdit" class="bottom-0 right-0 pb-4 pr-4 space-x-3 w-[92%] absolute flex items-end justify-end sm:space-x-4">
-                        <!-- Left-aligned button -->
-                        <div class="pb-1 relative flex w-full items-end justify-between">
-                            <!-- Left-aligned button -->
-                            <div>
-                                <button id="createTaskButton" type="button" onclick="deleteRole('@edit.id')"
-                                    class="px-4 py-2 bg-red-500 text-white rounded-md shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                    Delete Role
-                                </button>
-                            </div>
-
-                            
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 }
 
 
 
-
 <div id="manageRoleModal" class="inset-0 fixed z-50 flex hidden items-center justify-center overflow-y-auto">
-
     <div class="inset-0 fixed transition-opacity" aria-hidden="true">
         <div class="inset-0 bg-gray-500 absolute opacity-75"></div>
     </div>
@@ -226,20 +222,16 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="bottom-0 right-0 pb-4 pr-4 space-x-3 absolute flex w-full items-end justify-end sm:space-x-4">
                             <button onclick="toggleManageRoleModal()" id="closeModalButton" type="button"
                                     class="px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                 Close
                             </button>
-
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 

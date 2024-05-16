@@ -1,7 +1,8 @@
 ﻿@model ParentViewModel
 @inject Organizer.Services.ITeamService teamService
-<div>
 
+<div>
+   
     <!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
     <div class="relative z-50 lg:hidden" role="dialog" aria-modal="true">
         <!--
@@ -61,7 +62,6 @@
                         <ul role="list" class="gap-y-7 flex flex-1 flex-col">
                             <li>
                                 <ul role="list" class="-mx-2 space-y-1">
-
 <li>
                                 <!-- Current: "bg-gray-50 text-indigo-600", Default: "text-gray-700 hover:text-indigo-600 hover:bg-gray-50" -->
                                 <a id="Dashboard" href="@Url.Action("CompanyAdminDashboard", "Users")" class="NavGroup text-gray-700 gap-x-3 p-2 group flex rounded-md text-sm font-semibold leading-6 hover:bg-gray-50">
@@ -85,7 +85,6 @@
                                         <path d="M5.25 3C4.00736 3 3 4.00736 3 5.25V18.75C3 19.9926 4.00736 21 5.25 21H18.75C19.9926 21 21 19.9926 21 18.75V5.25C21 4.00736 19.9926 3 18.75 3H5.25ZM4.5 5.25C4.5 4.83579 4.83579 4.5 5.25 4.5H18.75C19.1642 4.5 19.5 4.83579 19.5 5.25V18.75C19.5 19.1642 19.1642 19.5 18.75 19.5H5.25C4.83579 19.5 4.5 19.1642 4.5 18.75V5.25Z" fill="currentColor"></path>
                                     </g>
                                 </svg>
-
 
                                     Tasks
                                 </a>
@@ -139,7 +138,7 @@
         </div>
     </div>
     </div>
-
+ 
 
     <!-- Static sidebar for desktop -->
     <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
@@ -157,10 +156,8 @@
                         <ul role="list" class="-mx-2 space-y-1">
                             <li>
                                 <!-- Current: "bg-gray-50 text-indigo-600", Default: "text-gray-700 hover:text-indigo-600 hover:bg-gray-50" -->
-
                                 <a id="Dashboard" href="@Url.Action("CompanyAdminDashboard", "Users")" class="NavGroup text-gray-700 gap-x-3 p-2 group flex rounded-md text-sm font-semibold leading-6 hover:bg-gray-50">
                                     <svg id="DashboardIcon" class="IconNavGroup h-6 w-6 text-gray-400 bg-gray-50 text-indigo-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
                                     </svg>
                                     Dashboard
@@ -168,7 +165,6 @@
                             </li>
                             <li>
                                 <!-- Current: "bg-gray-50 text-indigo-600", Default: "text-gray-700 hover:text-indigo-600 hover:bg-gray-50" -->
-
                                 <a  id="Tasks" href="@Url.Action("TasksDashboard", "Tasks")" class="NavGroup text-gray-700 gap-x-3 p-2 group flex rounded-md text-sm font-semibold leading-6 hover:bg-gray-50">
 <svg id="TasksIcon" class="IconNavGroup h-6 w-6 text-gray-400 bg-gray-50 text-indigo-600 shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g stroke-width="0"></g>
@@ -182,25 +178,20 @@
     </g>
 </svg>
 
-
                                     Tasks
                                 </a>
                             </li>
                             <li>
-
                                 <a id="Teams" href="@Url.Action("Teams", "Teams")" class="NavGroup text-gray-700 gap-x-3 p-2 group flex rounded-md text-sm font-semibold leading-6 hover:bg-gray-50">
                                     <svg id="TeamsIcon" class="IconNavGroup h-6 w-6 text-gray-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
                                     </svg>
                                     Team
                                 </a>
                             </li>
                             <li>
-
                                 <a id ="Roles" href="@Url.Action("Index", "Roles")" class="NavGroup text-gray-700 gap-x-3 p-2 group flex rounded-md text-sm font-semibold leading-6 hover:bg-gray-50">
                                     <svg id="RolesIcon"  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="IconNavGroup h-6 w-6 text-gray-400 shrink-0" aria-hidden="true">
-
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
                                     </svg>
                                     User Management
@@ -209,6 +200,7 @@
 
                         </ul>
                     </li>
+                    
                     <li>
                         <div class="text-gray-400 text-xs font-semibold leading-6">Your teams</div>
                         <ul role="list" class="-mx-2 mt-2 space-y-1">
@@ -224,19 +216,19 @@
                         </ul>
                     </li>
                     <li class="mt-auto">
-                        <a href="@Url.Action("Settings", "Users")" class="-mx-2 gap-x-3 p-2 text-gray-700 group flex rounded-md text-sm font-semibold leading-6 hover:bg-gray-50 hover:text-indigo-600">
-                            <svg class="h-6 w-6 text-gray-400 shrink-0 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                        <a id="Users" href="@Url.Action("Settings", "Users")" class="NavGroup -mx-2 gap-x-3 p-2 text-gray-700 group flex rounded-md text-sm font-semibold leading-6 hover:bg-gray-50 hover:text-indigo-600">
+                            <svg id="UsersIcon" class="IconNavGroup h-6 w-6 text-gray-400 shrink-0 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                             </svg>
                             Settings
                         </a>
-                    </li>
+                          </li>
                 </ul>
             </nav>
         </div>
     </div>
-
+   
     <div class="lg:pl-72">
         <div class="top-0 h-16 mb-12 gap-x-4 border-gray-200 bg-white px-4 sticky z-40 flex shrink-0 items-center border-b shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
             <button type="button" class="-m-2.5 p-2.5 text-gray-700 lg:hidden">
@@ -298,6 +290,7 @@
                                 <button type="submit" class="px-3 py-1 text-gray-900 block w-full text-left text-sm leading-6" role="menuitem" tabindex="-1" id="user-menu-item-1">Sign out</button>
                             </form>
                         </div>
+                       
                     </div>
                 </div>
             </div>
@@ -307,10 +300,41 @@
 
 <script>
 
+     var PageId = "@Model.PageIdentifier.PageValue";
+    var PageIconId = PageId + "Icon";
+    console.log(PageId);
+    console.log(PageIconId);
+    // Loop through each div element with the class 'element'
+    var elements = document.querySelectorAll(".NavGroup");
+    elements.forEach(function (element) {
+        // Check if the element's ID matches the target ID
+        if (PageId == "Index") {
+            Homepage.classList.add("bg-gray-50", "text-indigo-600");
+        }
+        if (element.id == PageId) 
+        {
+            element.classList.add("bg-gray-50", "text-indigo-600");
+        } 
+        else 
+        {
+            element.classList.remove("bg-gray-50", "text-indigo-600");  
+        }
+    });
+    var Icons = document.querySelectorAll(".IconNavGroup");
+    Icons.forEach(function (Icon) {
+        // Check if the element's ID matches the target ID
+        if (Icon.id == PageIconId) {
+            // Add the 'selected' class to the matched element
+            Icon.classList.add("bg-gray-50", "text-indigo-600");
 
+        } else {
+            // Remove the 'selected' class from other elements
+            Icon.classList.remove("bg-gray-50", "text-indigo-600");
+    }
+    });
 
+     function offCanvasToggle() {
 
-    function offCanvasToggle() {
         console.log('offCanvasToggle()')
         offCanvasBackground = document.getElementById('offCanvasBackground')
 
