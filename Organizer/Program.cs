@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
+using Organizer.Attributes;
 using Organizer.Contexts;
 using Organizer.Middleware;
 using Organizer.Repositories;
@@ -47,6 +48,9 @@ builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<ITeamsRepository, TeamsRepository>();
 builder.Services.AddScoped<ICurrentTenantService, CurrentTenantService>();
 builder.Services.AddScoped<ICurrentUserService, CurrentUserResolver>();
+builder.Services.AddScoped<IRoleService, RoleService>();
+
+
 
 builder.Services.AddControllersWithViews(options =>
 {
