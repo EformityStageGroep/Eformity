@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Organizer.Repositories;
 using Organizer.Entities;
-
+using Organizer.Attributes;
 
 namespace Organizer.Controllers
 {
@@ -29,6 +29,7 @@ namespace Organizer.Controllers
         }
 
 
+        [RequireRoleProperty("create_team")]
         public async Task<IActionResult> CreateTeam([Bind("title, tenant_id, Users_Teams")] Team team, string user_id)
         {
 
