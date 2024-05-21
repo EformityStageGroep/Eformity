@@ -159,13 +159,26 @@
                                                                     Console.WriteLine(specificTeamId);
                                                                     Console.WriteLine(specificTeam);
                                                                 }
-                                                                <script>
 
-                                                                </script>
-                                                                @foreach (var item in specificTeam.Users_Teams)
-                                                                {
 
-                                                                    <div id="userClickedSlideover_@item.user_id@team.id" class="m-1 py-1 px-2 bg-white text-white bg-indigo-700 border-indigo-700 flex items-center justify-center rounded-full border font-medium">
+
+                                                                    @foreach (var user in Model.Users)
+                                                                    {
+                                                                        var userInSpecificTeam = specificTeam.Users_Teams.Any(ut => ut.User.id == user.id);
+                                                                        <div id="userClickedSlideover_@user.id" class="m-1 py-1 px-2 bg-white text-white bg-indigo-700 border-indigo-700 users-center flex justify-center rounded-full border font-medium @(userInSpecificTeam ? "" : "hidden")">
+                                                                            <div class="flex-initborder-gray-100 w-full max-w-full cursor-pointer rounded-t border-b text-xs font-normal leading-none hover:bg-teal-100ial">@user.fullname</div>
+                                                                            <div class="flex flex-auto flex-row-reverse">
+                                                                                <div>
+                                                                                    <svg id="removeNameButtonSlideover_@user.id" onclick="removeNameFunctionSlideover('@user.id')" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x w-4 h-4 ml-2 cursor-pointer rounded-full hover:text-gray-300">
+                                                                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                           
+                                                                                    </svg>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+
+@*                                                                    <div id="userClickedSlideover_@item.user_id@team.id" class="m-1 py-1 px-2 bg-white text-white bg-indigo-700 border-indigo-700 flex items-center justify-center rounded-full border font-medium">
                                                                         <div class="flex-initborder-gray-100 w-full max-w-full cursor-pointer rounded-t border-b text-xs font-normal leading-none hover:bg-teal-100ial">@item.User.fullname</div>
                                                                         <div class="flex flex-auto flex-row-reverse">
                                                                             <div>
@@ -175,8 +188,8 @@
                                                                                 </svg>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                }
+                                                                    </div>*@
+                                                                
                                                                 <div class="flex-1">
                                                                     <input id="filterInputSlideover" placeholder="" class="bg-transparent p-1 px-2 text-gray-800 h-full w-full appearance-none outline-none">
                                                                   
@@ -197,7 +210,9 @@
 
                                                             @foreach (var item in Model.Users)
                                                             {
-                                                                <div id="userSlideover_@item.id" onclick="userClickedSlideover('@item.id')" class="user-item border-gray-100 w-full cursor-pointer rounded-t border-b hover:bg-indigo-700 hover:text-white">
+                                                                var userInSpecificTeam = specificTeam.Users_Teams.Any(ut => ut.User.id == item.id);
+
+                                                                <div id="userSlideover_@item.id" onclick="userClickedSlideover('@item.id')" class="user-item border-gray-100 border-blue-700 w-full cursor-pointer rounded-t border-b hover:bg-indigo-700 hover:text-white @(userInSpecificTeam ? "" : "border-blue-700")">
                                                                     <div id="userBorderSlideover_@item.id" class="p-2 pl-2 border-transparent relative flex w-full items-center border-l-2 hover:border-indigo-700">
                                                                         <div class="flex w-full items-center">
                                                                             <div class="mx-2 leading-6">@item.fullname</div>
