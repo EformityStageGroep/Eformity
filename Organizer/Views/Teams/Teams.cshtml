@@ -43,18 +43,40 @@
 @{
     var teamleaden = @Model.Teams.Count;
     Console.WriteLine(teamleaden);
+
 }
 
 <ul role="list" class="mt-3 gap-5 grid grid-cols-1 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4">
-    @foreach (var teamlist in Model.TeamsList)
+  @*   @foreach (var teamlist in Model.TeamsList)
     {
-        Console.WriteLine("NAMENNNNNNN" + @teamlist.title);
+        Console.WriteLine("NAMENNNNNNN" + @teamlist.id);
         @foreach (var userTeam in teamlist.Users_Teams)
         {
             Console.WriteLine("User NAMEEE:" + @userTeam.User.fullname);
             <!-- Display other user-related properties if needed -->
         }
-    }
+    } 
+    @{
+        //Guid specificTeamId = new Guid("8d745376-5ca3-4343-8680-88030267daf6"); // Replace with the actual id you want to search for
+
+        // Find the team with the specific id
+        var specificTeams = Model.TeamsList.FirstOrDefault(team => team.id == specificTeamId);
+
+        if (specificTeam != null)
+        {
+        // If the team is found, print the team id and iterate through its users
+        Console.WriteLine("NAMENNNNNNN" + specificTeam.id);
+        foreach (var userTeam in specificTeam.Users_Teams)
+        {
+        Console.WriteLine("User NAMEEE:" + userTeam.User.fullname);
+        // Display other user-related properties if needed
+        }
+        }
+        else
+        {
+        Console.WriteLine("Team with id " + specificTeamId + " not found.");
+        }
+    }*@
     @foreach (var team in Model.Teams)
     {
         
@@ -130,14 +152,20 @@
                                                     <div id="inputFieldSlideover" class="svelte-1l8159u w-full">
                                                         <div class="my-2 p-1 border-gray-200 bg-white svelte-1l8159u round mt-1 py-2 px-3 border-gray-300 bg-white block flex w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                                             <div class="flex flex-auto flex-wrap">
-
-                                                                @foreach (var item in Model.Users)
+                                                                
+                                                                @{
+                                                                    Guid specificTeamId = @team.id;
+                                                                    var specificTeam = Model.TeamsList.FirstOrDefault(team => team.id == specificTeamId);
+                                                                    Console.WriteLine(specificTeamId);
+                                                                    Console.WriteLine(specificTeam);
+                                                                }
+                                                                @foreach (var item in specificTeam.Users_Teams)
                                                                 {
-                                                                    <div id="userClickedSlideover_@item.id" class="m-1 py-1 px-2 bg-white text-white bg-indigo-700 border-indigo-700 flex hidden items-center justify-center rounded-full border font-medium">
-                                                                        <div class="flex-initborder-gray-100 w-full max-w-full cursor-pointer rounded-t border-b text-xs font-normal leading-none hover:bg-teal-100ial">@item.fullname</div>
+                                                                    <div id="userClickedSlideover_@item.user_id" class="m-1 py-1 px-2 bg-white text-white bg-indigo-700 border-indigo-700 flex items-center justify-center rounded-full border font-medium">
+                                                                        <div class="flex-initborder-gray-100 w-full max-w-full cursor-pointer rounded-t border-b text-xs font-normal leading-none hover:bg-teal-100ial">@item.User.fullname</div>
                                                                         <div class="flex flex-auto flex-row-reverse">
                                                                             <div>
-                                                                                <svg id="removeNameButtonSlideover_@item.id" onclick="removeNameFunctionSlideover('@item.id')" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x w-4 h-4 ml-2 cursor-pointer rounded-full hover:text-gray-300">
+                                                                                <svg id="removeNameButtonSlideover_@item.user_id" onclick="removeNameFunctionSlideover('@item.user_id')" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x w-4 h-4 ml-2 cursor-pointer rounded-full hover:text-gray-300">
                                                                                     <line x1="18" y1="6" x2="6" y2="18"></line>
 
                                                                                 </svg>
@@ -146,8 +174,9 @@
                                                                     </div>
                                                                 }
                                                                 <div class="flex-1">
-                                                                        <input id="filterInputSlideover" placeholder="" class="bg-transparent p-1 px-2 text-gray-800 h-full w-full appearance-none outline-none">
-                                                                </div>
+                                                                    <input id="filterInputSlideover" placeholder="" class="bg-transparent p-1 px-2 text-gray-800 h-full w-full appearance-none outline-none">
+                                                                  
+                                                                    </div>
                                                             </div>
                                                                 <div id="userlistButtonSlideover" onclick="clickUserlistButtonSlideover('@team.id')" class="text-gray-300 w-8 py-1 pl-2 pr-1 border-gray-200 svelte-1l8159u flex items-center border-l">
                                                                 <button type="button" class="w-6 h-6 text-gray-600 cursor-pointer outline-none focus:outline-none">
@@ -272,7 +301,7 @@
     }
     function toggleSlideover(teamId) {
  
-
+            Thisteamid = "12"
 
 
         document.getElementById("slideoverModal_" + teamId).classList.toggle('invisible');
@@ -416,7 +445,7 @@
             userList1 = document.getElementById("userListSlideover_" + Teamid);
             console.log(userList1);
             userList1.classList.toggle("hidden");
-            console.log(userListSlideover);
+       
             console.log("testttttt");
         }
 </script>
