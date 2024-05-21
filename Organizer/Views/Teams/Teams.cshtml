@@ -88,7 +88,7 @@
         string selectedColor = colors[rand.Next(colors.Count)];
 
         string input = team.title;
-        string initials = GetFirstLettersOfFirstTwoWords(input);
+        string initials = GetFirstLettersOfFirstTwoWords(input).ToLower();
 
         string GetFirstLettersOfFirstTwoWords(string input)
         {
@@ -149,7 +149,7 @@
                                         <div class="h-19 mx-auto flex w-full flex-col items-center">
                                             <div class="w-full">
                                                 <div class="relative flex flex-col items-center">
-                                                    <div id="inputFieldSlideover" class="svelte-1l8159u w-full">
+                                                    <div id="inputFieldSlideover_@team.id" class="svelte-1l8159u w-full">
                                                         <div class="my-2 p-1 border-gray-200 bg-white svelte-1l8159u round mt-1 py-2 px-3 border-gray-300 bg-white block flex w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                                             <div class="flex flex-auto flex-wrap">
                                                                 
@@ -159,13 +159,17 @@
                                                                     Console.WriteLine(specificTeamId);
                                                                     Console.WriteLine(specificTeam);
                                                                 }
+                                                                <script>
+
+                                                                </script>
                                                                 @foreach (var item in specificTeam.Users_Teams)
                                                                 {
-                                                                    <div id="userClickedSlideover_@item.user_id" class="m-1 py-1 px-2 bg-white text-white bg-indigo-700 border-indigo-700 flex items-center justify-center rounded-full border font-medium">
+
+                                                                    <div id="userClickedSlideover_@item.user_id@team.id" class="m-1 py-1 px-2 bg-white text-white bg-indigo-700 border-indigo-700 flex items-center justify-center rounded-full border font-medium">
                                                                         <div class="flex-initborder-gray-100 w-full max-w-full cursor-pointer rounded-t border-b text-xs font-normal leading-none hover:bg-teal-100ial">@item.User.fullname</div>
                                                                         <div class="flex flex-auto flex-row-reverse">
                                                                             <div>
-                                                                                <svg id="removeNameButtonSlideover_@item.user_id" onclick="removeNameFunctionSlideover('@item.user_id')" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x w-4 h-4 ml-2 cursor-pointer rounded-full hover:text-gray-300">
+                                                                                <svg id="removeNameButtonSlideover_@item.User.id" onclick="removeNameFunctionSlideover('@item.user_id', '@team.id')" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x w-4 h-4 ml-2 cursor-pointer rounded-full hover:text-gray-300">
                                                                                     <line x1="18" y1="6" x2="6" y2="18"></line>
 
                                                                                 </svg>
@@ -219,7 +223,7 @@
                 </div>
             </div>
             <li class="col-span-1 flex rounded-md shadow-sm">
-                <div id="@team.id" class="w-16 h-16 text-white team-element flex items-center justify-center rounded-l-md text-sm font-medium">
+                <div id="@team.id" class="w-16 h-16 text-white team-element text-md flex items-center justify-center rounded-l-md text-sm font-medium">
                         @initials
                 </div>
                 <div class="border-gray-200 bg-white flex flex-1 items-center justify-between truncate rounded-r-md border-b border-r border-t">
@@ -367,8 +371,8 @@
     }
 
     // Call the function to apply colors to all team elements when the page loads
-    window.onload = applyColorsToTeams;
-     let clickedNamesListSlideover = [];
+    window.onload = applyColorsToTeams();
+     //let clickedNamesListSlideover = [];//
         window.addEventListener('click', function (event) {
             const userListButton = document.getElementById('userlistButtonSlideover');
             const userList = document.getElementById('userListSlideover');
@@ -398,18 +402,33 @@
             });
         });
 
-        function removeNameFunctionSlideover(userId) {
-            const userClickedBorder = document.getElementById('userBorderSlideover_' + userId);
-            const userList = document.getElementById('userClickedSlideover_' + userId);
-            userList.classList.add('hidden');
-            userClickedBorder.classList.remove('border-blue-700');
+function removeNameFunctionSlideover(userId, teamId) {
+    const userClickedBorderId = 'userBorderSlideover_' + userId+teamId;
+    const userListId = 'userClickedSlideover_' + userId + teamId;
 
-            const index = clickedNamesListSlideover.indexOf(userId.toString());
-            if (index !== -1) {
-                clickedNamesListSlideover.splice(index, 1);
-            }
-            console.log(clickedNamesListSlideover);
-        }
+    const userClickedBorder = document.getElementById(userClickedBorderId);
+    const userList = document.getElementById(userListId);
+
+    if (userClickedBorder) {
+        userClickedBorder.classList.remove('border-blue-700');
+    } else {
+        console.error(`Element with ID ${userClickedBorderId} not found.`);
+    }
+
+    if (userList) {
+        userList.classList.add('hidden');
+    } else {
+        console.error(`Element with ID ${userListId} not found.`);
+    }
+
+    const index = clickedNamesListSlideover.indexOf(userId.toString());
+    if (index !== -1) {
+        clickedNamesListSlideover.splice(index, 1);
+    }
+
+    console.log(clickedNamesListSlideover);
+}
+
 
         function userClickedSlideover(userId) {
             const userClickedBorder = document.getElementById('userBorderSlideover_' + userId);
