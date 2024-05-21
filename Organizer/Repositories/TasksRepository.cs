@@ -100,6 +100,7 @@ namespace Organizer.Repositories
             ParentViewModel mymodel = new ParentViewModel();
             List<Entities.User> users = await _userRepository.GetUserIdsByTenant();
             List<Entities.Team> teams = await _teamRepository.GetTeamsByUser();
+            List<Entities.Team> teamslist = await _teamRepository.GetUsersByTeam();
             List<Entities.Task> tasks = await GetTasksAsync();
             List<Entities.Role> roles = await _roleRepository.GetAllRolesAsync();
 
@@ -110,6 +111,7 @@ namespace Organizer.Repositories
             {
                 Users = users,
                 Teams = teams,
+                TeamsList = teamslist,
                 Tasks = tasks,
                 PageIdentifier = viewModel,
                 Roles = roles

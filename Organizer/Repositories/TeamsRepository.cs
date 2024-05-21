@@ -79,6 +79,47 @@ namespace Organizer.Repositories
 
         }
 
+        public async Task<List<Entities.Team>> GetUsersByTeam()
+        {
+            var userId = _currentUserService.userid;
+            var usersByTeam = await _context.Users
+                .Include(u => u.Users_Teams)
+                .ThenInclude(ut => ut.Team)
+                .ToListAsync();
+
+            var teams = usersByTeam
+                .SelectMany(u => u.Users_Teams.Where(ut => ut.user_id == userId).Select(ut => new { Team = ut.Team, User = u }))
+                .GroupBy(ut => ut.Team)
+                .Select(g => new Entities.Team
+                {
+                    id = g.Key.id,
+                    tenant_id = g.Key.tenant_id,
+                    title = g.Key.title,
+                    Users_Teams = g.Key.Users_Teams, // Retain the original Users_Teams navigation property
+
+                })
+                .ToList();
+            foreach (var team in teams)
+            {
+                Console.WriteLine($"Team ID: {team.id}");
+                Console.WriteLine($"Tenant ID: {team.tenant_id}");
+                Console.WriteLine($"Title: {team.title}");
+
+                // Print other properties if needed
+
+                Console.WriteLine("Users in the team:");
+                foreach (var userTeam in team.Users_Teams)
+                {
+                    Console.WriteLine($"User ID: {userTeam.user_id}");
+                    // Print other user-related properties if needed
+                }
+
+                Console.WriteLine(); // Add a blank line for readability between teams
+            }
+            return teams;
+
+        }
+
         public async Task DeleteAllTasks(Guid teamid)
         {
             var tasks = await _context.Task.Where(t => t.teamid == teamid).ToListAsync();
