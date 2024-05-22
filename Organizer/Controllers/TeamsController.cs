@@ -32,7 +32,7 @@ namespace Organizer.Controllers
       
         public async Task<IActionResult> CreateTeam([Bind("title, tenant_id, Users_Teams")] Entities.Team team, string user_id)
 
-
+        { 
             if (ModelState.IsValid)
             {
                 // Generate a new GUID for the team..

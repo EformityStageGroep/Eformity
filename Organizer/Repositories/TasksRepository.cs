@@ -116,6 +116,7 @@ namespace Organizer.Repositories
                     Users = users,
                     Teams = teams,
                     Tasks = tasks,
+                    TeamsList = teamslist,
                     PageIdentifier = viewModel,
                     Roles = roles
                 };
@@ -128,6 +129,7 @@ namespace Organizer.Repositories
                     Users = users,
                     Teams = teams,
                     Tasks = tasks,
+                    TeamsList = teamslist,
                     PageIdentifier = viewModel,
                     Roles = roles
                 };
