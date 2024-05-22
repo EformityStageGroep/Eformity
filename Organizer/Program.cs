@@ -12,9 +12,6 @@ using Organizer.Middleware;
 using Organizer.Repositories;
 using Organizer.Services;
 
-
-
-
 var builder = WebApplication.CreateBuilder(args);
 
 var initialScopes = builder.Configuration["DownstreamApi:Scopes"]?.Split(' ') ?? builder.Configuration["MicrosoftGraph:Scopes"]?.Split(' ');
@@ -32,18 +29,15 @@ builder.Services.Configure<CookieAuthenticationOptions>(CookieAuthenticationDefa
     .AddLiveReload();
 */
 
-
 // Add DbContext
 using (var context = new OrganizerContext())
 using (var contexts = new TenantDbContext())
 using (var contextss = new UserDbContext())
 
-builder.Services.AddDbContext<OrganizerContext>();
+    builder.Services.AddDbContext<OrganizerContext>();
 builder.Services.AddDbContext<TenantDbContext>();
 builder.Services.AddDbContext<UserDbContext>();
 
-builder.Services.AddControllersWithViews();
-builder.Services.AddSession(); // Add session support
 
 builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<IGraphClientService, GraphClientService>();
@@ -53,10 +47,6 @@ builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<ITeamsRepository, TeamsRepository>();
 builder.Services.AddScoped<ICurrentTenantService, CurrentTenantService>();
 builder.Services.AddScoped<ICurrentUserService, CurrentUserResolver>();
-builder.Services.AddAuthorization(options =>
-{
-    options.FallbackPolicy = options.DefaultPolicy;
-});
 
 builder.Services.AddControllersWithViews(options =>
 {
@@ -71,8 +61,6 @@ builder.Services.AddRazorPages()
 
 var app = builder.Build();
 
-
-
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -83,7 +71,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-app.UseSession();
+
 app.UseRouting();
 
 app.UseAuthentication();
