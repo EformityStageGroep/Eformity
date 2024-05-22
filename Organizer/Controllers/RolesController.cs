@@ -53,7 +53,7 @@ namespace Organizer.Controllers
         // POST: Roles/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("title,create_team,assign_task,tenant_id")] Role role)
+        public async Task<IActionResult> Create([Bind("title,create_team,assign_task,create_task,usermanagement,tenant_id")] Role role)
         {
             if (ModelState.IsValid)
             {
@@ -89,7 +89,7 @@ namespace Organizer.Controllers
         // POST: Roles/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("id,title,create_team,assign_task,tenant_id")] Role role)
+        public async Task<IActionResult> Edit(Guid id, [Bind("id,title,create_team,assign_task,create_task,usermanagement,tenant_id")] Role role)
         {
             Console.WriteLine($"Role ID: {role.id}");
             Console.WriteLine($"Title: {role.title}");
