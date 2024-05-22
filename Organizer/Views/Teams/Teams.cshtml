@@ -107,7 +107,8 @@
                                         </div>
                                     </div>
                                     <div class="mt-6 px-4 relative flex-1 sm:px-6">
-                                        <form method="post" action="@Url.Action("LeaveTeam", "Teams", new { user_id = user_id, team_id = @team.id })">
+                                     <form id="Team_Edit_Leave" method="POST">
+                                            <!--    <form method="post" action="@Url.Action("LeaveTeam", "Teams", new { user_id = user_id, team_id = @team.id })">-->
                                             <div class="form-group">
 
                                                 <label asp-for="@team.title" class="control-label"></label>
@@ -209,9 +210,11 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <!--    <form method="post" action="@Url.Action("LeaveTeam", "Teams", new { user_id = user_id, team_id = @team.id })">-->
+                                          
                                             <div class="form-group right-0 mt-4 mb-4 mr-4 fixed">
-                                                <input type="submit" value="Create" class="m1 auto bg-indigo-500 px-3.5 py-2.5 text-white rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
-                                                <button type="submit" class="m1 auto bg-indigo-500 px-3.5 py-2.5 text-white rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" onclick="updateTeam()">Leave Team</button>
+                                                <input type="submit" value="Create" onclick="submitForm('/Teams/EditTeam')" class="m1 auto bg-indigo-500 px-3.5 py-2.5 text-white rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+                                                <button type="submit" onclick="submitForm('@Url.Action("LeaveTeam", "Teams")', '@user_id', '@team.id')" class="m1 auto bg-indigo-500 px-3.5 py-2.5 text-white rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Leave Team</button>
                                             </div>
                                         </form>
                                     </div>
@@ -220,6 +223,19 @@
                         </div>
                     </div>
                 </div>
+
+
+                <script>
+                    function submitForm(action, userId, teamId) {
+                        
+                        var form = document.getElementById('Team_Edit_Leave');
+                        form.action = `${action}/user_id=${userId}&team_id=${teamId}`;
+                        console.log(form.action);
+                        console.log(userId);
+                        console.log(teamId);
+                        form.submit(form.action);
+                    }
+                </script>
                 <li class="col-span-1 flex rounded-md shadow-sm">
                     <div id="@team.id" class="w-16 h-16 text-white team-element text-md flex items-center justify-center rounded-l-md text-sm font-medium">
                             @initials
