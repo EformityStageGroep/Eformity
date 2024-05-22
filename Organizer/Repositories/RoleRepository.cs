@@ -49,7 +49,8 @@ namespace Organizer.Repositories
 
         public async Task<bool> RoleExistsAsync(string roleName)
         {
-            return await _context.Roles.AnyAsync(r => r.title == roleName);
+            var tenantId = _currentTenantService.tenantid; // Corrected variable name to match the query
+            return await _context.Roles.AnyAsync(r => r.title == roleName && r.tenant_id == tenantId);
         }
 
         public async Task DeleteRoleAsync(Guid id)
