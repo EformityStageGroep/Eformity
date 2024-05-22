@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Organizer.Repositories;
 using Organizer.Entities;
+
+
 namespace Organizer.Controllers
 {
+
     public class TeamsController : Controller
     {
         private readonly ITeamsRepository _teamRepository;
@@ -15,16 +18,24 @@ namespace Organizer.Controllers
             _userRepository = userRepository;
             _tasksRepository = tasksRepository;
         }
+
+
+ 
         public async Task<IActionResult> Index()
         {
+       
+            // Return the view with the model
             return View();
         }
-      
+
+
         public async Task<IActionResult> CreateTeam([Bind("title, tenant_id, Users_Teams")] Team team, string user_id)
         {
+
+
             if (ModelState.IsValid)
             {
-                // Generate a new GUID for the team
+                // Generate a new GUID for the team..
                 var guid = Guid.NewGuid();
                 team.id = guid;
                 string input = user_id;
@@ -32,9 +43,11 @@ namespace Organizer.Controllers
                 // Add users to the team if user IDs are provided
                 if (user_id != null && user_id.Any())
                 {
+
                     foreach (var userId in users)
                     {
                         Console.WriteLine($"Number of user IDs: {users.Count}");
+
                         // Create a new UserTeam object for each user ID
                         var userTeam = new UserTeam { user_id = userId, team_id = guid };
                         Console.WriteLine(userTeam);
@@ -51,6 +64,7 @@ namespace Organizer.Controllers
                 await _teamRepository.SaveChangesAsync();
                 return RedirectToAction(nameof(Teams));
             }
+
             return View();
         }
         public async Task<IActionResult> LeaveTeam(string user_id, Guid team_id)

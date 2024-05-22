@@ -18,7 +18,7 @@ namespace Organizer.Entities
 
         [Display(Name = "Date & Time")]
         public DateTime datetime { get; set; }
-
+    
         public string selectstatus { get; set; }
         [ForeignKey("Tenants")]
         public string tenantid { get; set; }
@@ -39,4 +39,3 @@ namespace Organizer.Entities
         public string PageValue { get; set; }
     }
 }
-

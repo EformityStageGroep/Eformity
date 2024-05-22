@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Organizer.Contexts;
 using Organizer.Services;
 
@@ -85,8 +86,9 @@ namespace Organizer.Repositories
             _context.Task.RemoveRange(tasks);
             await _context.SaveChangesAsync();
         }
-        public async Task<List<Entities.Team>> GetTeamsByUser()
+            public async Task<List<Entities.Team>> GetTeamsByUser()
         {
+
             var userId = _currentUserService.userid;
             Console.WriteLine(userId);
             // Find the user in the database

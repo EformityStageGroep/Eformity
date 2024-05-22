@@ -1,4 +1,6 @@
-﻿namespace Organizer.Models
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace Organizer.Models
 {
     public class ParentViewModel
     {
