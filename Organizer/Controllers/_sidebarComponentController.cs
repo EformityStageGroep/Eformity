@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Organizer.Services; 
+using Microsoft.AspNetCore.Mvc;
 using Organizer.Repositories;
 
 namespace Organizer.Controllers
@@ -20,8 +21,11 @@ namespace Organizer.Controllers
 
             await _teamRepository.GetTeamsByUser();
             // Return the view with the model
-  
+
             return View(ParentViewModel);
         }
+
     }
+
+
 }
