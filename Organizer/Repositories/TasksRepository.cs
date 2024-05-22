@@ -99,6 +99,7 @@ namespace Organizer.Repositories
         {
             ParentViewModel mymodel = new ParentViewModel();
             List<Entities.User> users = await _userRepository.GetUserIdsByTenant();
+            List<Entities.User> currentuser = await _userRepository.GetUserInfo();
             List<Entities.Team> teams = await _teamRepository.GetTeamsByUser();
             List<Entities.Team> teamslist = await _teamRepository.GetUsersByTeam();
             List<Entities.Task> tasks = await GetTasksAsync();
@@ -106,17 +107,34 @@ namespace Organizer.Repositories
 
             var viewModel = new PageIdentifier();
             viewModel.PageValue = pageValue;
-
-            var model = new ParentViewModel
+            if(pageValue == "Users")
             {
-                Users = users,
-                Teams = teams,
-                TeamsList = teamslist,
-                Tasks = tasks,
-                PageIdentifier = viewModel,
-                Roles = roles
-            };
-            return model;
+
+                var model = new ParentViewModel
+                {
+                    CurrentUser = currentuser,
+                    Users = users,
+                    Teams = teams,
+                    Tasks = tasks,
+                    PageIdentifier = viewModel,
+                    Roles = roles
+                };
+                return model;
+            }
+            else
+            {
+                var model = new ParentViewModel
+                {
+                    Users = users,
+                    Teams = teams,
+                    Tasks = tasks,
+                    PageIdentifier = viewModel,
+                    Roles = roles
+                };
+                return model;
+            }
+           
+            
         }
         public async System.Threading.Tasks.Task Delete(Guid id)
         {
