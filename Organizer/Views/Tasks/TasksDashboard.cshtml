@@ -6,18 +6,47 @@
 
 <div class="mt-4 flex justify-end">
 <h1>Filter:</h1>
-    <select id="teamLabel_" onchange="combinedFilter(this.value)" class="ml-2 border-gray-900 pl-[7px] pb-[1px] text-black w-[100px] h-[27px] relative z-10 flex cursor-pointer cursor-pointer items-center justify-center self-baseline rounded-sm border border border-solid text-xs font-medium hover:bg-gray-200">
+    <select id="teamLabel_" onchange="adjustWidth(this); combinedFilter(this.value)" class="ml-2 border-gray-900 pl-[7px] pb-[1px] text-black w-[100px] h-[27px] relative z-10 flex cursor-pointer items-center justify-center self-baseline rounded-sm border border-solid text-xs font-medium hover:bg-gray-200">
         <option value="ALL">ALL</option>
         <option value="">Personal</option>
         @foreach (var teams in Model.Teams)
-            {
-                <option value="@teams.id">@teams.title</option>
-            }
+        {
+            <option value="@teams.id">@teams.title</option>
+        }
     </select>
 </div>
 
 
 <script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Adjust width on page load for the initially selected option
+        adjustWidth(document.getElementById('teamLabel_'));
+    });
+
+    function adjustWidth(selectElement) {
+        const tempSpan = document.createElement('span');
+        tempSpan.style.position = 'absolute';
+        tempSpan.style.whiteSpace = 'nowrap';
+        tempSpan.style.visibility = 'hidden';
+        // Ensure the font matches the select element, considering computed styles
+        tempSpan.style.font = window.getComputedStyle(selectElement).font;
+
+        tempSpan.textContent = selectElement.options[selectElement.selectedIndex].text;
+        document.body.appendChild(tempSpan);
+
+        // Get the width of the span and define a minimum width
+        const spanWidth = tempSpan.offsetWidth;
+        const minWidth = 100; // Adjust based on your layout needs
+        const additionalWidth = 30; // Increased from 20px to 30px to accommodate more padding and borders
+
+        // Apply the larger of span width plus additional width or the minimum width
+        selectElement.style.width = `${Math.max(spanWidth + additionalWidth, minWidth)}px`;
+
+        document.body.removeChild(tempSpan);
+    }
+
+
     var previousTeamid = "ALL";
     var previousPriority = "ALL";
     var previousStatus = "ALL";
