@@ -31,12 +31,9 @@ namespace Organizer.Controllers
             return View();
         }
 
-      
-        public async Task<IActionResult> CreateTeam([Bind("title, tenant_id, Users_Teams")] Entities.Team team, string user_id)
-
 
         [RequireRoleProperty("create_team")]
-        public async Task<IActionResult> CreateTeam([Bind("title, tenant_id, Users_Teams")] Team team, string user_id)
+        public async Task<IActionResult> CreateTeam([Bind("title, tenant_id, Users_Teams")] Entities.Team team, string user_id)
         {
 
 
