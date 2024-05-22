@@ -72,7 +72,11 @@
         window.addEventListener('click', function (event) {
             userListButton = document.getElementById('userlistButton')
             userList = document.getElementById('userList')
-            inputFIeld = document.getElementById('inputField')
+            inputField = document.getElementById('inputField')
+            console.log("these are the elements:")
+            console.log(userlistButton)
+            console.log(userList)
+            console.log(inputField)
 
         if (!userList.contains(event.target) && !userListButton.contains(event.target) && !inputField.contains(event.target)) {
                 userList.classList.add('hidden'); 

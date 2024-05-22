@@ -53,6 +53,13 @@ namespace Organizer.Controllers
                 await _teamRepository.SaveChangesAsync();
                 return RedirectToAction(nameof(Teams));
             }
+            if (!ModelState.IsValid)
+            {
+                foreach (var modelError in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    Console.WriteLine($"Errorr team: {modelError.ErrorMessage}");
+                }
+            }
             return View();
         }
         public async Task<IActionResult> LeaveTeam(string user_id, Guid team_id)
