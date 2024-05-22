@@ -49,6 +49,7 @@ builder.Services.AddScoped<ITeamsRepository, TeamsRepository>();
 builder.Services.AddScoped<ICurrentTenantService, CurrentTenantService>();
 builder.Services.AddScoped<ICurrentUserService, CurrentUserResolver>();
 builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddHttpContextAccessor();
 
 
 
