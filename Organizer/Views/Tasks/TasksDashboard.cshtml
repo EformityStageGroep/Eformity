@@ -23,44 +23,58 @@
     var previousStatus = "ALL";
 
     function filterTasksByStatus(Teamid, status) {
-
-        Teamid = previousTeamid;
         var tasks = document.querySelectorAll('[data-postit-id][data-team-id]');
         tasks.forEach(function (task) {
             var taskTeamId = task.dataset.teamId;
-
-           var taskId = task.id.split("_")[1];
-            var statusLabels = document.getElementById('statusLabel_' + taskId)
+            var taskId = task.id.split("_")[1];
+            var statusLabels = document.getElementById('statusLabel_' + taskId);
             var selectedOption = statusLabels.options[statusLabels.selectedIndex].value;
-              if ((Teamid === "ALL" || taskTeamId === Teamid) && (selectedOption === status)) {
 
-                task.style.display = 'block'; // Show the task if priority matches or if "ALL" is selected
+            if ((Teamid === "ALL" || taskTeamId === Teamid) && (selectedOption === status)) {
+                task.style.display = 'block';
             } else {
-                task.style.display = 'none'; // Hide the task if priority does not match and "ALL" is not selected
+                task.style.display = 'none';
             }
         });
     }
 
     function combinedFilter(Teamid = previousTeamid, priority = previousPriority, status = previousStatus) {
         // Update previous selections with the current ones
-        if (Teamid === 'teamid'){
-            Teamid = previousTeamid
+        if (Teamid === 'teamid') {
+            Teamid = previousTeamid;
         }
 
-          previousTeamid = Teamid;
-
+        // Update the previous selections
+        previousTeamid = Teamid;
         previousPriority = priority;
         previousStatus = status;
+
+        // Call the function to filter tasks
         filterTasksByPriority(Teamid, priority, status);
+
+        // Update the URL to reflect the current filter
+        updateURL(Teamid, priority, status);
+    }
+
+    function updateURL(Teamid, priority, status) {
+        // Construct the new URL with query parameters
+        const params = new URLSearchParams({
+            teamid: Teamid,
+            priority: priority,
+            status: status
+        });
+
+        // Update the URL without reloading the page
+        const newUrl = `${window.location.pathname}?${params.toString()}`;
+        history.pushState(null, '', newUrl);
     }
 
     function FilterTaskByTeam(Teamid) {
         console.log(Teamid);
         var tasks = document.querySelectorAll('[data-team-id]');
-        
+
         tasks.forEach(function (task) {
             var taskTeamId = task.dataset.teamId;
-            //console.log(taskTeamId);
             if (Teamid === "ALL" || taskTeamId === Teamid) {
                 task.style.display = 'block';
             } else {
@@ -68,12 +82,12 @@
             }
         });
     }
+
     function filterTasksByPriority(Teamid, priority, status) {
         var tasks = document.querySelectorAll('[data-postit-id][data-team-id]');
-        
+
         tasks.forEach(function (task) {
             var taskTeamId = task.dataset.teamId;
-
             var taskId = task.id.split("_")[1]; // Extracting task ID from element ID
             var priorityLabel = document.getElementById('priorityLabel_' + taskId).innerText;
             var statusLabel = document.getElementById('statusLabel_' + taskId);
@@ -87,6 +101,27 @@
 
         });
     }
+
+    function getParameterByName(name) {
+        const url = new URL(window.location.href);
+        return url.searchParams.get(name);
+    }
+
+    function applyFiltersFromURL() {
+        const teamid = getParameterByName('teamid') || 'ALL';
+        const priority = getParameterByName('priority') || 'ALL';
+        const status = getParameterByName('status') || 'ALL';
+
+        // Update the dropdown to reflect the current filters
+        document.getElementById('teamLabel_').value = teamid;
+
+        // Apply the filters
+        combinedFilter(teamid, priority, status);
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        applyFiltersFromURL();
+    });
   
 </script>
 
