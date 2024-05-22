@@ -12,7 +12,7 @@ namespace Organizer.Entities
 
         public string title { get; set; }
 
-        public string description { get; set; }
+        public string? description { get; set; }
 
         public string priority { get; set; }
 
@@ -36,6 +36,6 @@ namespace Organizer.Entities
 
     public class PageIdentifier
     {
-        public string PageValue { get; set; }
+        public string? PageValue { get; set; }
     }
 }
