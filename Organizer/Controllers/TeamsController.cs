@@ -3,6 +3,9 @@ using Organizer.Repositories;
 using Organizer.Entities;
 using Organizer.Attributes;
 
+using Microsoft.Graph;
+
+
 namespace Organizer.Controllers
 {
 
@@ -28,10 +31,14 @@ namespace Organizer.Controllers
             return View();
         }
 
+      
+        public async Task<IActionResult> CreateTeam([Bind("title, tenant_id, Users_Teams")] Entities.Team team, string user_id)
+
 
         [RequireRoleProperty("create_team")]
         public async Task<IActionResult> CreateTeam([Bind("title, tenant_id, Users_Teams")] Team team, string user_id)
         {
+
 
 
             if (ModelState.IsValid)
@@ -66,6 +73,14 @@ namespace Organizer.Controllers
                 return RedirectToAction(nameof(Teams));
             }
 
+            if (!ModelState.IsValid)
+            {
+                foreach (var modelError in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    Console.WriteLine($"Errorr team: {modelError.ErrorMessage}");
+                }
+            }
+
             return View();
         }
         public async Task<IActionResult> LeaveTeam(string user_id, Guid team_id)
@@ -89,7 +104,7 @@ namespace Organizer.Controllers
             return RedirectToAction(nameof(Index));
         }
   
-        public async Task<IActionResult> EditTeam(Guid id, [Bind("id,title,tenant_id,Users_Teams")] Team team)
+        public async Task<IActionResult> EditTeam(Guid id, [Bind("id,title,tenant_id,Users_Teams")] Entities.Team team)
         {
             if (id != team.id)
             {
@@ -102,6 +117,7 @@ namespace Organizer.Controllers
                 {
                     Console.WriteLine($"Current tenantid EDIT: {team}");
                     await _teamRepository.EditTeam(team);
+                   
                     await _teamRepository.SaveChangesAsync();
                 }
                 catch (Exception)
@@ -123,8 +139,9 @@ namespace Organizer.Controllers
 
         public async Task<IActionResult> Teams()
         {
+            await _teamRepository.GetUsersByTeam();
             var ParentViewModel = await _tasksRepository.ParentViewModel("Teams");
-
+           
             return View(ParentViewModel);
         }
           public IActionResult teamMultiSelectSlideover()

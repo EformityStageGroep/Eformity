@@ -21,5 +21,6 @@ namespace Organizer.Entities
         public bool usermanagement { get; set; }
 
         public bool create_task { get; set; }
+
     }
 }

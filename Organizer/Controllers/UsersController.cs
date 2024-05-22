@@ -180,9 +180,7 @@ namespace Organizer.Controllers
         public async Task<IActionResult> Settings()
         {
             {
-                var ParentViewModel = await _tasksRepository.ParentViewModel("Users");
-
-
+               var ParentViewModel = await _tasksRepository.ParentViewModel("Users");
                 // Return the view with the model
                 return View(ParentViewModel);
             }
