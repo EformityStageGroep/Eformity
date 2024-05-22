@@ -17,5 +17,6 @@ namespace Organizer.Entities
         public bool create_team { get; set; }
 
         public bool assign_task { get; set; }
+
     }
 }
