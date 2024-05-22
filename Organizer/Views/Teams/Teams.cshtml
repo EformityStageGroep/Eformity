@@ -40,46 +40,14 @@
         </div>
     </div>
 </div>
-@{
-    var teamleaden = @Model.Teams.Count;
-    Console.WriteLine(teamleaden);
 
-}
 
 <ul role="list" class="mt-3 gap-5 grid grid-cols-1 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4">
-  @*   @foreach (var teamlist in Model.TeamsList)
-    {
-        Console.WriteLine("NAMENNNNNNN" + @teamlist.id);
-        @foreach (var userTeam in teamlist.Users_Teams)
-        {
-            Console.WriteLine("User NAMEEE:" + @userTeam.User.fullname);
-            <!-- Display other user-related properties if needed -->
-        }
-    } 
-    @{
-        //Guid specificTeamId = new Guid("8d745376-5ca3-4343-8680-88030267daf6"); // Replace with the actual id you want to search for
 
-        // Find the team with the specific id
-        var specificTeams = Model.TeamsList.FirstOrDefault(team => team.id == specificTeamId);
-
-        if (specificTeam != null)
-        {
-        // If the team is found, print the team id and iterate through its users
-        Console.WriteLine("NAMENNNNNNN" + specificTeam.id);
-        foreach (var userTeam in specificTeam.Users_Teams)
-        {
-        Console.WriteLine("User NAMEEE:" + userTeam.User.fullname);
-        // Display other user-related properties if needed
-        }
-        }
-        else
-        {
-        Console.WriteLine("Team with id " + specificTeamId + " not found.");
-        }
-    }*@
     @foreach (var team in Model.Teams)
     {
-        
+        @*List<string> userIdList = new List<string>();*@
+
         // Define the list of Tailwind background color classes
         List<string> colors = new List<string> { "bg-red-500", "bg-green-500", "bg-blue-500", "bg-yellow-500", "bg-indigo-700" };
         Random rand = new Random();
@@ -160,10 +128,13 @@
                                                                     Console.WriteLine(specificTeam);
                                                                 }
 
+                                                                let teamId = '@team.id';
 
 
                                                                     @foreach (var user in Model.Users)
                                                                     {
+
+
                                                                         var userInSpecificTeam = specificTeam.Users_Teams.Any(ut => ut.User.id == user.id);
                                                                         <div id="userClickedSlideover_@user.id@team.id" class="m-1 py-1 px-2 bg-white text-white bg-indigo-700 border-indigo-700 users-center flex justify-center rounded-full border font-medium @(userInSpecificTeam ? "" : "hidden")">
                                                                             <div class="flex-initborder-gray-100 w-full max-w-full cursor-pointer rounded-t border-b text-xs font-normal leading-none hover:bg-teal-100ial">@user.fullname</div>
@@ -176,6 +147,16 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
+
+           @*                                                             @if (userInSpecificTeam == true)
+                                                                        {
+                                                                       
+                                                                            <script>
+                                                                            if (!userClickedEditLists[teamId].includes(@user.id)) {
+                                                                                userClickedEditLists[teamId].push(@user.id);
+                                                                            }
+                                                                            </script>
+                                                                        }*@
                                                                     }
 
 @*                                                                    <div id="userClickedSlideover_@item.user_id@team.id" class="m-1 py-1 px-2 bg-white text-white bg-indigo-700 border-indigo-700 flex items-center justify-center rounded-full border font-medium">
@@ -440,7 +421,16 @@ function removeNameFunctionSlideover(userId, teamId) {
 
     console.log(clickedNamesListSlideover);
 }
-
+        function updateClickedUsersDisplay() {
+            const displayElement = document.getElementById('clickedUsersList');
+            displayElement.innerHTML = '';
+            clickedNamesListSlideover.forEach(userId => {
+                const userElement = document.createElement('li');
+                userElement.textContent = 'User ID: ' + userId;
+                displayElement.appendChild(userElement);
+            });
+            console.log("Updated user list display.");
+        }
 
         function userClickedSlideover(userId, teamId) {
             userNameList = document.getElementById('userSlideover_' + userId + teamId)
@@ -463,25 +453,17 @@ function removeNameFunctionSlideover(userId, teamId) {
             updateClickedUsersDisplay();
         }
 
-        function updateClickedUsersDisplay() {
-            const displayElement = document.getElementById('clickedUsersList');
-            displayElement.innerHTML = '';
-            clickedNamesListSlideover.forEach(userId => {
-                const userElement = document.createElement('li');
-                userElement.textContent = 'User ID: ' + userId;
-                displayElement.appendChild(userElement);
-            });
-            console.log("Updated user list display.");
-        }
+
 
         function clickUserlistButtonSlideover(Teamid) {
-            console.log("testttttt");
+
+
+            console.log(userClickedEditLists)
             button = document.getElementById("userlistButtonSlideover_" + Teamid);
             userList1 = document.getElementById("userListSlideover_" + Teamid);
             console.log(userList1);
             userList1.classList.toggle("hidden");
        
-            console.log("testttttt");
         }
 </script>
 }
