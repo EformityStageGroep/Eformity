@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Organizer.Repositories;
 using Organizer.Entities;
+using Organizer.Attributes;
+
 using Microsoft.Graph;
 
 
@@ -32,7 +34,13 @@ namespace Organizer.Controllers
       
         public async Task<IActionResult> CreateTeam([Bind("title, tenant_id, Users_Teams")] Entities.Team team, string user_id)
 
-        { 
+
+        [RequireRoleProperty("create_team")]
+        public async Task<IActionResult> CreateTeam([Bind("title, tenant_id, Users_Teams")] Team team, string user_id)
+        {
+
+
+
             if (ModelState.IsValid)
             {
                 // Generate a new GUID for the team..

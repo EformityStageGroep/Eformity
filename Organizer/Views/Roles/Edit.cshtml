@@ -32,6 +32,16 @@
                 <input asp-for="assign_task" class="form-control" />
                 <span asp-validation-for="assign_task" class="text-danger"></span>
             </div>
+                <div class="form-group">
+                    <label asp-for="usermanagement" class="control-label"></label>
+                    <input asp-for="usermanagement" class="form-control" />
+                    <span asp-validation-for="usermanagement" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="create_task" class="control-label"></label>
+                    <input asp-for="create_task" class="form-control" />
+                    <span asp-validation-for="create_task" class="text-danger"></span>
+                </div>
             <div type="hidden" class="form-group hidden">
                 <label asp-for="tenant_id" type="hidden" class="control-label"></label>
                 <input asp-for="tenant_id" type="hidden" value="@tenantid" class="form-control" />
