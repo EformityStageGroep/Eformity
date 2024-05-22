@@ -29,6 +29,18 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.assign_task)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.usermanagement)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.usermanagement)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.create_task)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.create_task)
+        </dd>
     </dl>
     <form asp-action="Delete" method="post">
         <input type="hidden" asp-for="id" />

@@ -17,5 +17,9 @@ namespace Organizer.Entities
         public bool create_team { get; set; }
 
         public bool assign_task { get; set; }
+
+        public bool usermanagement { get; set; }
+
+        public bool create_task { get; set; }
     }
 }

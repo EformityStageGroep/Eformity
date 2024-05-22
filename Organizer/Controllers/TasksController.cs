@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Organizer.Contexts;
 using Organizer.Repositories;
+using Organizer.Attributes;
+
 namespace Organizer.Controllers
 {
     public class TasksController : Controller
@@ -33,6 +35,7 @@ namespace Organizer.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [RequireRoleProperty("create_task")]
         public async Task<IActionResult> Create([Bind("id,title,description,priority,datetime,selectstatus,tenantid,teamid,userid")] Entities.Task task)
         {
             if (ModelState.IsValid)
