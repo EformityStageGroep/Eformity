@@ -64,10 +64,10 @@ namespace Organizer.Controllers
         }
         public async Task<IActionResult> EditTeam(Guid id, [Bind("id,title,tenant_id,Users_Teams")] Entities.Team team, string user_id2)
         {
-/*            if (id != team.id)
+            if (id != team.id)
             {
                 return NotFound();
-            }*/
+            }
 
             if (ModelState.IsValid)
             {
