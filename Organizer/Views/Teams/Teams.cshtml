@@ -107,116 +107,103 @@
                                         </div>
                                     </div>
                                     <div class="mt-6 px-4 relative flex-1 sm:px-6">
-                                     <form id="Team_Edit_Leave" method="POST">
-                                            <!--    <form method="post" action="@Url.Action("LeaveTeam", "Teams", new { user_id = user_id, team_id = @team.id })">-->
-                                            <div class="form-group">
+                                    
 
-                                                <label asp-for="@team.title" class="control-label"></label>
-                                                <input asp-for="@team.title" class="p-2 py-1.5 text-gray-900 ring-gray-300 block w-full rounded-md border-0 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" value="@team.title">
-                                                <span asp-validation-for="@team.title" class="text-danger"></span>
-                                            </div>
-                                                <input type="hidden" asp-for="@team.id" />
-                                                <input type="hidden" asp-for="@team.tenant_id" />
-                                                <input type="hidden" asp-for="@team.Users_Teams" />
+<form id="Team_Edit_Leave" action="@Url.Action("EditTeam", "Teams", new { user_id = user_id })" method="POST">
+    <div class="form-group">
+        <label asp-for="@team.title" class="control-label"></label>
+        <input asp-for="@team.title" class="p-2 py-1.5 text-gray-900 ring-gray-300 block w-full rounded-md border-0 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+        <span asp-validation-for="@team.title" class="text-danger"></span>
+    </div>
 
-                                            <div class="h-19 mx-auto flex w-full flex-col items-center">
-                                                <div class="w-full">
-                                                    <div class="relative flex flex-col items-center">
-                                                        <div id="inputFieldSlideover_@team.id" class="svelte-1l8159u w-full">
-                                                            <div class="my-2 p-1 border-gray-200 bg-white svelte-1l8159u round mt-1 py-2 px-3 border-gray-300 bg-white block flex w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                                                <div class="flex flex-auto flex-wrap">
-                                                                    
-                                                                    @{
-                                                                    Guid specificTeamId = @team.id;
-                                                                    var specificTeam = Model.TeamsList.FirstOrDefault(team => team.id == specificTeamId);
-                                                                    Console.WriteLine(specificTeamId);
-                                                                    Console.WriteLine(specificTeam);
-                                                                    }
+    <input type="hidden" asp-for="@team.id" />
+    <input type="hidden" asp-for="@team.tenant_id" />
+    <input type="hidden" asp-for="@team.Users_Teams" />
 
+    <div class="h-19 mx-auto flex w-full flex-col items-center">
+        <div class="w-full">
+            <div class="relative flex flex-col items-center">
+                <div id="inputFieldSlideover_@team.id" class="svelte-1l8159u w-full">
+                    <div class="my-2 p-1 border-gray-200 bg-white svelte-1l8159u round mt-1 py-2 px-3 border-gray-300 bg-white block flex w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <div class="flex flex-auto flex-wrap">
+                            @{
+                            Guid specificTeamId = team.id;
+                            var specificTeam = Model.TeamsList.FirstOrDefault(t => t.id == specificTeamId);
+                            Console.WriteLine(specificTeamId);
+                            Console.WriteLine(specificTeam);
+                          
+                            }
 
-                                                                        <h1>@team.id</h1>
+                            <h1>@team.id</h1>
+                            
+                            @foreach (var user in Model.Users)
+                            {
+                                
+                                var userInSpecificTeam = specificTeam.Users_Teams.Any(ut => ut.User.id == user.id);
+                                <div id="userClickedSlideover_@user.id@team.id" class="m-1 py-1 px-2 bg-white text-white bg-indigo-700 border-indigo-700 users-center flex justify-center rounded-full border font-medium @(userInSpecificTeam ? "" : "hidden")">
+                                    <div class="flex-initborder-gray-100 w-full max-w-full cursor-pointer rounded-t border-b text-xs font-normal leading-none hover:bg-teal-100ial">@user.fullname</div>
+                                    <div class="flex flex-auto flex-row-reverse">
+                                        <div>
+                                            <svg id="removeNameButtonSlideover_@user.id" onclick="removeNameFunctionSlideover('@user.id', '@team.id')" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x w-4 h-4 ml-2 cursor-pointer rounded-full hover:text-gray-300">
+                                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
 
-                                                                        @foreach (var user in Model.Users)
-                                                                    {
+                                if (userInSpecificTeam)
+                                {
+                                    string userIdString = user.id.ToString();
+                                    if (!userIdList.Contains(userIdString))
+                                    {
+                                        userIdList.Add(userIdString);
+                                    }
+                                }
+                            }
+                            <div class="flex-1">
+                                <input id="filterInputSlideover" placeholder="" class="bg-transparent p-1 px-2 text-gray-800 h-full w-full appearance-none outline-none">
+                            </div>
+                        </div>
+                        <div id="userlistButtonSlideover" onclick="clickUserlistButtonSlideover('@team.id')" class="text-gray-300 w-8 py-1 pl-2 pr-1 border-gray-200 svelte-1l8159u flex items-center border-l">
+                            <button type="button" class="w-6 h-6 text-gray-600 cursor-pointer outline-none focus:outline-none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-up w-4 h-4">
+                                    <polyline points="18 15 12 9 6 15"></polyline>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
+                <div id="userListSlideover_@team.id" class="top-100 bg-white lef-0 max-h-select svelte-5uyqqj absolute z-40 hidden w-full overflow-y-auto rounded shadow">
+                    <div class="flex w-full flex-col">
+                        <label for="user_id" class="text-gray-700 block text-sm font-medium">Add Team Members</label>
 
-                                                                        var userInSpecificTeam = specificTeam.Users_Teams.Any(ut => ut.User.id == user.id);
-                                                                            <div id="userClickedSlideover_@user.id@team.id" class="m-1 py-1 px-2 bg-white text-white bg-indigo-700 border-indigo-700 users-center flex justify-center rounded-full border font-medium @(userInSpecificTeam ? "" : "hidden")">
-                                                                                <div class="flex-initborder-gray-100 w-full max-w-full cursor-pointer rounded-t border-b text-xs font-normal leading-none hover:bg-teal-100ial">@user.fullname</div>
-                                                                                <div class="flex flex-auto flex-row-reverse">
-                                                                                    <div>
-                                                                                        <svg id="removeNameButtonSlideover_@user.id" onclick="removeNameFunctionSlideover('@user.id', '@team.id')"  xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x w-4 h-4 ml-2 cursor-pointer rounded-full hover:text-gray-300">
-                                                                                            <line x1="18" y1="6" x2="6" y2="18"></line>
-                                                                                            <line x1="6" y1="6" x2="18" y2="18"></line>
-                                                                                        </svg>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
+                        @foreach (var item in Model.Users)
+                        {
+                            var userInSpecificTeam = specificTeam.Users_Teams.Any(ut => ut.User.id == item.id);
+                            <div id="userSlideover_@item.id@team.id" onclick="userClickedSlideover('@item.id', '@team.id')" class="p-2 pl-2 border-blue-700 relative flex w-full items-center border-l-2 hover:bg-indigo-700 hover:text-white hover:cursor-pointer @(userInSpecificTeam ? "" : "border-transparent")">
+                                <div id="userBorderSlideover_@item.id" class="p-2 pl-2 border-transparent relative flex w-full items-center border-l-2 hover:border-indigo-700">
+                                    <div class="flex w-full items-center">
+                                        <div class="mx-2 leading-6">@item.fullname</div>
+                                    </div>
+                                    <p>@item.email</p>
+                                </div>
+                            </div>
+                        }
+                        <input type="hidden" name="user_id" value="" id="user_id" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                                                                        if (userInSpecificTeam)
-                                                                        {
-                                                                            string userIdString = user.id.ToString();
-                                                                            if (!userIdList.Contains(userIdString))
-                                                                            {
-                                                                                userIdList.Add(userIdString);
-                                                                            }
-                                                                        }
-                                                                    }
+    <div class="form-group right-0 mt-4 mb-4 mr-4 fixed">
+        <button type="submit" class="m1 auto bg-indigo-500 px-3.5 py-2.5 text-white rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Save</button>
+        <button type="button" onclick="submitForm('/Teams/LeaveTeam', '@user_id', '@team.id')" class="m1 auto bg-indigo-500 px-3.5 py-2.5 text-white rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Leave Team</button>
+    </div>
+</form>
 
-    @*                                                                    <div id="userClickedSlideover_@item.user_id@team.id" class="m-1 py-1 px-2 bg-white text-white bg-indigo-700 border-indigo-700 flex items-center justify-center rounded-full border font-medium">
-                                                                        <div class="flex-initborder-gray-100 w-full max-w-full cursor-pointer rounded-t border-b text-xs font-normal leading-none hover:bg-teal-100ial">@item.User.fullname</div>
-                                                                        <div class="flex flex-auto flex-row-reverse">
-                                                                            <div>
-                                                                                <svg id="removeNameButtonSlideover_@item.User.id" onclick="removeNameFunctionSlideover('@item.user_id', '@team.id')" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x w-4 h-4 ml-2 cursor-pointer rounded-full hover:text-gray-300">
-                                                                                    <line x1="18" y1="6" x2="6" y2="18"></line>
-
-                                                                                </svg>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>*@
-                                                                    
-                                                                    <div class="flex-1">
-                                                                        <input id="filterInputSlideover" placeholder="" class="bg-transparent p-1 px-2 text-gray-800 h-full w-full appearance-none outline-none">
-                                                                      
-                                                                        </div>
-                                                                </div>
-                                                                    <div id="userlistButtonSlideover" onclick="clickUserlistButtonSlideover('@team.id')" class="text-gray-300 w-8 py-1 pl-2 pr-1 border-gray-200 svelte-1l8159u flex items-center border-l">
-                                                                    <button type="button" class="w-6 h-6 text-gray-600 cursor-pointer outline-none focus:outline-none">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-up w-4 h-4">
-                                                                            <polyline points="18 15 12 9 6 15"></polyline>
-                                                                        </svg>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                            <div id="userListSlideover_@team.id" class="top-100 bg-white lef-0 max-h-select svelte-5uyqqj absolute z-40 hidden w-full overflow-y-auto rounded shadow">
-                                                            <div class="flex w-full flex-col">
-
-                                                                @foreach (var item in Model.Users)
-                                                            {
-                                                                var userInSpecificTeam = specificTeam.Users_Teams.Any(ut => ut.User.id == item.id);
-                                                                    <div id="userSlideover_@item.id@team.id" onclick="userClickedSlideover('@item.id', '@team.id')" class="p-2 pl-2 border-blue-700 relative flex w-full items-center border-l-2 hover:bg-indigo-700 hover:text-white hover:cursor-pointer @(userInSpecificTeam ? "" : "border-transparent")">
-                                                                        <div id="userBorderSlideover_@item.id" class="p-2 pl-2 border-transparent relative flex w-full items-center border-l-2 hover:border-indigo-700">
-                                                                            <div class="flex w-full items-center">
-                                                                                <div class="mx-2 leading-6">@item.fullname</div>
-                                                                            </div>
-                                                                            <p>@item.email</p>
-                                                                        </div>
-                                                                    </div>
-                                                            }
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!--    <form method="post" action="@Url.Action("LeaveTeam", "Teams", new { user_id = user_id, team_id = @team.id })">-->
-                                          
-                                            <div class="form-group right-0 mt-4 mb-4 mr-4 fixed">
-                                                <input type="submit" value="Create" onclick="submitForm('/Teams/EditTeam')" class="m1 auto bg-indigo-500 px-3.5 py-2.5 text-white rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
-                                                <button type="submit" onclick="submitForm('@Url.Action("LeaveTeam", "Teams")', '@user_id', '@team.id')" class="m1 auto bg-indigo-500 px-3.5 py-2.5 text-white rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Leave Team</button>
-                                            </div>
-                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -227,13 +214,11 @@
 
                 <script>
                     function submitForm(action, userId, teamId) {
-                        
                         var form = document.getElementById('Team_Edit_Leave');
-                        form.action = `${action}/user_id=${userId}&team_id=${teamId}`;
+                        form.action = `${action}?user_id=${userId}&team_id=${teamId}`;
                         console.log(form.action);
-                        console.log(userId);
-                        console.log(teamId);
                         form.submit(form.action);
+
                     }
                 </script>
                 <li class="col-span-1 flex rounded-md shadow-sm">
@@ -278,7 +263,7 @@
                             <div class="mt-2 mb-2">
                                 <label for="tenant_id" class="text-gray-700 block text-sm font-medium"></label>
 
-                                <input type="hidden" value="@tenant_id"name="tenant_id" id="tenant_id" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                <input type="hidden" value="@tenant_id" name="tenant_id" id="tenant_id" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                             </div>
                             <div class="mt-2 mb-2">
                                 <label for="Users_Teams" class="text-gray-700 block text-sm font-medium"></label>
@@ -295,7 +280,7 @@
                                     Close
                                 </button>
                                 <div class="py-1"></div>
-                                <button id="createTeamButton" type="submit" onclick="CreateTeam()" class="border-transparent px-4 py-2 bg-indigo-600 text-white inline-flex w-full justify-center rounded-md border text-base font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
+                                <button id="createTeamButton" type="submit"  class="border-transparent px-4 py-2 bg-indigo-600 text-white inline-flex w-full justify-center rounded-md border text-base font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
                                     Create Team
                                 </button>
                             </div>

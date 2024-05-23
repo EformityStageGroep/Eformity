@@ -61,7 +61,7 @@ namespace Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Server=tcp:eformitydbserver.database.windows.net,1433;Initial Catalog=EformityDatabase;Persist Security Info=False;User ID=EFadmin;Password=2000eformity!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;.
+        ///   Looks up a localized string similar to Server=tcp:eformitydbserver2.database.windows.net,1433;Initial Catalog=EformityDatabase;Persist Security Info=False;User ID=EFadmin;Password=2000eformity!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;.
         /// </summary>
         internal static string ConnectionString {
             get {

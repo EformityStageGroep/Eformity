@@ -62,28 +62,7 @@ namespace Organizer.Controllers
             }
             return View();
         }
-        public async Task<IActionResult> LeaveTeam(string user_id, Guid team_id)
-        {
-            await _teamRepository.DeleteUserFromTeam(user_id, team_id);
-            // Call the DeleteUserFromTeam method and get whether the user was the last one in the team
-            bool isLastUser = await _teamRepository.DeleteUserFromTeam(user_id, team_id);
-            
-            // Save changes
-            await _teamRepository.SaveChangesAsync();
-
-            // If the user was the last one in the team, execute another line
-            if (isLastUser)
-            {
-                await _teamRepository.DeleteAllTasks(team_id);
-                await _teamRepository.DeleteTeam(team_id);
-                Console.WriteLine("testestststsetsts");
-            }
-
-            // Redirect to the Index action
-            return RedirectToAction(nameof(Index));
-        }
-  
-        public async Task<IActionResult> EditTeam(Guid id, [Bind("id,title,tenant_id,Users_Teams")] Entities.Team team)
+        public async Task<IActionResult> EditTeam(Guid id, [Bind("id,title,tenant_id,Users_Teams")] Entities.Team team, string user_id)
         {
             if (id != team.id)
             {
@@ -96,7 +75,7 @@ namespace Organizer.Controllers
                 {
                     Console.WriteLine($"Current tenantid EDIT: {team}");
                     await _teamRepository.EditTeam(team);
-                   
+
                     await _teamRepository.SaveChangesAsync();
                 }
                 catch (Exception)
@@ -115,6 +94,35 @@ namespace Organizer.Controllers
             Console.WriteLine($"Current tenantid EDITtt: {team}");
             return View(team);
         }
+        public async Task<IActionResult> LeaveTeam(string user_id, Guid team_id)
+        {
+            if (!ModelState.IsValid)
+            {
+                foreach (var modelError in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    Console.WriteLine($"Errorr team: {modelError.ErrorMessage}");
+                }
+            }
+            await _teamRepository.DeleteUserFromTeam(user_id, team_id);
+            // Call the DeleteUserFromTeam method and get whether the user was the last one in the team
+            bool isLastUser = await _teamRepository.DeleteUserFromTeam(user_id, team_id);
+            
+            // Save changes
+            await _teamRepository.SaveChangesAsync();
+
+            // If the user was the last one in the team, execute another line
+            if (isLastUser)
+            {
+                await _teamRepository.DeleteAllTasks(team_id);
+                await _teamRepository.DeleteTeam(team_id);
+                Console.WriteLine("testestststsetsts");
+            }
+
+            // Redirect to the Index action
+            return RedirectToAction(nameof(Teams));
+        }
+  
+       
 
         public async Task<IActionResult> Teams()
         {
