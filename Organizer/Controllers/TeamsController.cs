@@ -62,18 +62,20 @@ namespace Organizer.Controllers
             }
             return View();
         }
-        public async Task<IActionResult> EditTeam(Guid id, [Bind("id,title,tenant_id,Users_Teams")] Entities.Team team, string user_id)
+        public async Task<IActionResult> EditTeam(Guid id, [Bind("id,title,tenant_id,Users_Teams")] Entities.Team team, string user_id2)
         {
-            if (id != team.id)
+/*            if (id != team.id)
             {
                 return NotFound();
-            }
+            }*/
 
             if (ModelState.IsValid)
             {
                 try
                 {
                     Console.WriteLine($"Current tenantid EDIT: {team}");
+                    Console.WriteLine($"All IDs edited team: {user_id2}");
+
                     await _teamRepository.EditTeam(team);
 
                     await _teamRepository.SaveChangesAsync();
