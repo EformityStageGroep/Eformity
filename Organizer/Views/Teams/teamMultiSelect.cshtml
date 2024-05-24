@@ -96,7 +96,7 @@
             });
         });
     });
-
+    let clickedNamesList = [];
     function removeNameFunction(userId) {
         userClickedBorder = document.getElementById('userBorder_' + userId)
         removeButton = document.getElementById('removeNameButton')
@@ -106,14 +106,14 @@
         userClickedBorder.classList.remove('border-blue-700')
         userNameList.classList.add('border-transparent')
 
-        var index = clickedNamesList.indexOf(userId.toString());
+        var index = clickedNamesList.indexOf(userId.toString()); 
         if (index !== -1) {
             clickedNamesList.splice(index, 1);  // Remove the item at the found index
         }
         console.log(clickedNamesList);
     }
 
-    let clickedNamesList = [];
+    
 
     function updateClickedUsersDisplay() {
         const displayElement = document.getElementById('clickedUsersList');
