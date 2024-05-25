@@ -1,4 +1,4 @@
-@model ParentViewModel
+﻿@model ParentViewModel
 
 @Html.Partial("../Home/Homepage")
 <div class="mt-4 flex justify-end">
@@ -36,8 +36,8 @@
                                                 <div class="ml-3 flex items-center">
                                                 </div>
                                             </div>
-                                            <button onclick="toggleSlideover('@task.id')" type="button" class="p-1 bg-white text-gray-400 font-sm h-0 relative cursor-pointer rounded-md text-xs hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                                                <span class="-inset-2.5 absolute"></span>
+                                            <button onclick="toggleSlideover('@task.id')" type="button" class="p-1 bg-white text-gray-400 font-sm relative cursor-pointer rounded-md text-xs hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                                                <span class=""></span>
                                                 <span class="sr-only">Close panel</span>
                                                 <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -70,7 +70,7 @@
                                             <div class="form-group mb-3">
                                                 <label asp-for="@task.priority" class="control-label">Priority</label>
                                                 <p class="text-gray-500 text-sm">What priority would you like to set the post-it to?</p>
-                                                <select asp-for="@task.priority" class="hover:cursor-pointer mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                                <select asp-for="@task.priority" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm hover:cursor-pointer focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                                     <option value="high">High</option>
                                                     <option value="medium">Medium</option>
                                                     <option value="low">Low</option>
@@ -80,13 +80,13 @@
                                             <div class="form-group mb-3">
                                                 <label asp-for="@task.datetime" class="control-label"></label>
                                                 <p class="text-gray-500 text-sm">Set the date and time this task is due for</p>
-                                                <input asp-for="@task.datetime" class="hover:cursor-pointer mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                                <input asp-for="@task.datetime" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm hover:cursor-pointer focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                                 <span asp-validation-for="@task.datetime" class="text-danger"></span>
                                             </div>
                                             <input type="hidden" asp-for="@task.selectstatus" />
                                             <div class="form-group right-0 mt-4 mb-4 mr-4 fixed">
-                                                <input type="submit" value="Save" class="hover:cursor-pointer m1 auto bg-indigo-500 px-3.5 py-2.5 text-white rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" onclick="updateTask()">
-                                                <button type="button" class="hover:cursor-pointer m1 auto bg-indigo-500 px-3.5 py-2.5 text-white rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" onclick="deleteTask('@task.id')">Delete</button>
+                                                <input type="submit" value="Save" class="m1 auto bg-indigo-500 px-3.5 py-2.5 text-white rounded-md text-sm font-semibold shadow-sm hover:cursor-pointer hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" onclick="updateTask()">
+                                                <button type="button" class="m1 auto bg-indigo-500 px-3.5 py-2.5 text-white rounded-md text-sm font-semibold shadow-sm hover:cursor-pointer hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" onclick="deleteTask('@task.id')">Delete</button>
                                             </div>
                                         </form>
                                     </div>
