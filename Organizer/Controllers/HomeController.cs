@@ -7,13 +7,13 @@ using System.Diagnostics;
 
 namespace Organizer.Controllers
 {
- 
+
     [Authorize]
     public class HomeController : Controller
     {
 
         SqlConnection con = new SqlConnection();
-       // List<Databron> Databronnen = new List<Databron>();
+        // List<Databron> Databronnen = new List<Databron>();
         private readonly ITasksRepository _tasksRepository;
 
         public HomeController(ITasksRepository tasksRepository)
@@ -21,7 +21,7 @@ namespace Organizer.Controllers
             _tasksRepository = tasksRepository;
             con.ConnectionString = Properties.Resources.ConnectionString;
         }
-      
+
         [Authorize(Roles = "SuperAdmin,Tasks")]
         public IActionResult Index()
         {
@@ -30,13 +30,13 @@ namespace Organizer.Controllers
 
         public async Task<IActionResult> Homepage()
         {
-           var ParentViewModel = await _tasksRepository.ParentViewModel("Homepage");
+            var ParentViewModel = await _tasksRepository.ParentViewModel("Homepage");
 
             // Return the view with the model
             return View(ParentViewModel);
         }
 
-        
+
         [AllowAnonymous]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -43,6 +43,16 @@
                                 <input id="assign_task" name="assign_task" class="form-check-input mr-2 mb-1" type="checkbox" value="true">Assign Task</input>
                                 <span for="assign_task" class="text-danger"></span>
                             </div>
+                            <div class="form-group">
+                                <label for="usermanagement" class="control-label"></label>
+                                <input id="usermanagement" name="usermanagement" class="form-check-input mr-2 mb-1" type="checkbox" value="true">usermanagement</input>
+                                <span for="usermanagement" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="create_task" class="control-label"></label>
+                                <input id="create_task" name="create_task" class="form-check-input mr-2 mb-1" type="checkbox" value="true">Create Task</input>
+                                <span for="create_task" class="text-danger"></span>
+                            </div>
                         </div>
                         <div class="py-3 mt-4 sm:px-6 sm:flex sm:flex-row-reverse">
                             <button onclick="toggleCreateRoleModal()" id="closeModalButton" type="button" class="border-transparent px-4 py-2 bg-indigo-600 text-white inline-flex w-full justify-center rounded-md border text-base font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
@@ -130,6 +140,16 @@
                                                                     <input asp-for="@edit.assign_task" name="assign_task" class="form-control" />
                                                                     <span asp-validation-for="@edit.assign_task" class="text-danger"></span>
                                                                 </div>
+                                                                <div class="form-group">
+                                                                    <label asp-for="@edit.usermanagement" class="control-label"></label>
+                                                                    <input asp-for="@edit.usermanagement" name="usermanagement" class="form-control" />
+                                                                    <span asp-validation-for="@edit.usermanagement" class="text-danger"></span>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label asp-for="@edit.create_task" class="control-label"></label>
+                                                                    <input asp-for="@edit.create_task" name="create_task" class="form-control" />
+                                                                    <span asp-validation-for="@edit.create_task" class="text-danger"></span>
+                                                                </div>
                                                                 <div type="hidden" class="form-group hidden">
                                                                     <label asp-for="@edit.tenant_id" type="hidden" class="control-label"></label>
                                                                     <input asp-for="@edit.tenant_id" type="hidden" name="tenant_id" value="@tenantid" class="form-control" />
@@ -170,16 +190,6 @@
 
                                     </div>
 
-                                    <!-- Right-aligned buttons -->
-                                    <div class="space-x-3 flex sm:space-x-4">
-                                    <button onclick="document.getElementById('editForm').submit();" form="editRoleForm" id="saveModalButton" type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                    Save
-                                    </button>
-                                        <button onclick="toggleEditRoleModal('@edit.id')" id="closeModalButton" type="button"
-                                                class="px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                            Go Back
-                                        </button>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -190,7 +200,6 @@
     </div>
 
 }
-
 
 
 
@@ -283,10 +292,10 @@
             {
                 <tr class="border-b hover:bg-gray-100">
                     <td class="p-3 px-5">
-                        <input type="text" value="@item.fullname" class="bg-transparent border-gray-300 py-2 border-b-2 border-l-0 border-r-0 border-t-0">
+                        <p1 class="bg-transparent border-gray-300 py-2 w-100 border-r-0 border-t-0">@item.fullname</p1>
                     </td>
                     <td class="p-3 px-5">
-                        <input type="text" value="@item.email" class="bg-transparent border-gray-300 py-2 w-100 border-b-2 border-l-0 border-r-0 border-t-0">
+                        <p1 class="bg-transparent border-gray-300 py-2 w-100 border-r-0 border-t-0">@item.email</p1>
                     </td>
                     <td class="p-3 px-5">
 
@@ -309,9 +318,6 @@
                                 <div class="flex self-end">
                                     <button type="submit" class="mr-3 h-[40px] w-[75px] bg-blue-500 text-white py-1 px-2 rounded text-sm hover:bg-blue-700 focus:outline-none focus:shadow-outline">
                                         Save
-                                    </button>
-                                    <button type="button" class="bg-red-500 h-[40px] w-[75px] text-white py-1 px-2 rounded text-sm hover:bg-red-700 focus:outline-none focus:shadow-outline">
-                                        Delete
                                     </button>
                                 </div>
                             </div>

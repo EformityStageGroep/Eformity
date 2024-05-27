@@ -12,13 +12,13 @@ namespace Organizer.Entities
 
         public string title { get; set; }
 
-        public string description { get; set; }
+        public string? description { get; set; }
 
         public string priority { get; set; }
 
         [Display(Name = "Date & Time")]
         public DateTime datetime { get; set; }
-
+    
         public string selectstatus { get; set; }
         [ForeignKey("Tenants")]
         public string tenantid { get; set; }
@@ -36,7 +36,6 @@ namespace Organizer.Entities
 
     public class PageIdentifier
     {
-        public string PageValue { get; set; }
+        public string? PageValue { get; set; }
     }
 }
-
