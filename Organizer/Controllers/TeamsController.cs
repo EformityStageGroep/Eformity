@@ -77,6 +77,7 @@ namespace Organizer.Controllers
                     Console.WriteLine($"All IDs edited team: {user_id2}");
 
                     await _teamRepository.UpdateTeam(team.id, user_id2);
+                    await _teamRepository.EditTeam(team);
 
                     await _teamRepository.SaveChangesAsync();
                 }
