@@ -15,7 +15,6 @@
         Task<List<Entities.Team>> GetTeamsByUser();
         Task<List<Entities.Team>> GetUsersByTeam();
         Task UpdateTeam(Guid teamId, string userIdsString);
-
-
+      
     }
 }
