@@ -1,7 +1,4 @@
-﻿using Organizer.Services.Interfaces;  // This imports the ITeamService interface
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Organizer.Repositories;
+﻿using Organizer.Repositories;
 using Organizer.Models;  // Ensure this is where ParentViewModel is defined
 
 namespace Organizer.Services

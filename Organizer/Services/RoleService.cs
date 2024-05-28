@@ -1,7 +1,5 @@
 ﻿using Organizer.Repositories;
 using Organizer.Entities;
-using System;
-using System.Threading.Tasks;
 
 namespace Organizer.Services
 {

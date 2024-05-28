@@ -1,5 +1,4 @@
 ﻿using Organizer.Contexts;
-using Organizer.Entities;
 
 namespace Organizer.Services
 {
