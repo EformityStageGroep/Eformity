@@ -16,16 +16,15 @@
 {
     DateTime taskDateTime = task.datetime;
     DateTime currentDateTime = DateTime.Now;
+    DateTime PastDateTime = DateTime.Now;
+
     // Calculate the difference between the current time and the task time
     TimeSpan timeDifference = currentDateTime.Subtract(taskDateTime);
 
-    // Get total hours as a double
     double totalHours = timeDifference.TotalHours;
 
-    // If you need the total hours as an integer
     int hours = (int)totalHours;
 
-    // Check if the difference is 24 hours or less
     if (timeDifference.TotalHours >= -24 && timeDifference.TotalHours < 0 && task.selectstatus != "Done")
     {
         amountLessThanDay += 1;
@@ -53,7 +52,6 @@ else
 }
 
 <div class="mt-3 max-w-7xl">
-    <!-- We've used 3xl here, but feel free to try other max-widths based on your needs -->
     <div class="border-gray p-4 max-w-3xl border">
         <p class="mb-4">
             Welcome to the Eformity Planner app—streamline task management and team collaboration. Manage, assign, and track projects effortlessly in one intuitive platform
