@@ -11,9 +11,7 @@ namespace Organizer.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-
         SqlConnection con = new SqlConnection();
-        // List<Databron> Databronnen = new List<Databron>();
         private readonly ITasksRepository _tasksRepository;
 
         public HomeController(ITasksRepository tasksRepository)
@@ -35,7 +33,6 @@ namespace Organizer.Controllers
             // Return the view with the model
             return View(ParentViewModel);
         }
-
 
         [AllowAnonymous]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

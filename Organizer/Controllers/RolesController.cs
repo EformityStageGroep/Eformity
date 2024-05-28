@@ -1,10 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Organizer.Entities;
 using Organizer.Repositories;
-using Organizer.Models;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Organizer.Controllers
 {
@@ -14,7 +10,6 @@ namespace Organizer.Controllers
         private readonly ITeamsRepository _teamRepository;
         private readonly IUserRepository _userRepository;
         private readonly ITasksRepository _tasksRepository;
-
 
         public RolesController(IRoleRepository roleRepository, ITeamsRepository teamRepository, IUserRepository userRepository, ITasksRepository tasksRepository)
         {
@@ -27,7 +22,6 @@ namespace Organizer.Controllers
         // GET: Roles
         public async Task<IActionResult> Index()
         {
-
             var ParentViewModel = await _tasksRepository.ParentViewModel("Roles");
 
             return View(ParentViewModel);
@@ -91,13 +85,6 @@ namespace Organizer.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, [Bind("id,title,create_team,assign_task,create_task,usermanagement,tenant_id")] Role role)
         {
-            Console.WriteLine($"Role ID: {role.id}");
-            Console.WriteLine($"Title: {role.title}");
-            Console.WriteLine($"Create Team: {role.create_team}");
-            Console.WriteLine($"Assign Task: {role.assign_task}");
-            Console.WriteLine($"Tenant ID: {role.tenant_id}");
-            Console.WriteLine("dit is de ID: " + id);
-
             if (id != role.id)
             {
                 return NotFound();

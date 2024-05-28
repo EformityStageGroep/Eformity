@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Organizer.Contexts;
 using Organizer.Services;
-using System.Linq;
 
 namespace Organizer.Repositories
 {
@@ -20,7 +19,6 @@ namespace Organizer.Repositories
         }
         public async Task CreateTeam(Entities.Team team)
         {
-
             team.tenant_id = _currentTenantService.tenantid;
 
             // Check if a team with the same ID already exists in the database
@@ -85,7 +83,6 @@ namespace Organizer.Repositories
                 {
                     await DeleteUserFromTeam(userId, teamId);
                     usersDeletedCount++; // Increment the count of deleted users
-
                 }
             }
             if (usersDeletedCount == currentUsers.Count)
@@ -93,7 +90,6 @@ namespace Organizer.Repositories
                 await DeleteAllTasks(teamId);
                 await DeleteTeam(teamId);
                 Console.WriteLine("All users deleted. Deleting all tasks and team.");
-
             }
             // Save changes to the database 10d3a1b6-babf-4261-aae8-794a710d675a 102 41
             _context.SaveChanges();
@@ -120,7 +116,6 @@ namespace Organizer.Repositories
                 // Return whether the user was the last one in the team
                 return remainingUsersInTeam == 0;
             }
-
             // Return false if no entry was found
             return false;
         }
@@ -129,11 +124,6 @@ namespace Organizer.Repositories
             var team = await _context.Teams.FindAsync(team_id);
             _context.Teams.Remove(team);
             await _context.SaveChangesAsync();
-        }
-
-        public async Task DeleteTasksFromUser(string user_id, Guid team_id)
-        {
-
         }
 
         public async Task<List<Entities.Team>> GetUsersByTeam()
@@ -174,7 +164,6 @@ namespace Organizer.Repositories
                 Console.WriteLine(); // Add a blank line for readability between teams
             }
             return teams;
-
         }
 
         public async Task DeleteAllTasks(Guid teamid)

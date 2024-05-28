@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Organizer.Entities
@@ -26,7 +24,6 @@ namespace Organizer.Entities
         {
             Users_Teams = new HashSet<UserTeam>();
         }
-
         public virtual ICollection<UserTeam> Users_Teams { get; set; }
     }
 }

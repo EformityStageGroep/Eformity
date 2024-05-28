@@ -2,9 +2,6 @@
 using Organizer.Contexts;
 using Organizer.Entities;
 using Organizer.Services;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Task = System.Threading.Tasks.Task;
 
 namespace Organizer.Repositories
@@ -25,7 +22,6 @@ namespace Organizer.Repositories
         public async Task<List<Role>> GetAllRolesAsync()
         {
             var tenantId = _currentTenantService.tenantid;
-          
             var roles = await _context.Roles.Where(t => t.tenant_id == tenantId).ToListAsync();
             return roles;
         }
@@ -88,8 +84,6 @@ namespace Organizer.Repositories
                 await _context.SaveChangesAsync();
             }
         }
-
-
     }
 }
 

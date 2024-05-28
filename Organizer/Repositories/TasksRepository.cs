@@ -4,7 +4,6 @@ using Organizer.Entities;
 using Organizer.Models;
 using Organizer.Services;
 
-
 namespace Organizer.Repositories
 {
     public class TasksRepository : ITasksRepository
@@ -45,12 +44,10 @@ namespace Organizer.Repositories
             var tasks = await _context.Task.Where(t => t.tenantid == tenantId).ToListAsync();
             var Users = await _context.Task.Where(t => t.userid == userid).ToListAsync();
             // Debugging: Print the fetched tasks
-
             return task;
         }
         public async Task<List<Entities.Task>> GetTaskIdsByUser()
         {
-
             var userId = _currentUserService.userid;
             Console.WriteLine(userId);
             // Find the user in the database
@@ -65,7 +62,6 @@ namespace Organizer.Repositories
             }
 
             // Extract teams from the join table and return them
-
             Console.WriteLine(Users);
             if (Users.Count > 0)
             {
@@ -109,7 +105,6 @@ namespace Organizer.Repositories
             viewModel.PageValue = pageValue;
             if(pageValue == "Users")
             {
-
                 var model = new ParentViewModel
                 {
                     CurrentUser = currentuser,
@@ -135,8 +130,6 @@ namespace Organizer.Repositories
                 };
                 return model;
             }
-           
-            
         }
         public async System.Threading.Tasks.Task Delete(Guid id)
         {
@@ -149,7 +142,5 @@ namespace Organizer.Repositories
         {
             return await _context.SaveChangesAsync();
         }
-
-
     }
 }

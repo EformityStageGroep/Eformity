@@ -18,9 +18,7 @@ namespace Organizer.Controllers
         private readonly IUserRepository _userRepository;
         private readonly ITasksRepository _tasksRepository;
 
-
         public UsersController(ITeamsRepository teamRepository, IRoleRepository roleRepository, IUserRepository userRepository, ITasksRepository tasksRepository, ICurrentTenantService currentTenantService)
-
         {
             _teamRepository = teamRepository;
             _roleRepository = roleRepository;
@@ -43,7 +41,6 @@ namespace Organizer.Controllers
             }
         }
 
-
         // GET: Users/Details/5
         public async Task<IActionResult> Details(string id)
         {
@@ -51,7 +48,6 @@ namespace Organizer.Controllers
             {
                 return NotFound();
             }
-
             return View();
         }
         [HttpPost]
@@ -100,7 +96,6 @@ namespace Organizer.Controllers
 
             if (ModelState.IsValid)
             {
-
                 try
                 {
                     await _userRepository.Edit(user);
@@ -112,8 +107,6 @@ namespace Organizer.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-
-
             return View(user);
         }
 
@@ -129,7 +122,6 @@ namespace Organizer.Controllers
 
         public async Task<IActionResult> CompanyAdminDashboard()
         {
-           
             // Check if the role exists, if not, create it
             if (!await _roleRepository.RoleExistsAsync("Default"))
             {
@@ -143,16 +135,13 @@ namespace Organizer.Controllers
                     create_team = true,
                     assign_task = true
                 };
-
                 await _roleRepository.CreateRoleAsync(role);
             }
 
             var ParentViewModel = await _tasksRepository.ParentViewModel("Dashboard");
 
-
             // Return the view with the model
             return View(ParentViewModel);
-
         }
 
 

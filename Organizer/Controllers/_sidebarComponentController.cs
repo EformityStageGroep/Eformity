@@ -24,8 +24,5 @@ namespace Organizer.Controllers
 
             return View(ParentViewModel);
         }
-
     }
-
-
 }

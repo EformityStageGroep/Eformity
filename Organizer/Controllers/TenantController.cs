@@ -6,7 +6,6 @@ namespace Organizer.Controllers
     public class TenantController : Controller
     {
         [Authorize(Roles = "SuperAdmin,Tasks")]
-
         public ActionResult Dashboard()
         {
             if (User.IsInRole("SuperAdmin"))

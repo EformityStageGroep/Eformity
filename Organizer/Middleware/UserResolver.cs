@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Organizer.Services;
-using System.Linq;
+﻿using Organizer.Services;
 
 namespace Organizer.Middleware
 {
@@ -21,7 +19,6 @@ namespace Organizer.Middleware
             {
                 currentUserService.userid = UserClaim.Value; // Set userid based on tid claim
             }
-
             await _next(context);
         }
     }

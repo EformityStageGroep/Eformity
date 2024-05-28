@@ -120,12 +120,9 @@ namespace Organizer.Controllers
                 await _teamRepository.DeleteTeam(team_id);
                 Console.WriteLine("testestststsetsts");
             }
-
             // Redirect to the Index action
             return RedirectToAction(nameof(Teams));
         }
-
-
 
         public async Task<IActionResult> Teams()
         {

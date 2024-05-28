@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Organizer.Entities
@@ -18,20 +17,18 @@ namespace Organizer.Entities
 
         [Display(Name = "Date & Time")]
         public DateTime datetime { get; set; }
-    
+
         public string selectstatus { get; set; }
+
         [ForeignKey("Tenants")]
         public string tenantid { get; set; }
+
         [ForeignKey("Users")]
         public string userid { get; set; }
+
         public Guid? teamid { get; set; }
 
-
-
-
-
         public Task() => id = Guid.NewGuid();
-
     }
 
     public class PageIdentifier

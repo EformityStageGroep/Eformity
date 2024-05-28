@@ -1,5 +1,4 @@
-﻿
-using Organizer.Models;
+﻿using Organizer.Models;
 
 namespace Organizer.Services
 {

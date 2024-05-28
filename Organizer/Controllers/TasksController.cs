@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Organizer.Contexts;
 using Organizer.Repositories;
 using Organizer.Attributes;
 
@@ -11,7 +10,6 @@ namespace Organizer.Controllers
         private readonly IUserRepository _userRepository;
         private readonly ITasksRepository _taskRepository;
         private readonly ITasksRepository _tasksRepository;
-        private readonly OrganizerContext _context;
 
         public TasksController(ITeamsRepository teamRepository, IUserRepository userRepository, ITasksRepository tasksRepository)
         {
@@ -54,7 +52,6 @@ namespace Organizer.Controllers
                 }
             }
             return View(task); // Return the same view if ModelState is invalid
-            
         }
         [HttpPost]
         public async Task<IActionResult> EditTask(Guid id, [Bind("id,title,description,priority,datetime,selectstatus,tenantid,userid,teamid")] Entities.Task task)
