@@ -156,7 +156,6 @@ namespace Organizer.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> SaveUserRole(string userId, Guid roleId)
         {
             try

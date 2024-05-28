@@ -311,37 +311,33 @@
         // Get the CSRF token from the form
         const csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
 
+        // Check if the token is retrieved correctly
+        if (!csrfToken) {
+            console.error('CSRF token not found.');
+            return;
+        }
+
         // Send a POST request with the task ID and CSRF token
         fetch(`/Roles/Delete/${roleId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'RequestVerificationToken': csrfToken // Include CSRF token in the headers
-            }
+                'X-RequestVerificationToken': csrfToken // Correct header name
+            },
+            body: JSON.stringify({ roleId }) // Include the roleId in the body
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to delete task');
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Task deleted successfully, you can perform any necessary actions (e.g., hide task element)
-            // For simplicity, let's reload the page
-            location.reload();
-        })
-        .catch(error => {
-            console.error('Error deleting roles:', error);
-            // Handle error scenario
-        });
-        setTimeout(() => {
-            location.reload();
-        }, 300);
-
-        document.addEventListener('DOMContentLoaded', function() {
-            var modalManageRole = document.getElementById('manageRoleModal');
-            modalManageRole.classList.toggle('hidden');
-        });
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     }
 
     function toggleEditRoleModal(roleId) {
