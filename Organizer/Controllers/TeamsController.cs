@@ -106,10 +106,10 @@ namespace Organizer.Controllers
                     Console.WriteLine($"Errorr team: {modelError.ErrorMessage}");
                 }
             }
-            await _teamRepository.DeleteUserFromTeam(user_id, team_id);
+            //await _teamRepository.DeleteUserFromTeam(user_id, team_id);
             // Call the DeleteUserFromTeam method and get whether the user was the last one in the team
             bool isLastUser = await _teamRepository.DeleteUserFromTeam(user_id, team_id);
-
+            Console.WriteLine(isLastUser);
             // Save changes
             await _teamRepository.SaveChangesAsync();
 

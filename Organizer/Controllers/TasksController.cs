@@ -9,14 +9,12 @@ namespace Organizer.Controllers
         private readonly ITeamsRepository _teamRepository;
         private readonly IUserRepository _userRepository;
         private readonly ITasksRepository _taskRepository;
-        private readonly ITasksRepository _tasksRepository;
-
+       
         public TasksController(ITeamsRepository teamRepository, IUserRepository userRepository, ITasksRepository tasksRepository)
         {
             _teamRepository = teamRepository;
             _userRepository = userRepository;
             _taskRepository = tasksRepository;
-            _tasksRepository = tasksRepository;
         }
         // GET: Tasks
         public async Task<IActionResult> Index()
@@ -26,7 +24,8 @@ namespace Organizer.Controllers
         // GET: Tasks/Details/5
         public async Task<IActionResult> TasksDashboard()
         {
-            var ParentViewModel = await _tasksRepository.ParentViewModel("Tasks");
+            await _taskRepository.GetTasksAsync();
+            var ParentViewModel = await _taskRepository.ParentViewModel("Tasks");
 
             return View(ParentViewModel);
         }

@@ -99,7 +99,7 @@ namespace Organizer.Repositories
             // Find the user-team relationship entry based on both user_id and team_id
             var userTeamEntry = await _context.Users_Teams
                 .FirstOrDefaultAsync(ut => ut.user_id == user_id && ut.team_id == team_id);
-
+            Console.Write(userTeamEntry);
             // Check if the entry was found
             if (userTeamEntry != null)
             {
@@ -112,7 +112,7 @@ namespace Organizer.Repositories
                 // Check if the user is the last one in the team
                 int remainingUsersInTeam = await _context.Users_Teams
                     .CountAsync(ut => ut.team_id == team_id);
-
+                Console.WriteLine("Usersleft: " + remainingUsersInTeam);
                 // Return whether the user was the last one in the team
                 return remainingUsersInTeam == 0;
             }
