@@ -383,7 +383,12 @@
         function statusDropDown(event, taskId) {
             event.stopPropagation()
         }
-
+        function updateTaskWhenLoaded() {
+            setTimeout(() => {
+                location.reload();
+            }, 300); // 1000 milliseconds = 1 second
+        }
+                })
         function toggleSlideover(taskId) {
             console.log('passed slideover')
             document.getElementById("slideoverModal_" + taskId).classList.toggle('invisible');
