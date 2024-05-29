@@ -36,7 +36,7 @@ namespace Organizer.Repositories
 
             var task = await _context.Task
                 .Where(t => t.tenantid == tenantId) // Filter by tenantId
-                .Where(t => t.userid == userid || t.userid == null) // Filter by userId
+                .Where(t => t.userid == userid || t.userid == "UserId") // Filter by userId
                 .Where(t => userTeams.Contains((Guid)t.teamid) || t.teamid == null) // Filter by teams user belongs to, including the specific team, and tasks with null TeamId
                 .ToListAsync();
           
