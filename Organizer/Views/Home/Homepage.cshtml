@@ -50,10 +50,6 @@
                             <input type="hidden" id="tenantid" name="tenantid" value="@tenantid">
                         </div>
                         <div class="mt-2">
-                            <label for="userid" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
-                            <input type="hidden" id="userid" name="userid" value="UserId">
-                        </div>
-                        <div class="mt-2">
                             <label for="title" class="text-gray-700 block text-sm font-medium">Title</label>
                             <input type="text" name="title" id="title" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                         </div>
@@ -103,6 +99,10 @@
                         <div class="mt-2">
                             <label for="selectstatus" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
                             <input type="hidden" id="selectstatus" name="selectstatus" value="To Do">
+                        </div>
+                        <div class="mt-2">
+                            <label for="userid" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
+                            <input type="hidden" id="userid" name="userid" value="UserId">
                         </div>
 
                         <div class="px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
@@ -172,7 +172,7 @@
     function handleTeamChange(value) {
         console.log("test value")
         var assigneeContainer = document.getElementById('assignee-container');
-       
+
         if (value) {
             assigneeContainer.classList.add("hidden");
         } else {
@@ -185,7 +185,7 @@
         handleTeamChange(document.getElementById('teamid').value);
     });
 
-  
+
     function updateUserId(selectedValue) {
         document.getElementById('userid').value = selectedValue;
         console.log("Selected assignee ID12:", selectedValue);
