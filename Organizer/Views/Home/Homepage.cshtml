@@ -49,7 +49,10 @@
                             <label for="tenantid" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
                             <input type="hidden" id="tenantid" name="tenantid" value="@tenantid">
                         </div>
-
+                        <div class="mt-2">
+                            <label for="userid" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
+                            <input type="hidden" id="userid" name="userid" value="">
+                        </div>
                         <div class="mt-2">
                             <label for="title" class="text-gray-700 block text-sm font-medium">Title</label>
                             <input type="text" name="title" id="title" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
@@ -75,24 +78,24 @@
                                     <option value="@teams.id">@teams.title</option>
                                 }
                             </select>
-                        </div>
-                        @if (await HttpContextAccessor.HttpContext.HasRolePropertyAsync("assign_task"))
-                        {
-                            <div class="mt-2">
-                                <label for="userid" class="text-gray-700 block text-sm font-medium">Assignee</label>
-                                <select onchange="updateUserId(this.value)" id="userid" name="userid" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                    <option value="@userid">You</option>
-                                    @foreach (var users in Model.Users)
-                                    {
-                                        if (users.id != userid)
+
+                            @if (await HttpContextAccessor.HttpContext.HasRolePropertyAsync("assign_task"))
+                            {
+                                <div id="assignee-container" class="mt-2 ">
+                                    <label for="userid" class="text-gray-700 block text-sm font-medium">Assignee</label>
+                                    <select onchange="updateUserId(this.value)" id="userid" name="userid" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                        <option value="@userid">You</option>
+                                        @foreach (var users in Model.Users)
                                         {
-                                            <option value="@users.id">@users.fullname</option>
+                                            if (users.id != userid)
+                                            {
+                                                <option value="@users.id">@users.fullname</option>
+                                            }
                                         }
-                                    }
-                                </select>
-                            </div>
-                        }
-                      
+                                    </select>
+                                </div>
+                            }
+                        </div>
                         <div class="mt-2">
                             <label for="datetime" class="text-gray-700 block text-sm font-medium">Date and Time</label>
                             <input type="datetime-local" id="datetime" name="datetime" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
@@ -166,12 +169,23 @@
 <!-- Content corresponding to each tab -->
 
 <script>
-
-    function handleTeamChange(selectedValue) {
-        // Do something with the selected value
-        console.log("Selected team ID12:", selectedValue);
-        // You can call another function or perform any other actions here
+    function handleTeamChange(value) {
+        console.log("test value")
+        var assigneeContainer = document.getElementById('assignee-container');
+       
+        if (value) {
+            assigneeContainer.classList.add("hidden");
+        } else {
+            assigneeContainer.classList.remove("hidden");
+        }
     }
+
+    // Initial call to handleTeamChange to set the correct visibility on page load
+    document.addEventListener('DOMContentLoaded', function () {
+        handleTeamChange(document.getElementById('teamid').value);
+    });
+
+  
     function updateUserId(selectedValue) {
         document.getElementById('userid').value = selectedValue;
         console.log("Selected assignee ID12:", selectedValue);

@@ -36,18 +36,11 @@ namespace Organizer.Repositories
 
             var task = await _context.Task
                 .Where(t => t.tenantid == tenantId) // Filter by tenantId
-                .Where(t => t.userid == userid) // Filter by userId
+                .Where(t => t.userid == userid || t.userid == null) // Filter by userId
                 .Where(t => userTeams.Contains((Guid)t.teamid) || t.teamid == null) // Filter by teams user belongs to, including the specific team, and tasks with null TeamId
                 .ToListAsync();
-            foreach (var t in task)
-            {
-                Console.WriteLine($"Task ID: {t.title}, Tenant ID: {t.tenantid}, User ID: {t.userid}, Team ID: {t.teamid}");
-            }
-
-            var tasks = await _context.Task.Where(t => t.tenantid == tenantId).ToListAsync();
-            var Users = await _context.Task.Where(t => t.userid == userid).ToListAsync();
-            // Debugging: Print the fetched tasks
-            return Users;
+          
+            return task;
         }
         public async Task<List<Entities.Task>> GetTaskIdsByUser()
         {
