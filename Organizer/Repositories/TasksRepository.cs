@@ -39,8 +39,10 @@ namespace Organizer.Repositories
             // Retrieve tasks that match the tenant ID and either belong to the user or to the user's teams
             var tasks = await _context.Task
                 .Where(t => t.tenantid == tenantId) // Filter by tenantId
-                .Where(t => t.userid == userid || userTeams.Contains((Guid)t.teamid)) // Filter by userId or teamId
+                .Where(t => t.userid == userid) // Filter by userId
+                .Where(t => userTeams.Contains((Guid)t.teamid) || t.teamid == null)
                 .ToListAsync();
+
 
             return tasks;
         }
