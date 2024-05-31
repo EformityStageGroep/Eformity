@@ -6,11 +6,6 @@
     var email = @User.FindFirst("preferred_username")?.Value;
     var fullname = @User.FindFirst("name")?.Value;
     var tenant_id = @User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
-    var role_id = "527d6362-eee6-4c25-9e96-a5fd6225dab9";
-    Console.WriteLine(userid);
-    Console.WriteLine(email);
-    Console.WriteLine(fullname);
-    Console.WriteLine(tenant_id);
 }
 
 <div class="border-gray-200 pb-5 mb-3 border-b sm:flex sm:items-center sm:justify-between">
@@ -19,20 +14,14 @@
     </div>
 </div>
 
-<div>
+    @{
+        int amountLessThanDay = 0;
+        int openTasks = 0;
+    }
 
-        @{
-            int amountLessThanDay = 0;
-            int openTasks = 0;
-
-        }
-
-        @foreach (var task in Model.Tasks)
-        {
-@*
-            <h1>@task.title: </h1>
-        <h1 class="font-bold">@task.datetime</h1>*@
-
+    @foreach (var task in Model.Tasks)
+    {
+        
         DateTime taskDateTime = task.datetime;
         DateTime currentDateTime = DateTime.Now;
         // Calculate the difference between the current time and the task time
@@ -44,26 +33,17 @@
         // If you need the total hours as an integer
         int hours = (int)totalHours;
 
-
         // Check if the difference is 24 hours or less
         if (timeDifference.TotalHours >= -24 && timeDifference.TotalHours < 0 && task.selectstatus != "Done")
         {
-
             amountLessThanDay += 1;
-
-
-            @*<text>The time difference is 24 hours or less.</text>*@
-            }
-
-        if(task.selectstatus != "Done")
-            {
-             openTasks += 1;
-
-            }
-
-            @*<h1>Timedifference: @hours hours</h1>*@
-
         }
+
+        if (task.selectstatus != "Done")
+        {
+            openTasks += 1;
+        }
+    }
 
     @if (openTasks >= 2)
     {
@@ -71,7 +51,6 @@
             <svg viewBox="0 0 24 24" class="w-6 mr-1" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path clip-rule="evenodd" d="m12 3.75c-4.55635 0-8.25 3.69365-8.25 8.25 0 4.5563 3.69365 8.25 8.25 8.25 4.5563 0 8.25-3.6937 8.25-8.25 0-4.55635-3.6937-8.25-8.25-8.25zm-9.75 8.25c0-5.38478 4.36522-9.75 9.75-9.75 5.3848 0 9.75 4.36522 9.75 9.75 0 5.3848-4.3652 9.75-9.75 9.75-5.38478 0-9.75-4.3652-9.75-9.75zm9.75-.75c.4142 0 .75.3358.75.75v3.5c0 .4142-.3358.75-.75.75s-.75-.3358-.75-.75v-3.5c0-.4142.3358-.75.75-.75zm0-3.25c-.5523 0-1 .44772-1 1s.4477 1 1 1h.01c.5523 0 1-.44772 1-1s-.4477-1-1-1z" fill="#5145CD" fill-rule="evenodd"></path></g></svg>
             You have a total of @openTasks open tasks, @amountLessThanDay of which is due today
         </h3>
-
     }
     else
     {
@@ -79,33 +58,17 @@
             <svg viewBox="0 0 24 24" class="w-6 mr-1" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path clip-rule="evenodd" d="m12 3.75c-4.55635 0-8.25 3.69365-8.25 8.25 0 4.5563 3.69365 8.25 8.25 8.25 4.5563 0 8.25-3.6937 8.25-8.25 0-4.55635-3.6937-8.25-8.25-8.25zm-9.75 8.25c0-5.38478 4.36522-9.75 9.75-9.75 5.3848 0 9.75 4.36522 9.75 9.75 0 5.3848-4.3652 9.75-9.75 9.75-5.38478 0-9.75-4.3652-9.75-9.75zm9.75-.75c.4142 0 .75.3358.75.75v3.5c0 .4142-.3358.75-.75.75s-.75-.3358-.75-.75v-3.5c0-.4142.3358-.75.75-.75zm0-3.25c-.5523 0-1 .44772-1 1s.4477 1 1 1h.01c.5523 0 1-.44772 1-1s-.4477-1-1-1z" fill="#5145CD" fill-rule="evenodd"></path></g></svg>
             You have a total of @openTasks open tasks, @amountLessThanDay of which is due today
         </h3>
-
-
     }
 
     <div class="mt-3 max-w-7xl">
         <!-- We've used 3xl here, but feel free to try other max-widths based on your needs -->
         <div class="border-gray p-4 max-w-3xl border">
-
             <p class="mb-4">
                 Welcome to the Eformity Planner app—streamline task management and team collaboration. Manage, assign, and track projects effortlessly in one intuitive platform
             </p>
             <a href="@Url.Action("TasksDashboard", "Tasks")" class="bg-indigo-600 px-3.5 py-2.5 text-white rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Go to your tasks!</a>
-
         </div>
     </div>
-
-
-@*        @foreach (var role in Model.Roles)
-        {
-            <p>@role.title</p>
-        }*@
-        <div class="w-[150px]">
-@*        <svg fill="#000000" viewBox="0 0 24 24" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M14.6,21.3c-.3.226-.619.464-.89.7H16a1,1,0,0,1,0,2H12a1,1,0,0,1-1-1c0-1.5,1.275-2.456,2.4-3.3.75-.562,1.6-1.2,1.6-1.7a1,1,0,0,0-2,0,1,1,0,0,1-2,0,3,3,0,0,1,6,0C17,19.5,15.725,20.456,14.6,21.3ZM23,15a1,1,0,0,0-1,1v3H21a1,1,0,0,1-1-1V16a1,1,0,0,0-2,0v2a3,3,0,0,0,3,3h1v2a1,1,0,0,0,2,0V16A1,1,0,0,0,23,15ZM13,12V7a1,1,0,0,0-2,0v4H8a1,1,0,0,0,0,2h4A1,1,0,0,0,13,12ZM23,2a1,1,0,0,0-1,1V5.374A12,12,0,1,0,7.636,23.182,1.015,1.015,0,0,0,8,23.25a1,1,0,0,0,.364-1.932A10,10,0,1,1,20.636,7H18a1,1,0,0,0,0,2h3a3,3,0,0,0,3-3V3A1,1,0,0,0,23,2Z"></path></g></svg>
-
-        </div>*@
-
-</div>
 
 @section Scripts {
     @{
@@ -117,35 +80,34 @@
             setTimeout(function () {
                 button.click();
             }, 100);
-            
+
         };
         const csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
-
         const formData = new FormData(taskForm);
-    
-            function deleteTask() {
-                fetch('@Url.Action("Create", "Users")', {
-                    method: 'POST', // Use POST method to send data
+
+        function deleteTask() {
+            fetch('@Url.Action("Create", "Users")', {
+                method: 'POST', // Use POST method to send data
 
                 body: formData // Convert the data object to a JSON string
+            })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Data sent successfully!');
+                        return response.json();
+                    } else {
+                        // Request failed
+                        console.error('Failed to send data');
+                    }
                 })
-                    .then(response => {
-                        if (response.ok) {
-                            console.log('Data sent successfully!');
-                            return response.json();
-                        } else {
-                            // Request failed
-                            console.error('Failed to send data');
-                        }
-                    })
-                    .then(data => {
-                        console.log(data); // Log response data
-                        // Optionally, you can update the UI or display a success message
-                    })
-                    .catch(error => {
-                        // Handle any errors that occurred during the request
-                        console.error('Error:', error);
-                    });
-            }
+                .then(data => {
+                    console.log(data); // Log response data
+                    // Optionally, you can update the UI or display a success message
+                })
+                .catch(error => {
+                    // Handle any errors that occurred during the request
+                    console.error('Error:', error);
+                });
+        }
     </script>
 }
