@@ -168,7 +168,7 @@ namespace Organizer.Repositories
 
         public async Task DeleteAllTasks(Guid teamid)
         {
-            var tasks = await _context.Task.Where(t => t.teamid == teamid).ToListAsync();
+            var tasks = await _context.Task.Where(t => t.team_id == teamid).ToListAsync();
             _context.Task.RemoveRange(tasks);
             await _context.SaveChangesAsync();
         }

@@ -38,8 +38,8 @@ namespace Organizer.Repositories
 
             // Retrieve tasks that match the tenant ID and either belong to the user or to the user's teams
             var tasks = await _context.Task
-                .Where(t => t.tenantid == tenantId) // Filter by tenantId
-                .Where(t => t.userid == userid || userTeams.Contains((Guid)t.teamid)) // Filter by userId or teamId
+                .Where(t => t.tenant_id == tenantId) // Filter by tenantId
+                .Where(t => t.user_id == userid || userTeams.Contains((Guid)t.team_id)) // Filter by userId or teamId
                 .ToListAsync();
 
             return tasks;
@@ -49,7 +49,7 @@ namespace Organizer.Repositories
             var userId = _currentUserService.userid;
             Console.WriteLine(userId);
             // Find the user in the database
-            var Users = await _context.Task.Where(t => t.userid == userId).ToListAsync();
+            var Users = await _context.Task.Where(t => t.user_id == userId).ToListAsync();
 
             Console.WriteLine(Users);
             // Check if the user is found
@@ -79,7 +79,7 @@ namespace Organizer.Repositories
         public async System.Threading.Tasks.Task Create(Entities.Task task)
         {
             task.id = Guid.NewGuid();
-            task.tenantid = _currentTenantService.tenantid; // Set tenantid
+            task.tenant_id = _currentTenantService.tenantid; // Set tenantid
             _context.Task.Add(task);
             await _context.SaveChangesAsync(); // Make sure to save changes after adding the task
         }

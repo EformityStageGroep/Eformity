@@ -21,12 +21,12 @@ namespace Organizer.Entities
         public string selectstatus { get; set; }
 
         [ForeignKey("Tenants")]
-        public string tenantid { get; set; }
+        public string tenant_id { get; set; }
 
         [ForeignKey("Users")]
-        public string? userid { get; set; }
+        public string? user_id { get; set; }
 
-        public Guid? teamid { get; set; }
+        public Guid? team_id { get; set; }
 
         public Task() => id = Guid.NewGuid();
     }
