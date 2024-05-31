@@ -21,7 +21,7 @@
     <div class="divide-gray-100 grid sm:grid-cols-1 xl:grid-cols-2">
         @foreach (var task in Model.Tasks)
         {
-            <div id="slideoverDiv_@task.id" data-team-id="@task.teamid" data-postit-id="@task.id">
+            <div id="slideoverDiv_@task.id" data-team-id="@task.team_id" data-postit-id="@task.id">
                 <div data-prefix="slideover" id="slideoverModal_@task.id" class="invisible relative z-50 transition-all duration-300 ease-out" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
 
                     <div class="inset-0 absolute overflow-hidden">
@@ -50,9 +50,9 @@
                                         <form id="MyForm" asp-action="EditTask" asp-route-id="@task.id">
                                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                             <input type="hidden" asp-for="@task.id" />
-                                            <input type="hidden" asp-for="@task.tenantid" />
-                                            <input type="hidden" asp-for="@task.userid" />
-                                            <input id="teamLabel_@task.teamid" value="@task.teamid" type="hidden" asp-for="@task.teamid" />
+                                            <input type="hidden" asp-for="@task.tenant_id" />
+                                            <input type="hidden" asp-for="@task.user_id" />
+                                            <input id="teamLabel_@task.team_id" value="@task.team_id" type="hidden" asp-for="@task.team_id" />
 
                                             <div class="form-group">
 
@@ -95,7 +95,7 @@
                         </div>
                     </div>
                 </div>
-                <div data-team-id="@task.teamid" data-postit-id="@task.id" id="postit_@task.id" name="postit_@task.teamid" class="border-gray-100 border">
+                <div data-team-id="@task.team_id" data-postit-id="@task.id" id="postit_@task.id" name="postit_@task.team_id" class="border-gray-100 border">
                     <li class="gap-x-6 px-4 py-5 min-w-40 relative flex justify-between hover:bg-gray-50 sm:px-6">
                         <div class="min-w-0 gap-x-4 flex">
                             <div class="min-w-0 flex-auto">
@@ -110,9 +110,9 @@
                                     <form id="myForm_@task.id" asp-action="EditTask" asp-route-id="@task.id">
                                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                         <input type="hidden" asp-for="@task.id" />
-                                        <input type="hidden" asp-for="@task.tenantid" />
-                                        <input type="hidden" asp-for="@task.userid" />
-                                        <input id="teamLabel_@task.teamid" value="@task.teamid" type="hidden" asp-for="@task.teamid" />
+                                        <input type="hidden" asp-for="@task.tenant_id" />
+                                        <input type="hidden" asp-for="@task.user_id" />
+                                        <input id="teamLabel_@task.team_id" value="@task.team_id" type="hidden" asp-for="@task.team_id" />
 
                                         <input type="invisible" asp-for="@task.title" class="hidden">
                                         <span asp-validation-for="@task.title" class="text-danger"></span>

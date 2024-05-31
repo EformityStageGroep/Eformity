@@ -33,11 +33,11 @@ namespace Organizer.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [RequireRoleProperty("create_task")]
-        public async Task<IActionResult> Create([Bind("id,title,description,priority,datetime,selectstatus,tenantid,teamid,userid")] Entities.Task task)
+        public async Task<IActionResult> Create([Bind("id,title,description,priority,datetime,selectstatus,tenant_id,user_id,team_id")] Entities.Task task)
         {
             if (ModelState.IsValid)
             {
-                Console.WriteLine($"Task ID: {task.id}, Title: {task.title}, Description: {task.description}, Priority: {task.priority},  TeamId: {task.teamid},etc.");
+                Console.WriteLine($"Task ID: {task.id}, Title: {task.title}, Description: {task.description}, Priority: {task.priority},  TeamId: {task.team_id},etc.");
                 task.id = Guid.NewGuid();
                 await _taskRepository.Create(task);
                 await _taskRepository.SaveChangesAsync();
@@ -53,7 +53,7 @@ namespace Organizer.Controllers
             return View(task); // Return the same view if ModelState is invalid
         }
         [HttpPost]
-        public async Task<IActionResult> EditTask(Guid id, [Bind("id,title,description,priority,datetime,selectstatus,tenantid,userid,teamid")] Entities.Task task)
+        public async Task<IActionResult> EditTask(Guid id, [Bind("id,title,description,priority,datetime,selectstatus,tenant_id,user_id,team_id")] Entities.Task task)
         {
             if (ModelState.IsValid)
             {
