@@ -1,113 +1,17 @@
+@using Microsoft.AspNetCore.Http
+@using Organizer.Attributes
+@inject IHttpContextAccessor HttpContextAccessor
 @model ParentViewModel
+
 @{
     ViewData["title"] = "Homepage";
-
-
-    @* <div class="min-w-40 bg-white border-gray-200 mx-auto max-w-md cursor-pointer overflow-hidden border shadow-md duration-300 hover:transform hover:scale-105">
-    <div class="md:flex">
-        <div class="p-8">
-            <div class="text-indigo-500 text-sm font-semibold uppercase tracking-wide">Facebook</div>
-            <a href="#" class="mt-1 text-black block text-lg font-medium leading-tight hover:underline">Answer customer enquiries </a>
-            <p class="mt-2 text-gray-500">16:00 16-09-2024</p>
-        </div>
-    </div>
-</div>
-
- *@
-
     var tenantid = @User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
-    Console.WriteLine(tenantid); 
     var userid = @User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
-    Console.WriteLine(userid);
 }
 
+<body onload="filterTasksWhenLoaded('Done')"></body>
 
-<body onload="filterTasksWhenLoaded('Done')">
-</body>
-@*EMPLOYEE ADMIN CREATE VIEW*@
-@if (User.IsInRole("SuperAdmin"))
-{
-    <div id="modal" class="inset-0 fixed z-50 flex hidden items-center justify-center overflow-y-auto">
-
-        <div class="inset-0 fixed transition-opacity" aria-hidden="true">
-            <div class="inset-0 bg-gray-500 absolute opacity-75"></div>
-        </div>
-        <div class="bg-white transform overflow-hidden rounded-lg shadow-xl transition-all sm:max-w-lg sm:w-full">
-            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <div class="sm:flex sm:items-start">
-                    <div class="mt-3 w-full text-center sm:mt-0 sm:ml-4 sm:text-left">
-                        <h3 class="text-gray-900 text-lg font-medium leading-6" id="modalTitle">
-                            Create Task
-                        </h3>
-                        <form asp-controller="Employee" asp-action="Create" method="post" class="mt-4">
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <div class="mt-2">
-                                <label for="tenantid" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
-                                <input type="hidden" id="tenantid" name="tenantid" value="@tenantid">
-                            </div>
-                            <div class="mt-2"> 
-                                <label for="userid" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
-                                <input type="hidden" id="userid" name="userid" value="@userid">
-                            </div>
-                            <div class="mt-2">
-                                <label for="teamid" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
-                                    <input type="hidden" id="teamid" name="teamid" value="User_task">
-                            </div>
-                            <div class="mt-2">
-                                <label for="title" class="text-gray-700 block text-sm font-medium">title</label>
-                                <input type="text" name="title" id="title" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                            </div>
-                            <div class="mt-2">
-                                <label for="description" class="text-gray-700 block text-sm font-medium">description</label>
-                                <textarea id="description" name="description" rows="3" class="p-3 mt-1 border-gray-300 block w-full rounded-md border shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
-                            </div>
-                            <div class="mt-2">
-                                <label for="priority" class="text-gray-700 block text-sm font-medium">priority</label>
-                                <select id="priority" name="priority" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                    <option value="high">High</option>
-                                    <option value="medium">Medium</option>
-                                    <option value="low">Low</option>
-                                </select>
-                            </div>
-
-                            <div class="mt-2">
-                                <label for="datetime" class="text-gray-700 block text-sm font-medium">Date and Time</label>
-                                <input type="datetime-local" id="datetime" name="datetime" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                            </div>
-                            <div class="mt-2">
-                                <label for="selectstatus" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
-                                <input type="hidden" id="selectstatus" name="selectstatus" value="To Do">
-                            </div>
-
-                            <div class="mt-2">
-                                <label for="assign" class="text-gray-700 block text-sm font-medium">Assignee</label>
-                                <select id="assign" name="assign" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                    <option value="high">High</option>
-                                    <option value="medium">Medium</option>
-                                    <option value="low">Low</option>
-                                </select>
-                            </div>
-
-                            <div class="py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                                <button id="closeModalButton" type="button" class="border-transparent px-4 py-2 bg-indigo-600 text-white inline-flex w-full justify-center rounded-md border text-base font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
-                                    Close
-                                </button>
-                                <button id="createTaskButton" type="submit" class="border-transparent px-4 py-2 bg-indigo-600 text-white inline-flex w-full justify-center rounded-md border text-base font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
-                                    Create Task
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-}
-else
-{
 <div id="modal" class="inset-0 fixed z-50 flex hidden items-center justify-center overflow-y-auto">
-
     <div class="inset-0 fixed transition-opacity" aria-hidden="true">
         <div class="inset-0 bg-gray-500 absolute opacity-75"></div>
     </div>
@@ -118,48 +22,63 @@ else
                     <h3 class="text-gray-900 text-lg font-medium leading-6" id="modalTitle">
                         Create Task
                     </h3>
-
-
-                    <form asp-controller="Employee" asp-action="Create"  method="post" class="mt-4">
+                    <form asp-controller="Tasks" asp-action="Create" method="post" class="mt-4">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="mt-2">
-                            <label for="tenantid" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
                             <input type="hidden" id="tenantid" name="tenantid" value="@tenantid">
                         </div>
                         <div class="mt-2">
-                            <label for="userid" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
                             <input type="hidden" id="userid" name="userid" value="@userid">
                         </div>
                         <div class="mt-2">
-                            <label for="teamid" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
-                            <input type="hidden" id="teamid" name="teamid" value="User_task">
-                        </div>
-                        <div class="mt-2">
-                            <label for="title" class="text-gray-700 block text-sm font-medium">@User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value</label>
+                            <label for="title" class="text-gray-700 block text-sm font-medium">Title</label>
                             <input type="text" name="title" id="title" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                         </div>
                         <div class="mt-2">
-                            <label for="description" class="text-gray-700 block text-sm font-medium">description</label>
+                            <label for="description" class="text-gray-700 block text-sm font-medium">Description</label>
                             <textarea id="description" name="description" rows="3" class="p-3 mt-1 border-gray-300 block w-full rounded-md border shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
                         </div>
                         <div class="mt-2">
-                            <label for="priority" class="text-gray-700 block text-sm font-medium">priority</label>
+                            <label for="priority" class="text-gray-700 block text-sm font-medium">Priority</label>
                             <select id="priority" name="priority" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                 <option value="high">High</option>
                                 <option value="medium">Medium</option>
                                 <option value="low">Low</option>
                             </select>
                         </div>
-
+                        <div class="mt-2">
+                            <label for="teamid" class="text-gray-700 block text-sm font-medium">Team</label>
+                            <select onchange="handleTeamChange(this.value)" id="teamid" name="teamid" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                <option value="">Personal Task</option>
+                                @foreach (var teams in Model.Teams)
+                                {
+                                    <option value="@teams.id">@teams.title</option>
+                                }
+                            </select>
+                            @if (await HttpContextAccessor.HttpContext.HasRolePropertyAsync("assign_task"))
+                            {
+                                <div id="assignee-container" class="mt-2 ">
+                                    <label for="userid" class="text-gray-700 block text-sm font-medium">Assignee</label>
+                                    <select onchange="updateUserId(this.value)" id="userid" name="userid" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                        <option value="@userid">You</option>
+                                        @foreach (var users in Model.Users)
+                                        {
+                                            if (users.id != userid)
+                                            {
+                                                <option value="@users.id">@users.fullname</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            }
+                        </div>
                         <div class="mt-2">
                             <label for="datetime" class="text-gray-700 block text-sm font-medium">Date and Time</label>
                             <input type="datetime-local" id="datetime" name="datetime" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                         </div>
                         <div class="mt-2">
-                            <label for="selectstatus" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
                             <input type="hidden" id="selectstatus" name="selectstatus" value="To Do">
                         </div>
-
                         <div class="px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                             <button id="closeModalButton" type="button" class="border-transparent px-4 py-2 bg-indigo-600 text-white inline-flex w-full justify-center rounded-md border text-base font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
                                 Close
@@ -172,23 +91,18 @@ else
                 </div>
             </div>
         </div>
-
     </div>
 </div>
-}
-
-
-
-
 
 <div class="border-gray-200 pb-5 relative border-b sm:pb-0">
     <div class="md:flex md:items-center md:justify-between">
-
         <h3 class="text-gray-900 text-base font-semibold leading-6">Tasks</h3>
-
-    <div class="">
-      <button type="button" id="openModalButton" class="ml-30 bg-indigo-600 px-3 py-2 text-white inline-flex items-center rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Create</button>
-        </div>
+        @if (await HttpContextAccessor.HttpContext.HasRolePropertyAsync("create_task"))
+        {
+            <div class="">
+                <button type="button" id="openModalButton" class="ml-30 bg-indigo-600 px-3 py-2 text-white inline-flex items-center rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Create</button>
+            </div>
+        }
     </div>
     <div class="mt-4">
         <!-- Dropdown menu on small screens -->
@@ -202,66 +116,75 @@ else
                 <option>Done</option>
             </select>
         </div>
-        
         <!-- Tabs at small breakpoint and up -->
         <div class="hidden sm:block" id="tabs">
             <nav class="justify-left -mb-px space-x-8 flex items-center">
                 <!-- Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
-                <a onclick="filterTasksByPriority('ALL', 'Done')" class="tab border-indigo-500 text-indigo-600 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:cursor-pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">All priorities</a>
-                <a onclick="filterTasksByPriority('HIGH', 'Done')" class="tab border-transparent text-gray-500 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:cursor-pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">High priority</a>
-                <a onclick="filterTasksByPriority('MEDIUM', 'Done')" class="tab border-transparent text-gray-500 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:cursor-pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">Medium priority</a>
-                <a onclick="filterTasksByPriority('LOW', 'Done')" class="tab border-transparent text-gray-500 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:cursor-pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">Low priority</a>
-                <a onclick="filterTasksByStatus('Done')" class="tab border-transparent text-gray-500 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:cursor-pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">Done</a>
+                <a onclick="combinedFilter('teamid', 'ALL', 'Done')" class="tab border-indigo-500 text-indigo-600 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:cursor-pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">All priorities</a>
+                <a onclick="combinedFilter('teamid', 'HIGH', 'Done')" class="tab border-transparent text-gray-500 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:cursor-pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">High priority</a>
+                <a onclick="combinedFilter('teamid', 'MEDIUM', 'Done')" class="tab border-transparent text-gray-500 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:cursor-pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">Medium priority</a>
+                <a onclick="combinedFilter('teamid', 'LOW', 'Done')" class="tab border-transparent text-gray-500 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:cursor-pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">Low priority</a>
+                <a onclick="filterTasksByStatus('teamid',  'Done')" class="tab border-transparent text-gray-500 px-1 pb-4 whitespace-nowrap border-b-2 text-sm font-medium hover:cursor-pointer hover:border-gray-300 hover:text-gray-700" aria-current="page">Done</a>
             </nav>
         </div>
     </div>
 </div>
 
 <!-- Content corresponding to each tab -->
+<script>
+    function handleTeamChange(value) {
+        console.log("Selected team value:", value);
+        var assigneeContainer = document.getElementById('assignee-container');
 
-@section scripts {
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const tabs = document.querySelectorAll(".tab");
-            const tabContents = document.querySelectorAll("#tab-content > div");
+        if (value) {
+            assigneeContainer.classList.add("hidden");
+        } else {
+            assigneeContainer.classList.remove("hidden");
+        }
+    }
 
-            tabs.forEach((tab, index) => {
-                tab.addEventListener("click", function (event) {
-                    event.preventDefault();
+    document.addEventListener('DOMContentLoaded', function () {
+        handleTeamChange(document.getElementById('teamid').value);
+    });
 
-                    // Remove active class from all tabs and add default styling
-                    tabs.forEach(tab => {
-                        tab.classList.remove("border-indigo-500", "text-indigo-600");
-                        tab.classList.add("border-transparent", "text-gray-500", "hover:border-gray-300", "hover:text-gray-700");
-                    });
+    function updateUserId(selectedValue) {
+        document.getElementById('userid').value = selectedValue;
+        console.log("Selected assignee ID:", selectedValue);
+    }
 
-                    // Add active styling to clicked tab
-                    tab.classList.remove("border-transparent", "text-gray-500", "hover:border-gray-300", "hover:text-gray-700");
-                    tab.classList.add("border-indigo-500", "text-indigo-600");
+    document.addEventListener("DOMContentLoaded", function () {
+        const tabs = document.querySelectorAll(".tab");
+        const tabContents = document.querySelectorAll("#tab-content > div");
 
-                    // Hide all tab contents
-                    tabContents.forEach(content => content.classList.add("hidden"));
-                    // Show corresponding tab content
-                    tabContents[index].classList.remove("hidden");
+        tabs.forEach((tab, index) => {
+            tab.addEventListener("click", function (event) {
+                event.preventDefault();
+
+                tabs.forEach(tab => {
+                    tab.classList.remove("border-indigo-500", "text-indigo-600");
+                    tab.classList.add("border-transparent", "text-gray-500", "hover:border-gray-300", "hover:text-gray-700");
                 });
+
+                tab.classList.remove("border-transparent", "text-gray-500", "hover:border-gray-300", "hover:text-gray-700");
+                tab.classList.add("border-indigo-500", "text-indigo-600");
+
+                tabContents.forEach(content => content.classList.add("hidden"));
+                tabContents[index].classList.remove("hidden");
             });
-
-            const openModalButton = document.getElementById("openModalButton");
-            const modal = document.getElementById("modal");
-            const closeModalButton = document.getElementById("closeModalButton");
-
-            openModalButton.addEventListener("click", function () {
-                modal.classList.remove("hidden");
-                modal.classList.add("flex");
-            });
-
-            closeModalButton.addEventListener("click", function () {
-                modal.classList.remove("flex");
-                modal.classList.add("hidden");
-            });
-
-            
         });
 
-    </script>
-}
+        const openModalButton = document.getElementById("openModalButton");
+        const modal = document.getElementById("modal");
+        const closeModalButton = document.getElementById("closeModalButton");
+
+        openModalButton.addEventListener("click", function () {
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+        });
+
+        closeModalButton.addEventListener("click", function () {
+            modal.classList.remove("flex");
+            modal.classList.add("hidden");
+        });
+    });
+</script>

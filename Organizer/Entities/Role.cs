@@ -1,10 +1,7 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Organizer.Entities
 {
-
     public class Role
     {
         [Key]
@@ -17,5 +14,9 @@ namespace Organizer.Entities
         public bool create_team { get; set; }
 
         public bool assign_task { get; set; }
+
+        public bool usermanagement { get; set; }
+
+        public bool create_task { get; set; }
     }
 }

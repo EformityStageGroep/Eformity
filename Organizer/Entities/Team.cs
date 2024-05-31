@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Organizer.Entities
 {
@@ -9,6 +8,7 @@ namespace Organizer.Entities
         public Guid id { get; set; }
 
         public string tenant_id { get; set; }
+
         public string title { get; set; }
 
         // Navigation property for the users associated with the team

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Organizer.Contexts;
 using Organizer.Services;
 
@@ -21,10 +20,8 @@ namespace Organizer.Repositories
         public async Task<List<Entities.User>> User()
         {
             var users = await _context.Users.ToListAsync();
-
             return users;
         }
-
 
         public async Task<List<Entities.User>> GetUserInfo()
         {
@@ -49,7 +46,6 @@ namespace Organizer.Repositories
             }
             // Return the list of user IDs
             return userIds;
-
         }
 
         public async Task<Entities.User> GetUserById(string id)
@@ -57,19 +53,8 @@ namespace Organizer.Repositories
             return await _context.Users.FindAsync(id);
         }
 
-        /*public async Task<List<Entities.Team>> InsertMultipleUsers(Entities.Team user)
-        {
-            user.id = Guid.NewGuid();
-            var userIds = await _context.Users;
-            return userIds;
-        }*/
-
-
         public async Task<List<Entities.User>> GetTasksAsync()
         {
-            var userid = _currentUserService.userid;
-
-            
             var Users = await _context.Users.ToListAsync();
             // Debugging: Print the fetched tasks
             foreach (var task in Users)
@@ -87,7 +72,6 @@ namespace Organizer.Repositories
                 // A user with the same ID already exists, throw an exception or handle the case appropriately
                 return;
             }
-
             // If the user ID does not exist, add the new user to the database
             _context.Users.Add(user);
             await _context.SaveChangesAsync(); // Make sure to save changes after adding the user
@@ -103,7 +87,6 @@ namespace Organizer.Repositories
         public async Task Delete(string? id)
         {
             var user = await _context.Users.FirstOrDefaultAsync(m => m.id == id);
-
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();
         }

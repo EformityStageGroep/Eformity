@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Organizer.Repositories;
 using Organizer.Entities;
-using Organizer.Models;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using System.Dynamic;
+using Microsoft.Graph;
 
 namespace Organizer.Controllers
 {
@@ -12,36 +9,20 @@ namespace Organizer.Controllers
     {
         private readonly ITeamsRepository _teamRepository;
         private readonly IUserRepository _userRepository;
-        private readonly IEmployeeRepository _employeeRepository;
+        private readonly ITasksRepository _tasksRepository;
 
-        public TeamsController(ITeamsRepository teamRepository, IUserRepository userRepository, IEmployeeRepository employeeRepository)
+        public TeamsController(ITeamsRepository teamRepository, IUserRepository userRepository, ITasksRepository tasksRepository)
         {
             _teamRepository = teamRepository;
             _userRepository = userRepository;
-            _employeeRepository = employeeRepository;
+            _tasksRepository = tasksRepository;
         }
         public async Task<IActionResult> Index()
         {
-            // Fetch data for the view
-            ParentViewModel mymodel = new ParentViewModel();
-           
-            List<User> users = await _userRepository.GetUserIdsByTenant();
-            List<Team> teams = await _teamRepository.GetTeamsByUser();
-            List<Entities.Task> tasks = await _employeeRepository.GetTasksAsync();
-
-            // Create the ParentViewModel and populate it with data
-            var model = new ParentViewModel
-            {
-                Users = users,
-                Teams = teams,
-                Tasks = tasks
-            };
-
-            // Return the view with the model
-            return View(model);
+            return View();
         }
-      
-        public async Task<IActionResult> CreateTeam([Bind("title, tenant_id, Users_Teams")] Team team, string user_id)
+
+        public async Task<IActionResult> CreateTeam([Bind("title, tenant_id, Users_Teams")] Entities.Team team, string user_id)
         {
             if (ModelState.IsValid)
             {
@@ -56,7 +37,6 @@ namespace Organizer.Controllers
                     foreach (var userId in users)
                     {
                         Console.WriteLine($"Number of user IDs: {users.Count}");
-
                         // Create a new UserTeam object for each user ID
                         var userTeam = new UserTeam { user_id = userId, team_id = guid };
                         Console.WriteLine(userTeam);
@@ -73,30 +53,16 @@ namespace Organizer.Controllers
                 await _teamRepository.SaveChangesAsync();
                 return RedirectToAction(nameof(Teams));
             }
-
+            if (!ModelState.IsValid)
+            {
+                foreach (var modelError in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    Console.WriteLine($"Errorr team: {modelError.ErrorMessage}");
+                }
+            }
             return View();
         }
-        public async Task<IActionResult> LeaveTeam(string user_id, Guid team_id)
-        {
-            // Call the DeleteUserFromTeam method and get whether the user was the last one in the team
-            bool isLastUser = await _teamRepository.DeleteUserFromTeam(user_id, team_id);
-
-            // Save changes
-            await _teamRepository.SaveChangesAsync();
-
-            // If the user was the last one in the team, execute another line
-            if (isLastUser)
-            {
-              
-                await _teamRepository.DeleteTeam(team_id);
-                Console.WriteLine("testestststsetsts");
-            }
-
-            // Redirect to the Index action
-            return RedirectToAction(nameof(Index));
-        }
-  
-        public async Task<IActionResult> EditTeam(Guid id, [Bind("id,title,tenant_id,Users_Teams")] Team team)
+        public async Task<IActionResult> EditTeam(Guid id, [Bind("id,title,tenant_id,Users_Teams")] Entities.Team team, string? user_id2)
         {
             if (id != team.id)
             {
@@ -108,7 +74,11 @@ namespace Organizer.Controllers
                 try
                 {
                     Console.WriteLine($"Current tenantid EDIT: {team}");
+                    Console.WriteLine($"All IDs edited team: {user_id2}");
+
+                    await _teamRepository.UpdateTeam(team.id, user_id2);
                     await _teamRepository.EditTeam(team);
+
                     await _teamRepository.SaveChangesAsync();
                 }
                 catch (Exception)
@@ -127,24 +97,41 @@ namespace Organizer.Controllers
             Console.WriteLine($"Current tenantid EDITtt: {team}");
             return View(team);
         }
+        public async Task<IActionResult> LeaveTeam(string user_id, Guid team_id)
+        {
+            if (!ModelState.IsValid)
+            {
+                foreach (var modelError in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    Console.WriteLine($"Errorr team: {modelError.ErrorMessage}");
+                }
+            }
+            //await _teamRepository.DeleteUserFromTeam(user_id, team_id);
+            // Call the DeleteUserFromTeam method and get whether the user was the last one in the team
+            bool isLastUser = await _teamRepository.DeleteUserFromTeam(user_id, team_id);
+            Console.WriteLine(isLastUser);
+            // Save changes
+            await _teamRepository.SaveChangesAsync();
+
+            // If the user was the last one in the team, execute another line
+            if (isLastUser)
+            {
+                await _teamRepository.DeleteAllTasks(team_id);
+                await _teamRepository.DeleteTeam(team_id);
+                Console.WriteLine("testestststsetsts");
+            }
+            // Redirect to the Index action
+            return RedirectToAction(nameof(Teams));
+        }
 
         public async Task<IActionResult> Teams()
         {
-            ParentViewModel mymodel = new ParentViewModel();
-            List<User> users = await _userRepository.GetUserIdsByTenant();
-            List<Team> teams = await _teamRepository.GetTeamsByUser();
+            await _teamRepository.GetUsersByTeam();
+            var ParentViewModel = await _tasksRepository.ParentViewModel("Teams");
 
-            // Create the ParentViewModel and populate it with data
-            var model = new ParentViewModel
-            {
-                Users = users,
-                Teams = teams
-            };
-
-            // Return the view with the model
-            return View(model);
+            return View(ParentViewModel);
         }
-          public IActionResult teamMultiSelectSlideover()
+        public IActionResult teamMultiSelectSlideover()
         {
             return View();
         }

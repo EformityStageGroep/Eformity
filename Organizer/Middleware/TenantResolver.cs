@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Organizer.Services;
-using System.Linq;
+﻿using Organizer.Services;
 
 namespace Organizer.Middleware
 {
@@ -21,7 +19,6 @@ namespace Organizer.Middleware
             {
                 currentTenantService.tenantid = tenantClaim.Value; // Set tenantid based on tid claim
             }
-
             await _next(context);
         }
     }

@@ -1,10 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Organizer.Entities;
 using Organizer.Repositories;
-using Organizer.Models;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Organizer.Controllers
 {
@@ -13,38 +9,22 @@ namespace Organizer.Controllers
         private readonly IRoleRepository _roleRepository;
         private readonly ITeamsRepository _teamRepository;
         private readonly IUserRepository _userRepository;
-        private readonly IEmployeeRepository _employeeRepository;
+        private readonly ITasksRepository _tasksRepository;
 
-
-        public RolesController(IRoleRepository roleRepository, ITeamsRepository teamRepository, IUserRepository userRepository, IEmployeeRepository employeeRepository)
+        public RolesController(IRoleRepository roleRepository, ITeamsRepository teamRepository, IUserRepository userRepository, ITasksRepository tasksRepository)
         {
             _teamRepository = teamRepository;
             _userRepository = userRepository;
-            _employeeRepository = employeeRepository;
+            _tasksRepository = tasksRepository;
             _roleRepository = roleRepository;
         }
 
         // GET: Roles
         public async Task<IActionResult> Index()
         {
+            var ParentViewModel = await _tasksRepository.ParentViewModel("Roles");
 
-            ParentViewModel mymodel = new ParentViewModel();
-            List<User> users = await _userRepository.GetUserIdsByTenant();
-            List<Team> teams = await _teamRepository.GetTeamsByUser();
-            List<Entities.Task> tasks = await _employeeRepository.GetTasksAsync();
-            List<Entities.Role> roles = await _roleRepository.GetAllRolesAsync();
-
-            // Create the ParentViewModel and populate it with data
-            var model = new ParentViewModel
-            {
-                Users = users,
-                Teams = teams,
-                Tasks = tasks,
-                Roles = roles
-            };
-
-            // Return the view with the model
-            return View(model);
+            return View(ParentViewModel);
         }
 
         // GET: Roles/Details/5
@@ -67,7 +47,7 @@ namespace Organizer.Controllers
         // POST: Roles/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("title,create_team,assign_task,tenant_id")] Role role)
+        public async Task<IActionResult> Create([Bind("title,create_team,assign_task,create_task,usermanagement,tenant_id")] Role role)
         {
             if (ModelState.IsValid)
             {
@@ -103,14 +83,8 @@ namespace Organizer.Controllers
         // POST: Roles/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("id,title,create_team,assign_task,tenant_id")] Role role)
+        public async Task<IActionResult> Edit(Guid id, [Bind("id,title,create_team,assign_task,create_task,usermanagement,tenant_id")] Role role)
         {
-            Console.WriteLine($"Role ID: {role.id}");
-            Console.WriteLine($"Title: {role.title}");
-            Console.WriteLine($"Create Team: {role.create_team}");
-            Console.WriteLine($"Assign Task: {role.assign_task}");
-            Console.WriteLine($"Tenant ID: {role.tenant_id}");
-
             if (id != role.id)
             {
                 return NotFound();

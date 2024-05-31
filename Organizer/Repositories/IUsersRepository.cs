@@ -11,8 +11,6 @@
         Task<List<Entities.User>> GetUserIdsByTenant();
         Task<List<Entities.User>> GetTasksAsync();
         Task<Entities.User> GetUserById(string id);
-
-        /* Task<List<Entities.User>> InsertMultipleUsers();*/
         Task<int> SaveChangesAsync();
     }
 }

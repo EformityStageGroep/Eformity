@@ -18,7 +18,7 @@ namespace Organizer.Controllers
             // Perform sign-out
             HttpContext.SignOutAsync();
             // Redirect to home page or any other page after sign-out
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("CompanyAdminDashboard", "Users");
         }
     }
 }
