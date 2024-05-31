@@ -9,12 +9,14 @@ namespace Organizer.Entities
         [Key]
         public Guid id { get; set; }
 
+        [Required]
         public string title { get; set; }
 
         public string? description { get; set; }
 
         public string priority { get; set; }
 
+        [Required]
         [Display(Name = "Date & Time")]
         public DateTime datetime { get; set; }
 

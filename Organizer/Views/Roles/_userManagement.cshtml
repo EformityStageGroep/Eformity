@@ -27,7 +27,7 @@
                             <label for="title" class="text-gray-700 block text-sm font-medium">Title</label>
                             <p class="text-gray-500 text-sm">
                                 Enter this role's name
-                            <input type="text" name="title" id="title" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <input type="text" name="title" id="title" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
                         </div>
                         <h1 class="mt-2 text-gray-700 block text-sm font-medium">Permissions</h1>
                         <p class="text-gray-500 mb-2 text-sm">Select the permission(s) you want this role to have.</p>
@@ -114,7 +114,7 @@
                                                             <div class="form-group flex">
                                                                 <div class="mt-2 mb-2">
                                                                     <label asp-for="@edit.title" for="title" class="text-gray-700 block text-sm font-medium">Team title</label>
-                                                                    <input asp-for="@edit.title" type="text" name="title" id="title" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                                                    <input asp-for="@edit.title" type="text" name="title" id="title" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
                                                                     <span asp-validation-for="@edit.title" class="text-danger"></span>
                                                                 </div>
                                                             </div>

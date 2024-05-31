@@ -9,6 +9,7 @@ namespace Organizer.Entities
 
         public string tenant_id { get; set; }
 
+        [Required]
         public string title { get; set; }
 
         // Navigation property for the users associated with the team
