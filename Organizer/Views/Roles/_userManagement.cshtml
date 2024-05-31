@@ -301,8 +301,11 @@
         </tbody>
     </table>
 </div>
-@section script{
 <script>
+    function toggleManageRoleModal() {
+        modalManageRole = document.getElementById('manageRoleModal')
+        modalManageRole.classList.toggle('hidden')
+    }
     function deleteRole(roleId) {
         // Get the CSRF token from the form
         const csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
@@ -354,10 +357,4 @@
 
         modalCreateRole.classList.toggle('hidden')
     }
-
-    function toggleManageRoleModal() {
-        modalManageRole = document.getElementById('manageRoleModal')
-        modalManageRole.classList.toggle('hidden')
-    }
 </script>
-}
