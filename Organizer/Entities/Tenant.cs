@@ -5,8 +5,9 @@ namespace Organizer.Entities
     public class Tenant
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string id { get; set; }
+
+        [Required]
         public string name { get; set; }
     }
 }

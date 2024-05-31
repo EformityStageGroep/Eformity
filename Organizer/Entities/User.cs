@@ -10,8 +10,10 @@ namespace Organizer.Entities
 
         public string tenant_id { get; set; }
 
+        [Required]
         public string fullname { get; set; }
 
+        [Required]
         public string email { get; set; }
 
         [ForeignKey("role_id")]
