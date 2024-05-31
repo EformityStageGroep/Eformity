@@ -7,8 +7,6 @@ using System.Diagnostics;
 
 namespace Organizer.Controllers
 {
-
-    [Authorize]
     public class HomeController : Controller
     {
         SqlConnection con = new SqlConnection();
@@ -20,7 +18,6 @@ namespace Organizer.Controllers
             con.ConnectionString = Properties.Resources.ConnectionString;
         }
 
-        [Authorize(Roles = "SuperAdmin,Tasks")]
         public IActionResult Index()
         {
             return View();

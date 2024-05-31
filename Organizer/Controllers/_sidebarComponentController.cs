@@ -1,4 +1,4 @@
-﻿using Organizer.Services; 
+﻿using Organizer.Services;
 using Microsoft.AspNetCore.Mvc;
 using Organizer.Repositories;
 
