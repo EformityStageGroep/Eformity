@@ -31,7 +31,6 @@
                         </div>
                         <h1 class="mt-2 text-gray-700 block text-sm font-medium">Permissions</h1>
                         <p class="text-gray-500 mb-2 text-sm">Select the permission(s) you want this role to have.</p>
-
                         <div class="grid grid-cols-2">
                             <div class="form-group">
                                 <label for="create_team" class="control-label"></label>
@@ -64,11 +63,9 @@
                             </button>
                         </div>
                     </form>
-                    
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 
@@ -99,7 +96,6 @@
                             <p class="text-gray-500 text-sm">
                                 A list of your company's created roles.
                             </p>
-
                             <div class="bg-white overflow-hidden shadow sm:rounded-md">
                                 <ul role="list" class="divide-gray-200 divide-y">
                                 </ul>
@@ -111,13 +107,9 @@
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="flex">
-
-
                                                         <form id="editRoleForm_@edit.id" asp-action="Edit" asp-route-id="@edit.id" method="post" class="flex">
-
-                                                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                                                <input type="hidden" asp-for="@edit.id" />
-
+                                                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                                            <input type="hidden" asp-for="@edit.id" />
                                                             <input type="hidden" asp-for="@edit.tenant_id" />
                                                             <div class="form-group flex">
                                                                 <div class="mt-2 mb-2">
@@ -125,11 +117,9 @@
                                                                     <input asp-for="@edit.title" type="text" name="title" id="title" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                                                     <span asp-validation-for="@edit.title" class="text-danger"></span>
                                                                 </div>
-
                                                             </div>
                                                             <div class="ml-9 pl-9 mt-2 mb-2 border-l">
                                                                 <h1 class="text-gray-900 block text-sm font-medium">Permissions:</h1>
-
                                                                 <div class="form-group">
                                                                     <label asp-for="@edit.create_team" class="control-label"></label>
                                                                     <input asp-for="@edit.create_team" name="create_team" class="form-control" />
@@ -155,10 +145,8 @@
                                                                     <input asp-for="@edit.tenant_id" type="hidden" name="tenant_id" value="@tenantid" class="form-control" />
                                                                     <span asp-validation-for="@edit.tenant_id" type="hidden" class="text-danger"></span>
                                                                 </div>
-
                                                             </div>
                                                         </form>
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -176,7 +164,6 @@
                                             </button>
                                         </div>
 
-
                                         <!-- Right-aligned buttons -->
                                         <div class="space-x-3 flex sm:space-x-4">
                                             <button id="submitFormButton" type="submit" form="editRoleForm_@edit.id" class="button-class px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
@@ -187,9 +174,7 @@
                                                 Go Back
                                             </button>
                                         </div>
-
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -198,10 +183,7 @@
             </div>
         </div>
     </div>
-
 }
-
-
 
 <div id="manageRoleModal" class="inset-0 fixed z-50 flex hidden items-center justify-center overflow-y-auto">
     <div class="inset-0 fixed transition-opacity" aria-hidden="true">
@@ -220,12 +202,10 @@
                             <label for="tenant_id" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
                             <input type="hidden" id="tenant_id" name="tenant_id" value="@tenantid">
                         </div>
-
                         <div class="mt-2">
                             <label for="title" class="text-gray-700 block text-sm font-medium">Your Roles</label>
                             <p class="text-gray-500 text-sm">
                                 A list of your company's created roles.</p>
-
                             <div class="bg-white overflow-hidden shadow sm:rounded-md">
                                 <ul role="list" class="divide-gray-200 divide-y"></ul>
                                 <div class="bg-white mt-3 max-h-[35vh] overflow-y-auto rounded-md">
@@ -235,7 +215,6 @@
                                             <li class="px-6 py-4 border-left flex justify-between border">
                                                 @Html.DisplayFor(modelItem => item.title)
                                                 <button  type="button" onclick="toggleEditRoleModal('@item.id')" class="text-gray-400 font-semibold hover:text-gray-600">Edit</button>
-
                                             </li>
                                         }
                                     </ul>
@@ -254,9 +233,6 @@
         </div>
     </div>
 </div>
-
-
-
 
 <div class="flex justify-between">
     <h1 class="text-gray-900 mr-3 mt-4 text-base font-semibold leading-6">Users</h1>
@@ -278,7 +254,6 @@
 </div>
 <div class="border-gray-200 pb-5 mb-3 border-b sm:flex sm:items-center sm:justify-between"></div>
 <div class="px-3 py-4 flex justify-center">
-
     <table class="text-md bg-white mb-4 w-full rounded border">
         <tbody>
             <tr class="border-b">
@@ -287,7 +262,6 @@
                 <th class="p-3 px-5 text-left">Role</th>
                 <th></th>
             </tr>
-
             @foreach (var item in Model.Users)
             {
                 <tr class="border-b hover:bg-gray-100">
@@ -298,7 +272,6 @@
                         <p1 class="bg-transparent border-gray-300 py-2 w-100 border-r-0 border-t-0">@item.email</p1>
                     </td>
                     <td class="p-3 px-5">
-
                         <form id="assignRoleForm_@item.id"  method="post" action="@Url.Action("SaveUserRole", "Users")">
                             <input type="hidden" name="userId" value="@item.id">
                             <div class="flex justify-between">
@@ -328,16 +301,11 @@
         </tbody>
     </table>
 </div>
-
-
-
-
+@section script{
 <script>
-
     function deleteRole(roleId) {
         // Get the CSRF token from the form
         const csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
-
 
         // Send a POST request with the task ID and CSRF token
         fetch(`/Roles/Delete/${roleId}`, {
@@ -347,21 +315,21 @@
                 'RequestVerificationToken': csrfToken // Include CSRF token in the headers
             }
         })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to delete task');
-                }
-                return response.json();
-            })
-            .then(data => {
-                // Task deleted successfully, you can perform any necessary actions (e.g., hide task element)
-                // For simplicity, let's reload the page
-                location.reload();
-            })
-            .catch(error => {
-                console.error('Error deleting roles:', error);
-                // Handle error scenario
-            });
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to delete task');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Task deleted successfully, you can perform any necessary actions (e.g., hide task element)
+            // For simplicity, let's reload the page
+            location.reload();
+        })
+        .catch(error => {
+            console.error('Error deleting roles:', error);
+            // Handle error scenario
+        });
         setTimeout(() => {
             location.reload();
         }, 300);
@@ -371,7 +339,6 @@
             modalManageRole.classList.toggle('hidden');
         });
     }
-
 
     function toggleEditRoleModal(roleId) {
         modalEditRole = document.getElementById('editRoleModal_'+roleId)
@@ -392,5 +359,5 @@
         modalManageRole = document.getElementById('manageRoleModal')
         modalManageRole.classList.toggle('hidden')
     }
-
 </script>
+}
