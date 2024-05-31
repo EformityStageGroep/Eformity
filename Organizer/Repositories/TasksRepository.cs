@@ -29,18 +29,22 @@ namespace Organizer.Repositories
         {
             var tenantId = _currentTenantService.tenantid;
             var userid = _currentUserService.userid;
+
+            // Get the list of teams the user belongs to
             var userTeams = await _context.Users_Teams
-                .Where(ut => ut.user_id == userid) // Filter by the user's ID
-                .Select(ut => ut.team_id) // Select the TeamId
+                .Where(ut => ut.user_id == userid)
+                .Select(ut => ut.team_id)
                 .ToListAsync();
 
-            var task = await _context.Task
+            // Retrieve tasks that match the tenant ID and either belong to the user or to the user's teams
+            var tasks = await _context.Task
                 .Where(t => t.tenantid == tenantId) // Filter by tenantId
-                .Where(t => t.userid == userid || t.userid == "UserId") // Filter by userId
-                .Where(t => userTeams.Contains((Guid)t.teamid) || t.teamid == null) // Filter by teams user belongs to, including the specific team, and tasks with null TeamId
+                .Where(t => t.userid == userid) // Filter by userId
+                .Where(t => userTeams.Contains((Guid)t.teamid) || t.teamid == null)
                 .ToListAsync();
-          
-            return task;
+
+
+            return tasks;
         }
         public async Task<List<Entities.Task>> GetTaskIdsByUser()
         {

@@ -25,19 +25,21 @@
                     <form asp-controller="Tasks" asp-action="Create" method="post" class="mt-4">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="mt-2">
-                            <label for="tenantid" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
                             <input type="hidden" id="tenantid" name="tenantid" value="@tenantid">
+                        </div>
+                        <div class="mt-2">
+                            <input type="hidden" id="userid" name="userid" value="@userid">
                         </div>
                         <div class="mt-2">
                             <label for="title" class="text-gray-700 block text-sm font-medium">Title</label>
                             <input type="text" name="title" id="title" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                         </div>
                         <div class="mt-2">
-                            <label for="description" class="text-gray-700 block text-sm font-medium">description</label>
+                            <label for="description" class="text-gray-700 block text-sm font-medium">Description</label>
                             <textarea id="description" name="description" rows="3" class="p-3 mt-1 border-gray-300 block w-full rounded-md border shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
                         </div>
                         <div class="mt-2">
-                            <label for="priority" class="text-gray-700 block text-sm font-medium">priority</label>
+                            <label for="priority" class="text-gray-700 block text-sm font-medium">Priority</label>
                             <select id="priority" name="priority" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                 <option value="high">High</option>
                                 <option value="medium">Medium</option>
@@ -51,13 +53,12 @@
                         <div class="mt-2">
                             <label for="teamid" class="text-gray-700 block text-sm font-medium">Team</label>
                             <select onchange="handleTeamChange(this.value)" id="teamid" name="teamid" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                <option value="">Eigen taak</option>
+                                <option value="">Personal Task</option>
                                 @foreach (var teams in Model.Teams)
                                 {
                                     <option value="@teams.id">@teams.title</option>
                                 }
                             </select>
-
                             @if (await HttpContextAccessor.HttpContext.HasRolePropertyAsync("assign_task"))
                             {
                                 <div id="assignee-container" class="mt-2 ">
@@ -80,7 +81,6 @@
                             <input type="datetime-local" id="datetime" name="datetime" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                         </div>
                         <div class="mt-2">
-                            <label for="selectstatus" class="text-gray-700 block hidden text-sm font-medium">Date and Time</label>
                             <input type="hidden" id="selectstatus" name="selectstatus" value="To Do">
                         </div>
                         <div class="px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
@@ -137,7 +137,7 @@
 <!-- Content corresponding to each tab -->
 <script>
     function handleTeamChange(value) {
-        console.log("test value")
+        console.log("Selected team value:", value);
         var assigneeContainer = document.getElementById('assignee-container');
 
         if (value) {
@@ -147,14 +147,13 @@
         }
     }
 
-    // Initial call to handleTeamChange to set the correct visibility on page load
     document.addEventListener('DOMContentLoaded', function () {
         handleTeamChange(document.getElementById('teamid').value);
     });
 
     function updateUserId(selectedValue) {
         document.getElementById('userid').value = selectedValue;
-        console.log("Selected assignee ID12:", selectedValue);
+        console.log("Selected assignee ID:", selectedValue);
     }
 
     document.addEventListener("DOMContentLoaded", function () {
@@ -165,19 +164,15 @@
             tab.addEventListener("click", function (event) {
                 event.preventDefault();
 
-                // Remove active class from all tabs and add default styling
                 tabs.forEach(tab => {
                     tab.classList.remove("border-indigo-500", "text-indigo-600");
                     tab.classList.add("border-transparent", "text-gray-500", "hover:border-gray-300", "hover:text-gray-700");
                 });
 
-                // Add active styling to clicked tab
                 tab.classList.remove("border-transparent", "text-gray-500", "hover:border-gray-300", "hover:text-gray-700");
                 tab.classList.add("border-indigo-500", "text-indigo-600");
 
-                // Hide all tab contents
                 tabContents.forEach(content => content.classList.add("hidden"));
-                // Show corresponding tab content
                 tabContents[index].classList.remove("hidden");
             });
         });
