@@ -225,7 +225,7 @@
         document.addEventListener("DOMContentLoaded", function () {
             console.log('filtered out done')
             combinedFilter('teamid', 'ALL', 'Done')
-        });
+        });       
 
         function filterTasksByStatus(Teamid, status) {
             Teamid = previousTeamid;
@@ -408,6 +408,8 @@
                 return response.json();
             })
             .then(data => {
+                // Task deleted successfully, you can perform any necessary actions (e.g., hide task element)
+                // For simplicity, let's reload the page
                 location.reload();
             })
             .catch(error => {
@@ -465,7 +467,7 @@
                 //const formData = new FormData(taskForm
                 setTimeout(() => {
                     location.reload();
-                }, 300;
+                }, 300);
             });
             function updateTask() {
                 setTimeout(() => {

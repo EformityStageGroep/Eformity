@@ -6,7 +6,7 @@
 @{
     ViewData["title"] = "Homepage";
     var tenantid = @User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
-    var userids = @User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
+    var userid = @User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
 }
 
 <body onload="filterTasksWhenLoaded('Done')"></body>
@@ -64,10 +64,10 @@
                                 <div id="assignee-container" class="mt-2 ">
                                     <label for="userid" class="text-gray-700 block text-sm font-medium">Assignee</label>
                                     <select onchange="updateUserId(this.value)" id="userid" name="userid" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                        <option value="@userids">You</option>
+                                        <option value="@userid">You</option>
                                         @foreach (var users in Model.Users)
                                         {   
-                                            if (users.id != userids)
+                                            if (users.id != userid)
                                             {
                                                 <option value="@users.id">@users.fullname</option>
                                             }

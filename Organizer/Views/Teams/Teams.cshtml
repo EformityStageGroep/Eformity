@@ -13,19 +13,16 @@
     var myList = new List<string> { "Item1", "Item2", "Item3" };
 }
 
-
-
 <div class="border-gray-200 pb-5 mb-3 border-b sm:flex sm:items-center sm:justify-between">
     <div class="flex">
-
         <h3 class="text-gray-900 mr-3 mt-1 text-base font-semibold leading-6">Teams</h3>
         @if (await HttpContextAccessor.HttpContext.HasRolePropertyAsync("create_team"))
         {
-        <button id="createTeamModalButton" onclick="openModal()" type="button" class="bg-indigo-600 p-2 text-white rounded-full shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
-            </svg>
-        </button>
+            <button id="createTeamModalButton" onclick="openModal()" type="button" class="bg-indigo-600 p-2 text-white rounded-full shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+                </svg>
+            </button>
         }
     </div>
     <div class="mt-3 sm:ml-4 sm:mt-0">
@@ -58,7 +55,6 @@
     var userIdLists = new Dictionary<string, List<string>>();
 
     <ul role="list" class="mt-3 gap-5 grid grid-cols-1 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4">
-
         @foreach (var team in Model.Teams)
         {
             var userIdList = new List<string>();
@@ -148,15 +144,10 @@
                                                                     @{
                                                                         Guid specificTeamId = team.id;
                                                                         var specificTeam = Model.TeamsList.FirstOrDefault(t => t.id == specificTeamId);
-                                                                        Console.WriteLine(specificTeamId);
-                                                                        Console.WriteLine(specificTeam);
-
                                                                     }
-
 
                                                                     @foreach (var user in Model.Users)
                                                                     {
-
                                                                         var userInSpecificTeam = specificTeam.Users_Teams.Any(ut => ut.User.id == user.id);
                                                                         <div id="userClickedSlideover_@user.id@team.id" class="m-1 py-1 px-2 bg-white text-white bg-indigo-700 border-indigo-700 users-center flex justify-center rounded-full border font-medium @(userInSpecificTeam ? "" : "hidden")">
                                                                             <div class="flex-initborder-gray-100 w-full max-w-full cursor-pointer rounded-t border-b text-xs font-normal leading-none hover:bg-teal-100ial">@user.fullname</div>
@@ -198,7 +189,6 @@
                                                             <div class="flex w-full flex-col">
                                                                 <label for="user_id2" class="text-gray-700 block text-sm font-medium"></label>
 
-
                                                                 @foreach (var item in Model.Users)
                                                                 {
                                                                     var userInSpecificTeam = specificTeam.Users_Teams.Any(ut => ut.User.id == item.id);
@@ -213,19 +203,15 @@
                                                                     </div>
                                                                 }
                                                                 @{
-
                                                                     var userIdValue = String.Join(",", userIdLists[$"userIdList_{team.id}"]);
                                                                     Console.WriteLine("User list: " + userIdValue);
                                                                 }
                                                                 <input type="hidden" name="user_id2" value="" id="user_id2_@team.id" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-
                                                             </div>
-
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <div class="form-group right-0 mt-4 mb-4 mr-4 fixed">
                                                 <button type="submit" onclick="JoinList(selectedList)" class="m1 auto bg-indigo-500 px-3.5 py-2.5 text-white rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 hover:cursor-pointer">Save</button>
                                                 <button type="button" onclick="submitForm('/Teams/LeaveTeam', '@user_id', '@team.id')" class="m1 auto bg-indigo-500 px-3.5 py-2.5 text-white rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 hover:cursor-pointer focus-visible:outline-indigo-500">Leave Team</button>
@@ -238,17 +224,13 @@
                     </div>
                 </div>
 
-
                 <script>
                     var jsList = @Html.Raw(JsonConvert.SerializeObject(selectedList));
                     console.log("this is jslisttt " + jsList);
                     console.log(Array.isArray(jsList));
 
                     // If you want to do something specific with the list
-
                     document.getElementById("user_id2_@team.id").value = jsList.join(',');
-
-
 
                     function submitForm(action, userId, teamId) {
                         var form = document.getElementById('Team_Edit_Leave');
@@ -276,10 +258,9 @@
                     </div>
                 </div>
             </li>
-            </div>
+        </div>
         }
     </ul>
-
 
     <div id="createTeamModal" class="inset-0 fixed z-50 flex hidden items-center justify-center overflow-y-auto">
         <div class="inset-0 fixed transition-opacity" aria-hidden="true">
@@ -327,20 +308,10 @@
             </div>
         </div>
     </div>
-
-
 }
 
-
-
 @section scripts{
-
     <script>
-
-
-
-
-
         function updateTeam() {
             setTimeout(() => {
                 location.reload();
@@ -348,11 +319,8 @@
         }
         function toggleSlideover(teamId) {
             Thisteamid = "12"
-
-
             document.getElementById("slideoverModal_" + teamId).classList.toggle('invisible');
             document.getElementById("slideover_" + teamId).classList.toggle('translate-x-full');
-
         }
 
         function closeCreateTeamModal() {
@@ -415,17 +383,11 @@
         // Call the function to apply colors to all team elements when the page loads
         window.onload = applyColorsToTeams();
         //let clickedNamesListSlideover = [];//
-        window.addEventListener('click', function (event) {
-            const userListButton = document.getElementById('userlistButtonSlideover');
-            const userList = document.getElementById('userListSlideover');
-            const inputField = document.getElementById('inputFieldSlideover');
-
-        });
+       
 
         document.addEventListener('DOMContentLoaded', function () {
             const filterInput = document.getElementById('filterInputSlideover');
             const userList = document.getElementById('userListSlideover');
-
 
             filterInput.addEventListener('keyup', function () {
                 const searchText = filterInput.value.toLowerCase();
@@ -439,7 +401,6 @@
                 });
             });
         });
-
 
         function removeNameFunctionSlideover(userId, teamId) {
             const userClickedBorderId = 'userBorderSlideover_' + userId + teamId;
@@ -461,8 +422,6 @@
                 user_id2List.splice(index, 1);  // Remove the item at the found index
             }
             document.getElementById("user_id2_" + teamId).value = user_id2List.join(',');
-
-            console.log(user_id2List);
         }
 
         function updateClickedUsersDisplay() {
@@ -476,16 +435,11 @@
             console.log("Updated user list display.");
         }
 
-
-
         function userClickedSlideover(userId, teamId) {
-
             var ListElement = document.getElementById("user_id2_" + teamId);
-
             // Get the value of the input element
             var user_id2String = ListElement.value;
             var user_id2List = user_id2String.split(",");
-
 
             var userNameList = document.getElementById('userSlideover_' + userId + teamId);
             var blueNameTag = document.getElementById('userClickedSlideover_' + userId + teamId);
@@ -493,32 +447,20 @@
 
             var listKey = `userIdList_${teamId}`;
 
-
             userNameList.classList.remove('border-transparent')
             blueNameTag.classList.remove('hidden')
 
-
-
             if (!user_id2List.includes(userId)) {
                 user_id2List.push(userId);
-                console.log(user_id2List);
             }
-
             document.getElementById("user_id2_" + teamId).value = user_id2List.join(',');
             updateClickedUsersDisplay();
         }
 
-
-
-
         function clickUserlistButtonSlideover(Teamid) {
-
-
             button = document.getElementById("userlistButtonSlideover_" + Teamid);
             userList1 = document.getElementById("userListSlideover_" + Teamid);
-            console.log(userList1);
             userList1.classList.toggle("hidden");
-
         }
     </script>
 }

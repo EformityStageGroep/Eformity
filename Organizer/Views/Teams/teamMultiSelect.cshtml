@@ -33,7 +33,6 @@
                                 </div>
                             </div>
                         }
-
                         <div class="flex-1">
                             <input id="filterInput" placeholder="" class="bg-transparent p-1 px-2 text-gray-800 h-full w-full appearance-none outline-none">
                         </div>
@@ -47,7 +46,6 @@
                     </div>
                 </div>
             </div>
-
             <div id="userListFirst" class="top-100 bg-white lef-0 max-h-select svelte-5uyqqj absolute z-40 hidden w-full overflow-y-auto rounded shadow">
                 <div class="flex w-full flex-col">
 
@@ -113,8 +111,6 @@
         console.log(clickedNamesList);
     }
 
-
-
     function updateClickedUsersDisplay() {
         const displayElement = document.getElementById('clickedUsersList');
         displayElement.innerHTML = ''; // Clear previous entries
@@ -155,8 +151,6 @@
         // Update the UI to show the list of clicked users
         updateClickedUsersDisplay();
     }
-
-
 
     function clickUserlistButton() {
         console.log('clicked userlistbutton')
