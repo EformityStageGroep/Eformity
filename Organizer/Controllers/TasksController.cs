@@ -37,7 +37,7 @@ namespace Organizer.Controllers
         {
             if (ModelState.IsValid)
             {
-                Console.WriteLine($"Task ID: {task.id}, Title: {task.title}, Description: {task.description}, Priority: {task.priority},  TeamId: {task.team_id},etc.");
+                Console.WriteLine($"Task ID: {task.id}, Title: {task.title}, Description: {task.description}, Priority: {task.priority},  TeamId: {task.team_id},tenantttt: {task.tenant_id},etc.");
                 task.id = Guid.NewGuid();
                 await _taskRepository.Create(task);
                 await _taskRepository.SaveChangesAsync();

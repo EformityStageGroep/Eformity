@@ -25,10 +25,10 @@
                     <form asp-controller="Tasks" asp-action="Create" method="post" class="mt-4">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="mt-2">
-                            <input type="hidden" id="tenantid" name="tenantid" value="@tenantid">
+                            <input type="hidden" id="tenant_id" name="tenant_id" value="@tenantid">
                         </div>
                         <div class="mt-2">
-                            <input type="hidden" id="userid" name="userid" value="@userid">
+                            <input type="hidden" id="user_id" name="user_id" value="@userid">
                         </div>
                         <div class="mt-2">
                             <label for="title" class="text-gray-700 block text-sm font-medium">Title</label>
@@ -47,8 +47,8 @@
                             </select>
                         </div>
                         <div class="mt-2">
-                            <label for="teamid" class="text-gray-700 block text-sm font-medium">Team</label>
-                            <select onchange="handleTeamChange(this.value)" id="teamid" name="teamid" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <label for="team_id" class="text-gray-700 block text-sm font-medium">Team</label>
+                            <select onchange="handleTeamChange(this.value)" id="team_id" name="team_id" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                 <option value="">Personal Task</option>
                                 @foreach (var teams in Model.Teams)
                                 {
@@ -58,8 +58,8 @@
                             @if (await HttpContextAccessor.HttpContext.HasRolePropertyAsync("assign_task"))
                             {
                                 <div id="assignee-container" class="mt-2 ">
-                                    <label for="userid" class="text-gray-700 block text-sm font-medium">Assignee</label>
-                                    <select onchange="updateUserId(this.value)" id="userid" name="userid" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    <label for="user_id" class="text-gray-700 block text-sm font-medium">Assignee</label>
+                                    <select onchange="updateUserId(this.value)" id="user_id" name="user_id" class="mt-1 py-2 px-3 border-gray-300 bg-white block w-full rounded-md border shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                         <option value="@userid">You</option>
                                         @foreach (var users in Model.Users)
                                         {
