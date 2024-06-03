@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
-using Organizer.Services;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Organizer.Services;
 
 namespace Organizer.Attributes
 {
