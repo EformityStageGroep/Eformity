@@ -38,11 +38,6 @@ namespace Organizer.Controllers
             return View(role);
         }
 
-        // GET: Roles/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
 
         // POST: Roles/Create
         [HttpPost]
@@ -65,17 +60,6 @@ namespace Organizer.Controllers
                     // Log the error message or handle it as needed
                     Console.WriteLine($"Error in {key}: {error.ErrorMessage}");
                 }
-            }
-            return View(role);
-        }
-
-        // GET: Roles/Edit/5
-        public async Task<IActionResult> Edit(Guid id)
-        {
-            var role = await _roleRepository.GetRoleByIdAsync(id);
-            if (role == null)
-            {
-                return NotFound();
             }
             return View(role);
         }

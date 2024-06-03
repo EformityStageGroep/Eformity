@@ -133,7 +133,9 @@ namespace Organizer.Controllers
                     title = "Default",
                     tenant_id = _currentTenantService.tenantid,
                     create_team = true,
-                    assign_task = true
+                    assign_task = true,
+                    usermanagement = true,
+                    create_task = true
                 };
                 await _roleRepository.CreateRoleAsync(role);
             }
