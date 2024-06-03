@@ -145,15 +145,19 @@
                                 </div>
                                 <p class="mt-1 text-gray-500 flex text-xs leading-5">
                                 <p class="mt-1 text-gray-500 flex text-xs leading-5">
-                                    @{
-                                        string description = @task.description;
-                                        string displayDescription = description.Length > 30 ? description.Substring(0, 30) + "..." : description;
-                                    }
-                                    <span id="shortDesc_@task.id" class="inline-block">@displayDescription</span>
-                                    <a id="moreLink_@task.id" href="#" ml-3 class="text-blue-500 z-10 cursor-pointer hover:text-blue-600" onclick="toggleDescription('@task.id')">more</a>
-                                    <span id="fullDesc_@task.id" class="mt-1 block hidden">@description</span>
-                                    <a id="lessLink_@task.id" href="#" ml-3 class="text-blue-500 z-10 hidden cursor-pointer hover:text-blue-600" onclick="toggleDescription('@task.id')">less</a>
-                                </p>
+                                        @{
+                                            if (@task.description != null)
+                                            {
+                                                var description = @task.description;
+                                                var displayDescription = description.Length > 30 ? description.Substring(0, 30) + "..." : description;
+                                            
+                                                <span id="shortDesc_@task.id" class="inline-block">@displayDescription</span>
+                                                <a id="moreLink_@task.id" href="#" ml-3 class="text-blue-500 z-10 cursor-pointer hover:text-blue-600" onclick="toggleDescription('@task.id')">more</a>
+                                                <span id="fullDesc_@task.id" class="mt-1 block hidden">@description</span>
+                                                <a id="lessLink_@task.id" href="#" ml-3 class="text-blue-500 z-10 hidden cursor-pointer hover:text-blue-600" onclick="toggleDescription('@task.id')">less</a>
+                                            }
+                                        }
+                                    </p>
                             </div>
                         </div>
 
