@@ -23,6 +23,8 @@ namespace Organizer.Attributes
 
         public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
+
+            var userService = context.HttpContext.RequestServices.GetRequiredService<IUserService>();
             var roleService = context.HttpContext.RequestServices.GetRequiredService<IRoleService>();
             var userId = context.HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
 

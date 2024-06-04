@@ -26,7 +26,7 @@ namespace Organizer.Repositories
             return roles;
         }
 
-        public async Task<Role> GetRoleByIdAsync(Guid id)
+        public async Task<Role> GetRoleByIdAsync(Guid? id)
         {
             return await _context.Roles.FindAsync(id);
         }

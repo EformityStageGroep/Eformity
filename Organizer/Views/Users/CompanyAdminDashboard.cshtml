@@ -1,12 +1,5 @@
 ﻿@model ParentViewModel
 
-@{
-    ViewData["title"] = "Create";
-    var userid = @User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
-    var email = @User.FindFirst("preferred_username")?.Value;
-    var fullname = @User.FindFirst("name")?.Value;
-    var tenant_id = @User.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
-}
 
 <div class="border-gray-200 pb-5 mb-3 border-b sm:flex sm:items-center sm:justify-between">
     <div class="flex">
@@ -69,44 +62,3 @@ else
     </div>
 </div>
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-    <script>
-        window.onload = function () {
-            var button = document.getElementById("SubmitButton");
-            setTimeout(function () {
-                button.click();
-            }, 100);
-
-        };
-        const csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
-        const formData = new FormData(taskForm);
-
-        function deleteTask() {
-            fetch('@Url.Action("Create", "Users")', {
-                method: 'POST', // Use POST method to send data
-
-                body: formData // Convert the data object to a JSON string
-            })
-                .then(response => {
-                    if (response.ok) {
-                        console.log('Data sent successfully!');
-                        return response.json();
-                    } else {
-                        // Request failed
-                        console.error('Failed to send data');
-                    }
-                })
-                .then(data => {
-                    console.log(data); // Log response data
-                    // Optionally, you can update the UI or display a success message
-                })
-                .catch(error => {
-                    // Handle any errors that occurred during the request
-                    console.error('Error:', error);
-                });
-        }
-    </script>
-}

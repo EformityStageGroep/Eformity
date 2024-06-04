@@ -8,7 +8,7 @@ namespace Organizer.Entities
         [Key]
         public string id { get; set; }
 
-        public string tenant_id { get; set; }
+        public string? tenant_id { get; set; }
 
         [Required]
         public string fullname { get; set; }
@@ -17,7 +17,7 @@ namespace Organizer.Entities
         public string email { get; set; }
 
         [ForeignKey("role_id")]
-        public Guid role_id { get; set; }
+        public Guid? role_id { get; set; }
 
         // Navigation property for the Role
         public Role Role { get; set; }

@@ -41,6 +41,7 @@ builder.Services.AddDbContext<UserDbContext>();
 
 
 builder.Services.AddScoped<ITeamService, TeamService>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IGraphClientService, GraphClientService>();
 builder.Services.AddScoped<ITasksRepository, TasksRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
