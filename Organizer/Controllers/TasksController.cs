@@ -83,9 +83,5 @@ namespace Organizer.Controllers
             await _taskRepository.SaveChangesAsync();
             return RedirectToAction(nameof(TasksDashboard));
         }
-        public IActionResult TasksDashboard2()
-        {
-            return View();
-        }
     }
 }

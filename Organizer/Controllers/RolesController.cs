@@ -104,18 +104,6 @@ namespace Organizer.Controllers
             return View(role);
         }
 
-        // GET: Roles/Delete/5
-        public async Task<IActionResult> Delete(Guid id)
-        {
-            var role = await _roleRepository.GetRoleByIdAsync(id);
-            if (role == null)
-            {
-                return NotFound();
-            }
-
-            return View(role);
-        }
-
         // POST: Roles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

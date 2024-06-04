@@ -1,12 +1,8 @@
-﻿#nullable disable
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Organizer.Contexts;
 using Organizer.Entities;
-using Organizer.Models;
 using Organizer.Repositories;
 using Organizer.Services;
-using System.Threading.Tasks;
 
 namespace Organizer.Controllers
 {
@@ -65,29 +61,12 @@ namespace Organizer.Controllers
                 await _userRepository.Create(user);
                 await _userRepository.SaveChangesAsync();
             }
-
-            // If ModelState is invalid, handle errors
-            foreach (var state in ModelState)
-            {
-                var key = state.Key; // Property name
-                var errors = state.Value.Errors; // List of errors for the property
-
-                foreach (var error in errors)
-                {
-                    // Log the error message or handle it as needed
-                    Console.WriteLine($"Error in {key}: {error.ErrorMessage}");
-                }
-            }
-
-            // Return the view with the form and error messages
             return RedirectToAction("TasksDashboard", "Tasks");
         }
         // POST: Users/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string? id, [Bind("id,tenant_id,fullname,email")] User user)
+        public async Task<IActionResult> Edit(string id, [Bind("id,tenant_id,fullname,email")] User user)
         {
             if (id != user.id)
             {

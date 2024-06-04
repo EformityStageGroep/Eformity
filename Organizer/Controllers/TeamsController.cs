@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Organizer.Repositories;
 using Organizer.Entities;
-using Microsoft.Graph;
 
 namespace Organizer.Controllers
 {
@@ -130,10 +129,6 @@ namespace Organizer.Controllers
             var ParentViewModel = await _tasksRepository.ParentViewModel("Teams");
 
             return View(ParentViewModel);
-        }
-        public IActionResult teamMultiSelectSlideover()
-        {
-            return View();
         }
     }
 }
