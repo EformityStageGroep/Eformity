@@ -78,7 +78,6 @@ namespace Organizer.Repositories
                 foreach (var user in usersWithDeletedRole)
                 {
                     user.role_id = defaultRoleId; // Assign the default role to the user
-
                     _context.Users.Update(user);
                     Console.WriteLine(user.role_id);
                 }
