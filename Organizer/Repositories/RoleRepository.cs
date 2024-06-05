@@ -70,7 +70,7 @@ namespace Organizer.Repositories
                 bool isDefaultRole = role.id == defaultRoleId;
                 Console.WriteLine(isDefaultRole);
                 // Remove the role from the database
-                
+
 
                 // Assign default role to users who had the deleted role
                 var usersWithDeletedRole = await _context.Users.Where(u => u.role_id == id).ToListAsync();
@@ -78,6 +78,9 @@ namespace Organizer.Repositories
                 foreach (var user in usersWithDeletedRole)
                 {
                     user.role_id = defaultRoleId; // Assign the default role to the user
+
+                    _context.Users.Update(user);
+                    Console.WriteLine(user.role_id);
                 }
                 _context.Roles.Remove(role);
                 // Save changes to the database in a single transaction
