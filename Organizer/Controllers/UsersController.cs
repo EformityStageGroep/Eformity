@@ -99,30 +99,7 @@ namespace Organizer.Controllers
             return View();
         }
 
-        public async Task<IActionResult> CompanyAdminDashboard()
-        {
-            // Check if the role exists, if not, create it
-            if (!await _roleRepository.RoleExistsAsync("Default"))
-            {
-                // Create the role with a GUID id
-                var roleId = Guid.NewGuid();
-                var role = new Role
-                {
-                    id = roleId,
-                    title = "Default",
-                    tenant_id = _currentTenantService.tenantid,
-                    create_team = true,
-                    assign_task = true,
-                    usermanagement = true,
-                    create_task = true
-                };
-                await _roleRepository.CreateRoleAsync(role);
-            }
-            var ParentViewModel = await _tasksRepository.ParentViewModel("Dashboard");
 
-            // Return the view with the model
-            return View(ParentViewModel);
-        }
 
 
         public async Task<IActionResult> Teams()

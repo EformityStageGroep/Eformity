@@ -16,10 +16,7 @@ namespace Organizer.Controllers
             _userRepository = userRepository;
             _tasksRepository = tasksRepository;
         }
-        public async Task<IActionResult> Index()
-        {
-            return View();
-        }
+
 
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateTeam([Bind("title, tenant_id, Users_Teams")] Entities.Team team, string user_id)
