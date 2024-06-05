@@ -27,7 +27,6 @@ namespace Organizer.Controllers
             return View(ParentViewModel);
         }
 
-        // GET: Roles/Details/5
         public async Task<IActionResult> Details(Guid id)
         {
             var role = await _roleRepository.GetRoleByIdAsync(id);
@@ -52,19 +51,18 @@ namespace Organizer.Controllers
             }
             foreach (var state in ModelState)
             {
-                var key = state.Key; // Property name
-                var errors = state.Value.Errors; // List of errors for the property
+                var key = state.Key; 
+                var errors = state.Value.Errors; 
 
                 foreach (var error in errors)
                 {
-                    // Log the error message or handle it as needed
+                    
                     Console.WriteLine($"Error in {key}: {error.ErrorMessage}");
                 }
             }
             return View(role);
         }
 
-        // POST: Roles/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, [Bind("id,title,create_team,assign_task,create_task,usermanagement,tenant_id")] Role role)
@@ -113,7 +111,6 @@ namespace Organizer.Controllers
 
             return View(role);
         }
-        // POST: Roles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
