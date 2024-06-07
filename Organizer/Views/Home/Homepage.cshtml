@@ -24,7 +24,6 @@
                     <h3 class="text-gray-900 text-lg font-medium leading-6" id="modalTitle">
                         Create Task
                     </h3>
-                   
                     <form asp-controller="Tasks" asp-action="Create" method="post" class="mt-4">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="mt-2">
@@ -96,11 +95,7 @@
         </div>
     </div>
 </div>
-<div class="mt-2">
-    <input id="tenant_idd" name="tenant_id" value="">
-</div>
-<button onclick="displayValue()">Show Tenant ID</button>
-<p id="display_area"></p>
+
 <script>
     function displayValue() {
         var tenantId = document.getElementById('tenant_idd').value;

@@ -24,7 +24,6 @@ namespace Organizer.Controllers
         // GET: Tasks/Details/5
         public async Task<IActionResult> TasksDashboard()
         {
-            await _taskRepository.GetTasksAsync();
             var ParentViewModel = await _taskRepository.ParentViewModel("Tasks");
 
             return View(ParentViewModel);
@@ -38,7 +37,6 @@ namespace Organizer.Controllers
             if (ModelState.IsValid)
             {
                 Console.WriteLine($"Task ID: {task.id}, Title: {task.title}, Description: {task.description}, Priority: {task.priority},  TeamId: {task.team_id},tenantttt: {task.tenant_id},etc.");
-                task.id = Guid.NewGuid();
                 await _taskRepository.Create(task);
                 await _taskRepository.SaveChangesAsync();
                 return RedirectToAction(nameof(TasksDashboard));

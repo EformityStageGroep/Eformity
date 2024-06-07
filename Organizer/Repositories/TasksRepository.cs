@@ -79,7 +79,6 @@ namespace Organizer.Repositories
         public async System.Threading.Tasks.Task Create(Entities.Task task)
         {
             task.id = Guid.NewGuid();
-            task.tenant_id = _currentTenantService.tenantid; // Set tenantid
             _context.Task.Add(task);
             await _context.SaveChangesAsync(); // Make sure to save changes after adding the task
         }
