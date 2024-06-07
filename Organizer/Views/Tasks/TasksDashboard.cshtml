@@ -101,7 +101,7 @@
                             <div class="min-w-0 flex-auto">
                                 <div class="flex">
                                     <p class="text-gray-900 text-sm font-semibold leading-6">
-                                        <a href="#">
+                                        <a>
                                             <span class="inset-x-0 -top-px bottom-0 absolute z-0" onclick="toggleSlideover('@task.id')"></span>
                                                         @task.title
                                         </a>
@@ -152,9 +152,9 @@
                                                 var displayDescription = description.Length > 30 ? description.Substring(0, 30) + "..." : description;
                                             
                                                 <span id="shortDesc_@task.id" class="inline-block">@displayDescription</span>
-                                                <a id="moreLink_@task.id" href="#" ml-3 class="text-blue-500 z-10 cursor-pointer hover:text-blue-600" onclick="toggleDescription('@task.id')">more</a>
+                                                <a id="moreLink_@task.id"  ml-3 class="text-blue-500 z-10 cursor-pointer hover:text-blue-600" onclick="toggleDescription('@task.id')">more</a>
                                                 <span id="fullDesc_@task.id" class="mt-1 block hidden">@description</span>
-                                                <a id="lessLink_@task.id" href="#" ml-3 class="text-blue-500 z-10 hidden cursor-pointer hover:text-blue-600" onclick="toggleDescription('@task.id')">less</a>
+                                                <a id="lessLink_@task.id" ml-3 class="text-blue-500 z-10 hidden cursor-pointer hover:text-blue-600" onclick="toggleDescription('@task.id')">less</a>
                                             }
                                         }
                                     </p>
@@ -206,8 +206,8 @@
 
                                 <div class="right-0 mt-2 w-32 bg-white py-2 ring-gray-900/5 absolute z-20 hidden origin-top-right rounded-md shadow-lg ring-1 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu_@task.id" tabindex="-1">
                                     <!-- Active: "bg-gray-50", Not Active: "" -->
-                                    <a href="#" class="px-3 py-1 text-gray-900 block text-sm leading-6" role="menuitem" onclick="toggleSlideover('@task.id')" tabindex="-1" id="options-menu_@task.id-item-0">Edit<span class="sr-only">, Michael Foster</span></a>
-                                    <a href="#" class="px-3 py-1 text-gray-900 block text-sm leading-6" role="menuitem" onclick="deleteTask('@task.id')" tabindex="-1" id="options-menu_@task.id-item-1">Delete<span class="sr-only">, Michael Foster</span></a>
+                                    <a class="px-3 py-1 text-gray-900 block text-sm leading-6" role="menuitem" onclick="toggleSlideover('@task.id')" tabindex="-1" id="options-menu_@task.id-item-0">Edit<span class="sr-only">, Michael Foster</span></a>
+                                    <a class="px-3 py-1 text-gray-900 block text-sm leading-6" role="menuitem" onclick="deleteTask('@task.id')" tabindex="-1" id="options-menu_@task.id-item-1">Delete<span class="sr-only">, Michael Foster</span></a>
                                 </div>
                             </div>
                         </div>

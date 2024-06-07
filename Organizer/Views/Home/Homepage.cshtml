@@ -15,11 +15,9 @@
     <div class="inset-0 fixed transition-opacity" aria-hidden="true">
         <div class="inset-0 bg-gray-500 absolute opacity-75"></div>
     </div>
- 
     <div class="bg-white transform overflow-hidden rounded-lg shadow-xl transition-all sm:max-w-lg sm:w-full">
         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
             <div class="sm:flex sm:items-start">
-             
                 <div class="mt-3 w-full text-center sm:mt-0 sm:ml-4 sm:text-left">
                     <h3 class="text-gray-900 text-lg font-medium leading-6" id="modalTitle">
                         Create Task
@@ -30,7 +28,7 @@
                             <input type="hidden" id="tenant_id" name="tenant_id" value="@tenantid">
                         </div>
                         <div class="mt-2">
-                            <input type="hidden" id="user_id" name="user_id" value="@userid">
+                            <input type="hidden" id="userid" name="userid" value="@userid">
                         </div>
                         <div class="mt-2">
                             <label for="title" class="text-gray-700 block text-sm font-medium">Title</label>
@@ -96,9 +94,6 @@
     </div>
 </div>
 
-<script>
-    function displayValue() {
-        var tenantId = document.getElementById('tenant_idd').value;
         document.getElementById('display_area').innerText = 'Tenant ID: ' + tenantId;
         console.log(tenantId);
     }
