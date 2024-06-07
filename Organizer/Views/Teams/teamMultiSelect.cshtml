@@ -77,6 +77,17 @@
         }
     });
 
+    function updateClickedUsers() {
+        const displayElement = document.getElementById('clickedUsersList');
+        displayElement.innerHTML = ''; // Clear previous entries
+        clickedNamesList.forEach(userId => {
+            const userElement = document.createElement('li');
+            userElement.textContent = 'User ID: ' + userId;
+            displayElement.appendChild(userElement);
+        });
+        console.log("Updated user list display.");
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
         var filterInput = document.getElementById('filterInput');
         var userListFirst = document.getElementById('userListFirst');
