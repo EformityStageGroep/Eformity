@@ -21,8 +21,15 @@ namespace Organizer.Controllers
             return View();
         }
 
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateTeam([Bind("title, tenant_id, Users_Teams")] Entities.Team team, string user_id)
         {
+            // Extract the anti-forgery token from the request form
+            string antiForgeryToken = Request.Form["__RequestVerificationToken"];
+
+            // Log the anti-forgery token
+            Console.WriteLine($"Anti-Forgery Token: {antiForgeryToken}");
+
             if (ModelState.IsValid)
             {
                 // Generate a new GUID for the team
@@ -61,6 +68,8 @@ namespace Organizer.Controllers
             }
             return View();
         }
+
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditTeam(Guid id, [Bind("id,title,tenant_id,Users_Teams")] Entities.Team team, string? user_id2)
         {
             if (id != team.id)
@@ -96,6 +105,8 @@ namespace Organizer.Controllers
             Console.WriteLine($"Current tenantid EDITtt: {team}");
             return View(team);
         }
+
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> LeaveTeam(string user_id, Guid team_id)
         {
             if (!ModelState.IsValid)

@@ -47,7 +47,7 @@ namespace Organizer.Controllers
             return View();
         }
         [HttpPost]
-        // GET: Users/Create
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("id,tenant_id,fullname,email,Users_Teams,role_id")] User user)
         {
             // Initialize Users_Teams if it's null
@@ -156,6 +156,7 @@ namespace Organizer.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> SaveUserRole(string userId, Guid roleId)
         {
             try

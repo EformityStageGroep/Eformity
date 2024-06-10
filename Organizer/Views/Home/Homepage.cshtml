@@ -24,6 +24,12 @@
                     </h3>
                     <form asp-controller="Tasks" asp-action="Create" method="post" class="mt-4">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        @Html.AntiForgeryToken()
+                        <script>
+                            // Get the anti-forgery token value
+                            var token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                            console.log("Anti-Forgery Token: " + token);
+                        </script>
                         <div class="mt-2">
                             <input type="hidden" id="tenant_id" name="tenant_id" value="@tenantid">
                         </div>
@@ -94,7 +100,7 @@
     </div>
 </div>
 
-<div class="border-gray-200 pb-5 relative border-b sm:pb-0">MEr
+<div class="border-gray-200 pb-5 relative border-b sm:pb-0">
     <div class="md:flex md:items-center md:justify-between">
         <h3 class="text-gray-900 text-base font-semibold leading-6">Tasks</h3>
         @if (await HttpContextAccessor.HttpContext.HasRolePropertyAsync("create_task"))

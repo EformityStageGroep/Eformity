@@ -34,6 +34,12 @@ namespace Organizer.Controllers
         [RequireRoleProperty("create_task")]
         public async Task<IActionResult> Create([Bind("id,title,description,priority,datetime,selectstatus,tenant_id,user_id,team_id")] Entities.Task task)
         {
+            // Extract the anti-forgery token from the request form
+            string antiForgeryToken = Request.Form["__RequestVerificationToken"];
+
+            // Log the anti-forgery token
+            Console.WriteLine($"Anti-Forgery Token: {antiForgeryToken}");
+
             if (ModelState.IsValid)
             {
                 Console.WriteLine($"Task ID: {task.id}, Title: {task.title}, Description: {task.description}, Priority: {task.priority},  TeamId: {task.team_id},tenantttt: {task.tenant_id},etc.");
@@ -51,6 +57,7 @@ namespace Organizer.Controllers
             return View(task); // Return the same view if ModelState is invalid
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditTask(Guid id, [Bind("id,title,description,priority,datetime,selectstatus,tenant_id,user_id,team_id")] Entities.Task task)
         {
             if (ModelState.IsValid)
