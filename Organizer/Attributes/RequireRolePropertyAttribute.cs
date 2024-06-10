@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Graph;
 using Organizer.Services;
 using System;
 using System.Threading.Tasks;

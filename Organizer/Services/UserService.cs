@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Graph;
 using Organizer.Contexts;
 using Organizer.Entities;
 using Organizer.Repositories;
