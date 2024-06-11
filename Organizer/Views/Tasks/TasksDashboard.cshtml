@@ -349,10 +349,8 @@
             const dropdownButtons = document.querySelectorAll(".TeamsGroup");
             dropdownButtons.forEach(function (button) {
                 button.addEventListener("click", function (event) {
-                    // Prevent default behavior (e.g., following the href)
                     event.preventDefault();
 
-                    // Get the associated dropdown menu
                     const dropdownMenu = button.nextElementSibling;
 
                     // Toggle the visibility of the dropdown menu
@@ -412,13 +410,10 @@
                 return response.json();
             })
             .then(data => {
-                // Task deleted successfully, you can perform any necessary actions (e.g., hide task element)
-                // For simplicity, let's reload the page
                 location.reload();
             })
             .catch(error => {
                 console.error('Error deleting task:', error);
-                // Handle error scenario
             });
             setTimeout(() => {
                 location.reload();

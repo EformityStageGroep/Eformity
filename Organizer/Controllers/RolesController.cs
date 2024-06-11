@@ -55,7 +55,6 @@ namespace Organizer.Controllers
 
                 foreach (var error in errors)
                 {
-                    // Log the error message
                     Console.WriteLine($"Error in {key}: {error.ErrorMessage}");
                 }
             }
